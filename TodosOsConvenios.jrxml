@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TodosOsConvenios" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="40f64ed8-385f-46c5-81eb-72a53358d8cd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select a.data_atendimento, e.handle_at, p.nome as nomePaciente, j.nome as nomeConvenio, x.nome as nomeExame, e.ch_convenio, e.filme_convenio, e.ch1_exame, e.ch2_exame, e.filme_exame, e.lista_materiais, c.nome as nomeClasseDeExame, e.redutor, e.valor_desconto, e.valor_correto_exame, e.material from atendimento_exames e
+                inner join atendimentos a on e.handle_at = a.handle_at
+                inner join exames x on e.handle_exame = x.handle_exame
+                inner join tb_classesexames c on x.handle_classedeexame = c.cod
+                inner join pacientes p on a.handle_paciente = p.pacienteid
+                inner join convenio j on a.handle_convenio = j.handle_convenio
+                order by j.nome asc, a.data_atendimento asc, a.handle_at]]>
+	</queryString>
+	<field name="DATA_ATENDIMENTO" class="java.sql.Date"/>
+	<field name="HANDLE_AT" class="java.lang.Integer"/>
+	<field name="NOMEPACIENTE" class="java.lang.String"/>
+	<field name="NOMECONVENIO" class="java.lang.String"/>
+	<field name="NOMEEXAME" class="java.lang.String"/>
+	<field name="VALOR_CORRETO_EXAME" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="845" height="92" backcolor="#006699" uuid="803c50ea-4108-47e4-968c-05ae559070a3"/>
+				<staticText>
+					<reportElement x="20" y="20" width="431" height="43" forecolor="#FFFFFF" uuid="8589def1-972b-4005-bf9a-054cb177379d"/>
+					<textElement>
+						<font size="26" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Relatório de Todos os convênios]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="451" y="53" width="351" height="28" forecolor="#FFFFFF" uuid="2aa82528-1e86-4c12-ac2d-091c2e28acf2"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Descrição de valores de atendimento]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="15">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="89" height="15" forecolor="#006699" backcolor="#E6E6E6" uuid="25cdc7b3-3b9b-4179-9c21-b57a4c93b157"/>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="89" y="0" width="62" height="15" forecolor="#006699" backcolor="#E6E6E6" uuid="e8a68e57-4e5e-4ac7-8257-459e799da920"/>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="151" y="0" width="207" height="15" forecolor="#006699" backcolor="#E6E6E6" uuid="eeb889a3-b850-49e5-9ca3-eaf16c7776dc"/>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PACIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="358" y="0" width="138" height="15" forecolor="#006699" backcolor="#E6E6E6" uuid="4cffdc23-20b1-4009-ab9e-0ab73d673641"/>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONVÊNIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="496" y="0" width="243" height="15" forecolor="#006699" backcolor="#E6E6E6" uuid="850040a2-ca4d-45af-951a-2eecf1fce81a"/>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="739" y="0" width="63" height="15" forecolor="#006699" backcolor="#E6E6E6" uuid="fd2561b6-6d26-4f2c-bb22-fe883f428d85"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="14">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="13" width="802" height="1" uuid="83e10b4c-6178-4c2e-98be-4eb6143bc634"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="89" height="13" uuid="c716a1f2-376d-4dfb-9aa6-56dd28825b59"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_ATENDIMENTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="89" y="0" width="62" height="13" uuid="1994e046-bc95-4ecf-8ddc-e1b6b59661b1"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HANDLE_AT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="151" y="0" width="207" height="13" uuid="29330768-c2bc-416d-a3e2-4038da57d5c7"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMEPACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="358" y="0" width="138" height="13" uuid="80f965e1-1ae9-4779-9215-4a78f952ceb1"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMECONVENIO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="739" y="0" width="63" height="13" uuid="3c4f9138-c4d2-4889-93fd-04af78dab77d"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALOR_CORRETO_EXAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="496" y="0" width="243" height="13" uuid="ae2bda1a-940c-4a5c-a65e-10797b9d6c2c"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMEEXAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="762" height="13" backcolor="#E6E6E6" uuid="2c36dca6-3d48-4526-bd88-e2c83a5cc621"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="762" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="1b4a5471-81f5-41f7-a05a-befdabe3b0b6"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="f5662684-caf5-469e-bdc0-3b5d921763d0"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
