@@ -1,0 +1,190 @@
+package menu.cadastros.exame.dao;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import menu.cadastros.exame.model.tb_classesdeexamesMODEL;
+/**
+ * Classe DAO da classe JIFCClassesDeExames
+ * @author BCN
+ */
+public class tb_classesdeexamesDAO {
+    public static boolean conseguiuConsulta;
+    /**
+     * Verifica se Classe De Exame já existe antes de fazer um update no Banco de Dados.
+     * @param Connection
+     * @param ClasseDeExameMODEL
+     * @return boolean
+     */
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, tb_classesdeexamesMODEL model){
+        boolean existe = true;
+        try{
+            PreparedStatement stmtQuery = con.prepareStatement("select * from tb_classesexames where (nome=?) and (cod!=?)");
+            stmtQuery.setString(1, model.getDescricao());
+            stmtQuery.setInt(2, model.getCod());
+            ResultSet resultSet = stmtQuery.executeQuery();
+            if(!resultSet.next()){
+                existe = false;
+            }
+            conseguiuConsulta = true;
+        }catch(SQLException e){
+            conseguiuConsulta = false;
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se Classe de Exame já existe. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return existe; 
+        }
+    }
+    /**
+     * Verifica se Classe De Exame já existe antes de cadastra-lo no Banco de Dados.
+     * @param Connection
+     * @param ClasseDeExameMODEL
+     * @return boolean
+     */
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, tb_classesdeexamesMODEL model){
+       boolean existe = true;
+        try{
+          PreparedStatement stmtQuery = con.prepareStatement("select * from tb_classesexames where nome=?");
+          stmtQuery.setString(1, model.getDescricao());
+          ResultSet resultSet = stmtQuery.executeQuery();
+          if(!resultSet.next()){
+                existe = false;
+            }
+          conseguiuConsulta = true;
+        }catch(SQLException e){
+            conseguiuConsulta = false;
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se Classe de Exame já existe. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return existe;
+        }
+    }
+    /**
+     * Consulta Todas as Clases De Exames existentes no Banco de Dados.
+     * @param Connection
+     * @return ResultSet
+     */
+    public static ResultSet getConsultar(Connection con){
+        ResultSet resultSet = null;
+        try{
+        PreparedStatement stmtQuery = con.prepareStatement("select * from tb_classesexames order by nome");
+        resultSet = stmtQuery.executeQuery();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Classes De Exames. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return resultSet;
+        }
+    }
+    /**
+     * Consulta todas as Modalidades existentes no Banco de Dados.
+     * @param Connection
+     * @return ResultSet
+     */
+    public static ResultSet getConsultarModalidades(Connection con){
+        ResultSet resultSet = null;
+        try{
+            PreparedStatement stmtQuery = con.prepareStatement("select * from modalidades");
+            resultSet = stmtQuery.executeQuery();
+            
+        }catch(SQLException e){
+           JOptionPane.showMessageDialog(null, "Erro ao consultar Modalidades. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return resultSet;
+        }
+    }
+    /**
+     * Cadastra uma nova Classe De Exame no Banco de Dados.
+     * @param Connection 
+     * @param ClasseDeExameModel
+     * @return Boolean
+     */
+    public static boolean setCadastrar(Connection con, tb_classesdeexamesMODEL model){
+        boolean cadastro = false;
+        String sql = "insert into TB_CLASSESEXAMES (nome,usuarioid,dat,referencia,modidx) values(?,?,?,?,?)";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, model.getDescricao());
+            stmt.setInt(2, model.getUsuarioid());
+            stmt.setDate(3, model.getData());
+            stmt.setString(4, model.getRef());
+            stmt.setInt(5, model.getModIdx());
+            stmt.executeUpdate();
+            stmt.close();
+            cadastro = true;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Classe de Exame. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return cadastro;
+        }
+    }
+    /**
+     * Atualiza uma Classe De Exame no Banco De Dados.
+     * @param Connection 
+     * @param ClasseDeExameMODEL
+     * @return Boolean
+     */
+    public static boolean setUpdate(Connection con, tb_classesdeexamesMODEL model){
+        boolean atualizo = false;
+        String sql = "update tb_classesexames set nome=?, referencia=?, usuarioid=?, dat=?, modidx=? where cod=?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, model.getDescricao());
+            stmt.setString(2, model.getRef());
+            stmt.setInt(3, model.getUsuarioid());
+            stmt.setDate(4, model.getData());
+            stmt.setInt(5, model.getModIdx());
+            stmt.setInt(6, model.getCod());
+            stmt.executeUpdate();
+            stmt.close();
+            atualizo = true;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Classe de Exame. Procure o Administrador." + e,"ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return atualizo;
+        }
+    }
+    /**
+     * Deleta uma Classe De Exame no Banco de Dados.
+     * @param Connection
+     * @param ClasseDeExameMODEL 
+     * @return Boolean
+     */
+    public static boolean setDeletar(Connection con, tb_classesdeexamesMODEL model){
+        boolean deleto = false;
+        String sql="delete from tb_classesexames where cod=?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, model.getCod());
+            stmt.executeUpdate();
+            stmt.close();    
+            deleto = true;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao deletar Classe de Exame. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return deleto;
+        }
+    }
+    /**
+     * Verifica se Classe De Exame está sendo utilizada por algum Exame, antes de apagar a Classe De Exame no Banco de Dados.
+     * @param Connection
+     * @param String codigo
+     * @return boolean
+     */
+    public static boolean getConsultarSeClasseEstaSendoUtilizada(Connection con, int codTabela){
+        boolean utilizada = true;
+        try{
+            PreparedStatement stmtQuery = con.prepareStatement("select * from exames where HANDLE_CLASSEDEEXAME="+codTabela);
+            ResultSet resultSet = stmtQuery.executeQuery();
+            if(!resultSet.next()){
+                utilizada = false;
+            }
+            conseguiuConsulta = true;
+        }catch(SQLException e){
+            conseguiuConsulta = false;
+           JOptionPane.showMessageDialog(null, "Erro ao verficar se Classe De Exame está sendo utilizada por algum Exame.\nProcure o Administrador","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return utilizada;
+        } 
+    }
+}
