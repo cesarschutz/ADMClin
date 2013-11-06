@@ -1043,9 +1043,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 
                 
                 //RISIP = System.getProperty("RISIP");
-                RISIP = "10.2.2.249";
+                //RISIP = "10.2.2.249";
+                RISIP = "192.168.25.15";
                 //RISDB = System.getProperty("RISDB");
-                RISDB = "E:\\PORTAL\\DBS\\dbrisconrad.fdb";
+                RISDB = "C:\\bancoadmclin\\dbrisconrad.fdb";
                  
                 
                 internalFrameJanelaPrincipal = new janelaPrincipal();
