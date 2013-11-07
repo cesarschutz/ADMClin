@@ -6,7 +6,7 @@ package menu.financeiro.relatorios.faturarConvenio.arquivoTxtDoIpe;
 
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
-import br.bcn.admclin.dao.dados_empresa_dao;
+import br.bcn.admclin.dao.DADOS_EMPRESA;
 import conexao.Conexao;
 
 import java.io.File;
@@ -79,7 +79,7 @@ public class GerarArquivoTxtDaFatura {
     
     private String cnpjEmpresa, nomeEmpresa, nro_prestador_ipe;
     private void buscarInformacoesDaEmpresaNoBanco() throws SQLException{
-        ResultSet resultSet = dados_empresa_dao.getConsultar(con);
+        ResultSet resultSet = DADOS_EMPRESA.getConsultar(con);
         while(resultSet.next()){
             cnpjEmpresa = resultSet.getString("cnpj");
             nomeEmpresa = resultSet.getString("nome");

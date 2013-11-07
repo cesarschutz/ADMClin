@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import javax.naming.spi.DirStateFactory;
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.dao.dados_empresa_dao;
+import br.bcn.admclin.dao.DADOS_EMPRESA;
 import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**

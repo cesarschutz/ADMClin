@@ -9,7 +9,7 @@ import java.sql.SQLException;
  *
  * @author Cesar Schutz
  */
-public class dados_empresa_dao {
+public class DADOS_EMPRESA {
     /*
      * Busca as informações da empresa no banco de dados.
      */
