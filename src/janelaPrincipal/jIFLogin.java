@@ -6,15 +6,20 @@ package janelaPrincipal;
 
 import ClasseAuxiliares.OSvalidator;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.dao.dados_empresa_dao;
 import conexao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.ResultSet;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.pessoal.model.usuariosMODEL;
 
@@ -51,7 +56,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
         //antes de fazer o login vamos pegar o modelo de impressao
         try {
             if (!con.isClosed()) {
-              janelaPrincipal.internalFrameJanelaPrincipal.getModeloImpressao();  
+              getModeloImpressao();  
             }
         } catch (Exception e) {
             System.exit(0);
@@ -87,6 +92,30 @@ public class jIFLogin extends javax.swing.JInternalFrame {
                 jLabel4.setVisible(true);
                 jTFSenha.setText("");
             }
+    }
+    
+    /**
+     * metodo que busca o tipo de modelo de impressao da empresa
+     */
+    public void getModeloImpressao(){
+        ResultSet resultSet = null;
+        try {
+            con = conexao.Conexao.fazConexao();
+            resultSet = dados_empresa_dao.getConsultar(con);
+            while(resultSet.next()){
+                janelaPrincipal.modeloDeImpressao = resultSet.getInt("modelo_impressao");
+            }
+            //se nao for um modelo existente, o programa nao abre!
+            if (janelaPrincipal.modeloDeImpressao != 1 && janelaPrincipal.modeloDeImpressao != 2 && janelaPrincipal.modeloDeImpressao != 3) {
+                JOptionPane.showMessageDialog(null, "Modelo de Impressão incorreto. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao verificar modelo de Impressão. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }finally{
+            Conexao.fechaConexao(con);
+        }
     }
 
     /**

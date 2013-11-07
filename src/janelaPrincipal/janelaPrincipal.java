@@ -5,8 +5,8 @@
 package janelaPrincipal;
 
 import ClasseAuxiliares.ImagemNoJDesktopPane;
-import ClasseAuxiliares.dados_empresa_dao;
 import ClasseAuxiliares.jIFAguarde;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
@@ -14,10 +14,14 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
+
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
+
+import br.bcn.admclin.dao.dados_empresa_dao;
+import conexao.Conexao;
 import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFCPacientesAtendimentos;
@@ -242,32 +246,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         janelaPrincipal.internalFrameAguarde.dispose();
         janelaPrincipal.internalFrameAguarde = null;
         janelaPrincipal.internalFrameJanelaPrincipal.setEnabled(true);
-    }
-    
-    
-    /**
-     * metodo que busca o tipo de modelo de impressao da empresa
-     */
-    public void getModeloImpressao(){
-        
-        try {
-            con = conexao.Conexao.fazConexao();
-            ResultSet resultSet = dados_empresa_dao.getConsultar(con);
-            while(resultSet.next()){
-                modeloDeImpressao = resultSet.getInt("modelo_impressao");
-            }
-
-            //se nao for um modelo existente, o programa nao abre!
-            if (modeloDeImpressao != 1 && modeloDeImpressao != 2 && modeloDeImpressao != 3) {
-                JOptionPane.showMessageDialog(null, "Modelo de Impressão incorreto. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao verificar modelo de Impressão. Procure o Administrador." + e, "Erro", JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
-        }
-        
-        
     }
     
     /**

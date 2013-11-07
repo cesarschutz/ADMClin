@@ -5,8 +5,8 @@
 package impressoes.modelo2e3.fichaEBoletoDeRetirada;
 
 import ClasseAuxiliares.MetodosUteis;
-import ClasseAuxiliares.dados_empresa_dao;
 import impressoes.modelo2.etiquetaCodigoDeBarras.ImprimirEtiquetaCodigoDeBarrasModelo2;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
+import br.bcn.admclin.dao.dados_empresa_dao;
 import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**

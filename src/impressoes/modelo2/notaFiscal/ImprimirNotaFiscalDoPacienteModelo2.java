@@ -5,7 +5,7 @@
 package impressoes.modelo2.notaFiscal;
 
 import ClasseAuxiliares.MetodosUteis;
-import ClasseAuxiliares.dados_empresa_dao;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -15,7 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
+import br.bcn.admclin.dao.dados_empresa_dao;
 import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**

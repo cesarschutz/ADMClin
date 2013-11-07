@@ -6,8 +6,9 @@ package menu.financeiro.relatorios.faturarConvenio.arquivoTxtDoIpe;
 
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
-import ClasseAuxiliares.dados_empresa_dao;
+import br.bcn.admclin.dao.dados_empresa_dao;
 import conexao.Conexao;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import menu.cadastros.convenio.dao.conveniosDAO;
 import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.atendimentoModel;

@@ -5,12 +5,15 @@
 package impressoes.modelo2.etiquetaEnvelope;
 
 import ClasseAuxiliares.MetodosUteis;
-import ClasseAuxiliares.dados_empresa_dao;
 import impressoes.modelo2e3.fichaEBoletoDeRetirada.ESCPrinter;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
+
 import javax.naming.spi.DirStateFactory;
 import javax.swing.JOptionPane;
+
+import br.bcn.admclin.dao.dados_empresa_dao;
 import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
