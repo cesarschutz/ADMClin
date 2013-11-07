@@ -12,8 +12,9 @@ package menu.cadastros.convenio.internalFrames;
 
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.jTextFieldDinheiroReais;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -25,12 +26,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
 import menu.cadastros.convenio.dao.conveniosFilmeDAO;
 import menu.cadastros.convenio.model.conveniosFilmeMODEL;
 import menu.cadastros.pessoal.dao.usuariosDAO;

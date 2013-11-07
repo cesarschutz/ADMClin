@@ -7,19 +7,22 @@ package menu.atendimentos.agenda.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
 import menu.cadastros.pessoal.dao.pacientesDAO;
 
 /**

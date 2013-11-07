@@ -38,7 +38,7 @@ package menu.atendimentos.FichasDeAtendimentos;
 import ClasseAuxiliares.ColunaAceitandoIcone;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
 import impressoes.modelo1.etiqueta.ImprimirEtiquetaEnvelopeModelo1;
 import impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
@@ -47,6 +47,7 @@ import impressoes.modelo2.etiquetaEnvelope.ImprimirEtiquetaEnvelopeModelo2;
 import impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
 import impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -60,6 +61,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -67,6 +69,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 import menu.cadastros.pessoal.dao.usuariosDAO;

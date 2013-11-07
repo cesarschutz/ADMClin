@@ -34,7 +34,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
     
     public boolean imprimir(){
         boolean imprimiu = false;
-        con = conexao.Conexao.fazConexao();
+        con = br.bcn.admclin.dao.Conexao.fazConexao();
             try {
                 
                 imprimir.initialize();
@@ -44,7 +44,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao imprimir Etiqueta. Procure o Administrador.");
             } finally{
-                conexao.Conexao.fechaConexao(con);
+                br.bcn.admclin.dao.Conexao.fechaConexao(con);
             }
         return imprimiu;
     }

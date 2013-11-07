@@ -3,8 +3,9 @@ package menu.atendimentos.agenda.atendimentos.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -13,10 +14,12 @@ import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import menu.cadastros.pessoal.dao.pacientesDAO;
 import menu.cadastros.pessoal.dao.usuariosDAO;

@@ -6,6 +6,8 @@ package menu.financeiro.relatorios.demed;
 
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.Conexao;
+
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
@@ -16,7 +18,7 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import conexao.Conexao;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,7 +31,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**

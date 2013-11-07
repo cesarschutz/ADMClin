@@ -12,7 +12,8 @@ package menu.cadastros.agenda.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -25,11 +26,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
 import menu.cadastros.agenda.dao.a_intervalosPorPeriodoDAO;
 import menu.cadastros.agenda.dao.a_intervalosPorPeriodoNDAO;
 import menu.cadastros.agenda.dao.agendasDAO;

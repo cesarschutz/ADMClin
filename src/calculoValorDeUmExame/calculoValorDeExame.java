@@ -9,7 +9,8 @@
  */
 package calculoValorDeUmExame;
 
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
 
 /**

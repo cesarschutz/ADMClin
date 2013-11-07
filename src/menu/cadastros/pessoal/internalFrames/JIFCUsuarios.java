@@ -4,7 +4,8 @@ package menu.cadastros.pessoal.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcentoMinusculas;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -12,9 +13,11 @@ import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.pessoal.model.usuariosMODEL;
 

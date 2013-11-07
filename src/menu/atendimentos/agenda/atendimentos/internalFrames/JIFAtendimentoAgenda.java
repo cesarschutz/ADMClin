@@ -7,14 +7,15 @@ package menu.atendimentos.agenda.atendimentos.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.dao.Conexao;
 import calculoValorDeUmExame.calculoValorDeExame;
-import conexao.Conexao;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
 import impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
 import impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
 import impressoes.modelo2.notaFiscal.ImprimirNotaFiscalDoPacienteModelo2;
 import impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -32,10 +33,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTOS_MODEL;

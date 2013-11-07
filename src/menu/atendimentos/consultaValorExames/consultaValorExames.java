@@ -5,9 +5,10 @@
 package menu.atendimentos.consultaValorExames;
 
 import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.Conexao;
 import calculoValorDeUmExame.calculoValorDeExame;
-import conexao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -26,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
 import menu.cadastros.convenio.dao.tabelasDAO;
 
 /**

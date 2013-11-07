@@ -80,9 +80,9 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
     
     private void botaoSalvar(){
         if (tudoPreenchido()) {
-            con = conexao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.Conexao.fazConexao();
             boolean cadastro = conveniosDAO.setCadastrarGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex());
-            conexao.Conexao.fechaConexao(con);
+            br.bcn.admclin.dao.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
             }
@@ -91,9 +91,9 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
     
     private void botaoAtualizar(){
         if (tudoPreenchido()) {
-            con = conexao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.Conexao.fazConexao();
             boolean cadastro = conveniosDAO.setUpdateGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex(), grupo_id);
-            conexao.Conexao.fechaConexao(con);
+            br.bcn.admclin.dao.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
             }
@@ -103,9 +103,9 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
     private void botaoDeletar(){
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Grupo de Convênio?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
-            con = conexao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.Conexao.fazConexao();
             boolean deleto = conveniosDAO.setDeletarGrupoDeConveio(con, grupo_id);
-            conexao.Conexao.fechaConexao(con);
+            br.bcn.admclin.dao.Conexao.fechaConexao(con);
             if (deleto) {
                 botaoCancelar();
             }

@@ -13,7 +13,8 @@ package menu.cadastros.pessoal.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -25,10 +26,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import janelaPrincipal.janelaPrincipal;
 import menu.cadastros.pessoal.dao.especialidades_medicasDAO;
 import menu.cadastros.pessoal.dao.medicosDAO;

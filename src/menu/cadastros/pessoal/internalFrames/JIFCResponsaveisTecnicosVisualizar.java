@@ -11,7 +11,8 @@
 package menu.cadastros.pessoal.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -20,11 +21,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
 import menu.cadastros.pessoal.dao.responsaveis_tecnicosDAO;
 import menu.cadastros.pessoal.model.responsaveis_tecnicosMODEL;
 

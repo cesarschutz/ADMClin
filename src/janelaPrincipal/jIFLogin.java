@@ -6,8 +6,8 @@ package janelaPrincipal;
 
 import ClasseAuxiliares.OSvalidator;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
-import conexao.Conexao;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -100,7 +100,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
     public void getModeloImpressao(){
         ResultSet resultSet = null;
         try {
-            con = conexao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.Conexao.fazConexao();
             resultSet = DADOS_EMPRESA.getConsultar(con);
             while(resultSet.next()){
                 janelaPrincipal.modeloDeImpressao = resultSet.getInt("modelo_impressao");

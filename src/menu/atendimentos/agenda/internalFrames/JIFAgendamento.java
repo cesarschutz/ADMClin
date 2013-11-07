@@ -9,8 +9,9 @@ import menu.atendimentos.agenda.dao.pacientesDAO;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -22,19 +23,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
 import menu.atendimentos.agenda.model.a_agendamentosMODEL;
 import menu.atendimentos.agenda.model.pacientesMODEL;
 import menu.cadastros.pessoal.dao.usuariosDAO;
 import calculoValorDeUmExame.calculoValorDeExame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import static menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda.jTable1;
 
 /*

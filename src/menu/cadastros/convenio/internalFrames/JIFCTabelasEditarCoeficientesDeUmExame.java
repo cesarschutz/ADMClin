@@ -11,8 +11,9 @@
 package menu.cadastros.convenio.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import ClasseAuxiliares.jTextFieldDinheiroReaisCom5CasasDecimais;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -21,8 +22,10 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.convenio.model.tabelasMODEL;
 import menu.cadastros.pessoal.dao.usuariosDAO;

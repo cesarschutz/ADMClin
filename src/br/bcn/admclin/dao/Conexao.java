@@ -1,10 +1,12 @@
-package conexao;
+package br.bcn.admclin.dao;
 
 import janelaPrincipal.janelaPrincipal;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -20,10 +22,12 @@ public class Conexao {
      * Faz conexao com o banco de dados FireBird.
      * @return Connection
      */
+    @SuppressWarnings("finally")
     public static Connection fazConexao(){
         
         try{
             
+            //carrega o drive do banco de dados
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
             //setando propriedades para que pegue as informaçoes do banco com ascento e caracteres especais e etc
@@ -35,22 +39,23 @@ public class Conexao {
 
             con = DriverManager.getConnection("jdbc:firebirdsql:"+janelaPrincipal.RISIP+"/3050:"+janelaPrincipal.RISDB, props);
         }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null, "Erro no drive de conexão. Procure o administrador");
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro no drive de conexão. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro na conexao! Procure o administrador");
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro na conexao! Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
         }finally{
             return con;
         }
     }
+    
     /**
-     * Metodo para fechar uma conexão.
+     * Metodo para fechar uma conexão copm o banco de dados.
      * @param Connection 
      */
     public static void fechaConexao(Connection conn){
         try {
             conn.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao fechar conexao. Procure o administrador");
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao fechar conexao. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     

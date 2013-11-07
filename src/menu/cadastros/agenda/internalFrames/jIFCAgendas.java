@@ -7,7 +7,8 @@ package menu.cadastros.agenda.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -17,12 +18,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+
 import menu.cadastros.agenda.dao.agendasDAO;
 import menu.cadastros.agenda.model.agendasMODEL;
 import menu.cadastros.pessoal.dao.usuariosDAO;

@@ -20,8 +20,9 @@ package menu.atendimentos.agenda.internalFrames;
 
 
 import ClasseAuxiliares.MetodosUteis;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -45,6 +47,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;

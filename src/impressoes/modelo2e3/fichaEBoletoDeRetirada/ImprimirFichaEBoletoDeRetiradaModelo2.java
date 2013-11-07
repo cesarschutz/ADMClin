@@ -37,7 +37,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo2 {
     
     public boolean imprimir(){
         boolean imprimiu = false;
-        con = conexao.Conexao.fazConexao();
+        con = br.bcn.admclin.dao.Conexao.fazConexao();
             try {
                 getDadosParaAFicha();
                 //inicializando a impressora

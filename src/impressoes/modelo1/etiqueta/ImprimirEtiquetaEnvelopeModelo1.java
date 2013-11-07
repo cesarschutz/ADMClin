@@ -5,6 +5,8 @@
 package impressoes.modelo1.etiqueta;
 
 import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.Conexao;
+
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
@@ -14,7 +16,7 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import conexao.Conexao;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,7 +24,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 
 /**

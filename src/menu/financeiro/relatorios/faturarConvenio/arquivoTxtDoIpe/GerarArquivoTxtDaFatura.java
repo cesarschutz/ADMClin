@@ -6,8 +6,8 @@ package menu.financeiro.relatorios.faturarConvenio.arquivoTxtDoIpe;
 
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
-import conexao.Conexao;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -40,7 +40,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
     
     public boolean imprimir(){
         boolean imprimiu = false;
-        con = conexao.Conexao.fazConexao();
+        con = br.bcn.admclin.dao.Conexao.fazConexao();
             try {
                 getDadosPaciente();
                 getExamesRealizados();
@@ -49,7 +49,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao imprimir Nota Fiscal. Procure o Administrador.","Erro", JOptionPane.ERROR_MESSAGE);
             } finally {
-                conexao.Conexao.fechaConexao(con);
+                br.bcn.admclin.dao.Conexao.fechaConexao(con);
                 imprimir.close();
             }
         return imprimiu;

@@ -15,7 +15,8 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemeComercialESemJogoDaVelhaParaOsMateriais;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import ClasseAuxiliares.jTextFieldDinheiroReais;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -25,14 +26,18 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
 import janelaPrincipal.janelaPrincipal;
+
 import java.text.DecimalFormat;
 import java.util.Date;
+
 import menu.cadastros.exame.dao.materiaisDAO;
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.exame.dao.valoresMateriaisDAO;

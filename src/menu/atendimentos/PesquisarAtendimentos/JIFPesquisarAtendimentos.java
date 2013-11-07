@@ -7,9 +7,10 @@ package menu.atendimentos.PesquisarAtendimentos;
 import ClasseAuxiliares.ColunaAceitandoIcone;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
 import static janelaPrincipal.janelaPrincipal.jDesktopPane1;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -34,6 +36,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
 import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.cadastros.pessoal.dao.usuariosDAO;

@@ -5,8 +5,9 @@
 package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 
 import ClasseAuxiliares.MetodosUteis;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.sql.Connection;
@@ -17,11 +18,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.financeiro.relatorios.faturarConvenio.arquivoTxtDoIpe.GerarArquivoTxtDaFatura;
 

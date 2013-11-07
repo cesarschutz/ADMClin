@@ -20,8 +20,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
+import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
-import conexao.Conexao;
 import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFCPacientesAtendimentos;

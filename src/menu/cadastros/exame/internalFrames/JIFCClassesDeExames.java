@@ -2,7 +2,8 @@ package menu.cadastros.exame.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -14,9 +15,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import menu.cadastros.exame.dao.tb_classesdeexamesDAO;
 import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.exame.model.tb_classesdeexamesMODEL;

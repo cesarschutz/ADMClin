@@ -2,8 +2,9 @@ package menu.atendimentos.agenda.internalFrames;
 
 
 import ClasseAuxiliares.ImagemNoJDesktopPane;
-import conexao.Conexao;
+import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -15,10 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.atendimentos.agenda.dao.agendaDAO;
 
