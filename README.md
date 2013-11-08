@@ -11,6 +11,6 @@ FG_STATUS    - VARCHAR -> CHAR
 ENVIA_EMAILS - VARCHAR -> CHAR
 
 Tabela: AGENDAS
-Nenhuma alteração.
+USUARIOID -> colocado como chave estrangeira da tabela USUARIOS.
 
 Tabela: 
