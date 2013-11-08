@@ -16,6 +16,7 @@ import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -66,7 +67,12 @@ public class jIFLogin extends javax.swing.JInternalFrame {
         Usuario usuarioModel = new Usuario();
         usuarioModel.setUsuario(jTFUsuario.getText());
         usuarioModel.setSenha(jTFSenha.getText());
-        boolean existe = USUARIOS.getLogin(con, usuarioModel);
+        boolean existe = false;
+        try {
+            existe = USUARIOS.getLogin(con, usuarioModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao fazer login. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         Conexao.fechaConexao(con);
             if(existe){
                 
