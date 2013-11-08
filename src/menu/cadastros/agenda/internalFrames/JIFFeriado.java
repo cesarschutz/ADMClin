@@ -15,6 +15,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.AGENDAS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -38,7 +39,6 @@ import javax.swing.table.DefaultTableModel;
 
 import menu.cadastros.agenda.dao.a_feriadosDAO;
 import menu.cadastros.agenda.dao.a_feriadosNDAO;
-import menu.cadastros.agenda.dao.agendasDAO;
 import menu.cadastros.agenda.model.a_feriadosMODEL;
 import menu.cadastros.agenda.model.a_feriadosNMODEL;
     
@@ -284,7 +284,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
 
     public void preenchendoTodasAsAgendasNoComboBox(){
         con = Conexao.fazConexao();
-        ResultSet resultSet = agendasDAO.getConsultar(con);
+        ResultSet resultSet = AGENDAS.getConsultar(con);
         listaHandleAgendas.removeAll(listaHandleAgendas);
         jCBAgendas.addItem("Todas as Agendas");  
         listaHandleAgendas.add(0);

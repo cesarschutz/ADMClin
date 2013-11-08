@@ -9,6 +9,8 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.model.Agenda;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -26,9 +28,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-
-import menu.cadastros.agenda.dao.agendasDAO;
-import menu.cadastros.agenda.model.agendasMODEL;
 
 /**
  *
@@ -71,7 +70,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
         jTable2.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = agendasDAO.getConsultar(con);
+        ResultSet resultSet = AGENDAS.getConsultar(con);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
@@ -306,11 +305,11 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
     public void botaoSalvar (){
             if(verificandoSeTudoFoiPreenchido() && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(1) && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(2) && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(3) && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(4)){
                 con = Conexao.fazConexao();
-                agendasMODEL agendaModelo = new agendasMODEL();
+                Agenda agendaModelo = new Agenda();
                 agendaModelo.setNome(jTFNome.getText().toUpperCase());
-                boolean existe = agendasDAO.getConsultarParaSalvarNovoRegistro(con, agendaModelo);
+                boolean existe = AGENDAS.getConsultarParaSalvarNovoRegistro(con, agendaModelo);
                 Conexao.fechaConexao(con);
-                if(agendasDAO.conseguiuConsulta){
+                if(AGENDAS.conseguiuConsulta){
                     if(existe){
                         JOptionPane.showMessageDialog(null, "Agenda já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -542,7 +541,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
                         
                         
                         
-                        boolean cadastro = agendasDAO.setCadastrar(con, agendaModelo);
+                        boolean cadastro = AGENDAS.setCadastrar(con, agendaModelo);
                         Conexao.fechaConexao(con);
                         if(cadastro){
                             PreenchendoTabelaDasAgendas();
@@ -557,12 +556,12 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
     public void botaoAtualizar(){
         if(verificandoSeTudoFoiPreenchido() && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(1) && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(2) && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(3) && verificarSeHorariosNaTabelaEstaoPreenchidosCorretamente(4)){
                 con = Conexao.fazConexao();
-                agendasMODEL agendaModelo = new agendasMODEL();
+                Agenda agendaModelo = new Agenda();
                 agendaModelo.setNome(jTFNome.getText().toUpperCase());
                 agendaModelo.setHandle_agenda(handle_agenda);
-                boolean existe = agendasDAO.getConsultarParaSalvarAtualizarRegistro(con, agendaModelo);
+                boolean existe = AGENDAS.getConsultarParaSalvarAtualizarRegistro(con, agendaModelo);
                 Conexao.fechaConexao(con);
-                if(agendasDAO.conseguiuConsulta){
+                if(AGENDAS.conseguiuConsulta){
                     if(existe){
                         JOptionPane.showMessageDialog(null, "Agenda já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -790,7 +789,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
                         }
                         
                         
-                        boolean cadastro = agendasDAO.setAtualizar(con, agendaModelo);
+                        boolean cadastro = AGENDAS.setAtualizar(con, agendaModelo);
                         Conexao.fechaConexao(con);
                         if(cadastro){
                             PreenchendoTabelaDasAgendas();
@@ -1486,7 +1485,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
         handle_agenda = Integer.valueOf((String) jTable2.getValueAt(jTable2.getSelectedRow(), 0)) ;
         //colocando os valores
         con = Conexao.fazConexao();
-        ResultSet resultSet = agendasDAO.getConsultarDadosDeUmaAgenda(con, handle_agenda);
+        ResultSet resultSet = AGENDAS.getConsultarDadosDeUmaAgenda(con, handle_agenda);
         try{
             while(resultSet.next()){
                 //colocando dados na nos campos

@@ -2,20 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.agenda.model.agendasMODEL;
+
+import br.bcn.admclin.model.Agenda;
 
 /**
  *
  * @author BCN
  */
-public class agendasDAO {
+public class AGENDAS {
     public static boolean conseguiuConsulta;
     
     /**
@@ -42,7 +44,7 @@ public class agendasDAO {
      * @param conveniosMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarAtualizarRegistro(Connection con, agendasMODEL model){
+    public static boolean getConsultarParaSalvarAtualizarRegistro(Connection con, Agenda model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from agendas where nome=? and handle_agenda!=?");
@@ -79,10 +81,10 @@ public class agendasDAO {
     /**
      * Verifica se Classe De Exame já existe antes de cadastra-lo no Banco de Dados.
      * @param Connection
-     * @param agendasMODEL
+     * @param Agenda
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, agendasMODEL model){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Agenda model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from agendas where nome=?");
@@ -106,7 +108,7 @@ public class agendasDAO {
      * @param agendasModel
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, agendasMODEL model){
+    public static boolean setCadastrar(Connection con, Agenda model){
         boolean cadastro = false;
         String sql = "insert into agendas (dat,usuarioid,nome,descricao,horarioinicialTurno1,horariofinalTurno1,horarioinicialTurno2,horariofinalTurno2,horarioinicialTurno3,horariofinalTurno3,horarioinicialTurno4,horariofinalTurno4,"
                 + "duracaoturno1,duracaoturno2,duracaoturno3,duracaoturno4,seg,ter,qua,qui,sex,sab,dom,modalidade_cr,modalidade_ct,modalidade_dr,modalidade_dx,modalidade_mg,modalidade_mr,modalidade_nm,"
@@ -162,7 +164,7 @@ public class agendasDAO {
         }
     }
     //atualizar agenda
-    public static boolean setAtualizar(Connection con, agendasMODEL model){
+    public static boolean setAtualizar(Connection con, Agenda model){
         boolean cadastro = false;
         String sql = "update agendas set dat=?, usuarioid=?, nome=?, descricao=?, horarioinicialturno1=?, horariofinalturno1=?, horarioinicialturno2=?, horariofinalturno2=?, horarioinicialturno3=?, horariofinalturno3=?, horarioinicialturno4=?, horariofinalturno4=?, duracaoturno1=?, duracaoturno2=?, duracaoturno3=?, duracaoturno4=?,  seg=?, ter=?, qua=?, qui=?, sex=?, sab=?, dom=?,"
                 + " modalidade_cr=?, modalidade_ct=?, modalidade_dr=?, modalidade_dx=?, modalidade_mg=?, modalidade_mr=?, modalidade_nm=?, modalidade_ot=?, modalidade_rf=?, modalidade_do=?,"

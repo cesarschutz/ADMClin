@@ -14,6 +14,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.AGENDAS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -35,7 +36,6 @@ import javax.swing.table.DefaultTableModel;
 
 import menu.cadastros.agenda.dao.a_intervalosPorHorarioDAO;
 import menu.cadastros.agenda.dao.a_intervalosPorHorarioNDAO;
-import menu.cadastros.agenda.dao.agendasDAO;
 import menu.cadastros.agenda.model.a_intervalosPorHorarioMODEL;
 import menu.cadastros.agenda.model.a_intervalosPorHorarioNMODEL;
     
@@ -236,7 +236,7 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
 
     public void preenchendoTodasAsAgendasNoComboBox(){
         con = Conexao.fazConexao();
-        ResultSet resultSet = agendasDAO.getConsultar(con);
+        ResultSet resultSet = AGENDAS.getConsultar(con);
         listaCodAgendas.removeAll(listaCodAgendas);
         jCBAgendas.addItem("Todas as Agendas");  
         listaCodAgendas.add(0);

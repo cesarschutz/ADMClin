@@ -1,5 +1,5 @@
 
-package menu.cadastros.agenda.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class agendasMODEL {
+public class Agenda {
     
     private int seg,ter,qua,qui,sex,sab,dom,handle_agenda,usuarioId,horarioInicialTurno1,horarioFinalTurno1,horarioInicialTurno2,horarioFinalTurno2, horarioInicialTurno3, horarioFinalTurno3, horarioInicialTurno4, horarioFinalTurno4, duracaoTurno1, duracaoTurno2, duracaoTurno3, duracaoTurno4;
     private int ativa, MODALIDADE_CR, MODALIDADE_CT, MODALIDADE_DR, MODALIDADE_DX, MODALIDADE_MG, MODALIDADE_MR, MODALIDADE_NM, MODALIDADE_OT, MODALIDADE_RF, MODALIDADE_DO, MODALIDADE_US, MODALIDADE_OD, MODALIDADE_TR;
