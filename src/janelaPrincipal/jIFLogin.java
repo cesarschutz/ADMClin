@@ -70,6 +70,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
         usuarioModel.setSenha(jTFSenha.getText());
         boolean existe = false;
         try {
+            con = Conexao.fazConexao();
             existe = USUARIOS.getLogin(con, usuarioModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao fazer login. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
