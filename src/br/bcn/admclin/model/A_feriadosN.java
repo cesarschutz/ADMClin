@@ -1,5 +1,5 @@
 
-package menu.cadastros.agenda.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class a_feriadosNMODEL {
+public class A_feriadosN {
     
     private int handleFeriadoN, usuarioId;
     Date dat;

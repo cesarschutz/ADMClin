@@ -1,17 +1,19 @@
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.agenda.model.a_feriadosMODEL;
+
+import br.bcn.admclin.model.A_feriados;
 
 /**
  *
  * @author BCN
  */
-public class a_feriadosDAO {
+public class A_FERIADOS {
     
     public  static boolean conseguiuConsulta;
     
@@ -37,10 +39,10 @@ public class a_feriadosDAO {
     /**
      * Cadastra um novo feriados no Banco de Dados.
      * @param Connection 
-     * @param a_feriadosMODEL
+     * @param A_feriados
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_feriadosMODEL model){
+    public static boolean setCadastrar(Connection con, A_feriados model){
         boolean cadastro = false;
         String sql = "insert into a_feriados (handle_feriadon, handle_agenda) values(?,?)";
         try{

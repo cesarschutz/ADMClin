@@ -1,17 +1,19 @@
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.agenda.model.a_feriadosNMODEL;
+
+import br.bcn.admclin.model.A_feriadosN;
 
 /**
  *
  * @author BCN
  */
-public class a_feriadosNDAO {
+public class A_FERIADOSN {
     public static boolean conseguiuConsulta;
     /**
      * Consulta Todos os feraidos existentes no Banco de Dados para colocar na lista!!!
@@ -33,10 +35,10 @@ public class a_feriadosNDAO {
     /**
      * Verifica se nome de feraido ja existe 
      * @param Connection
-     * @param a_feriadosNMODEL
+     * @param A_feriadosN
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarRegistro(Connection con, a_feriadosNMODEL model){
+    public static boolean getConsultarParaSalvarRegistro(Connection con, A_feriadosN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_feriadosN where nome=?");
@@ -57,10 +59,10 @@ public class a_feriadosNDAO {
     /**
      * Verifica se nome de feriado ja existe antes de atualizalo
      * @param Connection
-     * @param a_feriadosNMODEL
+     * @param A_feriadosN
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, a_feriadosNMODEL model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, A_feriadosN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_feriadosN where nome=? and handle_feriadon!=?");
@@ -84,7 +86,7 @@ public class a_feriadosNDAO {
      * @param Connection
      * @return ResultSet
      */
-    public static int getConsultarIdDeUmNomeCadastrado(Connection con, a_feriadosNMODEL model){
+    public static int getConsultarIdDeUmNomeCadastrado(Connection con, A_feriadosN model){
         int feriadosNId = 0;
         ResultSet resultSet = null;
         try{
@@ -122,10 +124,10 @@ public class a_feriadosNDAO {
     /**
      * Cadastra uma novo Feriado no Banco de Dados.
      * @param Connection 
-     * @param a_feriadosNMODEL
+     * @param A_feriadosN
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_feriadosNMODEL model){
+    public static boolean setCadastrar(Connection con, A_feriadosN model){
         boolean cadastro = false;
         String sql = "insert into a_feriadosN (dat,usuarioid,nome,diaDoferiado,descricao) values(?,?,?,?,?)";
         try{
@@ -169,7 +171,7 @@ public class a_feriadosNDAO {
     }
     
     //atualizar agenda
-    public static boolean setAtualizar(Connection con, a_feriadosNMODEL model){
+    public static boolean setAtualizar(Connection con, A_feriadosN model){
         boolean cadastro = false;
         String sql = "update a_feriadosN set dat=?, usuarioid=?, nome=?, diadoferiado=?, descricao=? where handle_feriadon=?";
         try{

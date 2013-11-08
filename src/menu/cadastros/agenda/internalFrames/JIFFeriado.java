@@ -16,6 +16,10 @@ import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.dao.A_FERIADOS;
+import br.bcn.admclin.dao.A_FERIADOSN;
+import br.bcn.admclin.model.A_feriados;
+import br.bcn.admclin.model.A_feriadosN;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -36,11 +40,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.agenda.dao.a_feriadosDAO;
-import menu.cadastros.agenda.dao.a_feriadosNDAO;
-import menu.cadastros.agenda.model.a_feriadosMODEL;
-import menu.cadastros.agenda.model.a_feriadosNMODEL;
     
 /**
  *
@@ -109,7 +108,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
     public void preenchendoDadosDoIntervalo(){
         //colocando os valores
         con = Conexao.fazConexao();
-        ResultSet resultSet = a_feriadosNDAO.getConsultarDadosDeUmFeriado(con, handleFeriadoN);
+        ResultSet resultSet = A_FERIADOSN.getConsultarDadosDeUmFeriado(con, handleFeriadoN);
         try{
             while(resultSet.next()){
                 //colocando dados na nos campos
@@ -129,7 +128,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = a_feriadosDAO.getConsultarAgendasDeUmFeriado(con,handleFeriadoN);
+        ResultSet resultSet = A_FERIADOS.getConsultarAgendasDeUmFeriado(con,handleFeriadoN);
         try{
             while(resultSet.next()){
                 preencherTodasAgendas = false;
@@ -319,11 +318,11 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                a_feriadosNMODEL feriadoNModel = new a_feriadosNMODEL();
+                A_feriadosN feriadoNModel = new A_feriadosN();
                 feriadoNModel.setNome(jTFNome.getText().toUpperCase());
-                boolean existe = a_feriadosNDAO.getConsultarParaSalvarRegistro(con, feriadoNModel);
+                boolean existe = A_FERIADOSN.getConsultarParaSalvarRegistro(con, feriadoNModel);
                 Conexao.fechaConexao(con);
-                if(a_feriadosNDAO.conseguiuConsulta){
+                if(A_FERIADOSN.conseguiuConsulta){
                     if(existe){
                         JOptionPane.showMessageDialog(null, "Feriado já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -334,17 +333,17 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
                         feriadoNModel.setDescricao(jTADescricao.getText());
                         feriadoNModel.setDiaDoFeriado(jTFDiaDoIntervalo.getText());
                         
-                        boolean cadastro = a_feriadosNDAO.setCadastrar(con, feriadoNModel);
+                        boolean cadastro = A_FERIADOSN.setCadastrar(con, feriadoNModel);
                         Conexao.fechaConexao(con);
                         if(cadastro){
                             //pegando id do intervalo cadastrado
                             con = Conexao.fazConexao();
-                            a_feriadosNMODEL feriadoNMODEL = new a_feriadosNMODEL();
+                            A_feriadosN feriadoNMODEL = new A_feriadosN();
                             feriadoNMODEL.setNome(jTFNome.getText().toUpperCase());
-                            handleFeriadoN = a_feriadosNDAO.getConsultarIdDeUmNomeCadastrado(con, feriadoNMODEL);
+                            handleFeriadoN = A_FERIADOSN.getConsultarIdDeUmNomeCadastrado(con, feriadoNMODEL);
                             
                             //salvando as agendas
-                            a_feriadosMODEL feriadoModel = new a_feriadosMODEL();
+                            A_feriados feriadoModel = new A_feriados();
                             feriadoModel.setHandleFeriadoN(handleFeriadoN);
                             
                             
@@ -353,7 +352,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
 
                             while(i<numeroDeLinhasNaTabela){
                                 feriadoModel.setHandleAgenda(Integer.valueOf((String)jTable1.getValueAt(i, 0)));
-                                a_feriadosDAO.setCadastrar(con, feriadoModel);
+                                A_FERIADOS.setCadastrar(con, feriadoModel);
                                 i++;
                             }
                             
@@ -421,8 +420,8 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Feriado?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
             con = Conexao.fazConexao();
-            a_feriadosDAO.setDeletar(con, handleFeriadoN);
-            a_feriadosNDAO.setDeletar(con, handleFeriadoN);
+            A_FERIADOS.setDeletar(con, handleFeriadoN);
+            A_FERIADOSN.setDeletar(con, handleFeriadoN);
             Conexao.fechaConexao(con);
             
             botaoCancelar();
@@ -434,12 +433,12 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                a_feriadosNMODEL feriadoNModel = new a_feriadosNMODEL();
+                A_feriadosN feriadoNModel = new A_feriadosN();
                 feriadoNModel.setNome(jTFNome.getText().toUpperCase());
                 feriadoNModel.setHandleFeriadoN(handleFeriadoN);
-                boolean existe = a_feriadosNDAO.getConsultarParaAtualizarRegistro(con, feriadoNModel);
+                boolean existe = A_FERIADOSN.getConsultarParaAtualizarRegistro(con, feriadoNModel);
                 Conexao.fechaConexao(con);
-                if(a_feriadosNDAO.conseguiuConsulta){
+                if(A_FERIADOSN.conseguiuConsulta){
                     if(existe){
                         JOptionPane.showMessageDialog(null, "Feriado já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -453,15 +452,15 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
                         
                         
                         
-                        boolean cadastro = a_feriadosNDAO.setAtualizar(con, feriadoNModel);
+                        boolean cadastro = A_FERIADOSN.setAtualizar(con, feriadoNModel);
                         Conexao.fechaConexao(con);
                         if(cadastro){
                             //deletando as agendas
                             con = Conexao.fazConexao();
-                            a_feriadosDAO.setDeletar(con, handleFeriadoN);
+                            A_FERIADOS.setDeletar(con, handleFeriadoN);
                             
                             //cadastrando novas agendas
-                            a_feriadosMODEL feriadosModel = new a_feriadosMODEL();
+                            A_feriados feriadosModel = new A_feriados();
                             feriadosModel.setHandleFeriadoN(handleFeriadoN);
                             
                             
@@ -470,7 +469,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
 
                             while(i<numeroDeLinhasNaTabela){
                                 feriadosModel.setHandleAgenda(Integer.valueOf((String)jTable1.getValueAt(i, 0)));
-                                a_feriadosDAO.setCadastrar(con, feriadosModel);
+                                A_FERIADOS.setCadastrar(con, feriadosModel);
                                 i++;
                             }
                             
