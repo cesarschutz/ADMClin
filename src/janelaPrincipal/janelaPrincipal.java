@@ -4,47 +4,74 @@
  */
 package janelaPrincipal;
 
-import ClasseAuxiliares.ImagemNoJDesktopPane;
-import ClasseAuxiliares.jIFAguarde;
-
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.sql.Connection;
-import java.sql.ResultSet;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.DADOS_EMPRESA;
-import br.bcn.admclin.dao.USUARIOS;
 import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
-import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import menu.atendimentos.agenda.atendimentos.internalFrames.JIFCPacientesAtendimentos;
-import menu.atendimentos.agenda.atendimentos.internalFrames.jIFAlterarValorDeExame;
-import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import menu.atendimentos.consultaValorExames.consultaValorExames;
-import menu.atendimentos.consultaValorExames.listaConvenios;
-import menu.cadastros.agenda.internalFrames.*;
-import menu.cadastros.convenio.internalFrames.*;
-import menu.cadastros.exame.internalFrames.*;
-import menu.cadastros.pessoal.internalFrames.*;
 import menu.atendimentos.PesquisarAtendimentos.JIFPesquisarAtendimentos;
+import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoSelecionarUmMedicoSolicitante;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoSelecionarUmPaciente;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFCMedicosAtendimentos;
+import menu.atendimentos.agenda.atendimentos.internalFrames.JIFCPacientesAtendimentos;
+import menu.atendimentos.agenda.atendimentos.internalFrames.jIFAlterarValorDeExame;
+import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import menu.atendimentos.agenda.internalFrames.JIFAgendamento;
 import menu.atendimentos.agenda.internalFrames.JIFAgendamentoSelecionarUmPaciente;
 import menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
+import menu.atendimentos.consultaValorExames.consultaValorExames;
+import menu.atendimentos.consultaValorExames.listaConvenios;
+import menu.cadastros.agenda.internalFrames.JIFFeriado;
+import menu.cadastros.agenda.internalFrames.JIFFeriadoVisualizar;
+import menu.cadastros.agenda.internalFrames.JIFIntervaloDiario;
+import menu.cadastros.agenda.internalFrames.JIFIntervaloDiarioVisualizar;
+import menu.cadastros.agenda.internalFrames.JIFIntervaloPorHorario;
+import menu.cadastros.agenda.internalFrames.JIFIntervaloPorHorarioVisualizar;
+import menu.cadastros.agenda.internalFrames.JIFIntervaloPorPeriodo;
+import menu.cadastros.agenda.internalFrames.JIFIntervaloPorPeriodoVisualizar;
+import menu.cadastros.agenda.internalFrames.jIFCAgendas;
+import menu.cadastros.convenio.internalFrames.JIFCConvenioCH;
+import menu.cadastros.convenio.internalFrames.JIFCConvenioFILME;
+import menu.cadastros.convenio.internalFrames.JIFCConvenios;
+import menu.cadastros.convenio.internalFrames.JIFCConveniosVisualizar;
+import menu.cadastros.convenio.internalFrames.JIFCTabelas;
+import menu.cadastros.convenio.internalFrames.JIFCTabelasAdicionarUMExame;
+import menu.cadastros.convenio.internalFrames.JIFCTabelasAdicionarUmMaterialAUmExame;
+import menu.cadastros.convenio.internalFrames.JIFCTabelasEditarCoeficientesDeUmExame;
+import menu.cadastros.convenio.internalFrames.JIFCTabelasVisualizar;
+import menu.cadastros.convenio.internalFrames.JIFGruposConvenios;
+import menu.cadastros.convenio.internalFrames.JIFGruposConveniosVisualizar;
+import menu.cadastros.exame.internalFrames.JIFCClassesDeExames;
+import menu.cadastros.exame.internalFrames.JIFCClassesDeExamesVisualizar;
+import menu.cadastros.exame.internalFrames.JIFCMaterial;
+import menu.cadastros.exame.internalFrames.JIFCMaterialVisualizar;
+import menu.cadastros.exame.internalFrames.jIFCExames;
+import menu.cadastros.pessoal.internalFrames.JIFCEspecialidadesMedicas;
+import menu.cadastros.pessoal.internalFrames.JIFCEspecialidadesMedicasVisualizar;
+import menu.cadastros.pessoal.internalFrames.JIFCMedicos;
+import menu.cadastros.pessoal.internalFrames.JIFCMedicosVisualizar;
+import menu.cadastros.pessoal.internalFrames.JIFCPacientes;
+import menu.cadastros.pessoal.internalFrames.JIFCPacientesVisualizar;
+import menu.cadastros.pessoal.internalFrames.JIFCResponsaveisTecnicos;
+import menu.cadastros.pessoal.internalFrames.JIFCResponsaveisTecnicosVisualizar;
+import menu.cadastros.pessoal.internalFrames.JIFCUsuarios;
+import menu.cadastros.pessoal.internalFrames.JIFCUsuariosVisualizar;
 import menu.financeiro.relatorios.atendimentos.jIFFinanceiroAtendimentos;
 import menu.financeiro.relatorios.demed.jIFDemed;
 import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFFaturarConvenios;
 import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFListaAtendimentosParaFaturar;
+import ClasseAuxiliares.ImagemNoJDesktopPane;
+import ClasseAuxiliares.jIFAguarde;
+import br.bcn.admclin.dao.USUARIOS;
 
 /**
  *
@@ -52,6 +79,7 @@ import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFListaAtendi
  */
 public class janelaPrincipal extends javax.swing.JFrame {
 
+    private static final long serialVersionUID = 1L;
     public static jIFAguarde internalFrameAguarde;
     public static janelaPrincipal internalFrameJanelaPrincipal;
     public static JIFAgendaPrincipal internalFrameAgendaPrincipal;
@@ -253,7 +281,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -597,7 +624,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
                     
                     
-                    SwingWorker worker = new SwingWorker(){
+                    SwingWorker<?, ?> worker = new SwingWorker<Object, Object>(){
                                 @Override  
                                 protected Object doInBackground() throws Exception {
                                     
