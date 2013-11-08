@@ -19,7 +19,7 @@ public class Conexao {
     
     
     /**
-     * Faz conexao com o banco de dados FireBird.
+     * Faz conexao com o banco de dados FireBird
      * @return Connection
      */
     @SuppressWarnings("finally")
