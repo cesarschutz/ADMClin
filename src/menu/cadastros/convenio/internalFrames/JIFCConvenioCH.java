@@ -13,6 +13,7 @@ package menu.cadastros.convenio.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.jTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -35,7 +36,6 @@ import javax.swing.table.DefaultTableModel;
 
 import menu.cadastros.convenio.dao.conveniosChDAO;
 import menu.cadastros.convenio.model.conveniosChMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -152,7 +152,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, "Preencha a data corretamente");
                     }
                     
-                    conveniosChModel.setUsuarioId(usuariosDAO.usrId);
+                    conveniosChModel.setUsuarioId(USUARIOS.usrId);
                     conveniosChModel.setHandle_convenio(handle_convenio);
                     conveniosChModel.setDataAValer(data);
                     conveniosChModel.setValor(jTFValorCh.getText().replace(",", "."));

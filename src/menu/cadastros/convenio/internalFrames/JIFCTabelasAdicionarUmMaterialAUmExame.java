@@ -11,6 +11,7 @@
 package menu.cadastros.convenio.internalFrames;
 
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -33,7 +34,6 @@ import janelaPrincipal.janelaPrincipal;
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.convenio.model.tabelasMODEL;
 import menu.cadastros.exame.dao.materiaisDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -120,7 +120,7 @@ public class JIFCTabelasAdicionarUmMaterialAUmExame extends javax.swing.JInterna
         if(materialSelecionado && qtdSelecionada){
              con = Conexao.fazConexao();
                 tabelasMODEL tabelaModelo = new tabelasMODEL();
-                tabelaModelo.setUsuarioId(usuariosDAO.usrId);
+                tabelaModelo.setUsuarioId(USUARIOS.usrId);
                 tabelaModelo.setDat(dataDeHojeEmVariavelDate);
                 tabelaModelo.sethandle_convenio(Integer.valueOf(handle_convenio));
                 

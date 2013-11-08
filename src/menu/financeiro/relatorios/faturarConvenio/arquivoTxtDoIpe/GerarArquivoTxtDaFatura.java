@@ -8,6 +8,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +25,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import menu.cadastros.convenio.dao.conveniosDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.atendimentoModel;
 
 /**
@@ -61,16 +61,16 @@ public class GerarArquivoTxtDaFatura {
     private void criandoAPastaParaSalvarOArquivo(){
         if (OSvalidator.isWindows()) {
             if (tipo.equals("grupo")) {
-                caminho = usuariosDAO.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\ArquivoTexto";
             }else{
-                caminho = usuariosDAO.pasta_raiz + "\\FaturasDeConvenios\\ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConvenios\\ArquivoTexto";
             }
             
         }else {
             if (tipo.equals("grupo")) {
-                caminho = usuariosDAO.pasta_raiz + "/FaturasDeConveniosPorGrupo/ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConveniosPorGrupo/ArquivoTexto";
             }else{
-                caminho = usuariosDAO.pasta_raiz + "/FaturasDeConvenios/ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConvenios/ArquivoTexto";
             }
         }
         File dir = new File(caminho);   

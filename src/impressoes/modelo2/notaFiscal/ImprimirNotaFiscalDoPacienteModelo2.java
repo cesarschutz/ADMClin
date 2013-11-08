@@ -19,7 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.dao.DADOS_EMPRESA;
-import menu.cadastros.pessoal.dao.usuariosDAO;
+import br.bcn.admclin.dao.USUARIOS;
 
 /**
  *
@@ -28,7 +28,7 @@ import menu.cadastros.pessoal.dao.usuariosDAO;
 public class ImprimirNotaFiscalDoPacienteModelo2 {
     //instancia da classe
     private Connection con = null;
-    private ESCPrinter imprimir = new ESCPrinter(usuariosDAO.impressora_nota_fiscal, true);
+    private ESCPrinter imprimir = new ESCPrinter(USUARIOS.impressora_nota_fiscal, true);
     private PacienteModel paciente = new PacienteModel();
     private int handle_at;
     public List<ExameModel> listaDeExames = new ArrayList<ExameModel>();

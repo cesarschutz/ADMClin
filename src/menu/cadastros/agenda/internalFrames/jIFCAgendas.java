@@ -8,6 +8,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -28,7 +29,6 @@ import javax.swing.text.MaskFormatter;
 
 import menu.cadastros.agenda.dao.agendasDAO;
 import menu.cadastros.agenda.model.agendasMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -317,7 +317,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
                         //fazer a inserção no banco
                         con = Conexao.fazConexao();
                         agendaModelo.setData(dataDeHojeEmVariavelDate);
-                        agendaModelo.setUsuarioId(usuariosDAO.usrId);
+                        agendaModelo.setUsuarioId(USUARIOS.usrId);
                         
                         //setando se agenda é ativa
                         if(jCBAtiva.getSelectedIndex() == 0){
@@ -569,7 +569,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
                         //fazer a inserção no banco
                         con = Conexao.fazConexao();
                         agendaModelo.setData(dataDeHojeEmVariavelDate);
-                        agendaModelo.setUsuarioId(usuariosDAO.usrId);
+                        agendaModelo.setUsuarioId(USUARIOS.usrId);
                         
                         
                         //setando se agenda é ativa

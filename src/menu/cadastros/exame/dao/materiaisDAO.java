@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import br.bcn.admclin.dao.USUARIOS;
 import menu.cadastros.exame.model.materiaisMODEL;
 import menu.cadastros.exame.model.valoresMateriaisMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  * Classe DAO da tabela MATERIAIS.
@@ -98,7 +100,7 @@ public class materiaisDAO {
             PreparedStatement stmtInsertMaterial = con.prepareStatement(sqlInsertMaterial);
             stmtInsertMaterial.setString(1, model.getNome());
             stmtInsertMaterial.setString(2, model.getCodigo());
-            stmtInsertMaterial.setInt(3, usuariosDAO.usrId);
+            stmtInsertMaterial.setInt(3, USUARIOS.usrId);
             stmtInsertMaterial.setDate(4, model.getData());
             stmtInsertMaterial.executeUpdate();
             stmtInsertMaterial.close();
@@ -116,7 +118,7 @@ public class materiaisDAO {
             stmtInsertValor.setString(2, valorModel.getValor());
             stmtInsertValor.setDate(3, valorModel.getDataAValer());
             stmtInsertValor.setDate(4, model.getData());
-            stmtInsertValor.setInt(5, usuariosDAO.usrId);
+            stmtInsertValor.setInt(5, USUARIOS.usrId);
             
             
             stmtInsertValor.executeUpdate();
@@ -161,7 +163,7 @@ public class materiaisDAO {
         String sql = "update materiais set usuarioid=?, dat=?, nome=?, codigo=? where handle_material=?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, usuariosDAO.usrId);
+            stmt.setInt(1, USUARIOS.usrId);
             stmt.setDate(2, material.getData());
             stmt.setString(3, material.getNome());
             stmt.setString(4, material.getCodigo());

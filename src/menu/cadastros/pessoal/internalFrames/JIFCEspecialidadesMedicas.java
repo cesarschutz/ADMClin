@@ -3,6 +3,7 @@ package menu.cadastros.pessoal.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -17,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import menu.cadastros.pessoal.dao.especialidades_medicasDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.pessoal.model.especialidades_medicasMODEL;
 
 /**
@@ -117,7 +117,7 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
                 }else{
                     //fazer a inserção no banco
                     con = Conexao.fazConexao();
-                    especialidadeMedicaMODELO.setUsuarioId(usuariosDAO.usrId);
+                    especialidadeMedicaMODELO.setUsuarioId(USUARIOS.usrId);
                     especialidadeMedicaMODELO.setDat(dataDeHojeEmVariavelDate);
                     boolean cadastro = especialidades_medicasDAO.setCadastrar(con, especialidadeMedicaMODELO);
                     Conexao.fechaConexao(con);
@@ -146,7 +146,7 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Especialidade Médica já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     con = Conexao.fazConexao();
-                    especialidadeMedica.setUsuarioId(usuariosDAO.usrId);
+                    especialidadeMedica.setUsuarioId(USUARIOS.usrId);
                     especialidadeMedica.setDat(dataDeHojeEmVariavelDate);
                     boolean atualizo = especialidades_medicasDAO.setUpdate(con, especialidadeMedica);
                     Conexao.fechaConexao(con);

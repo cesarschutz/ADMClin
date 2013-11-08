@@ -7,6 +7,7 @@ package menu.financeiro.relatorios.atendimentos.porClassesDeExames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -37,8 +38,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import menu.cadastros.pessoal.dao.usuariosDAO;
-
 /**
  *
  * @author BCN
@@ -65,9 +64,9 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
     String caminho;
     private void criandoAPastaParaSalvarOArquivo(){
         if (OSvalidator.isWindows()) {
-            caminho = usuariosDAO.pasta_raiz + "\\relatorioDeAtendimentos\\";
+            caminho = USUARIOS.pasta_raiz + "\\relatorioDeAtendimentos\\";
         }else{
-            caminho = usuariosDAO.pasta_raiz + "/relatorioDeAtendimentos/";
+            caminho = USUARIOS.pasta_raiz + "/relatorioDeAtendimentos/";
         }
         File dir = new File(caminho);  
         boolean result = dir.mkdirs();

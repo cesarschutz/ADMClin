@@ -7,6 +7,7 @@ package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -38,7 +39,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import menu.cadastros.convenio.dao.conveniosDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -76,16 +76,16 @@ public class faturaConvenio {
     private void criandoAPastaParaSalvarOArquivo(){
         if (OSvalidator.isWindows()) {
             if (tipo.equals("grupo")) {
-                caminho = usuariosDAO.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\";
             }else{
-                caminho = usuariosDAO.pasta_raiz + "\\FaturasDeConvenios\\";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConvenios\\";
             }
             
         }else{
             if (tipo.equals("grupo")) {
-                caminho = usuariosDAO.pasta_raiz + "/FaturasDeConveniosPorGrupo/";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConveniosPorGrupo/";
             }else{
-                caminho = usuariosDAO.pasta_raiz + "/FaturasDeConvenios/";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConvenios/";
             }
         }
         File dir = new File(caminho);  

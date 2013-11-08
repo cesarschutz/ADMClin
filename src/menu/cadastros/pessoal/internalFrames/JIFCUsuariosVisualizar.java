@@ -12,6 +12,9 @@ package menu.cadastros.pessoal.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.model.Usuario;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -28,15 +31,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.cadastros.pessoal.dao.usuariosDAO;
-import menu.cadastros.pessoal.model.usuariosMODEL;
-
 /**
  *
  * @author BCN
  */
 public class JIFCUsuariosVisualizar extends javax.swing.JInternalFrame {
-    public static List<usuariosMODEL> listaUsuarios = new ArrayList<usuariosMODEL>();
+    public static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
     private Connection con = null;
     /** Creates new form JIFCPacientesVisualizar */
     public JIFCUsuariosVisualizar() {
@@ -73,14 +73,19 @@ public class JIFCUsuariosVisualizar extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = usuariosDAO.getConsultar(con);
+        ResultSet resultSet = null;
+        try {
+            resultSet = USUARIOS.getConsultar(con);
+        } catch (SQLException e1) {
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao consultar Usuários. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         listaUsuarios.removeAll(listaUsuarios);            
         try{ 
             while(resultSet.next()){
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("USRID")),resultSet.getString("NM_USUARIO"),resultSet.getString("DS_UNIDADE")}); 
                 //colocando dados nos objetos
-                usuariosMODEL usuarioModel = new usuariosMODEL();
+                Usuario usuarioModel = new Usuario();
                 usuarioModel.setUsrid(resultSet.getInt("USRID"));
                 usuarioModel.setUsuario(resultSet.getString("NM_USUARIO"));
                 usuarioModel.setDescricao(resultSet.getString("DS_UNIDADE"));
@@ -106,17 +111,17 @@ public class JIFCUsuariosVisualizar extends javax.swing.JInternalFrame {
     
     public void botaoNovo(){
         this.dispose();
-        janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar = null;
+        janelaPrincipal.internalFrameUsuariosVisualizar = null;
         
-        janelaPrincipal.janelaPrincipal.internalFrameUsuarios = new JIFCUsuarios("novo", 0)  ;
-                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameUsuarios);
-                        janelaPrincipal.janelaPrincipal.internalFrameUsuarios.setVisible(true);
-                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameUsuarios.getWidth();     
-                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameUsuarios.getHeight();     
+        janelaPrincipal.internalFrameUsuarios = new JIFCUsuarios("novo", 0)  ;
+                        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameUsuarios);
+                        janelaPrincipal.internalFrameUsuarios.setVisible(true);
+                        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.internalFrameUsuarios.getWidth();     
+                        int aIFrame = janelaPrincipal.internalFrameUsuarios.getHeight();     
 
-                        janelaPrincipal.janelaPrincipal.internalFrameUsuarios.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.internalFrameUsuarios.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
 
     /** This method is called from within the constructor to
@@ -321,19 +326,19 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         if (jTable1.getSelectedRow() >= 0) {
             int usuarioId = Integer.valueOf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
 
-        janelaPrincipal.janelaPrincipal.internalFrameUsuarios = new JIFCUsuarios("editar", usuarioId)  ;
-                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameUsuarios);
-                        janelaPrincipal.janelaPrincipal.internalFrameUsuarios.setVisible(true);
-                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameUsuarios.getWidth();     
-                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameUsuarios.getHeight();     
+        janelaPrincipal.internalFrameUsuarios = new JIFCUsuarios("editar", usuarioId)  ;
+                        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameUsuarios);
+                        janelaPrincipal.internalFrameUsuarios.setVisible(true);
+                        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.internalFrameUsuarios.getWidth();     
+                        int aIFrame = janelaPrincipal.internalFrameUsuarios.getHeight();     
 
-                        janelaPrincipal.janelaPrincipal.internalFrameUsuarios.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.internalFrameUsuarios.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
 
                         
         this.dispose();
-        janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar = null;
+        janelaPrincipal.internalFrameUsuariosVisualizar = null;
         }
         
         

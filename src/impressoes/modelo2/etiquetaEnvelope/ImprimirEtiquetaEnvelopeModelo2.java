@@ -14,7 +14,7 @@ import javax.naming.spi.DirStateFactory;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.dao.DADOS_EMPRESA;
-import menu.cadastros.pessoal.dao.usuariosDAO;
+import br.bcn.admclin.dao.USUARIOS;
 
 /**
  *
@@ -24,7 +24,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
 
     private int handle_at;
     private Connection con = null;
-    private ESCPrinter imprimir = new ESCPrinter(usuariosDAO.impressora_etiqueta_envelope, true);
+    private ESCPrinter imprimir = new ESCPrinter(USUARIOS.impressora_etiqueta_envelope, true);
     private String nomePaciente, modalidade, dataAtendimento;
     
     public ImprimirEtiquetaEnvelopeModelo2(int handle_at) {

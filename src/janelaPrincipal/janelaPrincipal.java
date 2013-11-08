@@ -22,6 +22,7 @@ import javax.swing.SwingWorker;
 
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
+import br.bcn.admclin.dao.USUARIOS;
 import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFCPacientesAtendimentos;
@@ -40,7 +41,6 @@ import menu.atendimentos.agenda.atendimentos.internalFrames.JIFCMedicosAtendimen
 import menu.atendimentos.agenda.internalFrames.JIFAgendamento;
 import menu.atendimentos.agenda.internalFrames.JIFAgendamentoSelecionarUmPaciente;
 import menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.financeiro.relatorios.atendimentos.jIFFinanceiroAtendimentos;
 import menu.financeiro.relatorios.demed.jIFDemed;
 import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFFaturarConvenios;
@@ -153,7 +153,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
             @Override  
             public void windowClosing(WindowEvent we) {  
                 //se for pra fechar ele apaga as pastas, se tiver pra nao fazer nada ele nao apaga 
-                File dir = new File(usuariosDAO.pasta_raiz);
+                File dir = new File(USUARIOS.pasta_raiz);
                 apagarPasta(dir);
                 
             }  

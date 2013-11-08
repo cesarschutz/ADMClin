@@ -14,6 +14,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -40,7 +41,6 @@ import menu.cadastros.agenda.dao.a_feriadosNDAO;
 import menu.cadastros.agenda.dao.agendasDAO;
 import menu.cadastros.agenda.model.a_feriadosMODEL;
 import menu.cadastros.agenda.model.a_feriadosNMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
     
 /**
  *
@@ -330,7 +330,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
                         //fazer a inserção no banco
                         con = Conexao.fazConexao();
                         feriadoNModel.setDat(dataDeHojeEmVariavelDate);
-                        feriadoNModel.setUsuarioId(usuariosDAO.usrId);
+                        feriadoNModel.setUsuarioId(USUARIOS.usrId);
                         feriadoNModel.setDescricao(jTADescricao.getText());
                         feriadoNModel.setDiaDoFeriado(jTFDiaDoIntervalo.getText());
                         
@@ -446,7 +446,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
                         //fazer a inserção no banco
                         con = Conexao.fazConexao();
                         feriadoNModel.setDat(dataDeHojeEmVariavelDate);
-                        feriadoNModel.setUsuarioId(usuariosDAO.usrId);
+                        feriadoNModel.setUsuarioId(USUARIOS.usrId);
                         feriadoNModel.setDescricao(jTADescricao.getText());
                         feriadoNModel.setDiaDoFeriado(jTFDiaDoIntervalo.getText());
                        

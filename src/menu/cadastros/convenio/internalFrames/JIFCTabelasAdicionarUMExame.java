@@ -13,6 +13,7 @@ package menu.cadastros.convenio.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.jTextFieldDinheiroReaisCom5CasasDecimais;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -36,7 +37,6 @@ import javax.swing.table.DefaultTableModel;
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.convenio.model.tabelasMODEL;
 import menu.cadastros.exame.dao.examesDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -135,7 +135,7 @@ public class JIFCTabelasAdicionarUMExame extends javax.swing.JInternalFrame {
                 boolean cadastro = false;
                             con = Conexao.fazConexao();
                             tabelasMODEL tabelaModelo = new tabelasMODEL();
-                            tabelaModelo.setUsuarioId(usuariosDAO.usrId);
+                            tabelaModelo.setUsuarioId(USUARIOS.usrId);
                             tabelaModelo.setDat(dataDeHojeEmVariavelDate);
                             tabelaModelo.sethandle_convenio(Integer.valueOf(handle_convenio));
                             tabelaModelo.sethandle_exame(listaHandle_Exame.get(jCBExames.getSelectedIndex()));

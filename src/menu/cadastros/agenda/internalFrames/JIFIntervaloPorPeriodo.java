@@ -13,6 +13,7 @@ package menu.cadastros.agenda.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -38,7 +39,6 @@ import menu.cadastros.agenda.dao.a_intervalosPorPeriodoNDAO;
 import menu.cadastros.agenda.dao.agendasDAO;
 import menu.cadastros.agenda.model.a_intervalosPorPeriodoMODEL;
 import menu.cadastros.agenda.model.a_intervalosPorPeriodoNMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
     
 /**
  *
@@ -269,7 +269,7 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
                         //fazer a inserção no banco
                         con = Conexao.fazConexao();
                         intervaloPorPeriodoNModel.setDat(dataDeHojeEmVariavelDate);
-                        intervaloPorPeriodoNModel.setUsuarioId(usuariosDAO.usrId);
+                        intervaloPorPeriodoNModel.setUsuarioId(USUARIOS.usrId);
                         intervaloPorPeriodoNModel.setDescricao(jTADescricao.getText());
                         intervaloPorPeriodoNModel.setHorarioInicial(MetodosUteis.transformarHorarioEmMinutos(jTFHorarioInicial.getText()));
                         intervaloPorPeriodoNModel.setHorarioFinal(MetodosUteis.transformarHorarioEmMinutos(jTFHorarioFinal.getText()));
@@ -416,7 +416,7 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
                         //fazer a inserção no banco
                         con = Conexao.fazConexao();
                         intervaloPorPeriodoNModel.setDat(dataDeHojeEmVariavelDate);
-                        intervaloPorPeriodoNModel.setUsuarioId(usuariosDAO.usrId);
+                        intervaloPorPeriodoNModel.setUsuarioId(USUARIOS.usrId);
                         intervaloPorPeriodoNModel.setDescricao(jTADescricao.getText());
                         intervaloPorPeriodoNModel.setHorarioInicial(MetodosUteis.transformarHorarioEmMinutos(jTFHorarioInicial.getText()));
                         intervaloPorPeriodoNModel.setHorarioFinal(MetodosUteis.transformarHorarioEmMinutos(jTFHorarioFinal.getText()));

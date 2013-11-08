@@ -15,6 +15,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -38,7 +39,6 @@ import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import menu.cadastros.pessoal.dao.especialidades_medicasDAO;
 import menu.cadastros.pessoal.dao.medicosDAO;
 import menu.cadastros.pessoal.dao.pacientesDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.pessoal.model.medicosMODEL;
 
 /**
@@ -185,7 +185,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             medicosMODEL medicosMODEL = new medicosMODEL();
                    //fazer a inserção no banco
                     con = Conexao.fazConexao();
-                    medicosMODEL.setUsuarioId(usuariosDAO.usrId);
+                    medicosMODEL.setUsuarioId(USUARIOS.usrId);
                     medicosMODEL.setDat(dataDeHojeEmVariavelDate);
                     medicosMODEL.setNome(jTFNome.getText());
                     medicosMODEL.setCrm(jTFCRM.getText());
@@ -223,7 +223,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             medicosMODEL medicosMODEL = new medicosMODEL();
                    //fazer a inserção no banco
                     con = Conexao.fazConexao();
-                    medicosMODEL.setUsuarioId(usuariosDAO.usrId);
+                    medicosMODEL.setUsuarioId(USUARIOS.usrId);
                     medicosMODEL.setDat(dataDeHojeEmVariavelDate);
                     medicosMODEL.setNome(jTFNome.getText());
                     medicosMODEL.setMedicoId(medicoId);

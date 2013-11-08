@@ -5,11 +5,15 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcentoMinusculas;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.model.Usuario;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,9 +21,6 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import menu.cadastros.pessoal.dao.usuariosDAO;
-import menu.cadastros.pessoal.model.usuariosMODEL;
 
 /**
  *
@@ -128,17 +129,17 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
     /**Volta a janela ao seu estado inicial, dexando inativo os jTextField por exemplo.*/
     public void botaoCancelar(){
         this.dispose();
-        janelaPrincipal.janelaPrincipal.internalFrameUsuarios = null;
+        janelaPrincipal.internalFrameUsuarios = null;
         
-        janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar = new JIFCUsuariosVisualizar();
-        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar);
-        janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar.setVisible(true);
-        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar.getWidth();     
-        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar.getHeight();     
+        janelaPrincipal.internalFrameUsuariosVisualizar = new JIFCUsuariosVisualizar();
+        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameUsuariosVisualizar);
+        janelaPrincipal.internalFrameUsuariosVisualizar.setVisible(true);
+        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();     
+        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();     
+        int lIFrame = janelaPrincipal.internalFrameUsuariosVisualizar.getWidth();     
+        int aIFrame = janelaPrincipal.internalFrameUsuariosVisualizar.getHeight();     
 
-        janelaPrincipal.janelaPrincipal.internalFrameUsuariosVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.internalFrameUsuariosVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
     /**Salva uma nova classe de exame na banco de dados.*/
     public void botaoSalvarRegistro(){
@@ -159,14 +160,18 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                 String estatus = null;
                 String enviaEmaill = null;
                 //fazendo um if para verificar se descricao ou referencia ja existem
-                usuariosMODEL usuarioModel = new usuariosMODEL();
+                Usuario usuarioModel = new Usuario();
                 //setando os atributos da classe objeto de acordo com os campos
                 con = Conexao.fazConexao();
                 usuarioModel.setUsuario(jTFUsuario.getText().toUpperCase());
                 usuarioModel.setSenha(jTFSenha.getText().toUpperCase());
-                boolean existe = usuariosDAO.getConsultarParaSalvarNovoRegistro(con, usuarioModel);
+                boolean existe = false;
+                try {
+                    existe = USUARIOS.getConsultarParaSalvarNovoRegistro(con, usuarioModel);
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao consultar usuário.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
                 Conexao.fechaConexao(con);
-                if(usuariosDAO.conseguiuConsulta){
                     if(existe){
                     JOptionPane.showMessageDialog(null, "Usuário já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -216,7 +221,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                             enviaEmaill = "N";
                         }
                         usuarioModel.setEnvia_email(enviaEmaill);
-                        usuarioModel.setUsuarioId(usuariosDAO.usrId);
+                        usuarioModel.setUsuarioId(USUARIOS.usrId);
                         usuarioModel.setDat(dataDeHojeEmVariavelDate);
                         usuarioModel.setImpressora_ficha(jTFImpressoraFicha.getText());
                         usuarioModel.setImpressora_etiqueta_envelope(jTFImpressoraEtiquetaEnvelope.getText());
@@ -226,14 +231,18 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                         
                         
                         con = Conexao.fazConexao();
-                        boolean cadastro = usuariosDAO.setCadastrar(con, usuarioModel);
+                        boolean cadastro = false;
+                        try {
+                            cadastro = USUARIOS.setCadastrar(con, usuarioModel);
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao cadastrar Usuário. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
                         Conexao.fechaConexao(con);
                         //atualiza tabela
                         if(cadastro){
                             botaoCancelar();
                         }
                     }
-                }
             }else{
                 jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
                 jTFMensagemParaUsuario.setText("Selecione um ESTATUS para o usuário");
@@ -255,14 +264,18 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         if(senhaOk && usuarioOk && descricaoOk && emailOk && enviaEmail){
             if(estatusOk){
                 //fazendo um if para verificar se descricao ou referencia ja existem
-                usuariosMODEL usuarioModel = new usuariosMODEL();
+                Usuario usuarioModel = new Usuario();
                 usuarioModel.setUsuario(jTFUsuario.getText());
                 usuarioModel.setSenha(jTFSenha.getText());
                 usuarioModel.setUsrid(usuarioId);
                 con = Conexao.fazConexao();
-                boolean existe = usuariosDAO.getConsultarParaAtualizarRegistro(con, usuarioModel);
+                boolean existe = true;
+                try {
+                    existe = USUARIOS.getConsultarParaAtualizarRegistro(con, usuarioModel);
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao consultar Usuário. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
                 Conexao.fechaConexao(con);
-                if(usuariosDAO.conseguiuConsulta){
                     if(existe){
                     JOptionPane.showMessageDialog(null,"Usuário já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -313,7 +326,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                             enviaEmaill = "N";
                         }
                         usuarioModel.setEnvia_email(enviaEmaill);
-                        usuarioModel.setUsuarioId(usuariosDAO.usrId);
+                        usuarioModel.setUsuarioId(USUARIOS.usrId);
                         usuarioModel.setDat(dataDeHojeEmVariavelDate);
                         usuarioModel.setImpressora_ficha(jTFImpressoraFicha.getText());
                         usuarioModel.setImpressora_etiqueta_envelope(jTFImpressoraEtiquetaEnvelope.getText());
@@ -321,14 +334,18 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                         usuarioModel.setPasta_raiz(jTFPastaRaiz.getText());
                         usuarioModel.setImpressora_codigo_de_barras(jTFImpressora_cod_de_barras.getText());
                         con = Conexao.fazConexao();
-                        boolean atualizo = usuariosDAO.setUpdate(con, usuarioModel);
+                        boolean atualizo = false;;
+                        try {
+                            atualizo = USUARIOS.setUpdate(con, usuarioModel);
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao atualizar Usuário. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
                         Conexao.fechaConexao(con);
                         if(atualizo){
                             JOptionPane.showMessageDialog(null, "É necessário fazer Logoff para efetivar essa alteração.");
                             botaoCancelar();
                        }
                    }
-                }
             }else{
                 jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
                 jTFMensagemParaUsuario.setText("Selecione um ESTATUS para o usuário");
@@ -340,10 +357,15 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Usuário?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
             //fazer o delete de acordo com o codigo
-            usuariosMODEL usuarioModel = new usuariosMODEL();
+            Usuario usuarioModel = new Usuario();
             usuarioModel.setUsrid(usuarioId);
             con = Conexao.fazConexao();
-            boolean deleto = usuariosDAO.setDeletar(con, usuarioModel);
+            boolean deleto = false;
+            try {
+                deleto = USUARIOS.setDeletar(con, usuarioModel);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao deletar Usuário. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
             Conexao.fechaConexao(con);
             //atualizar tabela
             if(deleto){

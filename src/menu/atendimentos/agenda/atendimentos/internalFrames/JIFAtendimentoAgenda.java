@@ -8,6 +8,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import calculoValorDeUmExame.calculoValorDeExame;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
 import impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
@@ -49,7 +50,6 @@ import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.atendimentos.agenda.dao.examesDAO;
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /*
  * To change this template, choose Tools | Templates
@@ -377,7 +377,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         
         ATENDIMENTOS_MODEL atendimentoMODEL = new ATENDIMENTOS_MODEL();
         
-        atendimentoMODEL.setUSUARIOID(usuariosDAO.usrId);
+        atendimentoMODEL.setUSUARIOID(USUARIOS.usrId);
         atendimentoMODEL.setDAT(dataDeHojeEmVariavelDate);
         
         atendimentoMODEL.setHANDLE_AGENDA(handle_agenda);
@@ -926,7 +926,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 deletarExamesDeUmAtendimento();
                 //cadastrando atendimento na tabela atendimentos
                 ATENDIMENTOS_MODEL atendimento = new ATENDIMENTOS_MODEL();
-                atendimento.setUSUARIOID(usuariosDAO.usrId);
+                atendimento.setUSUARIOID(USUARIOS.usrId);
                 atendimento.setDAT(dataDeHojeEmVariavelDate);
                 atendimento.setHANDLE_AT(handle_at);
                 
@@ -2482,8 +2482,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             boolean imprimiu = false;
                    @Override  
                    protected Object doInBackground() throws Exception {
-                       if (usuariosDAO.impressora_nota_fiscal.contains("http")) {
-                           String retorno = MetodosUteis.imprimir(usuariosDAO.impressora_nota_fiscal, "2", String.valueOf(handle_at));
+                       if (USUARIOS.impressora_nota_fiscal.contains("http")) {
+                           String retorno = MetodosUteis.imprimir(USUARIOS.impressora_nota_fiscal, "2", String.valueOf(handle_at));
                            if (retorno.equals("NOT") || retorno.length() > 5) {
                                JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
                            }else{
@@ -2674,8 +2674,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                            ImprimirFichaEBoletoDeRetiradaModelo2 imprimirFicha = new ImprimirFichaEBoletoDeRetiradaModelo2(handle_at);
                            abriuFicha = imprimirFicha.imprimir();
                        } else if(janelaPrincipal.modeloDeImpressao == 3){
-                           if (usuariosDAO.impressora_ficha.contains("http")) {
-                                String retorno = MetodosUteis.imprimir(usuariosDAO.impressora_ficha, "3", String.valueOf(handle_at));
+                           if (USUARIOS.impressora_ficha.contains("http")) {
+                                String retorno = MetodosUteis.imprimir(USUARIOS.impressora_ficha, "3", String.valueOf(handle_at));
                                 if (retorno.equals("NOT") || retorno.length() > 5) {
                                     JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
                                 }else{

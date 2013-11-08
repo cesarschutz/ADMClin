@@ -39,6 +39,7 @@ import ClasseAuxiliares.ColunaAceitandoIcone;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
 import impressoes.modelo1.etiqueta.ImprimirEtiquetaEnvelopeModelo1;
 import impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
@@ -72,7 +73,6 @@ import javax.swing.table.TableColumn;
 
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -1413,8 +1413,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                            ImprimirFichaEBoletoDeRetiradaModelo2 imprimirFicha = new ImprimirFichaEBoletoDeRetiradaModelo2(handle_at);
                            abriuFicha = imprimirFicha.imprimir();
                        } else if(janelaPrincipal.modeloDeImpressao == 3){
-                           if (usuariosDAO.impressora_ficha.contains("http")) {
-                                String retorno = MetodosUteis.imprimir(usuariosDAO.impressora_ficha, "3", String.valueOf(handle_at));
+                           if (USUARIOS.impressora_ficha.contains("http")) {
+                                String retorno = MetodosUteis.imprimir(USUARIOS.impressora_ficha, "3", String.valueOf(handle_at));
                                 if (retorno.equals("NOT") || retorno.length() > 5) {
                                     JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
                                 }else{
@@ -1486,9 +1486,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                     ImprimirEtiquetaEnvelopeModelo1 imprimirEtiqueta = new ImprimirEtiquetaEnvelopeModelo1(handle_at);
                     abriuEtiqueta = imprimirEtiqueta.salvarEIMprimirEtiqueta();
                 } else if(janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3){
-                    if (usuariosDAO.impressora_etiqueta_envelope.contains("http")) {
+                    if (USUARIOS.impressora_etiqueta_envelope.contains("http")) {
                         
-                        String retorno = MetodosUteis.imprimir(usuariosDAO.impressora_etiqueta_envelope, "1", String.valueOf(handle_at));
+                        String retorno = MetodosUteis.imprimir(USUARIOS.impressora_etiqueta_envelope, "1", String.valueOf(handle_at));
                         
                         if (retorno.equals("NOT") || retorno.length()>5) {
                             JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1528,15 +1528,15 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                    protected Object doInBackground() throws Exception {
                        boolean abriuEtiqueta = false;
                        
-                       if (usuariosDAO.impressora_codigo_de_barras.contains("http")) {
-                           String retorno = MetodosUteis.imprimir(usuariosDAO.impressora_codigo_de_barras, "0", String.valueOf(handle_at));
+                       if (USUARIOS.impressora_codigo_de_barras.contains("http")) {
+                           String retorno = MetodosUteis.imprimir(USUARIOS.impressora_codigo_de_barras, "0", String.valueOf(handle_at));
                            if (retorno.equals("NOT") || retorno.length()>5) {
                                JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
                            }else{
                                abriuEtiqueta = true;
                            }
                        }else{
-                           ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at,usuariosDAO.impressora_codigo_de_barras);
+                           ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at,USUARIOS.impressora_codigo_de_barras);
                            abriuEtiqueta = imprimir.writeFile();
                        }
                        

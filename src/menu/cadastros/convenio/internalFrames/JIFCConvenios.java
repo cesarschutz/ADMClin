@@ -14,6 +14,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -37,7 +38,6 @@ import menu.cadastros.convenio.dao.conveniosChDAO;
 import menu.cadastros.convenio.dao.conveniosDAO;
 import menu.cadastros.convenio.dao.conveniosFilmeDAO;
 import menu.cadastros.convenio.model.conveniosMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -241,7 +241,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
                     convenioMODEL.setPorcentConvenio(jTFPorcentConvenio.getText());
                     convenioMODEL.setPorcentPaciente(jTFPorcentPaciente.getText());
                     convenioMODEL.setRedutor(jTFRedutor.getText());
-                    convenioMODEL.setUsuarioId(usuariosDAO.usrId);
+                    convenioMODEL.setUsuarioId(USUARIOS.usrId);
                     convenioMODEL.setDat(dataDeHojeEmVariavelDate);
                     convenioMODEL.setHandle_convenio(handle_convenio);
                     convenioMODEL.setVALIDACAO_MATRICULA(jCBVerificacao_matricula.getSelectedIndex());

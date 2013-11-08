@@ -2,16 +2,19 @@
 package menu.cadastros.exame.dao;
 
 import ClasseAuxiliares.MetodosUteis;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import br.bcn.admclin.dao.USUARIOS;
 import menu.cadastros.exame.model.valoresMateriaisMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  * Classe DAO da tabela ValoresMateriais
@@ -92,7 +95,7 @@ public class valoresMateriaisDAO {
             stmtInsertValor.setString(2, valorMaterialModel.getValor());
             stmtInsertValor.setDate(3, valorMaterialModel.getDataAValer());
             stmtInsertValor.setDate(4, valorMaterialModel.getData());
-            stmtInsertValor.setInt(5, usuariosDAO.usrId);
+            stmtInsertValor.setInt(5, USUARIOS.usrId);
             stmtInsertValor.executeUpdate();
             stmtInsertValor.close();           
             cadastro = true;

@@ -10,6 +10,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -31,7 +32,6 @@ import javax.swing.table.DefaultTableModel;
 
 import menu.atendimentos.agenda.model.a_agendamentosMODEL;
 import menu.atendimentos.agenda.model.pacientesMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import calculoValorDeUmExame.calculoValorDeExame;
 
 import java.awt.event.ActionEvent;
@@ -205,7 +205,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         
         a_agendamentosMODEL agendamentoMODEL = new a_agendamentosMODEL();
         con = Conexao.fazConexao();
-        agendamentoMODEL.setUSUARIOID(usuariosDAO.usrId);
+        agendamentoMODEL.setUSUARIOID(USUARIOS.usrId);
         agendamentoMODEL.setDat(dataDeHojeEmVariavelDate);
         
         agendamentoMODEL.setHANDLE_AGENDA(handle_agenda);
@@ -499,7 +499,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                 con = Conexao.fazConexao();
                 
                 pacientesMODEL pacienteModel = new pacientesMODEL();
-                pacienteModel.setUsuarioId(usuariosDAO.usrId);
+                pacienteModel.setUsuarioId(USUARIOS.usrId);
                 pacienteModel.setDat(dataDeHojeEmVariavelDate);
                 pacienteModel.setHANDLE_PACIENTE(handle_paciente);
                 pacienteModel.setTelefone(jTFTelefone.getText());
@@ -522,7 +522,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                     //fazer a inserção no banco
                     a_agendamentosMODEL agendamentoMODEL = new a_agendamentosMODEL();
                     con = Conexao.fazConexao();
-                    agendamentoMODEL.setUSUARIOID(usuariosDAO.usrId);
+                    agendamentoMODEL.setUSUARIOID(USUARIOS.usrId);
                     agendamentoMODEL.setDat(dataDeHojeEmVariavelDate);
 
                     //setando dia do agendamento

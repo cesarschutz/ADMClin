@@ -12,6 +12,7 @@ package menu.cadastros.convenio.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import ClasseAuxiliares.jTextFieldDinheiroReaisCom5CasasDecimais;
 
 import java.awt.Dimension;
@@ -28,7 +29,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.convenio.model.tabelasMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -80,7 +80,7 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
     public void botaoOk(){
             con = Conexao.fazConexao();
             tabelasMODEL tabelaMODELO = new tabelasMODEL();
-            tabelaMODELO.setUsuarioId(usuariosDAO.usrId);
+            tabelaMODELO.setUsuarioId(USUARIOS.usrId);
             tabelaMODELO.setDat(dataDeHojeEmVariavelDate);
             tabelaMODELO.setCofCh1(jTFCofCh1.getText().replace(",", "."));
             tabelaMODELO.setCofCh2(jTFCofCh2.getText().replace(",", "."));

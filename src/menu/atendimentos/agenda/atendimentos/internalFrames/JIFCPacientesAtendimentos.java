@@ -4,6 +4,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -22,7 +23,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import menu.cadastros.pessoal.dao.pacientesDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.pessoal.model.pacientesMODEL;
 
 /**
@@ -180,7 +180,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         if(verificarSeNomeENascimentoFOramPreenchidosCorretamente()){
             //salva no banco
             pacientesMODEL pacienteModel = new pacientesMODEL();
-                    pacienteModel.setUsuarioId(usuariosDAO.usrId);
+                    pacienteModel.setUsuarioId(USUARIOS.usrId);
                     pacienteModel.setData(dataDeHojeEmVariavelDate);
                     
                     pacienteModel.setNome(jTFNome.getText());
@@ -230,7 +230,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         if(verificarSeNomeENascimentoFOramPreenchidosCorretamente()){
             //salva no banco
             pacientesMODEL pacienteModel = new pacientesMODEL();
-                    pacienteModel.setUsuarioId(usuariosDAO.usrId);
+                    pacienteModel.setUsuarioId(USUARIOS.usrId);
                     pacienteModel.setData(dataDeHojeEmVariavelDate);
                     pacienteModel.setNome(jTFNome.getText());
                     pacienteModel.setHandle_paciente(handle_paciente);

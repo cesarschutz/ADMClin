@@ -8,6 +8,8 @@ import ClasseAuxiliares.OSvalidator;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
+import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.model.Usuario;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -19,9 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import menu.cadastros.pessoal.dao.usuariosDAO;
-import menu.cadastros.pessoal.model.usuariosMODEL;
 
 /**
  *
@@ -64,10 +63,10 @@ public class jIFLogin extends javax.swing.JInternalFrame {
         
         
         //aqui vamos fazer o login
-        usuariosMODEL usuarioModel = new usuariosMODEL();
+        Usuario usuarioModel = new Usuario();
         usuarioModel.setUsuario(jTFUsuario.getText());
         usuarioModel.setSenha(jTFSenha.getText());
-        boolean existe = usuariosDAO.getLogin(con, usuarioModel);
+        boolean existe = USUARIOS.getLogin(con, usuarioModel);
         Conexao.fechaConexao(con);
             if(existe){
                 
@@ -78,11 +77,11 @@ public class jIFLogin extends javax.swing.JInternalFrame {
 
 
                 //administrador tem acesso a tudo, se for financeiro bloqueia cadastros, e qualquer outro bloqueia cadastros e financeiro
-                if(!"A".equals(usuariosDAO.statusUsuario) && !"F".equals(usuariosDAO.statusUsuario)){
+                if(!"A".equals(USUARIOS.statusUsuario) && !"F".equals(USUARIOS.statusUsuario)){
                     //diferente de administrador e financeiro, bloqueia cadastros e financeiro
                     janelaPrincipal.jMCadastros.setVisible(false);
                     janelaPrincipal.jMFinanceiro.setVisible(false);
-                }else if("F".equals(usuariosDAO.statusUsuario)){
+                }else if("F".equals(USUARIOS.statusUsuario)){
                     //financeiro bloqueia cadastros
                     janelaPrincipal.jMCadastros.setVisible(false);
                 }

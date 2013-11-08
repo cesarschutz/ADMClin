@@ -8,6 +8,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -32,7 +33,6 @@ import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.exame.dao.examesDAO;
 import menu.cadastros.exame.dao.tb_classesdeexamesDAO;
 import menu.cadastros.exame.model.examesMODEL;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -257,7 +257,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     //fazer a inserção no banco
                     con = Conexao.fazConexao();
                     exameModel.setQtdHoras(jTFHorasUteis.getText());
-                    exameModel.setUsuarioId(usuariosDAO.usrId);
+                    exameModel.setUsuarioId(USUARIOS.usrId);
                     exameModel.setData(dataDeHojeEmVariavelDate);
                     exameModel.setHANDLE_CLASSEDEEXAME(listaHANDLE_CLASSESDEEXAMES.get(jCBDescricaoClasse.getSelectedIndex()));
                     exameModel.setModalidade(String.valueOf(jCBModalidade.getSelectedItem()));
@@ -306,7 +306,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Descrição já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     con = Conexao.fazConexao();
-                    exameModel.setUsuarioId(usuariosDAO.usrId);
+                    exameModel.setUsuarioId(USUARIOS.usrId);
                     exameModel.setData(dataDeHojeEmVariavelDate);     
                     exameModel.setDuracao(Integer.valueOf(jTFDuracao.getText()));
                     exameModel.setNOME(jTFNome.getText().toUpperCase());

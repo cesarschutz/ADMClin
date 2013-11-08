@@ -18,14 +18,14 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.dao.DADOS_EMPRESA;
-import menu.cadastros.pessoal.dao.usuariosDAO;
+import br.bcn.admclin.dao.USUARIOS;
 
 /**
  * @author BCN
  */
 public class ImprimirFichaEBoletoDeRetiradaModelo2 {
     private Connection con = null;
-    private ESCPrinter imprimir =  new ESCPrinter(usuariosDAO.impressora_ficha, true);
+    private ESCPrinter imprimir =  new ESCPrinter(USUARIOS.impressora_ficha, true);
     private int handle_at;
     private List<ImprimirFichaEBoletoDeRetiradaModelo2MODEL> listaDeExames = new ArrayList<ImprimirFichaEBoletoDeRetiradaModelo2MODEL>();
     

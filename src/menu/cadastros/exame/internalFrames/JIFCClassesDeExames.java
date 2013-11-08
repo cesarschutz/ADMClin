@@ -3,6 +3,7 @@ package menu.cadastros.exame.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -21,7 +22,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import menu.cadastros.exame.dao.tb_classesdeexamesDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.exame.model.tb_classesdeexamesMODEL;
 
 /**
@@ -149,7 +149,7 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
                     //fazer a inserção no banco
                     con = Conexao.fazConexao();
                     classeDeExameModelo.setDescricao(jTDescricao.getText().toUpperCase());
-                    classeDeExameModelo.setUsuarioid(usuariosDAO.usrId);
+                    classeDeExameModelo.setUsuarioid(USUARIOS.usrId);
                     classeDeExameModelo.setData(dataDeHojeEmVariavelDate);
                     classeDeExameModelo.setModIdx(listaCodModalidade.get(jCBModalidade.getSelectedIndex()));
                     boolean cadastro = tb_classesdeexamesDAO.setCadastrar(con, classeDeExameModelo);
@@ -181,7 +181,7 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Classe de Exame já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     con = Conexao.fazConexao();
-                    classeDeExameModel.setUsuarioid(usuariosDAO.usrId);
+                    classeDeExameModel.setUsuarioid(USUARIOS.usrId);
                     classeDeExameModel.setData(dataDeHojeEmVariavelDate);
                     classeDeExameModel.setModIdx(listaCodModalidade.get(jCBModalidade.getSelectedIndex()));
                     boolean atualizo = tb_classesdeexamesDAO.setUpdate(con, classeDeExameModel);

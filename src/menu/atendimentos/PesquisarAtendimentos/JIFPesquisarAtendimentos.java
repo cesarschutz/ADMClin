@@ -8,6 +8,7 @@ import ClasseAuxiliares.ColunaAceitandoIcone;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 import janelaPrincipal.janelaPrincipal;
 import static janelaPrincipal.janelaPrincipal.jDesktopPane1;
 
@@ -39,7 +40,6 @@ import javax.swing.table.TableColumn;
 
 import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 
 /**
  *
@@ -451,7 +451,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         //cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
         //se for financeiro ou administrador libera o menu editar atendimento
-        if ("A".equals(usuariosDAO.statusUsuario) || "F".equals(usuariosDAO.statusUsuario)) {
+        if ("A".equals(USUARIOS.statusUsuario) || "F".equals(USUARIOS.statusUsuario)) {
             popup.add(editarAtendimento);
         }
         popup.add(visualizarAtendimento);

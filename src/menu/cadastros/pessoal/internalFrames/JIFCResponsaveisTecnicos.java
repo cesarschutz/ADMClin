@@ -3,6 +3,7 @@ package menu.cadastros.pessoal.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -17,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import menu.cadastros.pessoal.dao.responsaveis_tecnicosDAO;
-import menu.cadastros.pessoal.dao.usuariosDAO;
 import menu.cadastros.pessoal.model.responsaveis_tecnicosMODEL;
 
 /**
@@ -126,7 +126,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "CPF já cadastrado","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     //fazer a inserção no banco
-                    responsavelTecnicoModel.setUsuarioId(usuariosDAO.usrId);
+                    responsavelTecnicoModel.setUsuarioId(USUARIOS.usrId);
                     responsavelTecnicoModel.setData(dataDeHojeEmVariavelDate);
                     responsavelTecnicoModel.setNome(jTFNome.getText().toUpperCase());
                     responsavelTecnicoModel.setConselho(jTFConselho.getText().toUpperCase());
@@ -172,7 +172,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
                 if(existe){
                     JOptionPane.showMessageDialog(null, "CPF já cadastrado","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
-                    responsavelTecnicoModel.setUsuarioId(usuariosDAO.usrId);
+                    responsavelTecnicoModel.setUsuarioId(USUARIOS.usrId);
                     responsavelTecnicoModel.setData(dataDeHojeEmVariavelDate);
                     responsavelTecnicoModel.setNome(jTFNome.getText().toUpperCase());
                     responsavelTecnicoModel.setConselho(jTFConselho.getText().toUpperCase());
