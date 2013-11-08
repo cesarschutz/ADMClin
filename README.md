@@ -12,3 +12,5 @@ ENVIA_EMAILS - VARCHAR -> CHAR
 
 Tabela: AGENDAS
 Nenhuma alteração.
+
+Tabela: 
