@@ -11,8 +11,19 @@ import java.sql.Date;
  * @author BCN
  */
 public class Usuario {
-    private int usrid,usuarioId;
-    private String usuario, descricao,senha,estatus,email,envia_email, impressora_ficha, impressora_nota_fiscal, impressora_etiqueta_envelope, impressora_codigo_de_barras, pasta_raiz;
+    private int usrid;
+    private int usuarioId;
+    private String usuario;
+    private String descricao;
+    private String senha;
+    private String estatus;
+    private String email;
+    private String envia_email;
+    private String impressora_ficha;
+    private String impressora_nota_fiscal;
+    private String impressora_etiqueta_envelope;
+    private String impressora_codigo_de_barras;
+    private String pasta_raiz;
     private Date dat;
 
     public String getDescricao() {
