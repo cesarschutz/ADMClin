@@ -89,13 +89,11 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
         }
     }
     
-    private String nomeEmpresa, telefoneEmpresa, enderecoEmpresa;
+    private String nomeEmpresa;
     private void buscarInformacoesDaEmpresa() throws SQLException{
         ResultSet resultSet = DADOS_EMPRESA.getConsultar(con);
         while(resultSet.next()){
             nomeEmpresa = resultSet.getString("nome");
-            telefoneEmpresa = resultSet.getString("telefone");
-            enderecoEmpresa = resultSet.getString("endereco");
         }
     }
     

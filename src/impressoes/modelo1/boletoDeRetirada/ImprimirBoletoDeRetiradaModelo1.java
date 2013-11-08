@@ -87,12 +87,13 @@ public class ImprimirBoletoDeRetiradaModelo1 {
         }
     }
     
-    private String nomeEmpresa, telefoneEmpresa, enderecoEmpresa;
+    private String nomeEmpresa, enderecoEmpresa;
+    private int telefoneEmpresa;
     private void buscarInformacoesDaEmpresa() throws SQLException{
         ResultSet resultSet = DADOS_EMPRESA.getConsultar(con);
         while(resultSet.next()){
             nomeEmpresa = resultSet.getString("nome");
-            telefoneEmpresa = resultSet.getString("telefone");
+            telefoneEmpresa = resultSet.getInt("telefone");
             enderecoEmpresa = resultSet.getString("endereco");
         }
     }
@@ -308,7 +309,7 @@ public class ImprimirBoletoDeRetiradaModelo1 {
         table.addCell(cell);
         
         //proxima linha do cabeçalho
-        cell = new PdfPCell(new Phrase("Fone: " + telefoneEmpresa,fontNegrito11));
+        cell = new PdfPCell(new Phrase("Fone: " + String.valueOf(telefoneEmpresa),fontNegrito11));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         table.addCell(cell);

@@ -77,13 +77,14 @@ public class GerarArquivoTxtDaFatura {
         boolean result = dir.mkdirs();
     }
     
-    private String cnpjEmpresa, nomeEmpresa, nro_prestador_ipe;
+    private String cnpjEmpresa, nomeEmpresa;
+    private int nro_prestador_ipe;
     private void buscarInformacoesDaEmpresaNoBanco() throws SQLException{
         ResultSet resultSet = DADOS_EMPRESA.getConsultar(con);
         while(resultSet.next()){
             cnpjEmpresa = resultSet.getString("cnpj");
             nomeEmpresa = resultSet.getString("nome");
-            nro_prestador_ipe = resultSet.getString("nro_prestador_ipe");
+            nro_prestador_ipe = resultSet.getInt("nro_prestador_ipe");
         }
     }
     
@@ -278,7 +279,7 @@ public class GerarArquivoTxtDaFatura {
         double valorTotalNota=0.0, valorTotalMateriais=0.0;
         int qtdLancamentosDaNota = 0;
         FileWriter arquivo;
-        arquivo = new FileWriter(new File(caminho + "\\smh"+nro_prestador_ipe+".035"));
+        arquivo = new FileWriter(new File(caminho + "\\smh"+String.valueOf(nro_prestador_ipe)+".035"));
         
         //escrevendo o header
         arquivo.write(header + "\r\n");
