@@ -7,7 +7,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class A_feriadosN {
+public class A_feriadosn {
     
     private int handleFeriadoN, usuarioId;
     Date dat;
