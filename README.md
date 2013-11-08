@@ -14,3 +14,4 @@ Tabela: AGENDAS
 USUARIOID -> colocado como chave estrangeira da tabela USUARIOS.
 
 Tabela: 
+AMANHA CONTINUAMOS!!!
