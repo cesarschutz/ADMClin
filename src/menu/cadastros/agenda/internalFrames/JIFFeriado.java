@@ -19,7 +19,7 @@ import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.A_FERIADOS;
 import br.bcn.admclin.dao.A_FERIADOSN;
 import br.bcn.admclin.model.A_feriados;
-import br.bcn.admclin.model.A_feriadosn;
+import br.bcn.admclin.model.A_feriadosN;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -318,7 +318,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                A_feriadosn feriadoNModel = new A_feriadosn();
+                A_feriadosN feriadoNModel = new A_feriadosN();
                 feriadoNModel.setNome(jTFNome.getText().toUpperCase());
                 boolean existe = A_FERIADOSN.getConsultarParaSalvarRegistro(con, feriadoNModel);
                 Conexao.fechaConexao(con);
@@ -338,7 +338,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
                         if(cadastro){
                             //pegando id do intervalo cadastrado
                             con = Conexao.fazConexao();
-                            A_feriadosn feriadoNMODEL = new A_feriadosn();
+                            A_feriadosN feriadoNMODEL = new A_feriadosN();
                             feriadoNMODEL.setNome(jTFNome.getText().toUpperCase());
                             handleFeriadoN = A_FERIADOSN.getConsultarIdDeUmNomeCadastrado(con, feriadoNMODEL);
                             
@@ -433,7 +433,7 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                A_feriadosn feriadoNModel = new A_feriadosn();
+                A_feriadosN feriadoNModel = new A_feriadosN();
                 feriadoNModel.setNome(jTFNome.getText().toUpperCase());
                 feriadoNModel.setHandleFeriadoN(handleFeriadoN);
                 boolean existe = A_FERIADOSN.getConsultarParaAtualizarRegistro(con, feriadoNModel);

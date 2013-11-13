@@ -11,6 +11,7 @@
 package menu.cadastros.agenda.internalFrames;
 
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.A_INTERVALOSDIARIOSN;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -25,7 +26,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.cadastros.agenda.dao.a_intervalosDiariosNDAO;
 import janelaPrincipal.janelaPrincipal;
 
 /**
@@ -63,7 +63,7 @@ public class JIFIntervaloDiarioVisualizar extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = a_intervalosDiariosNDAO.getConsultar(con);
+        ResultSet resultSet = A_INTERVALOSDIARIOSN.getConsultar(con);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela

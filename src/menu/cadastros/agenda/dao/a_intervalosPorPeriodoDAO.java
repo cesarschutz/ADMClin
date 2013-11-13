@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import br.bcn.admclin.model.A_intervalosDiarios;
 import menu.cadastros.agenda.model.a_intervalosPorPeriodoMODEL;
-import menu.cadastros.agenda.model.a_intervalosdiariosMODEL;
 
 /**
  *

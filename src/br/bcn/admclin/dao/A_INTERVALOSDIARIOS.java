@@ -1,17 +1,20 @@
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.agenda.model.a_intervalosdiariosMODEL;
+
+import br.bcn.admclin.model.A_intervalosDiarios;
+import br.bcn.admclin.model.A_intervalosdiariosN;
 
 /**
  *
  * @author BCN
  */
-public class a_intervalosDiariosDAO {
+public class A_INTERVALOSDIARIOS {
     
     public  static boolean conseguiuConsulta;
     
@@ -37,10 +40,10 @@ public class a_intervalosDiariosDAO {
     /**
      * Cadastra um novo intervalo diario no Banco de Dados.
      * @param Connection 
-     * @param a_intervalosdiariosMODEL
+     * @param A_INTERVALOSDIARIOS
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_intervalosdiariosMODEL model){
+    public static boolean setCadastrar(Connection con, A_intervalosDiarios model){
         boolean cadastro = false;
         String sql = "insert into a_intervalosdiarios (a_intervalodiarionid, handle_agenda) values(?,?)";
         try{

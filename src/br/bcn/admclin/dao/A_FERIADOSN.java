@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.A_feriadosn;
+import br.bcn.admclin.model.A_feriadosN;
 
 /**
  *
@@ -35,10 +35,10 @@ public class A_FERIADOSN {
     /**
      * Verifica se nome de feraido ja existe 
      * @param Connection
-     * @param A_feriadosn
+     * @param A_feriadosN
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarRegistro(Connection con, A_feriadosn model){
+    public static boolean getConsultarParaSalvarRegistro(Connection con, A_feriadosN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_feriadosN where nome=?");
@@ -59,10 +59,10 @@ public class A_FERIADOSN {
     /**
      * Verifica se nome de feriado ja existe antes de atualizalo
      * @param Connection
-     * @param A_feriadosn
+     * @param A_feriadosN
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, A_feriadosn model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, A_feriadosN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_feriadosN where nome=? and handle_feriadon!=?");
@@ -86,7 +86,7 @@ public class A_FERIADOSN {
      * @param Connection
      * @return ResultSet
      */
-    public static int getConsultarIdDeUmNomeCadastrado(Connection con, A_feriadosn model){
+    public static int getConsultarIdDeUmNomeCadastrado(Connection con, A_feriadosN model){
         int feriadosNId = 0;
         ResultSet resultSet = null;
         try{
@@ -124,10 +124,10 @@ public class A_FERIADOSN {
     /**
      * Cadastra uma novo Feriado no Banco de Dados.
      * @param Connection 
-     * @param A_feriadosn
+     * @param A_feriadosN
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, A_feriadosn model){
+    public static boolean setCadastrar(Connection con, A_feriadosN model){
         boolean cadastro = false;
         String sql = "insert into a_feriadosN (dat,usuarioid,nome,diaDoferiado,descricao) values(?,?,?,?,?)";
         try{
@@ -171,7 +171,7 @@ public class A_FERIADOSN {
     }
     
     //atualizar agenda
-    public static boolean setAtualizar(Connection con, A_feriadosn model){
+    public static boolean setAtualizar(Connection con, A_feriadosN model){
         boolean cadastro = false;
         String sql = "update a_feriadosN set dat=?, usuarioid=?, nome=?, diadoferiado=?, descricao=? where handle_feriadon=?";
         try{
