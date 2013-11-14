@@ -450,22 +450,22 @@ public class GerarArquivoTxtDaFatura {
     int numeroNotaParaImprimir;
     private boolean getNumeroNota(){
         try {
-            String numeroNotaS = "";
+            int numeroNotaS = 0;
             con = Conexao.fazConexao();
             if (tipo.equals("grupo")) {
                 ResultSet rs = conveniosDAO.getConsultarDadosDeUmGrupo(con, grupo_id);
                 while(rs.next()){
-                    numeroNotaS = rs.getString("numero_nota");
+                    numeroNotaS = rs.getInt("numero_nota");
                 }
             }else{
                 ResultSet rs = conveniosDAO.getConsultarDadosDeUmConvenio(con, handle_convenio);
                 while(rs.next()){
-                    numeroNotaS = rs.getString("numero_nota");
+                    numeroNotaS = rs.getInt("numero_nota");
                 }
             }
             
             try {
-                numeroNotaParaImprimir = Integer.valueOf(numeroNotaS);
+                numeroNotaParaImprimir = numeroNotaS;
             } catch (Exception e) {
                 numeroNotaParaImprimir = 1;
             }

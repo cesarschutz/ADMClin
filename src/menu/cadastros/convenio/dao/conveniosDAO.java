@@ -369,7 +369,7 @@ public class conveniosDAO {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setInt(2, geraTxt);
-            stmt.setString(3, "0");
+            stmt.setInt(3, 0);
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
