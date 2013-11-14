@@ -9,6 +9,7 @@ import ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.CONVENIO;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +25,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import menu.cadastros.convenio.dao.conveniosDAO;
 import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.atendimentoModel;
 
 /**
@@ -453,12 +453,12 @@ public class GerarArquivoTxtDaFatura {
             int numeroNotaS = 0;
             con = Conexao.fazConexao();
             if (tipo.equals("grupo")) {
-                ResultSet rs = conveniosDAO.getConsultarDadosDeUmGrupo(con, grupo_id);
+                ResultSet rs = CONVENIO.getConsultarDadosDeUmGrupo(con, grupo_id);
                 while(rs.next()){
                     numeroNotaS = rs.getInt("numero_nota");
                 }
             }else{
-                ResultSet rs = conveniosDAO.getConsultarDadosDeUmConvenio(con, handle_convenio);
+                ResultSet rs = CONVENIO.getConsultarDadosDeUmConvenio(con, handle_convenio);
                 while(rs.next()){
                     numeroNotaS = rs.getInt("numero_nota");
                 }
@@ -504,13 +504,13 @@ public class GerarArquivoTxtDaFatura {
            if (tipo.equals("grupo")) {
                 boolean cadastrou = false;
                 do{
-                    cadastrou = conveniosDAO.setUpdateNumeroNotaGrupo(con, numeroNotaParaImprimir, grupo_id);
+                    cadastrou = CONVENIO.setUpdateNumeroNotaGrupo(con, numeroNotaParaImprimir, grupo_id);
                 }while(!cadastrou);
 
             }else{
                boolean cadastrou = false;
                 do{
-                    cadastrou = conveniosDAO.setUpdateNumeroNotaConvenio(con, numeroNotaParaImprimir, handle_convenio);
+                    cadastrou = CONVENIO.setUpdateNumeroNotaConvenio(con, numeroNotaParaImprimir, handle_convenio);
                 }while(!cadastrou);
             } 
     }

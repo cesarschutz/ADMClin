@@ -8,6 +8,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.CONVENIO;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -37,8 +38,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
-import menu.cadastros.convenio.dao.conveniosDAO;
 
 /**
  *
@@ -96,7 +95,7 @@ public class faturaConvenio {
     private void buscaNumeroFatura() throws SQLException{
         if (tipo.equals("grupo")) {
             con = Conexao.fazConexao();
-            ResultSet rs = conveniosDAO.getConsultarDadosDeUmGrupo(con, grupo_id);
+            ResultSet rs = CONVENIO.getConsultarDadosDeUmGrupo(con, grupo_id);
             while(rs.next()){
                 numero_fatura = rs.getInt("numero_fatura");
                 if (numero_fatura == 0) numero_fatura++;
@@ -104,7 +103,7 @@ public class faturaConvenio {
         }else{
             //se for convenio
             con = Conexao.fazConexao();
-            ResultSet rs = conveniosDAO.getConsultarDadosDeUmConvenio(con, handle_convenio);
+            ResultSet rs = CONVENIO.getConsultarDadosDeUmConvenio(con, handle_convenio);
             while(rs.next()){
                 numero_fatura = rs.getInt("numero_fatura");
                 if (numero_fatura == 0) numero_fatura++;
@@ -120,13 +119,13 @@ public class faturaConvenio {
                 boolean salvou = false;
                 while(!salvou){
                     con = Conexao.fazConexao();
-                    salvou = conveniosDAO.setUpdateNumeroFaturoGrupoConvenios(con, numero_fatura+1, grupo_id);
+                    salvou = CONVENIO.setUpdateNumeroFaturoGrupoConvenios(con, numero_fatura+1, grupo_id);
                 }
             }else{
                 boolean salvou = false;
                 while(!salvou){
                     con = Conexao.fazConexao();
-                    salvou = conveniosDAO.setUpdateNumeroFaturaConvenio(con, numero_fatura+1, handle_convenio);
+                    salvou = CONVENIO.setUpdateNumeroFaturaConvenio(con, numero_fatura+1, handle_convenio);
                 }
             }
             //aqui marcamos o flag faturado dos atendimentos

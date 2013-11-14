@@ -15,6 +15,8 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.CONVENIO;
+import br.bcn.admclin.model.Convenio;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -35,9 +37,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import menu.cadastros.convenio.dao.conveniosChDAO;
-import menu.cadastros.convenio.dao.conveniosDAO;
 import menu.cadastros.convenio.dao.conveniosFilmeDAO;
-import menu.cadastros.convenio.model.conveniosMODEL;
 
 /**
  *
@@ -90,7 +90,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
         con = Conexao.fazConexao();
         try{
             lista_handle_grupo_convenio.add(0);
-            ResultSet resultSet = conveniosDAO.getConsultarGruposDeConvenios(con);
+            ResultSet resultSet = CONVENIO.getConsultarGruposDeConvenios(con);
             while(resultSet.next()){
                 lista_handle_grupo_convenio.add(resultSet.getInt("grupo_id"));
                 jCBGrupo.addItem(resultSet.getString("nome"));
@@ -105,7 +105,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
     public void preencherConvenio(){
         con = Conexao.fazConexao();
         try{
-            ResultSet resultSet = conveniosDAO.getConsultarDadosDeUmConvenio(con, handle_convenio);
+            ResultSet resultSet = CONVENIO.getConsultarDadosDeUmConvenio(con, handle_convenio);
             while(resultSet.next()){
                 jTFNome.setText(resultSet.getString("nome"));
                 jTFEndereco.setText(resultSet.getString("endereco"));
@@ -221,12 +221,12 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
     public void botaoSalvarEAtualizar(){
         if(verificarSeTudoFoiPreenchido()){
             con = Conexao.fazConexao();
-            conveniosMODEL convenioMODEL = new conveniosMODEL();
+            Convenio convenioMODEL = new Convenio();
             convenioMODEL.setNome(jTFNome.getText());
             convenioMODEL.setHandle_convenio(handle_convenio);
-            boolean existe = conveniosDAO.getConsultarParaSalvarAtualizarRegistro(con, convenioMODEL);
+            boolean existe = CONVENIO.getConsultarParaSalvarAtualizarRegistro(con, convenioMODEL);
             Conexao.fechaConexao(con);
-            if(conveniosDAO.conseguiuConsulta){
+            if(CONVENIO.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Nome de Convênio já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -249,7 +249,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
                     convenioMODEL.setGrupoid(lista_handle_grupo_convenio.get(jCBGrupo.getSelectedIndex()));
 
                     con = Conexao.fazConexao();
-                    boolean atualizo = conveniosDAO.setUpdate(con, convenioMODEL);
+                    boolean atualizo = CONVENIO.setUpdate(con, convenioMODEL);
                     Conexao.fechaConexao(con);
                     if(atualizo){
                         botaoCancelar("n");
@@ -271,7 +271,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
         
         if("novo".equals(novoOuEditar) && nomePreenchido && "s".equals(apagar)){
             con = Conexao.fazConexao();
-            conveniosDAO.setDeletar(con, handle_convenio);
+            CONVENIO.setDeletar(con, handle_convenio);
             conveniosChDAO.setDeletar(con, handle_convenio);
             conveniosFilmeDAO.setDeletar(con, handle_convenio);
             Conexao.fechaConexao(con);
@@ -296,7 +296,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Convênio?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
             con = Conexao.fazConexao();
-            conveniosDAO.setDeletar(con, handle_convenio);
+            CONVENIO.setDeletar(con, handle_convenio);
             conveniosChDAO.setDeletar(con, handle_convenio);
             conveniosFilmeDAO.setDeletar(con, handle_convenio);
             Conexao.fechaConexao(con);
@@ -708,21 +708,21 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         
         if("novo".equals(novoOuEditar) && nomePreenchido && handle_convenio==0){
             con = Conexao.fazConexao();
-            conveniosMODEL convenioMODEL = new conveniosMODEL();
+            Convenio convenioMODEL = new Convenio();
             convenioMODEL.setNome(jTFNome.getText());
-            boolean existe = conveniosDAO.getConsultarParaSalvarNovoRegistro(con, convenioMODEL);
-            if(conveniosDAO.conseguiuConsulta){
+            boolean existe = CONVENIO.getConsultarParaSalvarNovoRegistro(con, convenioMODEL);
+            if(CONVENIO.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Convênio já existe.","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     jTFNome.requestFocusInWindow();
                 }else{
-                    boolean cadastro = conveniosDAO.setCadastrarSomenteNome(con, convenioMODEL);
+                    boolean cadastro = CONVENIO.setCadastrarSomenteNome(con, convenioMODEL);
                     Conexao.fechaConexao(con);
                     if(!cadastro){
                         jTFNome.requestFocusInWindow();
                     }else{
                         con = Conexao.fazConexao();
-                        ResultSet resultSet = conveniosDAO.getConsultarIdDeUmNomeCadastrado(con, convenioMODEL);
+                        ResultSet resultSet = CONVENIO.getConsultarIdDeUmNomeCadastrado(con, convenioMODEL);
                         
                         try {
                             while(resultSet.next()){

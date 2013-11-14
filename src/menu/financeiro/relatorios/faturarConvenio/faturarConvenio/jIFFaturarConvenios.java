@@ -67,7 +67,7 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
     private void preenchendoOsGruposNoComboBox(){
         //preenchendo as Classes de Exames
         con = Conexao.fazConexao();
-        ResultSet resultSet = menu.cadastros.convenio.dao.conveniosDAO.getConsultarGruposDeConvenios(con);
+        ResultSet resultSet = br.bcn.admclin.dao.CONVENIO.getConsultarGruposDeConvenios(con);
         listaGrupoId.removeAll(listaGrupoId);
         
         jCBGrupos.addItem("Selecione um Grupo");  

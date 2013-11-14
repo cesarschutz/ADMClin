@@ -202,7 +202,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
     private void gerarArquivoTextoGrupo(){
         //criando o arquivo txt caso o convenio exiga
         con = br.bcn.admclin.dao.Conexao.fazConexao();
-        ResultSet resultSet = menu.cadastros.convenio.dao.conveniosDAO.getConsultarDadosDeUmGrupo(con,grupo_id);
+        ResultSet resultSet = br.bcn.admclin.dao.CONVENIO.getConsultarDadosDeUmGrupo(con,grupo_id);
         try {
             int geraArquivoTXT = 0;
             while(resultSet.next()){
@@ -237,7 +237,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
     private void geraArquivoTextoConvenio(){
         //criando o arquivo txt caso o convenio exiga
         con = br.bcn.admclin.dao.Conexao.fazConexao();
-           ResultSet resultSet = menu.cadastros.convenio.dao.conveniosDAO.getConsultarDadosDeUmConvenio(con,handle_convenio);
+           ResultSet resultSet = br.bcn.admclin.dao.CONVENIO.getConsultarDadosDeUmConvenio(con,handle_convenio);
             try {
                 int geraArquivoTXT = 0;
                 while(resultSet.next()){

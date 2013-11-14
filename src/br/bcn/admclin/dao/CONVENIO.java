@@ -1,19 +1,21 @@
 
-package menu.cadastros.convenio.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.convenio.model.conveniosMODEL;
+
+import br.bcn.admclin.model.Convenio;
 
 
 /**
  *
  * @author BCN
  */
-public class conveniosDAO {
+public class CONVENIO {
     public static boolean conseguiuConsulta;
     
     /**
@@ -55,7 +57,7 @@ public class conveniosDAO {
      * @param Connection
      * @return ResultSet
      */
-    public static ResultSet getConsultarIdDeUmNomeCadastrado(Connection con, conveniosMODEL model){
+    public static ResultSet getConsultarIdDeUmNomeCadastrado(Connection con, Convenio model){
         ResultSet resultSet = null;
         try{
         PreparedStatement stmtQuery = con.prepareStatement("select handle_convenio from convenio where nome=?");
@@ -71,10 +73,10 @@ public class conveniosDAO {
     /**
      * Verifica se Convenio já existe antes de cadastra-lo no Banco de Dados.
      * @param Connection
-     * @param conveniosMODEL
+     * @param Convenio
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, conveniosMODEL model){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Convenio model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from convenio where nome=?");
@@ -95,10 +97,10 @@ public class conveniosDAO {
     /**
      * Verifica se nome de convenio ja existe sem se o ID q estamos trabalhando!
      * @param Connection
-     * @param conveniosMODEL
+     * @param Convenio
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarAtualizarRegistro(Connection con, conveniosMODEL model){
+    public static boolean getConsultarParaSalvarAtualizarRegistro(Connection con, Convenio model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from convenio where nome=? and handle_convenio!=?");
@@ -120,10 +122,10 @@ public class conveniosDAO {
     /**
      * Cadastra um convenio no Banco de Dados (somente o nome para termos o id)
      * @param Connection 
-     * @param conveniosMODEL
+     * @param Convenio
      * @return Boolean
      */
-    public static boolean setCadastrarSomenteNome(Connection con, conveniosMODEL model){
+    public static boolean setCadastrarSomenteNome(Connection con, Convenio model){
         boolean cadastro = false;
         String sql = "insert into convenio (nome) values(?)";
         try{
@@ -146,7 +148,7 @@ public class conveniosDAO {
      * @param especialidades_medicasMODEL
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, conveniosMODEL model){
+    public static boolean setUpdate(Connection con, Convenio model){
         boolean atualizo = false;
         String sql = "update convenio set sigla=?, cgc=?, regans=?, nome=?, endereco=?, cidade=?, cep=?, uf=?, telefone=?, contato=?, email=?"
                 + ", codprestador=?, tipo=?, remessa=?, numextra=?, numextra2=?, porcentpaciente=?, porcentconvenio=?, porcenttabela=?, irmaodoconv=?, "
@@ -313,7 +315,7 @@ public class conveniosDAO {
     /**
      * atualiza o numero da nota dos arquivos texto de faturas
      * @param Connection 
-     * @param conveniosMODEL
+     * @param Convenio
      * @return Boolean
      */
     public static boolean setUpdateNumeroNotaGrupo(Connection con, int numero_nota, int grupo_id){
@@ -336,7 +338,7 @@ public class conveniosDAO {
     /**
      * atualiza o numero da nota dos arquivos texto de faturas
      * @param Connection 
-     * @param conveniosMODEL
+     * @param Convenio
      * @return Boolean
      */
     public static boolean setUpdateNumeroNotaConvenio(Connection con, int numero_nota, int handle_convenio){
@@ -359,7 +361,7 @@ public class conveniosDAO {
     /**
      * Cadastra um grupo de convenio no Banco de Dados
      * @param Connection 
-     * @param conveniosMODEL
+     * @param Convenio
      * @return Boolean
      */
     public static boolean setCadastrarGrupoDeConvenio(Connection con, String nome, int geraTxt){
@@ -384,7 +386,7 @@ public class conveniosDAO {
     /**
      * atualiza um grupo de convenio
      * @param Connection 
-     * @param conveniosMODEL
+     * @param Convenio
      * @return Boolean
      */
     public static boolean setUpdateGrupoDeConvenio(Connection con, String nome, int gera_txt, int grupo_id){
@@ -431,7 +433,7 @@ public class conveniosDAO {
     /**
      * atualiza o numero de fatura de um grupo de convenio
      * @param Connection 
-     * @param conveniosMODEL
+     * @param Convenio
      * @return Boolean
      */
     public static boolean setUpdateNumeroFaturoGrupoConvenios(Connection con, int numero_fatura, int grupo_id){
@@ -454,7 +456,7 @@ public class conveniosDAO {
     /**
      * atualiza o numero de fatura de um convenio
      * @param Connection 
-     * @param conveniosMODEL
+     * @param Convenio
      * @return Boolean
      */
     public static boolean setUpdateNumeroFaturaConvenio(Connection con, int numero_fatura, int handle_convenio){

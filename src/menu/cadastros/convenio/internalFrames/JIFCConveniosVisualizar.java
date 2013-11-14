@@ -11,6 +11,7 @@
 package menu.cadastros.convenio.internalFrames;
 
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.CONVENIO;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -25,8 +26,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.convenio.dao.conveniosDAO;
 
 /**
  *
@@ -65,7 +64,7 @@ public class JIFCConveniosVisualizar extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = conveniosDAO.getConsultar(con);
+        ResultSet resultSet = CONVENIO.getConsultar(con);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela

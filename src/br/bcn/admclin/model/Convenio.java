@@ -1,5 +1,5 @@
 
-package menu.cadastros.convenio.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import java.sql.Date;
  * Modelo de Convenios.
  * @author BCN
  */
-public class conveniosMODEL {
+public class Convenio {
     
     private int handle_convenio, regAns, remessa, numExtra, numExtra2, irmaoDoConv, diasParaNota, numMaxExamePorFicha, usuarioId, VALIDACAO_MATRICULA, IMPRIMI_ARQUIVO_TXT_COM_FATURA,grupoid;
     private String cgc, sigla, nome, endereco, cep, cidade, uf, telefone, contato, email, codPrestador, tipo, valorCh, valorFilme, porcentPaciente, porcentConvenio, porcentTabela,
