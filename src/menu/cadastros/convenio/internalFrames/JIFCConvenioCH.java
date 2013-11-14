@@ -14,6 +14,8 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.jTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.CONVENIOCH;
+import br.bcn.admclin.model.ConvenioCh;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -33,9 +35,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.convenio.dao.conveniosChDAO;
-import menu.cadastros.convenio.model.conveniosChMODEL;
 
 /**
  *
@@ -84,7 +83,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = conveniosChDAO.getConsultar(con, handle_convenio);
+        ResultSet resultSet = CONVENIOCH.getConsultar(con, handle_convenio);
         try{
             while(resultSet.next()){
                 modelo.addRow(new Object[] {resultSet.getInt("convenioChId"), resultSet.getString("valor").replace(".", ","),MetodosUteis.converterDataParaMostrarAoUsuario(resultSet.getString("dataavaler"))}); 
@@ -127,7 +126,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
                   SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
                   //colocando data selecionado no formato criado acima
                   String data = dataFormatada.format(dataSelecionada); 
-            dataMaiorQueUltimaCadastrada = conveniosChDAO.getConsultarSeDataEhMenorQueAultimaCadastrada(con, handle_convenio, data);
+            dataMaiorQueUltimaCadastrada = CONVENIOCH.getConsultarSeDataEhMenorQueAultimaCadastrada(con, handle_convenio, data);
         }
         
         
@@ -136,7 +135,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
             
                     //fazer a inserção no banco
                     con = Conexao.fazConexao();
-                    conveniosChMODEL conveniosChModel = new conveniosChMODEL();
+                    ConvenioCh conveniosChModel = new ConvenioCh();
                     
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
                     java.sql.Date data = null; 
@@ -157,7 +156,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
                     conveniosChModel.setDataAValer(data);
                     conveniosChModel.setValor(Integer.valueOf(jTFValorCh.getText()));
                     conveniosChModel.setDat(dataDeHojeEmVariavelDate);
-                    boolean cadastro = conveniosChDAO.setCadastrar(con, conveniosChModel);
+                    boolean cadastro = CONVENIOCH.setCadastrar(con, conveniosChModel);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){
@@ -374,7 +373,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 //fazer o delete de acordo com o codigo
                 con = Conexao.fazConexao();
                 int convenioChId = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-                boolean deleto = conveniosChDAO.setDeletarUmValor(con, convenioChId);
+                boolean deleto = CONVENIOCH.setDeletarUmValor(con, convenioChId);
                 Conexao.fechaConexao(con);
                 if(deleto){
                     atualizarTabela();

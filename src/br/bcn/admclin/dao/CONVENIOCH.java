@@ -2,23 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.convenio.dao;
+package br.bcn.admclin.dao;
 
 import ClasseAuxiliares.MetodosUteis;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.convenio.model.conveniosChMODEL;
+
+import br.bcn.admclin.model.ConvenioCh;
 
 /**
  *
  * @author BCN
  */
-public class conveniosChDAO {
+public class CONVENIOCH {
     public static boolean conseguiuConsulta;
     /**
      * Consulta Todas as Especialidades Medicas existentes no Banco de Dados.
@@ -82,7 +85,7 @@ public class conveniosChDAO {
      * @param convenioCH
      * @return  se cadastrou ou nao
      */
-    public static boolean setCadastrar(Connection con, conveniosChMODEL convenioCHMODEL){
+    public static boolean setCadastrar(Connection con, ConvenioCh convenioCHMODEL){
         boolean cadastro = false;
         String sqlInsrtValor = "insert into convenioCH (usuarioid,dat,handle_convenio,valor, dataavaler) values(?,?,?,?,?)";
         try{

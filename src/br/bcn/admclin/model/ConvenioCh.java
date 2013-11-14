@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.convenio.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class conveniosChMODEL {
+public class ConvenioCh {
     
     private int convenioChId, usuarioId, handle_convenio;
     private Date dat, dataAValer;

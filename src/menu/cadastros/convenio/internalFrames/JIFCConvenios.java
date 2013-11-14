@@ -16,6 +16,7 @@ import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.CONVENIO;
+import br.bcn.admclin.dao.CONVENIOCH;
 import br.bcn.admclin.model.Convenio;
 import janelaPrincipal.janelaPrincipal;
 
@@ -36,7 +37,6 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import menu.cadastros.convenio.dao.conveniosChDAO;
 import menu.cadastros.convenio.dao.conveniosFilmeDAO;
 
 /**
@@ -272,7 +272,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
         if("novo".equals(novoOuEditar) && nomePreenchido && "s".equals(apagar)){
             con = Conexao.fazConexao();
             CONVENIO.setDeletar(con, handle_convenio);
-            conveniosChDAO.setDeletar(con, handle_convenio);
+            CONVENIOCH.setDeletar(con, handle_convenio);
             conveniosFilmeDAO.setDeletar(con, handle_convenio);
             Conexao.fechaConexao(con);
         }
@@ -297,7 +297,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
         if(resposta == JOptionPane.YES_OPTION){
             con = Conexao.fazConexao();
             CONVENIO.setDeletar(con, handle_convenio);
-            conveniosChDAO.setDeletar(con, handle_convenio);
+            CONVENIOCH.setDeletar(con, handle_convenio);
             conveniosFilmeDAO.setDeletar(con, handle_convenio);
             Conexao.fechaConexao(con);
             
