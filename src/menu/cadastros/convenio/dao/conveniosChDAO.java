@@ -91,7 +91,7 @@ public class conveniosChDAO {
             stmtInsertValor.setInt(1, convenioCHMODEL.getUsuarioId());
             stmtInsertValor.setDate(2, convenioCHMODEL.getDat());
             stmtInsertValor.setInt(3, convenioCHMODEL.getHandle_convenio());
-            stmtInsertValor.setString(4, convenioCHMODEL.getValor());
+            stmtInsertValor.setInt(4, convenioCHMODEL.getValor());
             stmtInsertValor.setDate(5, convenioCHMODEL.getDataAValer());
             stmtInsertValor.executeUpdate();
             stmtInsertValor.close();           

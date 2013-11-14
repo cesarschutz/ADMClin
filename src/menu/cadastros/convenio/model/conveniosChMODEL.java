@@ -14,7 +14,7 @@ public class conveniosChMODEL {
     
     private int convenioChId, usuarioId, handle_convenio;
     private Date dat, dataAValer;
-    private String valor;
+    private int valor;
 
     public int getConvenioChId() {
         return convenioChId;
@@ -56,11 +56,11 @@ public class conveniosChMODEL {
         this.usuarioId = usuarioId;
     }
 
-    public String getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 }

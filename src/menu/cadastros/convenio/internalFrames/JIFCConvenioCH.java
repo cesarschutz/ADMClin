@@ -155,7 +155,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
                     conveniosChModel.setUsuarioId(USUARIOS.usrId);
                     conveniosChModel.setHandle_convenio(handle_convenio);
                     conveniosChModel.setDataAValer(data);
-                    conveniosChModel.setValor(jTFValorCh.getText().replace(",", "."));
+                    conveniosChModel.setValor(Integer.valueOf(jTFValorCh.getText()));
                     conveniosChModel.setDat(dataDeHojeEmVariavelDate);
                     boolean cadastro = conveniosChDAO.setCadastrar(con, conveniosChModel);
                     Conexao.fechaConexao(con);
