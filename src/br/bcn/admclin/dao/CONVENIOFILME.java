@@ -2,23 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.convenio.dao;
+package br.bcn.admclin.dao;
 
 import ClasseAuxiliares.MetodosUteis;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.convenio.model.conveniosFilmeMODEL;
+
+import br.bcn.admclin.model.ConvenioFilme;
 
 /**
  *
  * @author BCN
  */
-public class conveniosFilmeDAO {
+public class CONVENIOFILME {
     public static boolean conseguiuConsulta;
     /**
      * Consulta Todas as Especialidades Medicas existentes no Banco de Dados.
@@ -83,7 +86,7 @@ public class conveniosFilmeDAO {
      * @param convenioCH
      * @return  se cadastrou ou nao
      */
-    public static boolean setCadastrar(Connection con, conveniosFilmeMODEL convenioFilmeMODEL){
+    public static boolean setCadastrar(Connection con, ConvenioFilme convenioFilmeMODEL){
         boolean cadastro = false;
         String sqlInsrtValor = "insert into conveniofilme (usuarioid,dat,handle_convenio,valor, dataavaler) values(?,?,?,?,?)";
         try{
@@ -92,7 +95,7 @@ public class conveniosFilmeDAO {
             stmtInsertValor.setInt(1, convenioFilmeMODEL.getUsuarioId());
             stmtInsertValor.setDate(2, convenioFilmeMODEL.getDat());
             stmtInsertValor.setInt(3, convenioFilmeMODEL.getHandle_convenio());
-            stmtInsertValor.setString(4, convenioFilmeMODEL.getValor());
+            stmtInsertValor.setInt(4, convenioFilmeMODEL.getValor());
             stmtInsertValor.setDate(5, convenioFilmeMODEL.getDataAValer());
             stmtInsertValor.executeUpdate();
             stmtInsertValor.close();           

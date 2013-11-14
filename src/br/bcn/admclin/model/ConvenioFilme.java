@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.convenio.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -10,11 +10,11 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class conveniosFilmeMODEL {
+public class ConvenioFilme {
     
     private int convenioFilmeId, usuarioId, handle_convenio;
     private Date dat, dataAValer;
-    private String valor;
+    private int valor;
 
     public int convenioFilmeId() {
         return convenioFilmeId;
@@ -64,11 +64,11 @@ public class conveniosFilmeMODEL {
         this.usuarioId = usuarioId;
     }
 
-    public String getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 }

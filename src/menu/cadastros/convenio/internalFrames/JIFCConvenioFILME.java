@@ -14,6 +14,8 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.jTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.CONVENIOFILME;
+import br.bcn.admclin.model.ConvenioFilme;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -34,9 +36,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.convenio.dao.conveniosFilmeDAO;
-import menu.cadastros.convenio.model.conveniosFilmeMODEL;
 
 /**
  *
@@ -83,7 +82,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = conveniosFilmeDAO.getConsultar(con, handle_convenio);
+        ResultSet resultSet = CONVENIOFILME.getConsultar(con, handle_convenio);
         try{
             while(resultSet.next()){
                 modelo.addRow(new Object[] {resultSet.getInt("convenioFilmeId"),resultSet.getString("valor").replace(".", ","),MetodosUteis.converterDataParaMostrarAoUsuario(resultSet.getString("dataavaler"))}); 
@@ -128,7 +127,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
                   SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
                   //colocando data selecionado no formato criado acima
                   String data = dataFormatada.format(dataSelecionada); 
-            dataMaiorQueUltimaCadastrada = conveniosFilmeDAO.getConsultarSeDataEhMenorQueAultimaCadastrada(con, handle_convenio, data);
+            dataMaiorQueUltimaCadastrada = CONVENIOFILME.getConsultarSeDataEhMenorQueAultimaCadastrada(con, handle_convenio, data);
         }
         
         
@@ -137,7 +136,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
             
                     //fazer a inserção no banco
                     con = Conexao.fazConexao();
-                    conveniosFilmeMODEL conveniosFilmeModel = new conveniosFilmeMODEL();
+                    ConvenioFilme conveniosFilmeModel = new ConvenioFilme();
                     
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
                     java.sql.Date data = null; 
@@ -155,9 +154,9 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
                     conveniosFilmeModel.setUsuarioId(USUARIOS.usrId);
                     conveniosFilmeModel.setHandle_convenio(handle_convenio);
                     conveniosFilmeModel.setDataAValer(data);
-                    conveniosFilmeModel.setValor(jTFValorFilme.getText().replace(",", "."));
+                    conveniosFilmeModel.setValor(Integer.valueOf(jTFValorFilme.getText()));
                     conveniosFilmeModel.setDat(dataDeHojeEmVariavelDate);
-                    boolean cadastro = conveniosFilmeDAO.setCadastrar(con, conveniosFilmeModel);
+                    boolean cadastro = CONVENIOFILME.setCadastrar(con, conveniosFilmeModel);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){
@@ -377,7 +376,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 //fazer o delete de acordo com o codigo
                 con = Conexao.fazConexao();
                 int convenioFilmeId = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-                boolean deleto = conveniosFilmeDAO.setDeletarUmValor(con, convenioFilmeId);
+                boolean deleto = CONVENIOFILME.setDeletarUmValor(con, convenioFilmeId);
                 Conexao.fechaConexao(con);
                 if(deleto){
                     atualizarTabela();
