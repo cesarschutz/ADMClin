@@ -1,17 +1,19 @@
-package menu.cadastros.exame.dao;
+package br.bcn.admclin.dao;
 
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.exame.model.tb_classesdeexamesMODEL;
+
+import br.bcn.admclin.model.Tb_ClassesDeExames;
 /**
  * Classe DAO da classe JIFCClassesDeExames
  * @author BCN
  */
-public class tb_classesdeexamesDAO {
+public class TB_CLASSESDEEXAMES {
     public static boolean conseguiuConsulta;
     /**
      * Verifica se Classe De Exame já existe antes de fazer um update no Banco de Dados.
@@ -19,7 +21,7 @@ public class tb_classesdeexamesDAO {
      * @param ClasseDeExameMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, tb_classesdeexamesMODEL model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, Tb_ClassesDeExames model){
         boolean existe = true;
         try{
             PreparedStatement stmtQuery = con.prepareStatement("select * from tb_classesexames where (nome=?) and (cod!=?)");
@@ -43,7 +45,7 @@ public class tb_classesdeexamesDAO {
      * @param ClasseDeExameMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, tb_classesdeexamesMODEL model){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Tb_ClassesDeExames model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from tb_classesexames where nome=?");
@@ -99,16 +101,15 @@ public class tb_classesdeexamesDAO {
      * @param ClasseDeExameModel
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, tb_classesdeexamesMODEL model){
+    public static boolean setCadastrar(Connection con, Tb_ClassesDeExames model){
         boolean cadastro = false;
-        String sql = "insert into TB_CLASSESEXAMES (nome,usuarioid,dat,referencia,modidx) values(?,?,?,?,?)";
+        String sql = "insert into TB_CLASSESEXAMES (nome,usuarioid,dat,modidx) values(?,?,?,?)";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, model.getDescricao());
             stmt.setInt(2, model.getUsuarioid());
             stmt.setDate(3, model.getData());
-            stmt.setString(4, model.getRef());
-            stmt.setInt(5, model.getModIdx());
+            stmt.setInt(4, model.getModIdx());
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
@@ -124,17 +125,16 @@ public class tb_classesdeexamesDAO {
      * @param ClasseDeExameMODEL
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, tb_classesdeexamesMODEL model){
+    public static boolean setUpdate(Connection con, Tb_ClassesDeExames model){
         boolean atualizo = false;
-        String sql = "update tb_classesexames set nome=?, referencia=?, usuarioid=?, dat=?, modidx=? where cod=?";
+        String sql = "update tb_classesexames set nome=?, usuarioid=?, dat=?, modidx=? where cod=?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, model.getDescricao());
-            stmt.setString(2, model.getRef());
-            stmt.setInt(3, model.getUsuarioid());
-            stmt.setDate(4, model.getData());
-            stmt.setInt(5, model.getModIdx());
-            stmt.setInt(6, model.getCod());
+            stmt.setInt(2, model.getUsuarioid());
+            stmt.setDate(3, model.getData());
+            stmt.setInt(4, model.getModIdx());
+            stmt.setInt(5, model.getCod());
             stmt.executeUpdate();
             stmt.close();
             atualizo = true;
@@ -150,7 +150,7 @@ public class tb_classesdeexamesDAO {
      * @param ClasseDeExameMODEL 
      * @return Boolean
      */
-    public static boolean setDeletar(Connection con, tb_classesdeexamesMODEL model){
+    public static boolean setDeletar(Connection con, Tb_ClassesDeExames model){
         boolean deleto = false;
         String sql="delete from tb_classesexames where cod=?";
         try{

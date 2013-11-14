@@ -1,15 +1,15 @@
-
-package menu.cadastros.exame.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
 /**
  * Classe modelo da classe JIFCClassesDeExames
+ * 
  * @author BCN
  */
-public class tb_classesdeexamesMODEL {
-    private int cod,modIdx,usuarioid;
-    private String ref,descricao;
+public class Tb_ClassesDeExames {
+    private int cod, modIdx, usuarioid;
+    private String descricao;
     private Date data;
 
     public int getModIdx() {
@@ -36,14 +36,6 @@ public class tb_classesdeexamesMODEL {
         this.descricao = descricao;
     }
 
-    public String getRef() {
-        return ref;
-    }
-
-    public void setRef(String ref) {
-        this.ref = ref;
-    }
-
     public Date getData() {
         return data;
     }
@@ -60,5 +52,4 @@ public class tb_classesdeexamesMODEL {
         this.usuarioid = usuarioid;
     }
 
-    
 }

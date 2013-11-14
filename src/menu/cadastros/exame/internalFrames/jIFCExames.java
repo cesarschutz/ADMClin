@@ -9,6 +9,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -31,7 +32,6 @@ import javax.swing.table.DefaultTableModel;
 
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.exame.dao.examesDAO;
-import menu.cadastros.exame.dao.tb_classesdeexamesDAO;
 import menu.cadastros.exame.model.examesMODEL;
 
 /**
@@ -88,7 +88,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         
         //preenchendo as Classes de Exames
         con = Conexao.fazConexao();
-        ResultSet resultSet = tb_classesdeexamesDAO.getConsultar(con);
+        ResultSet resultSet = TB_CLASSESDEEXAMES.getConsultar(con);
         listaHANDLE_CLASSESDEEXAMES.removeAll(listaHANDLE_CLASSESDEEXAMES);
         jCBDescricaoClasse.addItem("Selecione uma Classe");  
         listaHANDLE_CLASSESDEEXAMES.add(0);

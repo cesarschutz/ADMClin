@@ -4,6 +4,8 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
+import br.bcn.admclin.model.Tb_ClassesDeExames;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -20,9 +22,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import menu.cadastros.exame.dao.tb_classesdeexamesDAO;
-import menu.cadastros.exame.model.tb_classesdeexamesMODEL;
 
 /**
  *
@@ -71,7 +70,7 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
     public void iniciarClasse(){
         //preenchendo as modalidades
         con = Conexao.fazConexao();
-        ResultSet resultSet = tb_classesdeexamesDAO.getConsultarModalidades(con);
+        ResultSet resultSet = TB_CLASSESDEEXAMES.getConsultarModalidades(con);
         listaCodModalidade.removeAll(listaCodModalidade);
         listaCodModalidade.add(0);
         try{
@@ -138,11 +137,11 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
         if(descricaoPreenchida && modalidadePrenchida){
           //fazendo um if para verificar se descricao ou referencia ja existem
             con = Conexao.fazConexao();
-            tb_classesdeexamesMODEL classeDeExameModelo = new tb_classesdeexamesMODEL();
+            Tb_ClassesDeExames classeDeExameModelo = new Tb_ClassesDeExames();
             classeDeExameModelo.setDescricao(jTDescricao.getText().toUpperCase());
-            boolean existe = tb_classesdeexamesDAO.getConsultarParaSalvarNovoRegistro(con, classeDeExameModelo);
+            boolean existe = TB_CLASSESDEEXAMES.getConsultarParaSalvarNovoRegistro(con, classeDeExameModelo);
             Conexao.fechaConexao(con);
-            if(tb_classesdeexamesDAO.conseguiuConsulta){
+            if(TB_CLASSESDEEXAMES.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Classe de Exame já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -152,7 +151,7 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
                     classeDeExameModelo.setUsuarioid(USUARIOS.usrId);
                     classeDeExameModelo.setData(dataDeHojeEmVariavelDate);
                     classeDeExameModelo.setModIdx(listaCodModalidade.get(jCBModalidade.getSelectedIndex()));
-                    boolean cadastro = tb_classesdeexamesDAO.setCadastrar(con, classeDeExameModelo);
+                    boolean cadastro = TB_CLASSESDEEXAMES.setCadastrar(con, classeDeExameModelo);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){
@@ -171,12 +170,12 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
         if(descricaoPreenchida && modalidadePrenchida){
             //fazendo um if para verificar se descricao ou referencia ja existem
             con = Conexao.fazConexao();
-            tb_classesdeexamesMODEL classeDeExameModel = new tb_classesdeexamesMODEL();
+            Tb_ClassesDeExames classeDeExameModel = new Tb_ClassesDeExames();
             classeDeExameModel.setDescricao(jTDescricao.getText().toUpperCase());
             classeDeExameModel.setCod(classeDeExameId);
-            boolean existe = tb_classesdeexamesDAO.getConsultarParaAtualizarRegistro(con, classeDeExameModel);
+            boolean existe = TB_CLASSESDEEXAMES.getConsultarParaAtualizarRegistro(con, classeDeExameModel);
             Conexao.fechaConexao(con);
-            if(tb_classesdeexamesDAO.conseguiuConsulta){
+            if(TB_CLASSESDEEXAMES.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Classe de Exame já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -184,7 +183,7 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
                     classeDeExameModel.setUsuarioid(USUARIOS.usrId);
                     classeDeExameModel.setData(dataDeHojeEmVariavelDate);
                     classeDeExameModel.setModIdx(listaCodModalidade.get(jCBModalidade.getSelectedIndex()));
-                    boolean atualizo = tb_classesdeexamesDAO.setUpdate(con, classeDeExameModel);
+                    boolean atualizo = TB_CLASSESDEEXAMES.setUpdate(con, classeDeExameModel);
                     Conexao.fechaConexao(con);
                     if(atualizo){
                         //dexando janela como no inicio
@@ -199,17 +198,17 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar essa Classe De Exame?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
             con = Conexao.fazConexao();
-            boolean utilizada = tb_classesdeexamesDAO.getConsultarSeClasseEstaSendoUtilizada(con, classeDeExameId);
+            boolean utilizada = TB_CLASSESDEEXAMES.getConsultarSeClasseEstaSendoUtilizada(con, classeDeExameId);
             Conexao.fechaConexao(con);
-            if(tb_classesdeexamesDAO.conseguiuConsulta){
+            if(TB_CLASSESDEEXAMES.conseguiuConsulta){
                 if(utilizada){
                     JOptionPane.showMessageDialog(null, "Esta Classe de Exame  não pode ser deletada pois está sendo utilizada por algum Exame","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     //fazer o delete de acordo com o codigo
-                    tb_classesdeexamesMODEL classeDeExameModel = new tb_classesdeexamesMODEL();
+                    Tb_ClassesDeExames classeDeExameModel = new Tb_ClassesDeExames();
                     classeDeExameModel.setCod(classeDeExameId);
                     con = Conexao.fazConexao();
-                    boolean deleto = tb_classesdeexamesDAO.setDeletar(con, classeDeExameModel);
+                    boolean deleto = TB_CLASSESDEEXAMES.setDeletar(con, classeDeExameModel);
                     Conexao.fechaConexao(con);
                     //atualizar tabela
                     if(deleto){

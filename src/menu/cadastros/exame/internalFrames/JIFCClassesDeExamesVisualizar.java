@@ -12,6 +12,8 @@ package menu.cadastros.exame.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
+import br.bcn.admclin.model.Tb_ClassesDeExames;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -28,15 +30,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.cadastros.exame.dao.tb_classesdeexamesDAO;
-import menu.cadastros.exame.model.tb_classesdeexamesMODEL;
-
 /**
  *
  * @author BCN
  */
 public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
-    public static List<tb_classesdeexamesMODEL> listaClassesDeExames = new ArrayList<tb_classesdeexamesMODEL>();
+    public static List<Tb_ClassesDeExames> listaClassesDeExames = new ArrayList<Tb_ClassesDeExames>();
     private Connection con = null;
     /** Creates new form JIFCPacientesVisualizar */
     public JIFCClassesDeExamesVisualizar() {
@@ -71,16 +70,15 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = tb_classesdeexamesDAO.getConsultar(con);
+        ResultSet resultSet = TB_CLASSESDEEXAMES.getConsultar(con);
         listaClassesDeExames.removeAll(listaClassesDeExames);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("cod")),resultSet.getString("nome")}); 
                 //colocando dados nos objetos
-                tb_classesdeexamesMODEL classeDeExameModelo = new tb_classesdeexamesMODEL();
+                Tb_ClassesDeExames classeDeExameModelo = new Tb_ClassesDeExames();
                 classeDeExameModelo.setCod(resultSet.getInt("cod"));
-                classeDeExameModelo.setRef(resultSet.getString("referencia"));
                 classeDeExameModelo.setUsuarioid(resultSet.getInt("usuarioid"));
                 classeDeExameModelo.setData(resultSet.getDate("dat"));
                 classeDeExameModelo.setDescricao(resultSet.getString("nome"));
