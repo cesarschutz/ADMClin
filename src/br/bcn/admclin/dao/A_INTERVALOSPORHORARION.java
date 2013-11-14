@@ -1,17 +1,19 @@
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.agenda.model.a_intervalosPorHorarioNMODEL;
+
+import br.bcn.admclin.model.A_intervalosPorHorarioN;
 
 /**
  *
  * @author BCN
  */
-public class a_intervalosPorHorarioNDAO {
+public class A_INTERVALOSPORHORARION {
     public static boolean conseguiuConsulta;
     /**
      * Consulta Todos os Intervalos por Horario existentes no Banco de Dados para colocar na lista!!!
@@ -33,10 +35,10 @@ public class a_intervalosPorHorarioNDAO {
     /**
      * Verifica se nome de intervalo por horarios ja existe 
      * @param Connection
-     * @param a_intervalosPorHorarioNMODEL
+     * @param A_intervalosPorHorarioN
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarRegistro(Connection con, a_intervalosPorHorarioNMODEL model){
+    public static boolean getConsultarParaSalvarRegistro(Connection con, A_intervalosPorHorarioN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from A_INTERVALOSPORHORARION where nome=?");
@@ -57,10 +59,10 @@ public class a_intervalosPorHorarioNDAO {
     /**
      * Verifica se nome de intervalo por horarios ja existe antes de atualizalo
      * @param Connection
-     * @param a_intervalosPorHorarioNMODEL
+     * @param A_intervalosPorHorarioN
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, a_intervalosPorHorarioNMODEL model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, A_intervalosPorHorarioN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from A_INTERVALOSPORHORARION where nome=? and a_intervaloporhorarionid!=?");
@@ -84,7 +86,7 @@ public class a_intervalosPorHorarioNDAO {
      * @param Connection
      * @return ResultSet
      */
-    public static int getConsultarIdDeUmNomeCadastrado(Connection con, a_intervalosPorHorarioNMODEL model){
+    public static int getConsultarIdDeUmNomeCadastrado(Connection con, A_intervalosPorHorarioN model){
         int intervaloPorHorarioNId = 0;
         ResultSet resultSet = null;
         try{
@@ -122,10 +124,10 @@ public class a_intervalosPorHorarioNDAO {
     /**
      * Cadastra um novo intervalo por horario no Banco de Dados.
      * @param Connection 
-     * @param a_intervalosPorHorarioNMODEL
+     * @param A_intervalosPorHorarioN
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_intervalosPorHorarioNMODEL model){
+    public static boolean setCadastrar(Connection con, A_intervalosPorHorarioN model){
         boolean cadastro = false;
         String sql = "insert into A_INTERVALOSPORHORARION (dat,usuarioid,nome,horarioinicial,horariofinal,seg,ter,qua,qui,sex,sab,dom) values(?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
@@ -176,7 +178,7 @@ public class a_intervalosPorHorarioNDAO {
     }
     
     //atualizar agenda
-    public static boolean setAtualizar(Connection con, a_intervalosPorHorarioNMODEL model){
+    public static boolean setAtualizar(Connection con, A_intervalosPorHorarioN model){
         boolean cadastro = false;
         String sql = "update A_INTERVALOSPORHORARION set dat=?, usuarioid=?, nome=?, horarioinicial=?, horariofinal=?, seg=?, ter=?, qua=?, qui=?, sex=?, sab=?, dom=? where A_INTERVALOPORHORARIONID=?";
         try{

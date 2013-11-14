@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.agenda.model;
+package br.bcn.admclin.model;
 
 /**
  *
  * @author BCN
  */
-public class a_intervalosPorHorarioMODEL {
+public class A_intervalosPorHorario {
     
     private int a_intervaloPorHorarioNId, agendaId;
 

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.A_intervalosdiariosN;
+import br.bcn.admclin.model.A_intervalosDiariosN;
 
 /**
  *
@@ -35,10 +35,10 @@ public class A_INTERVALOSDIARIOSN {
     /**
      * Verifica se nome de intervalo diario ja existe 
      * @param Connection
-     * @param A_intervalosdiariosN
+     * @param A_intervalosDiariosN
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarRegistro(Connection con, A_intervalosdiariosN model){
+    public static boolean getConsultarParaSalvarRegistro(Connection con, A_intervalosDiariosN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_intervalosdiariosN where nome=?");
@@ -59,10 +59,10 @@ public class A_INTERVALOSDIARIOSN {
     /**
      * Verifica se nome de intervalo diario ja existe antes de atualizalo
      * @param Connection
-     * @param A_intervalosdiariosN
+     * @param A_intervalosDiariosN
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, A_intervalosdiariosN model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, A_intervalosDiariosN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_intervalosdiariosN where nome=? and a_intervalodiarionid!=?");
@@ -86,7 +86,7 @@ public class A_INTERVALOSDIARIOSN {
      * @param Connection
      * @return ResultSet
      */
-    public static int getConsultarIdDeUmNomeCadastrado(Connection con, A_intervalosdiariosN model){
+    public static int getConsultarIdDeUmNomeCadastrado(Connection con, A_intervalosDiariosN model){
         int intervaloDiarioNId = 0;
         ResultSet resultSet = null;
         try{
@@ -124,10 +124,10 @@ public class A_INTERVALOSDIARIOSN {
     /**
      * Cadastra uma novo intervalo diario no Banco de Dados.
      * @param Connection 
-     * @param A_intervalosdiariosN
+     * @param A_intervalosDiariosN
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, A_intervalosdiariosN model){
+    public static boolean setCadastrar(Connection con, A_intervalosDiariosN model){
         boolean cadastro = false;
         String sql = "insert into a_intervalosdiariosN (dat,usuarioid,nome,horarioinicial,horariofinal,diaDoIntervalo,descricao) values(?,?,?,?,?,?,?)";
         try{
@@ -173,7 +173,7 @@ public class A_INTERVALOSDIARIOSN {
     }
     
     //atualizar agenda
-    public static boolean setAtualizar(Connection con, A_intervalosdiariosN model){
+    public static boolean setAtualizar(Connection con, A_intervalosDiariosN model){
         boolean cadastro = false;
         String sql = "update a_intervalosdiariosN set dat=?, usuarioid=?, nome=?, horarioinicial=?, horariofinal=?,  diadointervalo=?, descricao=? where a_intervalodiarionid=?";
         try{

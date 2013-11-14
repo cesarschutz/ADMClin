@@ -18,7 +18,7 @@ import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.A_INTERVALOSDIARIOS;
 import br.bcn.admclin.dao.A_INTERVALOSDIARIOSN;
 import br.bcn.admclin.model.A_intervalosDiarios;
-import br.bcn.admclin.model.A_intervalosdiariosN;
+import br.bcn.admclin.model.A_intervalosDiariosN;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -229,7 +229,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                A_intervalosdiariosN intervaloDiarioNModel = new A_intervalosdiariosN();
+                A_intervalosDiariosN intervaloDiarioNModel = new A_intervalosDiariosN();
                 intervaloDiarioNModel.setNome(jTFNome.getText().toUpperCase());
                 boolean existe = A_INTERVALOSDIARIOSN.getConsultarParaSalvarRegistro(con, intervaloDiarioNModel);
                 Conexao.fechaConexao(con);
@@ -265,7 +265,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
                         if(cadastro){
                             //pegando id do intervalo cadastrado
                             con = Conexao.fazConexao();
-                            A_intervalosdiariosN intervaloDiarioNMODEL = new A_intervalosdiariosN();
+                            A_intervalosDiariosN intervaloDiarioNMODEL = new A_intervalosDiariosN();
                             intervaloDiarioNMODEL.setNome(jTFNome.getText().toUpperCase());
                             int idIntervalo = A_INTERVALOSDIARIOSN.getConsultarIdDeUmNomeCadastrado(con, intervaloDiarioNMODEL);
                             
@@ -360,7 +360,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                A_intervalosdiariosN intervaloDiarioNModel = new A_intervalosdiariosN();
+                A_intervalosDiariosN intervaloDiarioNModel = new A_intervalosDiariosN();
                 intervaloDiarioNModel.setNome(jTFNome.getText().toUpperCase());
                 intervaloDiarioNModel.setA_intervaloDiarioId(intervaloDiarioId);
                 boolean existe = A_INTERVALOSDIARIOSN.getConsultarParaAtualizarRegistro(con, intervaloDiarioNModel);

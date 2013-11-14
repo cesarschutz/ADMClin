@@ -7,7 +7,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class A_intervalosdiariosN {
+public class A_intervalosDiariosN {
     
     private int a_intervaloDiarioId, horarioInicial, horarioFinal, usuarioId;
     Date dat,diadoIntervalo;

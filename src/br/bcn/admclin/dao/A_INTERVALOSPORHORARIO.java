@@ -1,17 +1,19 @@
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.agenda.model.a_intervalosPorHorarioMODEL;
+
+import br.bcn.admclin.model.A_intervalosPorHorario;
 
 /**
  *
  * @author BCN
  */
-public class a_intervalosPorHorarioDAO {
+public class A_INTERVALOSPORHORARIO {
     
     public  static boolean conseguiuConsulta;
     
@@ -36,10 +38,10 @@ public class a_intervalosPorHorarioDAO {
     /**
      * Cadastra umnovo intervalo por horario no Banco de Dados.
      * @param Connection 
-     * @param a_intervalosPorHorarioMODEL
+     * @param A_intervalosPorHorario
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_intervalosPorHorarioMODEL model){
+    public static boolean setCadastrar(Connection con, A_intervalosPorHorario model){
         boolean cadastro = false;
         String sql = "insert into a_intervalosPorHorario (a_intervalosporhorarionid, agendaid) values(?,?)";
         try{
