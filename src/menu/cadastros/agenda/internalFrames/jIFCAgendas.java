@@ -74,7 +74,9 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
-                modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_agenda")),resultSet.getString("nome")});
+                if(resultSet.getInt("handle_agenda") != 0){
+                    modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_agenda")),resultSet.getString("nome")});
+                }
             } 
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
