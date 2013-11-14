@@ -14,7 +14,7 @@ public class ConvenioFilme {
     
     private int convenioFilmeId, usuarioId, handle_convenio;
     private Date dat, dataAValer;
-    private int valor;
+    private double valor;
 
     public int convenioFilmeId() {
         return convenioFilmeId;
@@ -64,11 +64,11 @@ public class ConvenioFilme {
         this.usuarioId = usuarioId;
     }
 
-    public int getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 }

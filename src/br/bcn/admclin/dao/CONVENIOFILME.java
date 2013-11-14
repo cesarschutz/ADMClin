@@ -95,7 +95,7 @@ public class CONVENIOFILME {
             stmtInsertValor.setInt(1, convenioFilmeMODEL.getUsuarioId());
             stmtInsertValor.setDate(2, convenioFilmeMODEL.getDat());
             stmtInsertValor.setInt(3, convenioFilmeMODEL.getHandle_convenio());
-            stmtInsertValor.setInt(4, convenioFilmeMODEL.getValor());
+            stmtInsertValor.setDouble(4, convenioFilmeMODEL.getValor());
             stmtInsertValor.setDate(5, convenioFilmeMODEL.getDataAValer());
             stmtInsertValor.executeUpdate();
             stmtInsertValor.close();           

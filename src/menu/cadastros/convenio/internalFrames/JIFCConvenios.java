@@ -91,9 +91,12 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
             lista_handle_grupo_convenio.add(0);
             ResultSet resultSet = CONVENIO.getConsultarGruposDeConvenios(con);
             while(resultSet.next()){
-                lista_handle_grupo_convenio.add(resultSet.getInt("grupo_id"));
-                jCBGrupo.addItem(resultSet.getString("nome"));
-                Conexao.fechaConexao(con);
+                if(resultSet.getInt("grupo_id") != 0){
+                    lista_handle_grupo_convenio.add(resultSet.getInt("grupo_id"));
+                    jCBGrupo.addItem(resultSet.getString("nome"));
+                    Conexao.fechaConexao(con);
+                }
+
             }
         }catch(Exception e){
             this.dispose();

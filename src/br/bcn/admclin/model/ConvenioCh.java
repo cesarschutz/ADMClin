@@ -14,7 +14,7 @@ public class ConvenioCh {
     
     private int convenioChId, usuarioId, handle_convenio;
     private Date dat, dataAValer;
-    private int valor;
+    private double valor;
 
     public int getConvenioChId() {
         return convenioChId;
@@ -56,11 +56,11 @@ public class ConvenioCh {
         this.usuarioId = usuarioId;
     }
 
-    public int getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 }

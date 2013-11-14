@@ -154,7 +154,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
                     conveniosFilmeModel.setUsuarioId(USUARIOS.usrId);
                     conveniosFilmeModel.setHandle_convenio(handle_convenio);
                     conveniosFilmeModel.setDataAValer(data);
-                    conveniosFilmeModel.setValor(Integer.valueOf(jTFValorFilme.getText()));
+                    conveniosFilmeModel.setValor(Double.valueOf(jTFValorFilme.getText().replaceAll(",", ".")));
                     conveniosFilmeModel.setDat(dataDeHojeEmVariavelDate);
                     boolean cadastro = CONVENIOFILME.setCadastrar(con, conveniosFilmeModel);
                     Conexao.fechaConexao(con);
