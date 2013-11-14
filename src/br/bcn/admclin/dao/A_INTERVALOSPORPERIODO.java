@@ -1,4 +1,4 @@
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.model.A_intervalosDiarios;
-import menu.cadastros.agenda.model.a_intervalosPorPeriodoMODEL;
+import br.bcn.admclin.model.A_intervalosPorPeriodo;
 
 /**
  *
  * @author BCN
  */
-public class a_intervalosPorPeriodoDAO {
+public class A_INTERVALOSPORPERIODO {
     
     public  static boolean conseguiuConsulta;
     
@@ -40,10 +40,10 @@ public class a_intervalosPorPeriodoDAO {
     /**
      * Cadastra um novo intervalo por período no Banco de Dados.
      * @param Connection 
-     * @param a_intervalosPorPeriodoMODEL
+     * @param A_intervalosPorPeriodo
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_intervalosPorPeriodoMODEL model){
+    public static boolean setCadastrar(Connection con, A_intervalosPorPeriodo model){
         boolean cadastro = false;
         String sql = "insert into a_intervalosporperiodo (a_intervaloporperiodonid, agendaid) values(?,?)";
         try{

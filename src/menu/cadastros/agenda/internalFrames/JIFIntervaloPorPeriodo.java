@@ -15,6 +15,10 @@ import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.dao.A_INTERVALOSPORPERIODO;
+import br.bcn.admclin.dao.A_INTERVALOSPORPERIODON;
+import br.bcn.admclin.model.A_intervalosPorPeriodo;
+import br.bcn.admclin.model.A_intervalosPorPeriodoN;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -34,11 +38,6 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.agenda.dao.a_intervalosPorPeriodoDAO;
-import menu.cadastros.agenda.dao.a_intervalosPorPeriodoNDAO;
-import menu.cadastros.agenda.model.a_intervalosPorPeriodoMODEL;
-import menu.cadastros.agenda.model.a_intervalosPorPeriodoNMODEL;
     
 /**
  *
@@ -111,7 +110,7 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
     public void preenchendoDadosDoIntervalo(){
         //colocando os valores
         con = Conexao.fazConexao();
-        ResultSet resultSet = a_intervalosPorPeriodoNDAO.getConsultarDadosDeUmIntervaloPorHorario(con, intervaloPorPeriodoId);
+        ResultSet resultSet = A_INTERVALOSPORPERIODON.getConsultarDadosDeUmIntervaloPorHorario(con, intervaloPorPeriodoId);
         try{
             while(resultSet.next()){
                 //colocando dados na nos campos
@@ -136,7 +135,7 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = a_intervalosPorPeriodoDAO.getConsultarAgendasDeUmIntervaloDiario(con,intervaloPorPeriodoId);
+        ResultSet resultSet = A_INTERVALOSPORPERIODO.getConsultarAgendasDeUmIntervaloDiario(con,intervaloPorPeriodoId);
         try{
             while(resultSet.next()){
                 preencherTodasAgendas = false;
@@ -258,11 +257,11 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                a_intervalosPorPeriodoNMODEL intervaloPorPeriodoNModel = new a_intervalosPorPeriodoNMODEL();
+                A_intervalosPorPeriodoN intervaloPorPeriodoNModel = new A_intervalosPorPeriodoN();
                 intervaloPorPeriodoNModel.setNome(jTFNome.getText().toUpperCase());
-                boolean existe = a_intervalosPorPeriodoNDAO.getConsultarParaSalvarRegistro(con, intervaloPorPeriodoNModel);
+                boolean existe = A_INTERVALOSPORPERIODON.getConsultarParaSalvarRegistro(con, intervaloPorPeriodoNModel);
                 Conexao.fechaConexao(con);
-                if(a_intervalosPorPeriodoNDAO.conseguiuConsulta){
+                if(A_INTERVALOSPORPERIODON.conseguiuConsulta){
                     if(existe){
                         JOptionPane.showMessageDialog(null, "Intervalo por Período já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -304,17 +303,17 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
                         
                         
                         
-                        boolean cadastro = a_intervalosPorPeriodoNDAO.setCadastrar(con, intervaloPorPeriodoNModel);
+                        boolean cadastro = A_INTERVALOSPORPERIODON.setCadastrar(con, intervaloPorPeriodoNModel);
                         Conexao.fechaConexao(con);
                         if(cadastro){
                             //pegando id do intervalo cadastrado
                             con = Conexao.fazConexao();
-                            a_intervalosPorPeriodoNMODEL intervaloPorPeriodoNMODEL = new a_intervalosPorPeriodoNMODEL();
+                            A_intervalosPorPeriodoN intervaloPorPeriodoNMODEL = new A_intervalosPorPeriodoN();
                             intervaloPorPeriodoNMODEL.setNome(jTFNome.getText().toUpperCase());
-                            int idIntervalo = a_intervalosPorPeriodoNDAO.getConsultarIdDeUmNomeCadastrado(con, intervaloPorPeriodoNMODEL);
+                            int idIntervalo = A_INTERVALOSPORPERIODON.getConsultarIdDeUmNomeCadastrado(con, intervaloPorPeriodoNMODEL);
                             
                             //salvando as agendas
-                            a_intervalosPorPeriodoMODEL intervaloPorPeriodoModel = new a_intervalosPorPeriodoMODEL();
+                            A_intervalosPorPeriodo intervaloPorPeriodoModel = new A_intervalosPorPeriodo();
                             intervaloPorPeriodoModel.setA_intervaloPorPeriodoNId(idIntervalo);
                             
                             
@@ -323,7 +322,7 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
 
                             while(i<numeroDeLinhasNaTabela){
                                 intervaloPorPeriodoModel.setAgendaId(Integer.valueOf((String)jTable1.getValueAt(i, 0)));
-                                a_intervalosPorPeriodoDAO.setCadastrar(con, intervaloPorPeriodoModel);
+                                A_INTERVALOSPORPERIODO.setCadastrar(con, intervaloPorPeriodoModel);
                                 i++;
                             }
                             
@@ -391,8 +390,8 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Intervalo Diário?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
             con = Conexao.fazConexao();
-            a_intervalosPorPeriodoDAO.setDeletar(con, intervaloPorPeriodoId);
-            a_intervalosPorPeriodoNDAO.setDeletar(con, intervaloPorPeriodoId);
+            A_INTERVALOSPORPERIODO.setDeletar(con, intervaloPorPeriodoId);
+            A_INTERVALOSPORPERIODON.setDeletar(con, intervaloPorPeriodoId);
             Conexao.fechaConexao(con);
             
             botaoCancelar();
@@ -404,12 +403,12 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
         if(verificandoSeTudoFoiPreenchido()){
             if(jTable1.getRowCount() > 0){
                 con = Conexao.fazConexao();
-                a_intervalosPorPeriodoNMODEL intervaloPorPeriodoNModel = new a_intervalosPorPeriodoNMODEL();
+                A_intervalosPorPeriodoN intervaloPorPeriodoNModel = new A_intervalosPorPeriodoN();
                 intervaloPorPeriodoNModel.setNome(jTFNome.getText().toUpperCase());
                 intervaloPorPeriodoNModel.setA_intervaloPorPeriodoNId(intervaloPorPeriodoId);
-                boolean existe = a_intervalosPorPeriodoNDAO.getConsultarParaAtualizarRegistro(con, intervaloPorPeriodoNModel);
+                boolean existe = A_INTERVALOSPORPERIODON.getConsultarParaAtualizarRegistro(con, intervaloPorPeriodoNModel);
                 Conexao.fechaConexao(con);
-                if(a_intervalosPorPeriodoNDAO.conseguiuConsulta){
+                if(A_INTERVALOSPORPERIODON.conseguiuConsulta){
                     if(existe){
                         JOptionPane.showMessageDialog(null, "Intervalo por Período já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     }else{
@@ -452,15 +451,15 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
                         
                         
                         
-                        boolean cadastro = a_intervalosPorPeriodoNDAO.setAtualizar(con, intervaloPorPeriodoNModel);
+                        boolean cadastro = A_INTERVALOSPORPERIODON.setAtualizar(con, intervaloPorPeriodoNModel);
                         Conexao.fechaConexao(con);
                         if(cadastro){
                             //deletando as agendas
                             con = Conexao.fazConexao();
-                            a_intervalosPorPeriodoDAO.setDeletar(con, intervaloPorPeriodoId);
+                            A_INTERVALOSPORPERIODO.setDeletar(con, intervaloPorPeriodoId);
                             
                             //cadastrando novas agendas
-                            a_intervalosPorPeriodoMODEL intervaloPorPeriodoModel = new a_intervalosPorPeriodoMODEL();
+                            A_intervalosPorPeriodo intervaloPorPeriodoModel = new A_intervalosPorPeriodo();
                             intervaloPorPeriodoModel.setA_intervaloPorPeriodoNId(intervaloPorPeriodoId);
                             
                             
@@ -469,7 +468,7 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
 
                             while(i<numeroDeLinhasNaTabela){
                                 intervaloPorPeriodoModel.setAgendaId(Integer.valueOf((String)jTable1.getValueAt(i, 0)));
-                                a_intervalosPorPeriodoDAO.setCadastrar(con, intervaloPorPeriodoModel);
+                                A_INTERVALOSPORPERIODO.setCadastrar(con, intervaloPorPeriodoModel);
                                 i++;
                             }
                             

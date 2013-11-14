@@ -1,17 +1,19 @@
-package menu.cadastros.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.agenda.model.a_intervalosPorPeriodoNMODEL;
+
+import br.bcn.admclin.model.A_intervalosPorPeriodoN;
 
 /**
  *
  * @author BCN
  */
-public class a_intervalosPorPeriodoNDAO {
+public class A_INTERVALOSPORPERIODON {
     public static boolean conseguiuConsulta;
     /**
      * Consulta Todos os Intervalos por periodo existentes no Banco de Dados para colocar na lista!!!
@@ -33,10 +35,10 @@ public class a_intervalosPorPeriodoNDAO {
     /**
      * Verifica se nome de intervalo por periodo ja existe 
      * @param Connection
-     * @param a_intervalosPorPeriodoNMODEL
+     * @param A_intervalosPorPeriodoN
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarRegistro(Connection con, a_intervalosPorPeriodoNMODEL model){
+    public static boolean getConsultarParaSalvarRegistro(Connection con, A_intervalosPorPeriodoN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_intervalosporperiodon where nome=?");
@@ -60,7 +62,7 @@ public class a_intervalosPorPeriodoNDAO {
      * @param a_intervalosdiariosNMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, a_intervalosPorPeriodoNMODEL model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, A_intervalosPorPeriodoN model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from a_intervalosporperiodon where nome=? and a_intervaloporperiodonid!=?");
@@ -84,7 +86,7 @@ public class a_intervalosPorPeriodoNDAO {
      * @param Connection
      * @return ResultSet
      */
-    public static int getConsultarIdDeUmNomeCadastrado(Connection con, a_intervalosPorPeriodoNMODEL model){
+    public static int getConsultarIdDeUmNomeCadastrado(Connection con, A_intervalosPorPeriodoN model){
         int intervaloPorPeriodoNId = 0;
         ResultSet resultSet = null;
         try{
@@ -122,10 +124,10 @@ public class a_intervalosPorPeriodoNDAO {
     /**
      * Cadastra uma novo intervalo por periodo no Banco de Dados.
      * @param Connection 
-     * @param a_intervalosPorPeriodoNMODEL
+     * @param A_intervalosPorPeriodoN
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_intervalosPorPeriodoNMODEL model){
+    public static boolean setCadastrar(Connection con, A_intervalosPorPeriodoN model){
         boolean cadastro = false;
         String sql = "insert into a_intervalosporperiodon (dat,usuarioid,nome,horarioinicial,horariofinal,diaInicial,diaFinal,descricao) values(?,?,?,?,?,?,?,?)";
         try{
@@ -172,7 +174,7 @@ public class a_intervalosPorPeriodoNDAO {
     }
     
     //atualizar intervalo por periodo
-    public static boolean setAtualizar(Connection con, a_intervalosPorPeriodoNMODEL model){
+    public static boolean setAtualizar(Connection con, A_intervalosPorPeriodoN model){
         boolean cadastro = false;
         String sql = "update a_intervalosporperiodoN set dat=?, usuarioid=?, nome=?, horarioinicial=?, horariofinal=?,  diainicial=?, diafinal=?, descricao=? where a_intervaloporperiodonid=?";
         try{

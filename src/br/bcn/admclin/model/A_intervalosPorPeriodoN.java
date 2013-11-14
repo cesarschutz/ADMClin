@@ -1,5 +1,5 @@
 
-package menu.cadastros.agenda.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class a_intervalosPorPeriodoNMODEL {
+public class A_intervalosPorPeriodoN {
     
     private int a_intervaloPorPeriodoNId, horarioInicial, horarioFinal, usuarioId;
     Date dat,diaInicial, diaFinal;
