@@ -805,6 +805,8 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
         if(resposta == JOptionPane.YES_OPTION){
             con = Conexao.fazConexao();
             //deletar agenda e intervalos dela
+            
+            //quando deltar agenda, não pode ser deletada a agenda de ID = 0, pois ela representa todas as agendas!
             Conexao.fechaConexao(con);
             PreenchendoTabelaDasAgendas();
             botaoCancelar();

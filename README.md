@@ -4,14 +4,10 @@ ADMClin
 Projeto ADMClin - BCN MEDICAL SYSTEM
 
 =================================================
-Alteração do banco de dados
 
-Tabela: USUARIOS
-FG_STATUS    - VARCHAR -> CHAR
-ENVIA_EMAILS - VARCHAR -> CHAR
+Versão 2.0 para a versão 2.1
+Alterados os tipos de campos no banco de dados.
 
-Tabela: AGENDAS
-USUARIOID -> colocado como chave estrangeira da tabela USUARIOS.
-
-Tabela: 
-AMANHA CONTINUAMOS!!!
+Cuidados:
+Agenda deve ser cadastrada uma com ID = 0, isso para que quando forem todas as agendas a participar ed um feriado/intervalo marcar essa de ID 0.
+Todos os generators devem estar como 1 quando o banco estiver zerado.
