@@ -1,4 +1,4 @@
-package menu.cadastros.exame.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,15 +7,14 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.dao.USUARIOS;
-import menu.cadastros.exame.model.materiaisMODEL;
+import br.bcn.admclin.model.Materiais;
 import menu.cadastros.exame.model.valoresMateriaisMODEL;
 
 /**
  * Classe DAO da tabela MATERIAIS.
  * @author BCN
  */
-public class materiaisDAO {
+public class MATERIAIS {
     public static boolean conseguiuConsulta;
     /**
      * Verifica se Material já existe antes de cadastra-lo no Banco de Dados.
@@ -23,7 +22,7 @@ public class materiaisDAO {
      * @param materialMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, materiaisMODEL model){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Materiais model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from materiais where nome=? or codigo=?");
@@ -47,7 +46,7 @@ public class materiaisDAO {
      * @param materialMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, materiaisMODEL model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, Materiais model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from materiais where (nome=? or codigo=?) and handle_material!=?");
@@ -86,10 +85,10 @@ public class materiaisDAO {
     /**
      * Cadastra um novo Material no Banco de Dados e em seguida cadastro um valor para aquele material (primeiro valor no caso).
      * @param Connection 
-     * @param materiaisMODEL
+     * @param Materiais
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, materiaisMODEL model, valoresMateriaisMODEL valorModel){
+    public static boolean setCadastrar(Connection con, Materiais model, valoresMateriaisMODEL valorModel){
         boolean cadastro = false;
         int handle_material = -1;
         String sqlInsertMaterial = "insert into materiais (nome,codigo,usuarioid,dat) values(?,?,?,?)";
@@ -133,10 +132,10 @@ public class materiaisDAO {
     /**
      * Deleta uma Materiais no Banco de Dados.
      * @param Connection
-     * @param materiaisMODEL 
+     * @param Materiais 
      * @return Boolean
      */
-    public static boolean setDeletar(Connection con, materiaisMODEL model){
+    public static boolean setDeletar(Connection con, Materiais model){
         boolean deleto = false;
         String sql="delete from materiais where handle_material=?";
         try{
@@ -155,10 +154,10 @@ public class materiaisDAO {
     /**
      * Atualiza um Exame no Banco De Dados.
      * @param Connection
-     * @param materiaisMODEL 
+     * @param Materiais 
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, materiaisMODEL material){
+    public static boolean setUpdate(Connection con, Materiais material){
         boolean cadastro = false;
         String sql = "update materiais set usuarioid=?, dat=?, nome=?, codigo=? where handle_material=?";
         try{

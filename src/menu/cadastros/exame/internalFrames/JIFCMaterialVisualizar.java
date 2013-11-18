@@ -13,6 +13,8 @@ package menu.cadastros.exame.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.MATERIAIS;
+import br.bcn.admclin.model.Materiais;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -30,15 +32,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.cadastros.exame.dao.materiaisDAO;
-import menu.cadastros.exame.model.materiaisMODEL;
-
 /**
  *
  * @author BCN
  */
 public class JIFCMaterialVisualizar extends javax.swing.JInternalFrame {
-    public static List<materiaisMODEL> listaMateriais = new ArrayList<materiaisMODEL>();
+    public static List<Materiais> listaMateriais = new ArrayList<Materiais>();
     private Connection con = null;
     /** Creates new form JIFCPacientesVisualizar */
     public JIFCMaterialVisualizar() {
@@ -75,14 +74,14 @@ public class JIFCMaterialVisualizar extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = materiaisDAO.getConsultar(con);
+        ResultSet resultSet = MATERIAIS.getConsultar(con);
         listaMateriais.removeAll(listaMateriais);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_material")),resultSet.getString("nome")}); 
                 //colocando dados nos objetos
-                materiaisMODEL materialModel = new materiaisMODEL();
+                Materiais materialModel = new Materiais();
                 materialModel.setHandle_material(resultSet.getInt("handle_material"));
                 materialModel.setUsuarioId(resultSet.getInt("usuarioid"));
                 materialModel.setData(resultSet.getDate("dat"));

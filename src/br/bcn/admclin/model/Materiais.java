@@ -1,4 +1,4 @@
-package menu.cadastros.exame.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -6,7 +6,7 @@ import java.sql.Date;
  * Classe MODEL da tabela MATERIAIS.
  * @author BCN
  */
-public class materiaisMODEL {
+public class Materiais {
     
     private int handle_material, usuarioId;
     private String nome, codigo;

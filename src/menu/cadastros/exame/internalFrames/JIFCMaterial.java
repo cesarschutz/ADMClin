@@ -16,6 +16,8 @@ import ClasseAuxiliares.documentoSemeComercialESemJogoDaVelhaParaOsMateriais;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import ClasseAuxiliares.jTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.MATERIAIS;
+import br.bcn.admclin.model.Materiais;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -38,10 +40,8 @@ import janelaPrincipal.janelaPrincipal;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-import menu.cadastros.exame.dao.materiaisDAO;
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.exame.dao.valoresMateriaisDAO;
-import menu.cadastros.exame.model.materiaisMODEL;
 import menu.cadastros.exame.model.valoresMateriaisMODEL;
 
 /**
@@ -154,13 +154,13 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         if(descricaoPreenchida && codigoPreenchido){
           //fazendo um if para verificar se descricao ou referencia ja existem
             con = Conexao.fazConexao();
-            materiaisMODEL materialModelo = new materiaisMODEL();
+            Materiais materialModelo = new Materiais();
             materialModelo.setNome(jTDescricao.getText().toUpperCase());
             materialModelo.setCodigo(jTFCodigo.getText().toUpperCase());
             materialModelo.setData(dataDeHojeEmVariavelDate);
-            boolean existe = materiaisDAO.getConsultarParaSalvarNovoRegistro(con, materialModelo);
+            boolean existe = MATERIAIS.getConsultarParaSalvarNovoRegistro(con, materialModelo);
             Conexao.fechaConexao(con);
-            if(materiaisDAO.conseguiuConsulta){
+            if(MATERIAIS.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Descrição ou Código já existe.","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -183,7 +183,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                     valorMaterialModel.setDataAValer(data);
                     valorMaterialModel.setValor(jTFValor.getText().replace(",", "."));
                     valorMaterialModel.setData(dataDeHojeEmVariavelDate);
-                    boolean cadastro = materiaisDAO.setCadastrar(con, materialModelo, valorMaterialModel);
+                    boolean cadastro = MATERIAIS.setCadastrar(con, materialModelo, valorMaterialModel);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){
@@ -259,10 +259,10 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                     //    JOptionPane.showMessageDialog(null, "Esta Classe de Exame  não pode ser deletada pois está sendo utilizada por algum Exame","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     //}else{
                         //fazer o delete de acordo com o codigo
-                        materiaisMODEL materialModel = new materiaisMODEL();
+                        Materiais materialModel = new Materiais();
                         materialModel.setHandle_material(handle_material);
                         con = Conexao.fazConexao();
-                        boolean deleto = materiaisDAO.setDeletar(con, materialModel);
+                        boolean deleto = MATERIAIS.setDeletar(con, materialModel);
                         Conexao.fechaConexao(con);
                         //atualizar tabela
                         if(deleto){
@@ -283,14 +283,14 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         
         if (codigoPreenchido && descricaoPreenchida) {
             con = Conexao.fazConexao();
-            materiaisMODEL materialModelo = new materiaisMODEL();
+            Materiais materialModelo = new Materiais();
             materialModelo.setNome(jTDescricao.getText().toUpperCase());
             materialModelo.setCodigo(jTFCodigo.getText().toUpperCase());
             materialModelo.setData(dataDeHojeEmVariavelDate);
             materialModelo.setHandle_material(handle_material);
-            boolean existe = materiaisDAO.getConsultarParaAtualizarRegistro(con, materialModelo);
+            boolean existe = MATERIAIS.getConsultarParaAtualizarRegistro(con, materialModelo);
             if(!existe){
-               boolean cadastro = materiaisDAO.setUpdate(con, materialModelo);
+               boolean cadastro = MATERIAIS.setUpdate(con, materialModelo);
                 Conexao.fechaConexao(con);
                 if (cadastro) {
                     botaoCancelar();
