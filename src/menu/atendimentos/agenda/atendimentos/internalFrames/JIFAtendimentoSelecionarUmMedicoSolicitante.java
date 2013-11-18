@@ -8,6 +8,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.MEDICOS;
+import br.bcn.admclin.dao.PACIENTES;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -24,7 +25,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import menu.cadastros.pessoal.dao.pacientesDAO;
 /**
  *
  * @author CeSaR

@@ -13,6 +13,8 @@ package menu.cadastros.pessoal.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.PACIENTES;
+import br.bcn.admclin.model.Pacientes;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -30,15 +32,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.cadastros.pessoal.dao.pacientesDAO;
-import menu.cadastros.pessoal.model.pacientesMODEL;
-
 /**
  *
  * @author BCN
  */
 public class JIFCPacientesVisualizar extends javax.swing.JInternalFrame {
-    public static List<pacientesMODEL> listaPacientes = new ArrayList<pacientesMODEL>();
+    public static List<Pacientes> listaPacientes = new ArrayList<Pacientes>();
     private Connection con = null;
     /** Creates new form JIFCPacientesVisualizar */
     public JIFCPacientesVisualizar() {
@@ -83,14 +82,14 @@ public class JIFCPacientesVisualizar extends javax.swing.JInternalFrame {
             if(nomesParaPesquisar.length == 2) sql = nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%";
             if(nomesParaPesquisar.length == 3) sql = nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%";
             if(nomesParaPesquisar.length == 4) sql = nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%"+ nomesParaPesquisar[3] + "%";
-            ResultSet resultSet = pacientesDAO.getConsultar(con,sql);
+            ResultSet resultSet = PACIENTES.getConsultar(con,sql);
         listaPacientes.removeAll(listaPacientes);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_paciente")),resultSet.getString("nome"),resultSet.getString("nascimento")}); 
                 //colocando dados nos objetos
-                pacientesMODEL pacienteModelo = new pacientesMODEL();
+                Pacientes pacienteModelo = new Pacientes();
                 pacienteModelo.setHandle_paciente(resultSet.getInt("handle_paciente"));
                 pacienteModelo.setUsuarioId(resultSet.getInt("usuarioid"));
                 pacienteModelo.setData(resultSet.getDate("dat"));

@@ -5,6 +5,8 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.PACIENTES;
+import br.bcn.admclin.model.Pacientes;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -18,8 +20,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import menu.cadastros.pessoal.dao.pacientesDAO;
-import menu.cadastros.pessoal.model.pacientesMODEL;
 import janelaPrincipal.janelaPrincipal;
 
 /**
@@ -176,7 +176,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
         
         if(verificarSeNomeENascimentoFOramPreenchidosCorretamente()){
             //salva no banco
-            pacientesMODEL pacienteModel = new pacientesMODEL();
+            Pacientes pacienteModel = new Pacientes();
                     pacienteModel.setUsuarioId(USUARIOS.usrId);
                     pacienteModel.setData(dataDeHojeEmVariavelDate);
                     
@@ -209,7 +209,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
                     pacienteModel.setObs(jTAObs.getText());
                     pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
                     con = Conexao.fazConexao();
-                    boolean cadastro = pacientesDAO.setCadastrar(con, pacienteModel);
+                    boolean cadastro = PACIENTES.setCadastrar(con, pacienteModel);
                     Conexao.fechaConexao(con);
                     if(cadastro){
                         botaoCancelar();
@@ -221,7 +221,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
 
         if(verificarSeNomeENascimentoFOramPreenchidosCorretamente()){
             //salva no banco
-            pacientesMODEL pacienteModel = new pacientesMODEL();
+            Pacientes pacienteModel = new Pacientes();
                     pacienteModel.setUsuarioId(USUARIOS.usrId);
                     pacienteModel.setData(dataDeHojeEmVariavelDate);
                     pacienteModel.setHandle_paciente(handle_paciente);
@@ -254,7 +254,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
                     pacienteModel.setObs(jTAObs.getText());
                     pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
                     con = Conexao.fazConexao();
-                    boolean atualizo = pacientesDAO.setUpdate(con, pacienteModel);
+                    boolean atualizo = PACIENTES.setUpdate(con, pacienteModel);
                     Conexao.fechaConexao(con);
                     if(atualizo){
                         botaoCancelar();
@@ -266,10 +266,10 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Paciente?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
             //fazer o delete de acordo com o codigo
-            pacientesMODEL pacienteModel = new pacientesMODEL();
+            Pacientes pacienteModel = new Pacientes();
             pacienteModel.setHandle_paciente(handle_paciente);
             con = Conexao.fazConexao();
-            boolean deleto = pacientesDAO.setDeletar(con, pacienteModel);
+            boolean deleto = PACIENTES.setDeletar(con, pacienteModel);
             Conexao.fechaConexao(con);
             //atualizar tabela
             if(deleto){

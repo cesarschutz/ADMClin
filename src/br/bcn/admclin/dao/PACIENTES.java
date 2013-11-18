@@ -1,17 +1,19 @@
-package menu.cadastros.pessoal.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.pessoal.model.pacientesMODEL;
+
+import br.bcn.admclin.model.Pacientes;
 
 /**
  *
  * @author BCN
  */
-public class pacientesDAO {
+public class PACIENTES {
     public static boolean conseguiuConsulta;
     /**
      * Consulta todos os pacientes exitentes no Banco De Dados de acordo com o nome pesquisado
@@ -53,7 +55,7 @@ public class pacientesDAO {
      * @param PacienteMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, pacientesMODEL paciente){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Pacientes paciente){
         boolean existe = true;
         try{
             PreparedStatement stmtQuery = con.prepareStatement("select * from PACIENTES where nome=?");
@@ -76,7 +78,7 @@ public class pacientesDAO {
      * @param PacienteMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, pacientesMODEL paciente){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, Pacientes paciente){
         boolean existe = true;
         try{
             PreparedStatement pstmt = con.prepareStatement("select * from PACIENTES where (nome=?) and (handle_paciente!=?)");
@@ -100,7 +102,7 @@ public class pacientesDAO {
      * @param PacienteMODEL
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, pacientesMODEL paciente){
+    public static boolean setCadastrar(Connection con, Pacientes paciente){
         boolean cadastro = false;
         String sql = "insert into PACIENTES (usuarioid, dat, nome, cpf, nascimento, responsavel, cpfResponsavel, sexo, peso, altura, telefone, "
                 + "celular, endereco, bairro, cep, cidade, uf, rg, profissao, email, cor, estadoCivil, obs, telefone_responsavel) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -167,7 +169,7 @@ public class pacientesDAO {
      * @param PacienteMODEL
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, pacientesMODEL paciente){
+    public static boolean setUpdate(Connection con, Pacientes paciente){
         boolean cadastro = false;
         String sql = "update PACIENTES set usuarioid=?, dat=?, nome=?, cpf=?, nascimento=?, responsavel=?, cpfResponsavel=?, sexo=?, peso=?, altura=?, telefone=?, "
                 + "celular=?, endereco=?, bairro=?, cep=?, cidade=?, uf=?, rg=?, profissao=?, email=?, cor=?, estadoCivil=?, obs=?, telefone_responsavel=? where handle_paciente=?";
@@ -213,7 +215,7 @@ public class pacientesDAO {
      * @param PacienteMODEL 
      * @return Boolean
      */
-    public static boolean setDeletar(Connection con, pacientesMODEL paciente){
+    public static boolean setDeletar(Connection con, Pacientes paciente){
         boolean deleto = false;
         String sql = "delete from PACIENTES where handle_paciente=?";
         try{

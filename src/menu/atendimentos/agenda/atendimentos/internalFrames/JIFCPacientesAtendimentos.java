@@ -5,6 +5,8 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.PACIENTES;
+import br.bcn.admclin.model.Pacientes;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -22,8 +24,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import menu.cadastros.pessoal.dao.pacientesDAO;
-import menu.cadastros.pessoal.model.pacientesMODEL;
 
 /**
  *
@@ -75,7 +75,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
             jBSalvarRegistro.setVisible(false);
             jBAtualizarRegistro.setVisible(true);
             con = Conexao.fazConexao();
-            ResultSet resultSet = pacientesDAO.getConsultarDadosDeUmPaciente(con, handle_paciente);
+            ResultSet resultSet = PACIENTES.getConsultarDadosDeUmPaciente(con, handle_paciente);
             try {
                 while(resultSet.next()){
 
@@ -179,7 +179,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         
         if(verificarSeNomeENascimentoFOramPreenchidosCorretamente()){
             //salva no banco
-            pacientesMODEL pacienteModel = new pacientesMODEL();
+            Pacientes pacienteModel = new Pacientes();
                     pacienteModel.setUsuarioId(USUARIOS.usrId);
                     pacienteModel.setData(dataDeHojeEmVariavelDate);
                     
@@ -212,11 +212,11 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
                     pacienteModel.setObs(jTAObs.getText());
                     pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
                     con = Conexao.fazConexao();
-                    boolean cadastro = pacientesDAO.setCadastrar(con, pacienteModel);
+                    boolean cadastro = PACIENTES.setCadastrar(con, pacienteModel);
                     Conexao.fechaConexao(con);
                     if(cadastro){
                         con = Conexao.fazConexao();
-                        handle_paciente = pacientesDAO.getConsultarHandlePaciente(con, jTFNome.getText());
+                        handle_paciente = PACIENTES.getConsultarHandlePaciente(con, jTFNome.getText());
                         if(handle_paciente != 0){
                            voltarATelaDeAtendimento(); 
                         }   
@@ -229,7 +229,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
 
         if(verificarSeNomeENascimentoFOramPreenchidosCorretamente()){
             //salva no banco
-            pacientesMODEL pacienteModel = new pacientesMODEL();
+            Pacientes pacienteModel = new Pacientes();
                     pacienteModel.setUsuarioId(USUARIOS.usrId);
                     pacienteModel.setData(dataDeHojeEmVariavelDate);
                     pacienteModel.setNome(jTFNome.getText());
@@ -262,7 +262,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
                     pacienteModel.setObs(jTAObs.getText());
                     pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
                     con = Conexao.fazConexao();
-                    boolean atualizo = pacientesDAO.setUpdate(con, pacienteModel);
+                    boolean atualizo = PACIENTES.setUpdate(con, pacienteModel);
                     Conexao.fechaConexao(con);
                     if(atualizo){
                         voltarATelaDeAtendimento();

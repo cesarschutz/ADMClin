@@ -18,6 +18,7 @@ import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
 import br.bcn.admclin.dao.MEDICOS;
+import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.model.Medicos;
 
 import java.awt.Dimension;
@@ -39,7 +40,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import janelaPrincipal.janelaPrincipal;
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import menu.cadastros.pessoal.dao.pacientesDAO;
 
 /**
  *
