@@ -17,7 +17,9 @@ import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import ClasseAuxiliares.jTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.MATERIAIS;
+import br.bcn.admclin.dao.VALORESMATERIAIS;
 import br.bcn.admclin.model.Materiais;
+import br.bcn.admclin.model.ValoresMateriais;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -41,8 +43,6 @@ import java.text.DecimalFormat;
 import java.util.Date;
 
 import menu.cadastros.convenio.dao.tabelasDAO;
-import menu.cadastros.exame.dao.valoresMateriaisDAO;
-import menu.cadastros.exame.model.valoresMateriaisMODEL;
 
 /**
  *
@@ -166,7 +166,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                 }else{
                     //fazer a inserção no banco
                     con = Conexao.fazConexao();
-                    valoresMateriaisMODEL valorMaterialModel = new valoresMateriaisMODEL();
+                    ValoresMateriais valorMaterialModel = new ValoresMateriais();
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
                     java.sql.Date data = null; 
                     Date dataSelecionada = jXDatePicker1.getDate();
@@ -181,7 +181,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, "Preencha a data corretamente");
                     }
                     valorMaterialModel.setDataAValer(data);
-                    valorMaterialModel.setValor(jTFValor.getText().replace(",", "."));
+                    valorMaterialModel.setValor(Double.valueOf(jTFValor.getText().replace(",", ".")));
                     valorMaterialModel.setData(dataDeHojeEmVariavelDate);
                     boolean cadastro = MATERIAIS.setCadastrar(con, materialModelo, valorMaterialModel);
                     Conexao.fechaConexao(con);
@@ -206,14 +206,14 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                   SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
                   //colocando data selecionado no formato criado acima
                   String dataString = dataFormatada.format(dataSelecionada); 
-         dataMaiorQueUltimaCadastrada = valoresMateriaisDAO.getConsultarSeDataEhMenorQueAultimaCadastrada(con, handle_material, dataString, jTFMensagemParaUsuario);
+         dataMaiorQueUltimaCadastrada = VALORESMATERIAIS.getConsultarSeDataEhMenorQueAultimaCadastrada(con, handle_material, dataString, jTFMensagemParaUsuario);
         }
         
         
         if(dataMaiorQueUltimaCadastrada){
                     //fazer a inserção no banco
                     con = Conexao.fazConexao();
-                    valoresMateriaisMODEL valorMaterialModel = new valoresMateriaisMODEL();
+                    ValoresMateriais valorMaterialModel = new ValoresMateriais();
                     
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
                     java.sql.Date data = null; 
@@ -230,9 +230,9 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                     }
                     
                     valorMaterialModel.setDataAValer(data);
-                    valorMaterialModel.setValor(jTFValor.getText().replace(",", "."));
+                    valorMaterialModel.setValor(Double.valueOf(jTFValor.getText().replace(",", ".")));
                     valorMaterialModel.setData(dataDeHojeEmVariavelDate);
-                    boolean cadastro = valoresMateriaisDAO.setCadastrar(con, valorMaterialModel, handle_material);
+                    boolean cadastro = VALORESMATERIAIS.setCadastrar(con, valorMaterialModel, handle_material);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){
@@ -267,7 +267,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                         //atualizar tabela
                         if(deleto){
                             con = Conexao.fazConexao();
-                            valoresMateriaisDAO.setDeletar(con, handle_material);
+                            VALORESMATERIAIS.setDeletar(con, handle_material);
                             Conexao.fechaConexao(con);
                             botaoCancelar();
                         }
@@ -307,7 +307,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         jTable2.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = valoresMateriaisDAO.getConsultar(con,handle_material);
+        ResultSet resultSet = VALORESMATERIAIS.getConsultar(con,handle_material);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
@@ -681,7 +681,7 @@ botaoApagarRegistro();        // TODO add your handling code here:
                 //fazer o delete de acordo com o codigo
                 con = Conexao.fazConexao();
                 int valorMaterialId = Integer.valueOf(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(), 0)));
-                boolean deleto = valoresMateriaisDAO.setDeletarUmValor(con, valorMaterialId);
+                boolean deleto = VALORESMATERIAIS.setDeletarUmValor(con, valorMaterialId);
                 Conexao.fechaConexao(con);
                 if(deleto){
                     atualizarTabelaDeValores(handle_material);

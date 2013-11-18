@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.model.Materiais;
-import menu.cadastros.exame.model.valoresMateriaisMODEL;
+import br.bcn.admclin.model.ValoresMateriais;
 
 /**
  * Classe DAO da tabela MATERIAIS.
@@ -88,7 +88,7 @@ public class MATERIAIS {
      * @param Materiais
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, Materiais model, valoresMateriaisMODEL valorModel){
+    public static boolean setCadastrar(Connection con, Materiais model, ValoresMateriais valorModel){
         boolean cadastro = false;
         int handle_material = -1;
         String sqlInsertMaterial = "insert into materiais (nome,codigo,usuarioid,dat) values(?,?,?,?)";
@@ -114,7 +114,7 @@ public class MATERIAIS {
             //inserindo valor no material
             PreparedStatement stmtInsertValor = con.prepareStatement(sqlInsrtValor);
             stmtInsertValor.setInt(1, handle_material);
-            stmtInsertValor.setString(2, valorModel.getValor());
+            stmtInsertValor.setDouble(2, Double.valueOf(valorModel.getValor()));
             stmtInsertValor.setDate(3, valorModel.getDataAValer());
             stmtInsertValor.setDate(4, model.getData());
             stmtInsertValor.setInt(5, USUARIOS.usrId);

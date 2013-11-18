@@ -1,5 +1,5 @@
 
-package menu.cadastros.exame.dao;
+package br.bcn.admclin.dao;
 
 import ClasseAuxiliares.MetodosUteis;
 
@@ -13,14 +13,13 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import br.bcn.admclin.dao.USUARIOS;
-import menu.cadastros.exame.model.valoresMateriaisMODEL;
+import br.bcn.admclin.model.ValoresMateriais;
 
 /**
  * Classe DAO da tabela ValoresMateriais
  * @author BCN
  */
-public class valoresMateriaisDAO {
+public class VALORESMATERIAIS {
     
     
     /**
@@ -85,14 +84,14 @@ public class valoresMateriaisDAO {
      * @param handle_material
      * @return  se cadastrou ou nao
      */
-    public static boolean setCadastrar(Connection con, valoresMateriaisMODEL valorMaterialModel, int handle_material){
+    public static boolean setCadastrar(Connection con, ValoresMateriais valorMaterialModel, int handle_material){
         boolean cadastro = false;
         String sqlInsrtValor = "insert into valoresmateriais (handle_material,valor,dataavaler,dat,usuarioid) values(?,?,?,?,?)";
         try{
             //inserindo valor no material
             PreparedStatement stmtInsertValor = con.prepareStatement(sqlInsrtValor);
             stmtInsertValor.setInt(1, handle_material);
-            stmtInsertValor.setString(2, valorMaterialModel.getValor());
+            stmtInsertValor.setDouble(2, Double.valueOf(valorMaterialModel.getValor()));
             stmtInsertValor.setDate(3, valorMaterialModel.getDataAValer());
             stmtInsertValor.setDate(4, valorMaterialModel.getData());
             stmtInsertValor.setInt(5, USUARIOS.usrId);

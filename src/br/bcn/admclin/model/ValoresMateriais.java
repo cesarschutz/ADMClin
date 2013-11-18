@@ -1,5 +1,5 @@
 
-package menu.cadastros.exame.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -7,8 +7,8 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class valoresMateriaisMODEL {
-    private String valor;
+public class ValoresMateriais {
+    private double valor;
     private int valoresMateriaisId, handle_material, usuarioid;
     private Date data, dataAValer;
 
@@ -28,11 +28,11 @@ public class valoresMateriaisMODEL {
         this.handle_material = materialId;
     }
 
-    public String getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
