@@ -4,6 +4,8 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.RESPONSAVEIS_TECNICOS;
+import br.bcn.admclin.model.Responsaveis_Tecnicos;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -16,9 +18,6 @@ import java.util.Calendar;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import menu.cadastros.pessoal.dao.responsaveis_tecnicosDAO;
-import menu.cadastros.pessoal.model.responsaveis_tecnicosMODEL;
 
 /**
  *
@@ -117,11 +116,11 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
         regAnsPreenchido = MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jTFRegistroAns, jTFMensagemParaUsuario, "      ");
         
         if(nomePreenchido && conselhoPreenchido && regConselhoPreenchido && cpfPreenchido && ufPreenchido && regAnsPreenchido){
-            responsaveis_tecnicosMODEL responsavelTecnicoModel = new responsaveis_tecnicosMODEL();
+            Responsaveis_Tecnicos responsavelTecnicoModel = new Responsaveis_Tecnicos();
             responsavelTecnicoModel.setCpf(jTFCpf.getText().toUpperCase());
             con = Conexao.fazConexao();
-            boolean existe = responsaveis_tecnicosDAO.getConsultarParaSalvarNovoRegistro(con, responsavelTecnicoModel);
-            if(responsaveis_tecnicosDAO.conseguiuConsulta){
+            boolean existe = RESPONSAVEIS_TECNICOS.getConsultarParaSalvarNovoRegistro(con, responsavelTecnicoModel);
+            if(RESPONSAVEIS_TECNICOS.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "CPF já cadastrado","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -133,7 +132,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
                     responsavelTecnicoModel.setRegistroConselho(jTFRegistroConselho.getText().toUpperCase());
                     responsavelTecnicoModel.setUf((String)jCBUf.getSelectedItem());
                     responsavelTecnicoModel.setRegistroAns(jTFRegistroAns.getText().toUpperCase());
-                    boolean cadastro = responsaveis_tecnicosDAO.setCadastrar(con, responsavelTecnicoModel);
+                    boolean cadastro = RESPONSAVEIS_TECNICOS.setCadastrar(con, responsavelTecnicoModel);
                     Conexao.fechaConexao(con);
                     if(cadastro){
                         botaoCancelar();
@@ -162,13 +161,13 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
         regAnsPreenchido = MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jTFRegistroAns, jTFMensagemParaUsuario, "      ");
         
         if(nomePreenchido && conselhoPreenchido && regConselhoPreenchido && cpfPreenchido && ufPreenchido && regAnsPreenchido){
-            responsaveis_tecnicosMODEL responsavelTecnicoModel = new responsaveis_tecnicosMODEL();
+            Responsaveis_Tecnicos responsavelTecnicoModel = new Responsaveis_Tecnicos();
             responsavelTecnicoModel.setCpf(jTFCpf.getText().toUpperCase());
             responsavelTecnicoModel.setRtId(rtId);
             con = Conexao.fazConexao();
-            boolean existe = responsaveis_tecnicosDAO.getConsultarParaAtualizarRegistro(con, responsavelTecnicoModel);
+            boolean existe = RESPONSAVEIS_TECNICOS.getConsultarParaAtualizarRegistro(con, responsavelTecnicoModel);
             Conexao.fechaConexao(con);
-            if(responsaveis_tecnicosDAO.conseguiuConsulta){
+            if(RESPONSAVEIS_TECNICOS.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "CPF já cadastrado","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -180,7 +179,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
                     responsavelTecnicoModel.setUf((String)jCBUf.getSelectedItem());
                     responsavelTecnicoModel.setRegistroAns(jTFRegistroAns.getText().toUpperCase());
                     con = Conexao.fazConexao();
-                    boolean atualizo = responsaveis_tecnicosDAO.setUpdate(con, responsavelTecnicoModel);
+                    boolean atualizo = RESPONSAVEIS_TECNICOS.setUpdate(con, responsavelTecnicoModel);
                     Conexao.fechaConexao(con);
                     if(atualizo){
                         //dexando janela como no inicio
@@ -196,10 +195,10 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
     public void botaoApagarRegistro(){
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Responsável Técnico?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
-            responsaveis_tecnicosMODEL responsavelTecnico = new responsaveis_tecnicosMODEL();
+            Responsaveis_Tecnicos responsavelTecnico = new Responsaveis_Tecnicos();
             responsavelTecnico.setRtId(rtId);
             con = Conexao.fazConexao();
-            boolean deleto = responsaveis_tecnicosDAO.setDeletar(con, responsavelTecnico);
+            boolean deleto = RESPONSAVEIS_TECNICOS.setDeletar(con, responsavelTecnico);
             Conexao.fechaConexao(con);
             //atualizar tabela
             if(deleto){

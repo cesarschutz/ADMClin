@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.pessoal.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class responsaveis_tecnicosMODEL {
+public class Responsaveis_Tecnicos {
   
     private int rtId, usuarioId;
     private String nome,conselho,registroConselho,cpf,uf,registroAns;

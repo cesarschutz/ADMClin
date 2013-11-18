@@ -1,17 +1,19 @@
-package menu.cadastros.pessoal.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.pessoal.model.responsaveis_tecnicosMODEL;
+
+import br.bcn.admclin.model.Responsaveis_Tecnicos;
 
 /**
  *
  * @author BCN
  */
-public class responsaveis_tecnicosDAO {
+public class RESPONSAVEIS_TECNICOS {
     public static boolean conseguiuConsulta;
     /**
      * Consulta todos os responsáveis técnicos exitentes no Banco De Dados.
@@ -35,7 +37,7 @@ public class responsaveis_tecnicosDAO {
      * @param ResponsavelTecnicoMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, responsaveis_tecnicosMODEL responsavelTecnico){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Responsaveis_Tecnicos responsavelTecnico){
         boolean existe = true;
         try{
             PreparedStatement stmtQuery = con.prepareStatement("select * from RESPONSAVEIS_TECNICOS where cpf=?");
@@ -58,7 +60,7 @@ public class responsaveis_tecnicosDAO {
      * @param ResponsavelTecnicoMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, responsaveis_tecnicosMODEL responsavelTecnico){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, Responsaveis_Tecnicos responsavelTecnico){
         boolean existe = true;
         try{
             PreparedStatement pstmt = con.prepareStatement("select * from RESPONSAVEIS_TECNICOS where (cpf=?) and (rtid!=?)");
@@ -82,7 +84,7 @@ public class responsaveis_tecnicosDAO {
      * @param ResponsavelTecnicoMODEL 
      * @return boolean
      */
-    public static boolean setCadastrar(Connection con, responsaveis_tecnicosMODEL responsavelTecnico){
+    public static boolean setCadastrar(Connection con, Responsaveis_Tecnicos responsavelTecnico){
         boolean cadastro = false;
         String sql = "insert into RESPONSAVEIS_TECNICOS (usuarioid,dat,nome,conselho,registro_conselho,cpf,uf,registro_ans) values(?,?,?,?,?,?,?,?)";
         try{
@@ -110,7 +112,7 @@ public class responsaveis_tecnicosDAO {
      * @param ResponsavelTecnicoMODEL
      * @return boolean
      */
-    public static boolean setUpdate(Connection con, responsaveis_tecnicosMODEL responsavelTecnico){
+    public static boolean setUpdate(Connection con, Responsaveis_Tecnicos responsavelTecnico){
         boolean atualizo = false;
         String sql = "update RESPONSAVEIS_TECNICOS  set usuarioid=?, dat=?, nome=?, conselho=?, registro_conselho=?, cpf=?, uf=?, registro_ans=? where rtid=?";
         try{
@@ -139,7 +141,7 @@ public class responsaveis_tecnicosDAO {
      * @param ClasseDeExameMODEL 
      * @return boolean
      */
-    public static boolean setDeletar(Connection con, responsaveis_tecnicosMODEL responsavelTecnico){
+    public static boolean setDeletar(Connection con, Responsaveis_Tecnicos responsavelTecnico){
         boolean deleto = false;
         String sql = "delete from RESPONSAVEIS_TECNICOS where rtid=?";
         try{

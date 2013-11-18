@@ -12,6 +12,8 @@ package menu.cadastros.pessoal.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.RESPONSAVEIS_TECNICOS;
+import br.bcn.admclin.model.Responsaveis_Tecnicos;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -28,15 +30,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.cadastros.pessoal.dao.responsaveis_tecnicosDAO;
-import menu.cadastros.pessoal.model.responsaveis_tecnicosMODEL;
-
 /**
  *
  * @author BCN
  */
 public class JIFCResponsaveisTecnicosVisualizar extends javax.swing.JInternalFrame {
-    public static List<responsaveis_tecnicosMODEL> listaResponsaveisTecnicos = new ArrayList<responsaveis_tecnicosMODEL>();
+    public static List<Responsaveis_Tecnicos> listaResponsaveisTecnicos = new ArrayList<Responsaveis_Tecnicos>();
     private Connection con = null;
     /** Creates new form JIFCPacientesVisualizar */
     public JIFCResponsaveisTecnicosVisualizar() {
@@ -72,14 +71,14 @@ public class JIFCResponsaveisTecnicosVisualizar extends javax.swing.JInternalFra
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = responsaveis_tecnicosDAO.getConsultar(con);
+        ResultSet resultSet = RESPONSAVEIS_TECNICOS.getConsultar(con);
         listaResponsaveisTecnicos.removeAll(listaResponsaveisTecnicos);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("rtid")),resultSet.getString("nome"),resultSet.getString("conselho")}); 
                 //colocando dados nos objetos
-                responsaveis_tecnicosMODEL responsavelTecnicoModel = new responsaveis_tecnicosMODEL();
+                Responsaveis_Tecnicos responsavelTecnicoModel = new Responsaveis_Tecnicos();
                 responsavelTecnicoModel.setRtId(resultSet.getInt("rtid"));
                 responsavelTecnicoModel.setUsuarioId(resultSet.getInt("usuarioid"));
                 responsavelTecnicoModel.setData(resultSet.getDate("dat"));
