@@ -13,6 +13,8 @@ package menu.cadastros.pessoal.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.MEDICOS;
+import br.bcn.admclin.model.Medicos;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -30,15 +32,13 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import janelaPrincipal.janelaPrincipal;
-import menu.cadastros.pessoal.dao.medicosDAO;
-import menu.cadastros.pessoal.model.medicosMODEL;
 
 /**
  *
  * @author BCN
  */
 public class JIFCMedicosVisualizar extends javax.swing.JInternalFrame {
-    public static List<medicosMODEL> listaMedicos = new ArrayList<medicosMODEL>();
+    public static List<Medicos> listaMedicos = new ArrayList<Medicos>();
     private Connection con = null;
     /** Creates new form JIFCPacientesVisualizar */
     public JIFCMedicosVisualizar() {
@@ -85,7 +85,7 @@ public class JIFCMedicosVisualizar extends javax.swing.JInternalFrame {
             if(nomesParaPesquisar.length == 3) sql = nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%";
             if(nomesParaPesquisar.length == 4) sql = nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%"+ nomesParaPesquisar[3] + "%";
         
-        ResultSet resultSet = medicosDAO.getConsultar(con, sql);
+        ResultSet resultSet = MEDICOS.getConsultar(con, sql);
         
         
         listaMedicos.removeAll(listaMedicos);
@@ -94,7 +94,7 @@ public class JIFCMedicosVisualizar extends javax.swing.JInternalFrame {
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("medicoid")),resultSet.getString("nome"),resultSet.getString("nascimento")}); 
                 //colocando dados nos objetos
-                medicosMODEL medicosModelo = new medicosMODEL();
+                Medicos medicosModelo = new Medicos();
                 medicosModelo.setMedicoId(resultSet.getInt("medicoid"));
                 medicosModelo.setEmId(resultSet.getInt("emid"));
                 medicosModelo.setUsuarioId(resultSet.getInt("usuarioid"));

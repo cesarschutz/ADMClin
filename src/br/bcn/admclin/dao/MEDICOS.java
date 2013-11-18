@@ -1,18 +1,20 @@
 
-package menu.cadastros.pessoal.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.pessoal.model.medicosMODEL;
+
+import br.bcn.admclin.model.Medicos;
 
 /**
  *
  * @author BCN
  */
-public class medicosDAO {
+public class MEDICOS {
     public static boolean conseguiuConsulta;
     /**
      * Consulta Todos Medicos existentes no Banco de Dados.
@@ -73,10 +75,10 @@ public class medicosDAO {
     /**
      * Verifica se Médico já existe antes de cadastra-lo no Banco de Dados.
      * @param Connection
-     * @param medicosMODEL
+     * @param Medicos
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, medicosMODEL model){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Medicos model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from medicos where nome=?");
@@ -96,10 +98,10 @@ public class medicosDAO {
     /**
      * Verifica se Médico já existe antes de fazer um update no Banco de Dados.
      * @param Connection
-     * @param medicosMODEL
+     * @param Medicos
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, medicosMODEL model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, Medicos model){
         boolean existe = true;
         try{
             PreparedStatement stmtQuery = con.prepareStatement("select * from medicos where (nome=?) and (medicoid!=?)");
@@ -120,10 +122,10 @@ public class medicosDAO {
     /**
      * Cadastra um novo Médico no Banco de Dados.
      * @param Connection 
-     * @param medicosMODEL
+     * @param Medicos
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, medicosMODEL model){
+    public static boolean setCadastrar(Connection con, Medicos model){
         boolean cadastro = false;
         String sql = "insert into medicos (emId, usuarioid, dat, nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
@@ -156,10 +158,10 @@ public class medicosDAO {
     /**
      * Atualiza um Médico no Banco De Dados.
      * @param Connection 
-     * @param medicosMODEL
+     * @param Medicos
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, medicosMODEL model){
+    public static boolean setUpdate(Connection con, Medicos model){
         boolean atualizo = false;
         String sql = "update medicos set emId=?, usuarioid=?, dat=?, nome=?, nascimento=?, telefone=?, celular=?, endereco=?, bairro=?, cep=?, cidade=?, uf=?, email=?, crm=?, ufcrm=? where medicoid=?";
         try{
@@ -194,10 +196,10 @@ public class medicosDAO {
     /**
      * Deleta um Médico no Banco de Dados.
      * @param Connection
-     * @param medicosMODEL 
+     * @param Medicos 
      * @return Boolean
      */
-    public static boolean setDeletar(Connection con, medicosMODEL model){
+    public static boolean setDeletar(Connection con, Medicos model){
         boolean deleto = false;
         String sql="delete from medicos where medicoid=?";
         try{

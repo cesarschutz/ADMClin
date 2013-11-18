@@ -17,6 +17,8 @@ import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
+import br.bcn.admclin.dao.MEDICOS;
+import br.bcn.admclin.model.Medicos;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -37,9 +39,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import janelaPrincipal.janelaPrincipal;
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import menu.cadastros.pessoal.dao.medicosDAO;
 import menu.cadastros.pessoal.dao.pacientesDAO;
-import menu.cadastros.pessoal.model.medicosMODEL;
 
 /**
  *
@@ -83,7 +83,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Médico", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
             //preenchendo os campos
             con = Conexao.fazConexao();
-            ResultSet resultSet = medicosDAO.getConsultarDadosDeUmMedico(con, medicoId);
+            ResultSet resultSet = MEDICOS.getConsultarDadosDeUmMedico(con, medicoId);
             try {
                 while(resultSet.next()){
                         jTFNome.setText(resultSet.getString("nome"));
@@ -182,7 +182,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         
         if(verificarSetudoFoiPreenchidoCorretamente()){
             //salva no banco
-            medicosMODEL medicosMODEL = new medicosMODEL();
+            Medicos medicosMODEL = new Medicos();
                    //fazer a inserção no banco
                     con = Conexao.fazConexao();
                     medicosMODEL.setUsuarioId(USUARIOS.usrId);
@@ -201,12 +201,12 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
                     medicosMODEL.setCidade(jTFCidade.getText());
                     medicosMODEL.setUf((String)jCBUf.getSelectedItem());
                     medicosMODEL.setEmId(listaCodEspecialidadesMedicas.get(jCBEspecialidadeMedica.getSelectedIndex()));
-                    boolean cadastro = medicosDAO.setCadastrar(con, medicosMODEL);
+                    boolean cadastro = MEDICOS.setCadastrar(con, medicosMODEL);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){
                         con = Conexao.fazConexao();
-                        medicoId = medicosDAO.getConsultarMedicoId(con, jTFNome.getText());
+                        medicoId = MEDICOS.getConsultarMedicoId(con, jTFNome.getText());
                         if(medicoId != 0){
                            voltarATelaDeAtendimento(); 
                         }   
@@ -220,7 +220,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         
         if(verificarSetudoFoiPreenchidoCorretamente()){
             //salva no banco
-            medicosMODEL medicosMODEL = new medicosMODEL();
+            Medicos medicosMODEL = new Medicos();
                    //fazer a inserção no banco
                     con = Conexao.fazConexao();
                     medicosMODEL.setUsuarioId(USUARIOS.usrId);
@@ -239,7 +239,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
                     medicosMODEL.setCidade(jTFCidade.getText());
                     medicosMODEL.setUf((String)jCBUf.getSelectedItem());
                     medicosMODEL.setEmId(listaCodEspecialidadesMedicas.get(jCBEspecialidadeMedica.getSelectedIndex()));
-                    boolean cadastro = medicosDAO.setUpdate(con, medicosMODEL);
+                    boolean cadastro = MEDICOS.setUpdate(con, medicosMODEL);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){

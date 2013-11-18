@@ -7,6 +7,7 @@ package menu.atendimentos.agenda.atendimentos.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.MEDICOS;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -23,7 +24,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import menu.cadastros.pessoal.dao.medicosDAO;
 import menu.cadastros.pessoal.dao.pacientesDAO;
 /**
  *
@@ -65,7 +65,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
             if(nomesParaPesquisar.length == 3) sql = nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%";
             if(nomesParaPesquisar.length == 4) sql = nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%"+ nomesParaPesquisar[3] + "%";
 
-            ResultSet resultSet = medicosDAO.getConsultar(con,sql);
+            ResultSet resultSet = MEDICOS.getConsultar(con,sql);
             try{
                 while(resultSet.next()){
                         modelo.addRow(new String[] {Integer.toString(resultSet.getInt("medicoid")),resultSet.getString("nome"), resultSet.getString("crm"), resultSet.getString("ufcrm"), resultSet.getString("nascimento"), resultSet.getString("telefone"), resultSet.getString("celular")}); 

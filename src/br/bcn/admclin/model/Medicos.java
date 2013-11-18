@@ -1,5 +1,5 @@
 
-package menu.cadastros.pessoal.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class medicosMODEL {
+public class Medicos {
     
     private int medicoId, emId, usuarioId;
     private String nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm;
