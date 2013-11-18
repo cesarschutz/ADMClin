@@ -10,6 +10,8 @@ import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
+import br.bcn.admclin.dao.EXAMES;
+import br.bcn.admclin.model.Exames;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -31,8 +33,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import menu.cadastros.convenio.dao.tabelasDAO;
-import menu.cadastros.exame.dao.examesDAO;
-import menu.cadastros.exame.model.examesMODEL;
 
 /**
  *
@@ -40,7 +40,7 @@ import menu.cadastros.exame.model.examesMODEL;
  */
 public class jIFCExames extends javax.swing.JInternalFrame {
 
-    public static List<examesMODEL> listaExames = new ArrayList<examesMODEL>();
+    public static List<Exames> listaExames = new ArrayList<Exames>();
     private Connection con = null;
     java.sql.Date dataDeHojeEmVariavelDate = null;
     public List<Integer> listaHANDLE_CLASSESDEEXAMES = new ArrayList<Integer>();
@@ -116,11 +116,11 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = examesDAO.getConsultar(con);
+        ResultSet resultSet = EXAMES.getConsultar(con);
         listaExames.removeAll(listaExames);
         try{
             while(resultSet.next()){
-                examesMODEL exame = new examesMODEL();
+                Exames exame = new Exames();
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_exame")),resultSet.getString("nome")}); 
                 //colocando dados nos objetos
@@ -245,12 +245,12 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         
         if(nomeOK && duracaoOk && horasUteisOk && comboBoxOk && radioButtonOk){
             con = Conexao.fazConexao();
-            examesMODEL exameModel = new examesMODEL();
+            Exames exameModel = new Exames();
             exameModel.setNOME(jTFNome.getText().toUpperCase());
             exameModel.setDuracao(Integer.valueOf(jTFDuracao.getText()));
-            boolean existe = examesDAO.getConsultarParaSalvar(con, exameModel);
+            boolean existe = EXAMES.getConsultarParaSalvar(con, exameModel);
             Conexao.fechaConexao(con);
-            if(examesDAO.conseguiuConsulta){
+            if(EXAMES.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Nome de Exame já existe!","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -266,7 +266,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     }else{
                         exameModel.setLaudo("S");
                     }
-                    boolean cadastro = examesDAO.setCadastrar(con, exameModel); 
+                    boolean cadastro = EXAMES.setCadastrar(con, exameModel); 
                     Conexao.fechaConexao(con);
                     if(cadastro){
                         botaoCancelar();
@@ -295,13 +295,13 @@ public class jIFCExames extends javax.swing.JInternalFrame {
             //fazendo um if para verificar se descricao ou referencia ja existem
 
             con = Conexao.fazConexao();
-            examesMODEL exameModel = new examesMODEL();
+            Exames exameModel = new Exames();
             exameModel.setNOME(jTFNome.getText().toUpperCase());
             exameModel.setDuracao(Integer.valueOf(jTFDuracao.getText()));
             exameModel.setHANDLE_EXAME(HANDLE_EXAME);
-            boolean existe = examesDAO.getConsultarParaAtualizar(con, exameModel);
+            boolean existe = EXAMES.getConsultarParaAtualizar(con, exameModel);
             Conexao.fechaConexao(con);
-            if(examesDAO.conseguiuConsulta){
+            if(EXAMES.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Descrição já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -319,7 +319,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     exameModel.setHANDLE_CLASSEDEEXAME(listaHANDLE_CLASSESDEEXAMES.get(jCBDescricaoClasse.getSelectedIndex()));
                     exameModel.setHANDLE_EXAME(HANDLE_EXAME);
                     exameModel.setModalidade(String.valueOf(jCBModalidade.getSelectedItem()));
-                    boolean atualizo = examesDAO.setUpdate(con, exameModel);
+                    boolean atualizo = EXAMES.setUpdate(con, exameModel);
                     if(atualizo){
                         botaoCancelar();
                         atualizarTabela();
@@ -340,9 +340,9 @@ public class jIFCExames extends javax.swing.JInternalFrame {
             if(resposta == JOptionPane.YES_OPTION){
                 //fazer o delete de acordo com o codigo
                 con = Conexao.fazConexao();
-                examesMODEL exameModel = new examesMODEL();
+                Exames exameModel = new Exames();
                 exameModel.setHANDLE_EXAME(HANDLE_EXAME);
-                boolean deleto = examesDAO.setDeletar(con, exameModel);
+                boolean deleto = EXAMES.setDeletar(con, exameModel);
                 Conexao.fechaConexao(con);
                 if(deleto){
                     botaoCancelar();

@@ -1,4 +1,4 @@
-package menu.cadastros.exame.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -6,7 +6,7 @@ import java.sql.Date;
  * Modelo de Exame.
  * @author BCN
  */
-public class examesMODEL {
+public class Exames {
     private int HANDLE_EXAME, HANDLE_CLASSEDEEXAME, usuarioId, duracao;
     private String NOME, qtdHoras, laudo, modalidade;
     Date data;

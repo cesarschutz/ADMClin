@@ -1,17 +1,19 @@
-package menu.cadastros.exame.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.exame.model.examesMODEL;
+
+import br.bcn.admclin.model.Exames;
 
 /**
  *
  * @author BCN
  */
-public class examesDAO {
+public class EXAMES {
      public static boolean conseguiuConsulta;
     /**
      * Verifica todos os Exames cadastrados no Banco de Dados
@@ -54,7 +56,7 @@ public class examesDAO {
      * @param ExameMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvar(Connection con, examesMODEL exame){
+    public static boolean getConsultarParaSalvar(Connection con, Exames exame){
         boolean existe = true;
         try{
             PreparedStatement stmtQuery = con.prepareStatement("select * from exames where nome=?");
@@ -77,7 +79,7 @@ public class examesDAO {
      * @param ExameMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizar(Connection con, examesMODEL exame){
+    public static boolean getConsultarParaAtualizar(Connection con, Exames exame){
         boolean existe = true;
         try{
             PreparedStatement stmtQuery = con.prepareStatement("select * from exames where (nome=?) and (HANDLE_EXAME!=?)");
@@ -101,7 +103,7 @@ public class examesDAO {
      * @param ExameMODEL 
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, examesMODEL exame){
+    public static boolean setCadastrar(Connection con, Exames exame){
         boolean cadastro = false;
         String sql = "insert into exames (usuarioid,dat,DURACAO,nome,qtdhoras,laudo,HANDLE_CLASSEDEEXAME,modalidade) values(?,?,?,?,?,?,?,?)";
         try{
@@ -129,7 +131,7 @@ public class examesDAO {
      * @param ExameModel 
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, examesMODEL exame){
+    public static boolean setUpdate(Connection con, Exames exame){
         boolean cadastro = false;
         String sql = "update exames set usuarioid=?, dat=?, duracao=?, nome=?, qtdhoras=?, laudo=?, HANDLE_CLASSEDEEXAME=?, modalidade=?  where HANDLE_EXAME=?";
         try{
@@ -159,7 +161,7 @@ public class examesDAO {
      * @param ExameMODEL 
      * @return boolean
      */
-    public static boolean setDeletar(Connection con, examesMODEL exame){
+    public static boolean setDeletar(Connection con, Exames exame){
         boolean deleto = false; 
         String sql="delete from exames where HANDLE_EXAME=?";
         try{

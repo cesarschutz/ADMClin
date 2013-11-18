@@ -14,6 +14,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.jTextFieldDinheiroReaisCom5CasasDecimais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.EXAMES;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -36,7 +37,6 @@ import javax.swing.table.DefaultTableModel;
 
 import menu.cadastros.convenio.dao.tabelasDAO;
 import menu.cadastros.convenio.model.tabelasMODEL;
-import menu.cadastros.exame.dao.examesDAO;
 
 /**
  *
@@ -87,7 +87,7 @@ public class JIFCTabelasAdicionarUMExame extends javax.swing.JInternalFrame {
         //preenchendo os Exames no ComboBox
         con = Conexao.fazConexao();
         String modalidade = String.valueOf(JIFCTabelas.jCBModalidades.getSelectedItem());
-        ResultSet resultSet = examesDAO.getConsultarPorModalidade(con,modalidade);
+        ResultSet resultSet = EXAMES.getConsultarPorModalidade(con,modalidade);
         listaHandle_Exame.removeAll(listaHandle_Exame);
         jCBExames.addItem("Selecione um Exame");  
         listaHandle_Exame.add(0);
