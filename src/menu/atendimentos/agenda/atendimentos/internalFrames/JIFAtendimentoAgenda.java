@@ -9,6 +9,7 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.A_AGENDAMENTOS;
 import calculoValorDeUmExame.calculoValorDeExame;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
 import impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
@@ -44,7 +45,6 @@ import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTOS_MODEL;
 import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTO_EXAMES_MODEL;
-import menu.atendimentos.agenda.dao.a_agendamentosDAO;
 import menu.atendimentos.agenda.dao.agendaDAO;
 import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.atendimentos.agenda.dao.examesDAO;
@@ -300,7 +300,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             boolean primeiraVezNoFor = true;
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             
-            ResultSet resultSet = a_agendamentosDAO.getConsultarDadosDeUmAgendamento(con,handle_ap); 
+            ResultSet resultSet = A_AGENDAMENTOS.getConsultarDadosDeUmAgendamento(con,handle_ap); 
             try{
                 while(resultSet.next()){
 

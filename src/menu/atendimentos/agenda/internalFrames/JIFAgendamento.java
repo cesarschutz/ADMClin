@@ -3,7 +3,6 @@ package menu.atendimentos.agenda.internalFrames;
 
 import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.atendimentos.agenda.dao.agendaDAO;
-import menu.atendimentos.agenda.dao.a_agendamentosDAO;
 import menu.atendimentos.agenda.dao.examesDAO;
 import menu.atendimentos.agenda.dao.pacientesDAO;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
@@ -11,6 +10,8 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.model.A_Agendamentos;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -30,7 +31,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.atendimentos.agenda.model.a_agendamentosMODEL;
 import menu.atendimentos.agenda.model.pacientesMODEL;
 import calculoValorDeUmExame.calculoValorDeExame;
 
@@ -203,7 +203,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
     public void reservandoHorarioCasoSejaUmHorarioLivre(){
         pegandoUmHandle_apDoBanco();
         
-        a_agendamentosMODEL agendamentoMODEL = new a_agendamentosMODEL();
+        A_Agendamentos agendamentoMODEL = new A_Agendamentos();
         con = Conexao.fazConexao();
         agendamentoMODEL.setUSUARIOID(USUARIOS.usrId);
         agendamentoMODEL.setDat(dataDeHojeEmVariavelDate);
@@ -220,7 +220,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Erro com a data. Procure o Administrador.");
         }
-        boolean cadastro = a_agendamentosDAO.setCadastrar(con, agendamentoMODEL);
+        boolean cadastro = A_AGENDAMENTOS.setCadastrar(con, agendamentoMODEL);
         if(!cadastro){
             JOptionPane.showMessageDialog(null, "Erro ao reservar Horário. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
         }
@@ -232,7 +232,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         boolean primeiraVezNoFor = true;
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = a_agendamentosDAO.getConsultarDadosDeUmAgendamento(con,handle_ap); 
+        ResultSet resultSet = A_AGENDAMENTOS.getConsultarDadosDeUmAgendamento(con,handle_ap); 
         try{
             while(resultSet.next()){
                 
@@ -484,8 +484,8 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
     public void pegandoUmHandle_apDoBanco(){
         //pegando o handle_ap para salvar no banco
         con = Conexao.fazConexao();
-        handle_ap = a_agendamentosDAO.getHandleAP(con);
-        a_agendamentosDAO.setSomarHandleAP(con);
+        handle_ap = A_AGENDAMENTOS.getHandleAP(con);
+        A_AGENDAMENTOS.setSomarHandleAP(con);
         Conexao.fechaConexao(con);
     }
     
@@ -520,7 +520,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                 for(int i = 0; i < jTable1.getRowCount(); i++){
                     //cadastrar o agendamento
                     //fazer a inserção no banco
-                    a_agendamentosMODEL agendamentoMODEL = new a_agendamentosMODEL();
+                    A_Agendamentos agendamentoMODEL = new A_Agendamentos();
                     con = Conexao.fazConexao();
                     agendamentoMODEL.setUSUARIOID(USUARIOS.usrId);
                     agendamentoMODEL.setDat(dataDeHojeEmVariavelDate);
@@ -565,16 +565,16 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                     agendamentoMODEL.setLado(String.valueOf(jTable1.getValueAt(i, 4)));
                     agendamentoMODEL.setMaterial(String.valueOf(jTable1.getValueAt(i, 5)));
                     
-                    agendamentoMODEL.setCh_convenio(String.valueOf(jTable1.getValueAt(i, 6)));
-                    agendamentoMODEL.setFilme_convenio(String.valueOf(jTable1.getValueAt(i, 7)));
-                    agendamentoMODEL.setCh1_exame(String.valueOf(jTable1.getValueAt(i, 8)));
-                    agendamentoMODEL.setCh2_exame(String.valueOf(jTable1.getValueAt(i, 9)));
-                    agendamentoMODEL.setFilme_exame(String.valueOf(jTable1.getValueAt(i, 10)));
+                    agendamentoMODEL.setCh_convenio(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 6))));
+                    agendamentoMODEL.setFilme_convenio(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 7))));
+                    agendamentoMODEL.setCh1_exame(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 8))));
+                    agendamentoMODEL.setCh2_exame(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 9))));
+                    agendamentoMODEL.setFilme_exame(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 10))));
                     agendamentoMODEL.setLista_materiais(String.valueOf(jTable1.getValueAt(i, 11)));
                     
                     agendamentoMODEL.setModalidade(String.valueOf(jCBModalidade.getSelectedItem()));
                     
-                    cadastro = a_agendamentosDAO.setCadastrar(con, agendamentoMODEL);
+                    cadastro = A_AGENDAMENTOS.setCadastrar(con, agendamentoMODEL);
                     Conexao.fechaConexao(con);
                 }
 
@@ -724,7 +724,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
     
     public boolean deletar(){
         con = Conexao.fazConexao();
-        boolean deletou = a_agendamentosDAO.setDeletar(con, handle_ap);
+        boolean deletou = A_AGENDAMENTOS.setDeletar(con, handle_ap);
         Conexao.fechaConexao(con);
         return deletou;
     }
@@ -760,7 +760,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
     public void guardarInformacoesDoAgendamentoCancelado(){
         JIFUmaAgenda.listaAgendamentoCanceladoPorUltimo.clear();
         for(int i = -1; i < jTable1.getRowCount(); i++){
-                    a_agendamentosMODEL agendamentoMODEL = new a_agendamentosMODEL();
+                    A_Agendamentos agendamentoMODEL = new A_Agendamentos();
 
                     //setando dia do agendamento
 
@@ -832,27 +832,27 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                     
                     
                     try{
-                        agendamentoMODEL.setCh_convenio(String.valueOf(jTable1.getValueAt(i, 6)));
+                        agendamentoMODEL.setCh_convenio(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 6))));
                     }catch(Exception e){  
                     }
                     
                     try{
-                        agendamentoMODEL.setFilme_convenio(String.valueOf(jTable1.getValueAt(i, 7)));
+                        agendamentoMODEL.setFilme_convenio(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 7))));
                     }catch(Exception e){  
                     }
                     
                     try{
-                        agendamentoMODEL.setCh1_exame(String.valueOf(jTable1.getValueAt(i, 8)));
+                        agendamentoMODEL.setCh1_exame(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 8))));
                     }catch(Exception e){  
                     }
                     
                     try{
-                        agendamentoMODEL.setCh2_exame(String.valueOf(jTable1.getValueAt(i, 9)));
+                        agendamentoMODEL.setCh2_exame(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 9))));
                     }catch(Exception e){  
                     }
                     
                     try{
-                        agendamentoMODEL.setFilme_exame(String.valueOf(jTable1.getValueAt(i, 10)));
+                        agendamentoMODEL.setFilme_exame(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 10))));
                     }catch(Exception e){  
                     }
                     
@@ -2087,7 +2087,7 @@ if(jTFHANDLE_PACIENTE.getText().length()>1){
             
             boolean primeiraVezNoFor = true;
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            for (a_agendamentosMODEL agendamentoImportado : JIFUmaAgenda.listaAgendamentoCanceladoPorUltimo) {
+            for (A_Agendamentos agendamentoImportado : JIFUmaAgenda.listaAgendamentoCanceladoPorUltimo) {
                 //preenchendo o restante
                 jTAObservacao.setText(agendamentoImportado.getObservacao());
                 
@@ -2146,7 +2146,7 @@ if(jTFHANDLE_PACIENTE.getText().length()>1){
                     
                     //formatando com duas casas apos a virgula no valor do exame
                     valorDoExame = new BigDecimal(calculoValorExame.valor_correto_exame).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-                    modelo.addRow(new String[] {Integer.toString(agendamentoImportado.getHANDLE_EXAME()),agendamentoImportado.getNomeExame(),MetodosUteis.transformarMinutosEmHorario(agendamentoImportado.getDURACAODOEXAME()), MetodosUteis.colocarZeroEmCampoReais(valorDoExame), agendamentoImportado.getLado(), agendamentoImportado.getMaterial(), agendamentoImportado.getCh_convenio(), agendamentoImportado.getFilme_convenio(), agendamentoImportado.getCh1_exame(), agendamentoImportado.getCh2_exame(), agendamentoImportado.getFilme_exame(), agendamentoImportado.getLista_materiais()});
+                    modelo.addRow(new Object[] {Integer.toString(agendamentoImportado.getHANDLE_EXAME()),agendamentoImportado.getNomeExame(),MetodosUteis.transformarMinutosEmHorario(agendamentoImportado.getDURACAODOEXAME()), MetodosUteis.colocarZeroEmCampoReais(valorDoExame), agendamentoImportado.getLado(), agendamentoImportado.getMaterial(), agendamentoImportado.getCh_convenio(), agendamentoImportado.getFilme_convenio(), agendamentoImportado.getCh1_exame(), agendamentoImportado.getCh2_exame(), agendamentoImportado.getFilme_exame(), agendamentoImportado.getLista_materiais()});
                 }
 
                 //calculando valor total do agendamento

@@ -2,17 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.atendimentos.agenda.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.*;
+
 import javax.swing.JOptionPane;
-import menu.atendimentos.agenda.model.a_agendamentosMODEL;
+
+import br.bcn.admclin.model.A_Agendamentos;
 
 /**
  *
  * @author CeSaR
  */
-public class a_agendamentosDAO {
+public class A_AGENDAMENTOS {
     
     //variavel utilizada para quando SALVAR veriricar o handle_ap que foi feito naquele agendamento
     public static int handle_apDoAgendamentoCadastrado;
@@ -62,7 +64,7 @@ public class a_agendamentosDAO {
      * @param PacienteMODEL
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, a_agendamentosMODEL agendamento){
+    public static boolean setCadastrar(Connection con, A_Agendamentos agendamento){
         boolean cadastro = false;
         String sql = "insert into a_agendamentos (dia,nascimento,dat,"
                 + "HANDLE_AGENDA,HORA,HANDLE_PACIENTE,HANDLE_CONVENIO,HANDLE_EXAME,USUARIOID,DURACAODOEXAME,DURACAODOAGENDAMENTO,handle_ap,"
@@ -98,11 +100,11 @@ public class a_agendamentosDAO {
             
             stmt.setString(22, agendamento.getModalidade());
             
-            stmt.setString(23, agendamento.getCh_convenio());
-            stmt.setString(24, agendamento.getFilme_convenio());
-            stmt.setString(25, agendamento.getCh1_exame());
-            stmt.setString(26, agendamento.getCh2_exame());
-            stmt.setString(27, agendamento.getFilme_exame());
+            stmt.setDouble(23, Double.valueOf(agendamento.getCh_convenio()));
+            stmt.setDouble(24, Double.valueOf(agendamento.getFilme_convenio()));
+            stmt.setDouble(25, Double.valueOf(agendamento.getCh1_exame()));
+            stmt.setDouble(26, Double.valueOf(agendamento.getCh2_exame()));
+            stmt.setDouble(27, Double.valueOf(agendamento.getFilme_exame()));
             stmt.setString(28, agendamento.getLista_materiais());
             
             stmt.executeUpdate();

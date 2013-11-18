@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.atendimentos.agenda.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -10,11 +10,12 @@ import java.sql.Date;
  *
  * @author CeSaR
  */
-public class a_agendamentosMODEL {
+public class A_Agendamentos {
     
     private Date dia,nascimento,dat;
     private int HANDLE_AGENDA,HANDLE_AP,HORA,HANDLE_PACIENTE,HANDLE_CONVENIO,HANDLE_EXAME,USUARIOID,DURACAODOEXAME,duracaoAgendamento;
-    private String nomePaciente,telefone,celular,nomeConvenio,nomeExame,observacao,cpfPaciente,lado, material, modalidade, ch_convenio, filme_convenio, ch1_exame, ch2_exame, filme_exame, lista_materiais;
+    private String nomePaciente,telefone,celular,nomeConvenio,nomeExame,observacao,cpfPaciente,lado, material, modalidade, lista_materiais;
+    private double ch_convenio, filme_convenio, ch1_exame, ch2_exame, filme_exame;
 
     public String getCpfPaciente() {
         return cpfPaciente;
@@ -193,43 +194,43 @@ public class a_agendamentosMODEL {
         this.modalidade = modalidade;
     }
 
-    public String getCh_convenio() {
+    public double getCh_convenio() {
         return ch_convenio;
     }
 
-    public void setCh_convenio(String ch_convenio) {
+    public void setCh_convenio(double ch_convenio) {
         this.ch_convenio = ch_convenio;
     }
 
-    public String getFilme_convenio() {
+    public double getFilme_convenio() {
         return filme_convenio;
     }
 
-    public void setFilme_convenio(String filme_convenio) {
+    public void setFilme_convenio(double filme_convenio) {
         this.filme_convenio = filme_convenio;
     }
 
-    public String getCh1_exame() {
+    public double getCh1_exame() {
         return ch1_exame;
     }
 
-    public void setCh1_exame(String ch1_exame) {
+    public void setCh1_exame(double ch1_exame) {
         this.ch1_exame = ch1_exame;
     }
 
-    public String getCh2_exame() {
+    public double getCh2_exame() {
         return ch2_exame;
     }
 
-    public void setCh2_exame(String ch2_exame) {
+    public void setCh2_exame(double ch2_exame) {
         this.ch2_exame = ch2_exame;
     }
 
-    public String getFilme_exame() {
+    public double getFilme_exame() {
         return filme_exame;
     }
 
-    public void setFilme_exame(String filme_exame) {
+    public void setFilme_exame(double filme_exame) {
         this.filme_exame = filme_exame;
     }
 

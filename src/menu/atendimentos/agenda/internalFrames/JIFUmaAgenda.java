@@ -21,6 +21,8 @@ package menu.atendimentos.agenda.internalFrames;
 
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.model.A_Agendamentos;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -53,12 +55,10 @@ import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTO_EXAMES_MODEL;
 import menu.atendimentos.agenda.dao.agendaDAO;
-import menu.atendimentos.agenda.dao.a_agendamentosDAO;
 import menu.atendimentos.agenda.dao.feriadosDAO;
 import menu.atendimentos.agenda.dao.intervalosDiariosDAO;
 import menu.atendimentos.agenda.dao.intervalosPorHorarioDAO;
 import menu.atendimentos.agenda.dao.intervalosPorPeriodoDAO;
-import menu.atendimentos.agenda.model.a_agendamentosMODEL;
 import menu.atendimentos.agenda.pinturaDeUmaAgenda.ColorirHorariosIndisponiveisNaAgendaELiberarIconesNaTabela;
 import menu.atendimentos.agenda.pinturaDeUmaAgenda.ColorirLinhaJTableInicial;
 import menu.atendimentos.agenda.pinturaDeUmaAgenda.colorirIntervalosNaTabelaDeHorario;
@@ -79,7 +79,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
     public static Connection con = null;
     int ultimoDiaDoMesSelecionado;
     //agendamento deleto (mais de um por causa dos exames, pode ser varias linhas
-    public static List<a_agendamentosMODEL> listaAgendamentoCanceladoPorUltimo = new ArrayList<a_agendamentosMODEL>();
+    public static List<A_Agendamentos> listaAgendamentoCanceladoPorUltimo = new ArrayList<A_Agendamentos>();
     /**
      * Creates new form JIFumaAgendaCorreto
      */
@@ -1546,7 +1546,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
     
     
     
-    public static List<a_agendamentosMODEL> listaAgendamentosDaAgenda = new ArrayList<a_agendamentosMODEL>();
+    public static List<A_Agendamentos> listaAgendamentosDaAgenda = new ArrayList<A_Agendamentos>();
     public static void preenchendoOsAgendamentosDestaAgenda  (JTable tabelaSelecionada, Icon iconeAgendamento, Icon iconeAgendamentoExt, Connection con)   {
         
         
@@ -1560,11 +1560,11 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro com a data. Procure o Administrador.");
         }
         
-        ResultSet resultSet = a_agendamentosDAO.getConsultarAgendamentos(con,handle_agenda,diaParaVerificarAgendamentos); 
+        ResultSet resultSet = A_AGENDAMENTOS.getConsultarAgendamentos(con,handle_agenda,diaParaVerificarAgendamentos); 
         try{
             while(resultSet.next()){
                 //colocando esse agendamento na lista(para termos algumas informações em memoria)
-                a_agendamentosMODEL agendamento = new a_agendamentosMODEL();
+                A_Agendamentos agendamento = new A_Agendamentos();
                 agendamento.setHORA(resultSet.getInt("hora"));
                 agendamento.setNomePaciente(resultSet.getString("nomePaciente"));
                 agendamento.setNascimento(resultSet.getDate("nascimento"));
@@ -2114,7 +2114,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         List<String> listaDeExamesDoAgendamento = new ArrayList<String>();
         String paciente=null, nascimento=null, telefone=null, celular=null, convenio=null, duracaoTotal=null, dia=null, hora=null;  
         
-        for(a_agendamentosMODEL agendamento : listaAgendamentosDaAgenda){
+        for(A_Agendamentos agendamento : listaAgendamentosDaAgenda){
             if(agendamento.getHANDLE_AP() == Integer.valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 4)))){
                 paciente = "Paciente                          : " + agendamento.getNomePaciente();
                 try{ nascimento = "Nascimento                    : " + MetodosUteis.converterDataParaMostrarAoUsuario(agendamento.getNascimento().toString()); } catch(Exception e){nascimento = "Nascimento                    : ";}
