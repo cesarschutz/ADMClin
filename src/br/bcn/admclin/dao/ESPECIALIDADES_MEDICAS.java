@@ -1,18 +1,20 @@
 
-package menu.cadastros.pessoal.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.pessoal.model.especialidades_medicasMODEL;
+
+import br.bcn.admclin.model.Especialidades_Medicas;
 
 /**
  *
  * @author BCN
  */
-public class especialidades_medicasDAO {
+public class ESPECIALIDADES_MEDICAS {
     public static boolean conseguiuConsulta;
     /**
      * Consulta Todas as Especialidades Medicas existentes no Banco de Dados.
@@ -33,10 +35,10 @@ public class especialidades_medicasDAO {
     /**
      * Verifica se Especialidade Medica já existe antes de cadastra-lo no Banco de Dados.
      * @param Connection
-     * @param especialidades_medicasMODEL
+     * @param Especialidades_Medicas
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, especialidades_medicasMODEL model){
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Especialidades_Medicas model){
        boolean existe = true;
         try{
           PreparedStatement stmtQuery = con.prepareStatement("select * from especialidades_medicas where descricao=?");
@@ -56,10 +58,10 @@ public class especialidades_medicasDAO {
     /**
      * Verifica se Especialidade Medica já existe antes de fazer um update no Banco de Dados.
      * @param Connection
-     * @param especialidades_medicasMODEL
+     * @param Especialidades_Medicas
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, especialidades_medicasMODEL model){
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, Especialidades_Medicas model){
         boolean existe = true;
         try{
             PreparedStatement stmtQuery = con.prepareStatement("select * from especialidades_medicas where (descricao=?) and (emid!=?)");
@@ -80,10 +82,10 @@ public class especialidades_medicasDAO {
     /**
      * Cadastra uma nova Especialidade Medica no Banco de Dados.
      * @param Connection 
-     * @param especialidades_medicasMODEL
+     * @param Especialidades_Medicas
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, especialidades_medicasMODEL model){
+    public static boolean setCadastrar(Connection con, Especialidades_Medicas model){
         boolean cadastro = false;
         String sql = "insert into especialidades_medicas (descricao,usuarioid,dat) values(?,?,?)";
         try{
@@ -104,10 +106,10 @@ public class especialidades_medicasDAO {
     /**
      * Atualiza uma Especialidade Medica no Banco De Dados.
      * @param Connection 
-     * @param especialidades_medicasMODEL
+     * @param Especialidades_Medicas
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, especialidades_medicasMODEL model){
+    public static boolean setUpdate(Connection con, Especialidades_Medicas model){
         boolean atualizo = false;
         String sql = "update especialidades_medicas set descricao=?, usuarioid=?, dat=? where emid=?";
         try{
@@ -129,10 +131,10 @@ public class especialidades_medicasDAO {
     /**
      * Deleta uma Especialidade medica no Banco de Dados.
      * @param Connection
-     * @param especialidades_medicasMODEL 
+     * @param Especialidades_Medicas 
      * @return Boolean
      */
-    public static boolean setDeletar(Connection con, especialidades_medicasMODEL model){
+    public static boolean setDeletar(Connection con, Especialidades_Medicas model){
         boolean deleto = false;
         String sql="delete from especialidades_medicas where emid=?";
         try{

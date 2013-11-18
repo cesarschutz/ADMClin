@@ -4,6 +4,8 @@ import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
+import br.bcn.admclin.model.Especialidades_Medicas;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -16,9 +18,6 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import menu.cadastros.pessoal.dao.especialidades_medicasDAO;
-import menu.cadastros.pessoal.model.especialidades_medicasMODEL;
 
 /**
  *
@@ -107,11 +106,11 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
         
         if(descricaoPreenchida){
             con = Conexao.fazConexao();
-            especialidades_medicasMODEL especialidadeMedicaMODELO = new especialidades_medicasMODEL();
+            Especialidades_Medicas especialidadeMedicaMODELO = new Especialidades_Medicas();
             especialidadeMedicaMODELO.setDescricao(jTDescricao.getText());
-            boolean existe = especialidades_medicasDAO.getConsultarParaSalvarNovoRegistro(con, especialidadeMedicaMODELO);
+            boolean existe = ESPECIALIDADES_MEDICAS.getConsultarParaSalvarNovoRegistro(con, especialidadeMedicaMODELO);
             Conexao.fechaConexao(con);
-            if(especialidades_medicasDAO.conseguiuConsulta){
+            if(ESPECIALIDADES_MEDICAS.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Especialidade Médica já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
@@ -119,7 +118,7 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
                     con = Conexao.fazConexao();
                     especialidadeMedicaMODELO.setUsuarioId(USUARIOS.usrId);
                     especialidadeMedicaMODELO.setDat(dataDeHojeEmVariavelDate);
-                    boolean cadastro = especialidades_medicasDAO.setCadastrar(con, especialidadeMedicaMODELO);
+                    boolean cadastro = ESPECIALIDADES_MEDICAS.setCadastrar(con, especialidadeMedicaMODELO);
                     Conexao.fechaConexao(con);
                     //atualiza tabela
                     if(cadastro){
@@ -136,19 +135,19 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
         if(descricaoPreenchida){
             //fazendo um if para verificar se descricao ou referencia ja existem
             con = Conexao.fazConexao();
-            especialidades_medicasMODEL especialidadeMedica = new especialidades_medicasMODEL();
+            Especialidades_Medicas especialidadeMedica = new Especialidades_Medicas();
             especialidadeMedica.setDescricao(jTDescricao.getText());
             especialidadeMedica.setEmId(especialidadeMedicaId);
-            boolean existe = especialidades_medicasDAO.getConsultarParaAtualizarRegistro(con, especialidadeMedica);
+            boolean existe = ESPECIALIDADES_MEDICAS.getConsultarParaAtualizarRegistro(con, especialidadeMedica);
             Conexao.fechaConexao(con);
-            if(especialidades_medicasDAO.conseguiuConsulta){
+            if(ESPECIALIDADES_MEDICAS.conseguiuConsulta){
                 if(existe){
                     JOptionPane.showMessageDialog(null, "Especialidade Médica já existe","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     con = Conexao.fazConexao();
                     especialidadeMedica.setUsuarioId(USUARIOS.usrId);
                     especialidadeMedica.setDat(dataDeHojeEmVariavelDate);
-                    boolean atualizo = especialidades_medicasDAO.setUpdate(con, especialidadeMedica);
+                    boolean atualizo = ESPECIALIDADES_MEDICAS.setUpdate(con, especialidadeMedica);
                     Conexao.fechaConexao(con);
                     if(atualizo){
                         //dexando janela como no inicio
@@ -163,17 +162,17 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar essa Especialidade Médica?", "ATENÇÃO",0);   
         if(resposta == JOptionPane.YES_OPTION){
             con = Conexao.fazConexao();
-            boolean utilizada = especialidades_medicasDAO.getConsultarSeEspecialidadeEstaSendoUtilizada(con, especialidadeMedicaId);
+            boolean utilizada = ESPECIALIDADES_MEDICAS.getConsultarSeEspecialidadeEstaSendoUtilizada(con, especialidadeMedicaId);
             Conexao.fechaConexao(con);
-            if(especialidades_medicasDAO.conseguiuConsulta){
+            if(ESPECIALIDADES_MEDICAS.conseguiuConsulta){
                 if(utilizada){
                     JOptionPane.showMessageDialog(null, "Esta Especialidade Médica não pode ser deletada pois está sendo utilizada por algum Médico","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     //fazer o delete de acordo com o codigo
-                    especialidades_medicasMODEL especialidadeMedicaMODEL = new especialidades_medicasMODEL();
+                    Especialidades_Medicas especialidadeMedicaMODEL = new Especialidades_Medicas();
                     especialidadeMedicaMODEL.setEmId(especialidadeMedicaId);
                     con = Conexao.fazConexao();
-                    boolean deleto = especialidades_medicasDAO.setDeletar(con, especialidadeMedicaMODEL);
+                    boolean deleto = ESPECIALIDADES_MEDICAS.setDeletar(con, especialidadeMedicaMODEL);
                     Conexao.fechaConexao(con);
                     //atualizar tabela
                     if(deleto){

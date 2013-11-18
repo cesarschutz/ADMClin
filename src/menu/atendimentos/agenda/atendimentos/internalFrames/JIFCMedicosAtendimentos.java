@@ -16,6 +16,7 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -36,7 +37,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import janelaPrincipal.janelaPrincipal;
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import menu.cadastros.pessoal.dao.especialidades_medicasDAO;
 import menu.cadastros.pessoal.dao.medicosDAO;
 import menu.cadastros.pessoal.dao.pacientesDAO;
 import menu.cadastros.pessoal.model.medicosMODEL;
@@ -129,7 +129,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         jTFCidade.setDocument(new documentoSemAspasEPorcento(32));
         //preenchendo as Especialidades Médicas
         con = Conexao.fazConexao();
-        ResultSet resultSet = especialidades_medicasDAO.getConsultar(con);
+        ResultSet resultSet = ESPECIALIDADES_MEDICAS.getConsultar(con);
         listaCodEspecialidadesMedicas.removeAll(listaCodEspecialidadesMedicas);
         jCBEspecialidadeMedica.addItem("");  
         listaCodEspecialidadesMedicas.add(0);

@@ -1,5 +1,5 @@
 
-package menu.cadastros.pessoal.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class especialidades_medicasMODEL {
+public class Especialidades_Medicas {
     int emId, usuarioId;
     String descricao;
     Date dat;

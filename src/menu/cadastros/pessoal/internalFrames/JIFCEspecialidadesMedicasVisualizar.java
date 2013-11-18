@@ -12,6 +12,8 @@ package menu.cadastros.pessoal.internalFrames;
 
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
+import br.bcn.admclin.model.Especialidades_Medicas;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -28,15 +30,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.cadastros.pessoal.dao.especialidades_medicasDAO;
-import menu.cadastros.pessoal.model.especialidades_medicasMODEL;
-
 /**
  *
  * @author BCN
  */
 public class JIFCEspecialidadesMedicasVisualizar extends javax.swing.JInternalFrame {
-    public static List<especialidades_medicasMODEL> listaEspecialidadesMedicas = new ArrayList<especialidades_medicasMODEL>();
+    public static List<Especialidades_Medicas> listaEspecialidadesMedicas = new ArrayList<Especialidades_Medicas>();
     private Connection con = null;
     /** Creates new form JIFCPacientesVisualizar */
     public JIFCEspecialidadesMedicasVisualizar() {
@@ -73,14 +72,14 @@ public class JIFCEspecialidadesMedicasVisualizar extends javax.swing.JInternalFr
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
-        ResultSet resultSet = especialidades_medicasDAO.getConsultar(con);
+        ResultSet resultSet = ESPECIALIDADES_MEDICAS.getConsultar(con);
         listaEspecialidadesMedicas.removeAll(listaEspecialidadesMedicas);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
                 modelo.addRow(new String[] {Integer.toString(resultSet.getInt("emid")),resultSet.getString("descricao")}); 
                 //colocando dados nos objetos
-                especialidades_medicasMODEL especilalidadeMedicaModelo = new especialidades_medicasMODEL();
+                Especialidades_Medicas especilalidadeMedicaModelo = new Especialidades_Medicas();
                 especilalidadeMedicaModelo.setEmId(resultSet.getInt("emid"));
                 especilalidadeMedicaModelo.setDescricao(resultSet.getString("descricao"));
                 especilalidadeMedicaModelo.setUsuarioId(resultSet.getInt("usuarioid"));
