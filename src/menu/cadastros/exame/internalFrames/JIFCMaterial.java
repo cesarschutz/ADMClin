@@ -18,6 +18,7 @@ import ClasseAuxiliares.jTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.MATERIAIS;
 import br.bcn.admclin.dao.VALORESMATERIAIS;
+import br.bcn.admclin.dao.TABELAS;
 import br.bcn.admclin.model.Materiais;
 import br.bcn.admclin.model.ValoresMateriais;
 
@@ -41,8 +42,6 @@ import janelaPrincipal.janelaPrincipal;
 
 import java.text.DecimalFormat;
 import java.util.Date;
-
-import menu.cadastros.convenio.dao.tabelasDAO;
 
 /**
  *
@@ -246,7 +245,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
     public void botaoApagarRegistro(){
         
         con = Conexao.fazConexao();
-        boolean utilizada = tabelasDAO.verificarSeMaterialEstaSendoUtilizado(con, handle_material);
+        boolean utilizada = TABELAS.verificarSeMaterialEstaSendoUtilizado(con, handle_material);
         if(utilizada){
             JOptionPane.showMessageDialog(null, "Este Material não pode ser deletado pois é utilizado em alguma Tabela.","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }else{

@@ -11,6 +11,7 @@ import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
 import br.bcn.admclin.dao.EXAMES;
+import br.bcn.admclin.dao.TABELAS;
 import br.bcn.admclin.model.Exames;
 
 import java.awt.Dimension;
@@ -31,8 +32,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.convenio.dao.tabelasDAO;
 
 /**
  *
@@ -332,7 +331,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
     public void botaoApagarRegistro(){
         
         con = Conexao.fazConexao();
-        boolean utilizada = tabelasDAO.verificarSeExameEstaSendoUtilizado(con, HANDLE_EXAME);
+        boolean utilizada = TABELAS.verificarSeExameEstaSendoUtilizado(con, HANDLE_EXAME);
         if(utilizada){
             JOptionPane.showMessageDialog(null, "Este Exame não pode ser deletado pois é utilizado em alguma Tabela.","ATENÇÃO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }else{

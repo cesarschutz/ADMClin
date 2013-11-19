@@ -2,20 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.convenio.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.cadastros.convenio.model.tabelasMODEL;
+
+import br.bcn.admclin.model.Tabelas;
 
 /**
  *
  * @author BCN
  */
-public class tabelasDAO {
+public class TABELAS {
     
     public static boolean conseguiuConsulta;
     /**
@@ -58,7 +60,7 @@ public class tabelasDAO {
      * @param model
      * @return 
      */
-    public static boolean cadastrarExameAUmaTabela(Connection con, tabelasMODEL model){
+    public static boolean cadastrarExameAUmaTabela(Connection con, Tabelas model){
         boolean cadastro = false;
         String sqlInserirExameAUmaTabela = "insert into tabelas (usuarioid,dat, handle_convenio, handle_exame, coeffilme, cofch1, cofch2, handle_material, qtdmaterial, cod_exame, sinonimo, VAI_MATERIAIS_POR_PADRAO) values(?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
@@ -67,9 +69,9 @@ public class tabelasDAO {
             stmt.setDate(2, model.getDat());
             stmt.setInt(3, model.gethandle_convenio());
             stmt.setInt(4, model.gethandle_exame());
-            stmt.setString(5, model.getCofFilme());
-            stmt.setString(6, model.getCofCh1());
-            stmt.setString(7, model.getCofCh2());
+            stmt.setDouble(5, model.getCofFilme());
+            stmt.setDouble(6, model.getCofCh1());
+            stmt.setDouble(7, model.getCofCh2());
             stmt.setInt(8, model.gethandle_material());
             stmt.setInt(9, model.getQtdMaterial());
             stmt.setString(10, model.getCod_exame());
@@ -170,16 +172,16 @@ public class tabelasDAO {
      * @param ExameModel 
      * @return Boolean
      */
-    public static boolean setUpdateCoeficientesDeUmExame(Connection con, tabelasMODEL exame){
+    public static boolean setUpdateCoeficientesDeUmExame(Connection con, Tabelas exame){
         boolean cadastro = false;
         String sql = "update tabelas set usuarioid=?, dat=?, cofch1=?, cofch2=?, coeffilme=?, cod_exame=?, sinonimo=? where handle_convenio=? and handle_exame=?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, exame.getUsuarioId());
             stmt.setDate(2, exame.getDat());
-            stmt.setString(3, exame.getCofCh1());
-            stmt.setString(4, exame.getCofCh2());
-            stmt.setString(5, exame.getCofFilme());
+            stmt.setDouble(3, exame.getCofCh1());
+            stmt.setDouble(4, exame.getCofCh2());
+            stmt.setDouble(5, exame.getCofFilme());
             stmt.setString(6, exame.getCod_exame());
             stmt.setString(7, exame.getSinonimo());
             stmt.setInt(8, exame.gethandle_convenio());

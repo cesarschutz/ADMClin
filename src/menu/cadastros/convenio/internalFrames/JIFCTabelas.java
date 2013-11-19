@@ -12,6 +12,7 @@ package menu.cadastros.convenio.internalFrames;
 
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.TABELAS;
 import calculoValorDeUmExame.calculoValorDeExame;
 import janelaPrincipal.janelaPrincipal;
 
@@ -32,8 +33,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.convenio.dao.tabelasDAO;
 
 /**
  *
@@ -63,7 +62,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
     
     public void preencherModalidades(){
         con = Conexao.fazConexao();
-        ResultSet resultSet = tabelasDAO.getConsultarModalidades(con);
+        ResultSet resultSet = TABELAS.getConsultarModalidades(con);
         try{
             while(resultSet.next()){
               jCBModalidades.addItem(resultSet.getString("modalidade"));
@@ -134,7 +133,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
         String modalidade = String.valueOf(jCBModalidades.getSelectedItem());
-        ResultSet resultSet = tabelasDAO.getConsultarExamesDaTabela(con, Integer.parseInt(handle_convenio), modalidade);
+        ResultSet resultSet = TABELAS.getConsultarExamesDaTabela(con, Integer.parseInt(handle_convenio), modalidade);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
@@ -158,7 +157,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
         con = Conexao.fazConexao();
         String handle_exame = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-        ResultSet resultSet = tabelasDAO.getConsultarDadosDeUmExame(con, Integer.parseInt(handle_convenio), handle_exame);
+        ResultSet resultSet = TABELAS.getConsultarDadosDeUmExame(con, Integer.parseInt(handle_convenio), handle_exame);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
@@ -237,7 +236,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
             //fazer o delete de acordo com o codigo
             String handle_exame = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
             con = Conexao.fazConexao();
-            boolean deleto = tabelasDAO.setDeletarUmExame(con, handle_exame, handle_convenio);
+            boolean deleto = TABELAS.setDeletarUmExame(con, handle_exame, handle_convenio);
             Conexao.fechaConexao(con);
             //atualizar tabela
             if(deleto){
@@ -255,7 +254,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
                 String handle_material = (String) jTable2.getValueAt(jTable2.getSelectedRow(), 0);
                 String tabelaId = (String) jTable2.getValueAt(jTable2.getSelectedRow(), 3);
                 con = Conexao.fazConexao();
-                boolean deleto = tabelasDAO.setDeletarUmMaterialDeUmExame(con, handle_material, tabelaId);
+                boolean deleto = TABELAS.setDeletarUmMaterialDeUmExame(con, handle_material, tabelaId);
                 Conexao.fechaConexao(con);
                 //atualizar tabela
                 if(deleto){

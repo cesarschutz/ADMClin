@@ -6,6 +6,7 @@ package menu.atendimentos.consultaValorExames;
 
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.TABELAS;
 import calculoValorDeUmExame.calculoValorDeExame;
 import janelaPrincipal.janelaPrincipal;
 
@@ -28,8 +29,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.convenio.dao.tabelasDAO;
 
 /**
  *
@@ -83,7 +82,7 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
     
     public void preencherModalidades(){
         con = Conexao.fazConexao();
-        ResultSet resultSet = tabelasDAO.getConsultarModalidades(con);
+        ResultSet resultSet = TABELAS.getConsultarModalidades(con);
         try{
             while(resultSet.next()){
               jCBModalidades.addItem(resultSet.getString("modalidade"));
@@ -101,7 +100,7 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTable.getModel();
         con = Conexao.fazConexao();
         String modalidade = String.valueOf(jCBModalidades.getSelectedItem());
-        ResultSet resultSet = tabelasDAO.getConsultarExamesDaTabela(con, handle_convenio,modalidade);
+        ResultSet resultSet = TABELAS.getConsultarExamesDaTabela(con, handle_convenio,modalidade);
         try{
             while(resultSet.next()){
                 //colocando dados na tabela

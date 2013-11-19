@@ -15,6 +15,8 @@ import ClasseAuxiliares.jTextFieldDinheiroReaisCom5CasasDecimais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.EXAMES;
+import br.bcn.admclin.dao.TABELAS;
+import br.bcn.admclin.model.Tabelas;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -34,9 +36,6 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
-import menu.cadastros.convenio.dao.tabelasDAO;
-import menu.cadastros.convenio.model.tabelasMODEL;
 
 /**
  *
@@ -134,20 +133,20 @@ public class JIFCTabelasAdicionarUMExame extends javax.swing.JInternalFrame {
             if(exameSelecionadoOk){
                 boolean cadastro = false;
                             con = Conexao.fazConexao();
-                            tabelasMODEL tabelaModelo = new tabelasMODEL();
+                            Tabelas tabelaModelo = new Tabelas();
                             tabelaModelo.setUsuarioId(USUARIOS.usrId);
                             tabelaModelo.setDat(dataDeHojeEmVariavelDate);
                             tabelaModelo.sethandle_convenio(Integer.valueOf(handle_convenio));
                             tabelaModelo.sethandle_exame(listaHandle_Exame.get(jCBExames.getSelectedIndex()));
                             tabelaModelo.setSinonimo(jTFSinonimo.getText());
-                            tabelaModelo.setCofFilme(jTFCofFilme.getText().replace(",", "."));
-                            tabelaModelo.setCofCh1(jTFCofCh1.getText().replace(",", "."));
-                            tabelaModelo.setCofCh2(jTFCofCh2.getText().replace(",", "."));
+                            tabelaModelo.setCofFilme(Double.valueOf(jTFCofFilme.getText().replace(",", ".")));
+                            tabelaModelo.setCofCh1(Double.valueOf(jTFCofCh1.getText().replace(",", ".")));
+                            tabelaModelo.setCofCh2(Double.valueOf(jTFCofCh2.getText().replace(",", ".")));
                             tabelaModelo.sethandle_material(0);
                             tabelaModelo.setQtdMaterial(0);
                             tabelaModelo.setCod_exame(jTFCodigo_exame.getText());
                             tabelaModelo.setVAI_MATERIAIS_POR_PADRAO(jCBVaiMateriaisPorPadrao.getSelectedIndex());
-                            cadastro = tabelasDAO.cadastrarExameAUmaTabela(con, tabelaModelo);
+                            cadastro = TABELAS.cadastrarExameAUmaTabela(con, tabelaModelo);
                             Conexao.fechaConexao(con);
 
                 if(cadastro){

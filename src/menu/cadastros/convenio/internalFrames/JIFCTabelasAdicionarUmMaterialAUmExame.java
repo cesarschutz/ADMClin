@@ -13,6 +13,8 @@ package menu.cadastros.convenio.internalFrames;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.MATERIAIS;
+import br.bcn.admclin.dao.TABELAS;
+import br.bcn.admclin.model.Tabelas;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -32,8 +34,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import janelaPrincipal.janelaPrincipal;
-import menu.cadastros.convenio.dao.tabelasDAO;
-import menu.cadastros.convenio.model.tabelasMODEL;
 
 /**
  *
@@ -119,17 +119,17 @@ public class JIFCTabelasAdicionarUmMaterialAUmExame extends javax.swing.JInterna
         
         if(materialSelecionado && qtdSelecionada){
              con = Conexao.fazConexao();
-                tabelasMODEL tabelaModelo = new tabelasMODEL();
+                Tabelas tabelaModelo = new Tabelas();
                 tabelaModelo.setUsuarioId(USUARIOS.usrId);
                 tabelaModelo.setDat(dataDeHojeEmVariavelDate);
                 tabelaModelo.sethandle_convenio(Integer.valueOf(handle_convenio));
                 
                 tabelaModelo.sethandle_exame(Integer.valueOf(handle_exame));
 
-                tabelaModelo.setCofFilme(String.valueOf(JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 6)).replace(",", "."));
+                tabelaModelo.setCofFilme(Double.valueOf(String.valueOf(JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 6)).replace(",", ".")));
 
-                tabelaModelo.setCofCh1( String.valueOf( JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 4)).replace(",", "."));
-                tabelaModelo.setCofCh2( String.valueOf( JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 5)).replace(",", "."));
+                tabelaModelo.setCofCh1( Double.valueOf(String.valueOf( JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 4)).replace(",", ".")));
+                tabelaModelo.setCofCh2( Double.valueOf(String.valueOf( JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 5)).replace(",", ".")));
                 
                 tabelaModelo.setCod_exame( String.valueOf( JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 2)).replace(",", "."));
                 tabelaModelo.setSinonimo( String.valueOf( JIFCTabelas.jTable1.getValueAt(JIFCTabelas.jTable1.getSelectedRow(), 1)).replace(",", "."));
@@ -137,7 +137,7 @@ public class JIFCTabelasAdicionarUmMaterialAUmExame extends javax.swing.JInterna
                 tabelaModelo.sethandle_material(Integer.valueOf(handle_material));
                 tabelaModelo.setQtdMaterial(Integer.valueOf(jTFQuantidade.getText()));
                 tabelaModelo.setVAI_MATERIAIS_POR_PADRAO(-1);
-                boolean cadastro = tabelasDAO.cadastrarExameAUmaTabela(con, tabelaModelo);
+                boolean cadastro = TABELAS.cadastrarExameAUmaTabela(con, tabelaModelo);
                 Conexao.fechaConexao(con);
 
                 if(cadastro){

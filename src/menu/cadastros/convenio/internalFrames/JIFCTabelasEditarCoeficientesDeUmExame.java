@@ -13,6 +13,8 @@ package menu.cadastros.convenio.internalFrames;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.TABELAS;
+import br.bcn.admclin.model.Tabelas;
 import ClasseAuxiliares.jTextFieldDinheiroReaisCom5CasasDecimais;
 
 import java.awt.Dimension;
@@ -26,9 +28,6 @@ import java.util.Calendar;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import menu.cadastros.convenio.dao.tabelasDAO;
-import menu.cadastros.convenio.model.tabelasMODEL;
 
 /**
  *
@@ -79,18 +78,18 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
     
     public void botaoOk(){
             con = Conexao.fazConexao();
-            tabelasMODEL tabelaMODELO = new tabelasMODEL();
+            Tabelas tabelaMODELO = new Tabelas();
             tabelaMODELO.setUsuarioId(USUARIOS.usrId);
             tabelaMODELO.setDat(dataDeHojeEmVariavelDate);
-            tabelaMODELO.setCofCh1(jTFCofCh1.getText().replace(",", "."));
-            tabelaMODELO.setCofCh2(jTFCofCh2.getText().replace(",", "."));
-            tabelaMODELO.setCofFilme(jTFCofFilme.getText().replace(",", "."));
+            tabelaMODELO.setCofCh1(Double.valueOf(jTFCofCh1.getText().replace(",", ".")));
+            tabelaMODELO.setCofCh2(Double.valueOf(jTFCofCh2.getText().replace(",", ".")));
+            tabelaMODELO.setCofFilme(Double.valueOf(jTFCofFilme.getText().replace(",", ".")));
             tabelaMODELO.setCod_exame(jTFCodigo_exame.getText());
             tabelaMODELO.setSinonimo(jTFSinonimo.getText());
             tabelaMODELO.sethandle_convenio(Integer.valueOf(handle_convenio));
             tabelaMODELO.sethandle_exame(Integer.valueOf(handle_exame)); 
             con = Conexao.fazConexao();
-            boolean atualizo = tabelasDAO.setUpdateCoeficientesDeUmExame(con, tabelaMODELO);
+            boolean atualizo = TABELAS.setUpdateCoeficientesDeUmExame(con, tabelaMODELO);
             Conexao.fechaConexao(con);
             
             if(atualizo){

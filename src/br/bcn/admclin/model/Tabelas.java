@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.cadastros.convenio.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -10,11 +10,12 @@ import java.sql.Date;
  *
  * @author BCN
  */
-public class tabelasMODEL {
+public class Tabelas {
     
     private int usuarioId, tabelaId, handle_convenio, handle_exame, handle_material, qtdMaterial,VAI_MATERIAIS_POR_PADRAO;
     private Date dat;
-    private String cofFilme, cofCh1, cofCh2, cod_exame, sinonimo;
+    private String cod_exame, sinonimo;
+    private double cofFilme, cofCh1, cofCh2;
 
     public int gethandle_exame() {
         return handle_exame;
@@ -49,27 +50,27 @@ public class tabelasMODEL {
         this.handle_convenio = handle_convenio;
     }
 
-    public String getCofCh1() {
+    public double getCofCh1() {
         return cofCh1;
     }
 
-    public void setCofCh1(String cofCh1) {
+    public void setCofCh1(double cofCh1) {
         this.cofCh1 = cofCh1;
     }
 
-    public String getCofCh2() {
+    public double getCofCh2() {
         return cofCh2;
     }
 
-    public void setCofCh2(String cofCh2) {
+    public void setCofCh2(double cofCh2) {
         this.cofCh2 = cofCh2;
     }
 
-    public String getCofFilme() {
+    public double getCofFilme() {
         return cofFilme;
     }
 
-    public void setCofFilme(String cofFilme) {
+    public void setCofFilme(double cofFilme) {
         this.cofFilme = cofFilme;
     }
 
