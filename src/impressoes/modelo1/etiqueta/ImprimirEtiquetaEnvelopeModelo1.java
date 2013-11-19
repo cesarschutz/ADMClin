@@ -5,6 +5,7 @@
 package impressoes.modelo1.etiqueta;
 
 import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.Conexao;
 
 import com.lowagie.text.Document;
@@ -26,8 +27,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 
 /**
  *
@@ -82,7 +81,7 @@ public class ImprimirEtiquetaEnvelopeModelo1 {
     private void buscarInformaçõesDoAtendimento() throws SQLException{
         //buscando as informações do atendimento
         
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarDadosDeUmAtendimento(con,handle_at);
+        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con,handle_at);
         while(resultSet.next()){
             nome_paciente = resultSet.getString("nomePac");
             nome_medico_sol = resultSet.getString("nomeMed");

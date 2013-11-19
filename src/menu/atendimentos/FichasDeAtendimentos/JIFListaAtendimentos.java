@@ -38,6 +38,7 @@ package menu.atendimentos.FichasDeAtendimentos;
 import ClasseAuxiliares.ColunaAceitandoIcone;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
+import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
@@ -71,7 +72,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 
 /**
@@ -266,7 +266,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         
 
         con = Conexao.fazConexao();
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarAtendimentos(con,data); 
+        ResultSet resultSet = ATENDIMENTOS.getConsultarAtendimentos(con,data); 
         try{
             int i = 0;
             while(resultSet.next()){
@@ -1224,7 +1224,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         //buscando as informações do atendimento
         con = Conexao.fazConexao();
         int handle_atendimento = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
         
         String data_atendimento = null, hora_atendimento = null,nome_paciente = null,nome_medico_sol = null,nome_convenio = null, nascimento_paciente= null, telefone_paciente= null, celular_paciente = null;;
         int duracao_atendimento, finalDoAtendimento = 0;
@@ -1431,11 +1431,11 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                         if(abriuFicha){
                            //aqui colocar o flag_imprimiu como "S" 
                             con = Conexao.fazConexao();
-                            ATENDIMENTOS_DAO.setUpdateFlagImprimiu(con, handle_at);
-                            if(ATENDIMENTOS_DAO.getMarcarStatus1(con, handle_at)){
+                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
+                            if(ATENDIMENTOS.getMarcarStatus1(con, handle_at)){
                                 //verifica no banco se tem algum numero ja no status um. se tiver retorna false e se nao tiver retorna true
                                 //se for true marcamos o status1 como 1 que imprimiu se nao soh imprimi e pronto
-                                ATENDIMENTOS_DAO.setUpdateStatus1(con, handle_at, "1");
+                                ATENDIMENTOS.setUpdateStatus1(con, handle_at, "1");
                             }
                             Conexao.fechaConexao(con);
                         }
@@ -1461,7 +1461,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                         if(abriuBoletoDeRetirada){
                            //aqui colocar o flag_imprimiu como "S" 
                             con = Conexao.fazConexao();
-                            ATENDIMENTOS_DAO.setUpdateFlagImprimiu(con, handle_at);
+                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
                             Conexao.fechaConexao(con);
                         }
                        return null;  
@@ -1506,7 +1506,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 if(abriuEtiqueta){
                     //aqui colocar o flag_imprimiu como "S" 
                     con = Conexao.fazConexao();
-                    ATENDIMENTOS_DAO.setUpdateFlagImprimiu(con, handle_at);
+                    ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
                     Conexao.fechaConexao(con);
                 }
                 return null;
@@ -1543,7 +1543,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                        if(abriuEtiqueta){
                            //aqui colocar o flag_imprimiu como "S" 
                             con = Conexao.fazConexao();
-                            ATENDIMENTOS_DAO.setUpdateFlagImprimiu(con, handle_at);
+                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
                             Conexao.fechaConexao(con);
                         }
                        return null;  
@@ -1612,7 +1612,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                    protected Object doInBackground() throws Exception {
                            //aqui colocar o flag correspondentes como "S" 
                             con = Conexao.fazConexao();
-                            ATENDIMENTOS_DAO.setEntregaDeExame(con, parametro, handle_at);
+                            ATENDIMENTOS.setEntregaDeExame(con, parametro, handle_at);
                             Conexao.fechaConexao(con);
                        return null;  
                    }  

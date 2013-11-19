@@ -7,9 +7,11 @@ package menu.atendimentos.agenda.atendimentos.internalFrames;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.model.Atendimentos;
 import calculoValorDeUmExame.calculoValorDeExame;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
 import impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
@@ -41,9 +43,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
-import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTOS_MODEL;
 import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTO_EXAMES_MODEL;
 import menu.atendimentos.agenda.dao.agendaDAO;
 import menu.atendimentos.agenda.dao.conveniosDAO;
@@ -212,7 +212,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         this.handle_at = handle_at;
         //buscando o handle_agenda do atendimento
         
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarAgendaDeUmAtendimento(con,handle_at);
+        ResultSet resultSet = ATENDIMENTOS.getConsultarAgendaDeUmAtendimento(con,handle_at);
         try {
             while(resultSet.next()){
                 handle_agenda = resultSet.getInt("handle_agenda");
@@ -375,7 +375,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
     public void reservandoHorarioCasoSejaUmHorarioLivre(){
         pegandoUmHandle_atDoBanco();
         
-        ATENDIMENTOS_MODEL atendimentoMODEL = new ATENDIMENTOS_MODEL();
+        Atendimentos atendimentoMODEL = new Atendimentos();
         
         atendimentoMODEL.setUSUARIOID(USUARIOS.usrId);
         atendimentoMODEL.setDAT(dataDeHojeEmVariavelDate);
@@ -392,7 +392,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Erro com a data. Procure o Administrador.");
         }
-        boolean cadastro = ATENDIMENTOS_DAO.setCadastrar(con, atendimentoMODEL);
+        boolean cadastro = ATENDIMENTOS.setCadastrar(con, atendimentoMODEL);
         
         if(!cadastro){
             JOptionPane.showMessageDialog(null, "Erro ao reservar Horário para o Atendimento. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -403,8 +403,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
     public void pegandoUmHandle_atDoBanco(){
         //pegando o handle_ap para salvar no banco
         try{
-            handle_at = ATENDIMENTOS_DAO.getHandleAP(con);
-            ATENDIMENTOS_DAO.setSomarHandleAP(con);
+            handle_at = ATENDIMENTOS.getHandleAP(con);
+            ATENDIMENTOS.setSomarHandleAP(con);
         }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Erro ao somar handle_at. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
         }finally{
@@ -419,7 +419,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         //buscando as informações do atendimento
         
         int handle_atendimento = Integer.valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 5)));
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
         try {
             while(resultSet.next()){
                 jTFPaciente.setText(resultSet.getString("nomepac"));
@@ -541,7 +541,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         //buscando as informações do atendimento
         
         int handle_atendimento = handle_at;
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
         try {
             while(resultSet.next()){
                 jTFPaciente.setText(resultSet.getString("nomepac"));
@@ -885,7 +885,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         
         //buscando o modelo de verificaçao da matricula
         con = Conexao.fazConexao();
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarModeloDeValidacaoMatriculaDoConvenio(con, listaHandleConvenio.get(jCBConvenio.getSelectedIndex()));
+        ResultSet resultSet = ATENDIMENTOS.getConsultarModeloDeValidacaoMatriculaDoConvenio(con, listaHandleConvenio.get(jCBConvenio.getSelectedIndex()));
         try{
             while(resultSet.next()){
                 //colocando dados na tabela
@@ -925,7 +925,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 con = Conexao.fazConexao();
                 deletarExamesDeUmAtendimento();
                 //cadastrando atendimento na tabela atendimentos
-                ATENDIMENTOS_MODEL atendimento = new ATENDIMENTOS_MODEL();
+                Atendimentos atendimento = new Atendimentos();
                 atendimento.setUSUARIOID(USUARIOS.usrId);
                 atendimento.setDAT(dataDeHojeEmVariavelDate);
                 atendimento.setHANDLE_AT(handle_at);
@@ -973,7 +973,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 atendimento.setMODALIDADE(String.valueOf(jCBModalidade.getSelectedItem()));
                 
                 con = Conexao.fazConexao();
-                cadastro = ATENDIMENTOS_DAO.setUpdate(con, atendimento);
+                cadastro = ATENDIMENTOS.setUpdate(con, atendimento);
                 
                 
                 if(cadastro){
@@ -1203,7 +1203,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
     
     private boolean deletarOAtendimento(){
         con = Conexao.fazConexao();
-        boolean deletou = ATENDIMENTOS_DAO.setDeletar(con, handle_at); 
+        boolean deletou = ATENDIMENTOS.setDeletar(con, handle_at); 
         Conexao.fechaConexao(con);
         return deletou;
     }
@@ -2498,7 +2498,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                        if (imprimiu) {
                            //aqui colocar o flag_imprimiu como "S" 
                             con = Conexao.fazConexao();
-                            ATENDIMENTOS_DAO.setUpdateFlagImprimiu(con, handle_at);
+                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
                             Conexao.fechaConexao(con);
                        }
                        return null;  
@@ -2691,11 +2691,11 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                         if(abriuFicha){
                            //aqui colocar o flag_imprimiu como "S" 
                             con = Conexao.fazConexao();
-                            ATENDIMENTOS_DAO.setUpdateFlagImprimiu(con, handle_at);
-                            if(ATENDIMENTOS_DAO.getMarcarStatus1(con, handle_at)){
+                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
+                            if(ATENDIMENTOS.getMarcarStatus1(con, handle_at)){
                                 //verifica no banco se tem algum numero ja no status um. se tiver retorna false e se nao tiver retorna true
                                 //se for true marcamos o status1 como 1 que imprimiu se nao soh imprimi e pronto
-                                ATENDIMENTOS_DAO.setUpdateStatus1(con, handle_at, "1");
+                                ATENDIMENTOS.setUpdateStatus1(con, handle_at, "1");
                             }
                             Conexao.fechaConexao(con);
                         }
@@ -2729,7 +2729,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                         if(abriuBoletoDeRetirada){
                            //aqui colocar o flag_imprimiu como "S" 
                             con = Conexao.fazConexao();
-                            ATENDIMENTOS_DAO.setUpdateFlagImprimiu(con, handle_at);
+                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
                             Conexao.fechaConexao(con);
                         }
                        return null;  

@@ -10,6 +10,7 @@
 package impressoes.modelo1.fichaDeAtendimento;
 
 import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
 
@@ -37,7 +38,6 @@ import java.util.*;
 
 import javax.swing.JOptionPane;
 
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 
 /**
@@ -104,7 +104,7 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
     private void buscarInformaçõesDoAtendimento() throws SQLException{
         //buscando as informações do atendimento
         
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarDadosDeUmAtendimento(con,handle_at);
+        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con,handle_at);
         while(resultSet.next()){
             handle_paciente = resultSet.getString("handle_paciente");
             nome_paciente = resultSet.getString("nomePac");

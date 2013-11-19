@@ -2,17 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.atendimentos.agenda.atendimentos.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.*;
+
 import javax.swing.JOptionPane;
-import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTOS_MODEL;
+
+import br.bcn.admclin.model.Atendimentos;
 
 /**
  *
  * @author CeSaR
  */
-public class ATENDIMENTOS_DAO {
+public class ATENDIMENTOS {
     
     //variavel utilizada para quando SALVAR veriricar o handle_at que foi feito naquele agendamento
     public static int handle_aTDoAgendamentoCadastrado;
@@ -147,10 +149,10 @@ public class ATENDIMENTOS_DAO {
     /**
      * Salva um novo atendimento no Banco De Dados.
      * @param Connection
-     * @param ATENDIMENTOS_MODEL
+     * @param Atendimentos
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, ATENDIMENTOS_MODEL atendimento ){
+    public static boolean setCadastrar(Connection con, Atendimentos atendimento ){
         boolean cadastro = false;
         String sql = "insert into atendimentos (data_atendimento,dat,data_exame_pronto,"
                 + "handle_at, handle_paciente, handle_medico_sol, handle_agenda, handle_convenio, hora_atendimento, duracao_atendimento,usuarioid,"
@@ -194,10 +196,10 @@ public class ATENDIMENTOS_DAO {
     /**
      * edita um atendimento no Banco De Dados.
      * @param Connection
-     * @param ATENDIMENTOS_MODEL
+     * @param Atendimentos
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, ATENDIMENTOS_MODEL atendimento ){
+    public static boolean setUpdate(Connection con, Atendimentos atendimento ){
         boolean cadastro = false;
         String sql = "update atendimentos set data_atendimento=?, dat=?, data_exame_pronto=?, "
                 + "handle_at=?, handle_paciente=?, handle_medico_sol=?, handle_agenda=?, handle_convenio=?, hora_atendimento=?, duracao_atendimento=?, usuarioid=?, "

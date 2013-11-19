@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.atendimentos.agenda.atendimentos.model;
+package br.bcn.admclin.model;
 
 import java.sql.Date;
 
@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author CeSaR
  */
-public class ATENDIMENTOS_MODEL {
+public class Atendimentos {
     
     private String FLAG_BOLETO_ENTREGUE, OBSERVACAO, VALOR_ATENDIMENTO, CRM_RADIOLOGISTA1, CRM_RADIOLOGISTA2, CRM_RADIOLOGISTA3, MATRICULA_CONVENIO, HANDLE_IMAGEM, FLAG_LAUDO, FLAG_AUDIO, STATUS1, STATUS2, STATUS3, STATUS4, COMPLEMENTO,MODALIDADE, LAUDO_ENTREGUE_AO_PACIENTE, EXAME_ENTREGUE_AO_PACIENTE, FLAG_IMPRIMIU;
     private Date DATA_ATENDIMENTO, DATA_EXAME_PRONTO, DATA_FECHAMENTO, DAT;

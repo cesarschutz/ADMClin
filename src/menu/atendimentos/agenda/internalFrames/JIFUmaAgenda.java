@@ -20,6 +20,7 @@ package menu.atendimentos.agenda.internalFrames;
 
 
 import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
 import br.bcn.admclin.model.A_Agendamentos;
@@ -50,7 +51,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTOS_DAO;
 import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTO_EXAMES_MODEL;
@@ -1696,7 +1696,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         }
         
         //consultando atendimentos
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarAtendimentosAgenda(con,handle_agenda,diaParaVerificarAtendimentos); 
+        ResultSet resultSet = ATENDIMENTOS.getConsultarAtendimentosAgenda(con,handle_agenda,diaParaVerificarAtendimentos); 
         
         try{
             while(resultSet.next()){
@@ -1739,7 +1739,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             }          
             
             //preenchendo os atendimentos reservados
-            ResultSet resultSetReservas = ATENDIMENTOS_DAO.getConsultarAtendimentosAgendaReservados(con,handle_agenda,diaParaVerificarAtendimentos); 
+            ResultSet resultSetReservas = ATENDIMENTOS.getConsultarAtendimentosAgendaReservados(con,handle_agenda,diaParaVerificarAtendimentos); 
             while(resultSetReservas.next()){
                 
                 for(int i = 0; i < tabelaSelecionada.getRowCount(); i++){
@@ -2021,7 +2021,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         //buscando as informações do atendimento
         con = Conexao.fazConexao();
         int handle_atendimento = Integer.valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 5)));
-        ResultSet resultSet = ATENDIMENTOS_DAO.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
         
         String data_atendimento = null, hora_atendimento = null,nome_paciente = null,nome_medico_sol = null,nome_convenio = null, nascimento_paciente= null, telefone_paciente= null, celular_paciente = null;;
         int duracao_atendimento, finalDoAtendimento = 0;
