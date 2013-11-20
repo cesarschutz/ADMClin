@@ -1,8 +1,6 @@
 package menu.atendimentos.agenda.internalFrames;
 
 
-import ClasseAuxiliares.ImagemNoJDesktopPane;
-import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -22,8 +20,9 @@ import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import menu.atendimentos.agenda.dao.agendaDAO;
+import ClasseAuxiliares.ImagemNoJDesktopPane;
+import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.dao.Conexao;
 
 
 
@@ -98,7 +97,7 @@ public class JIFAgendaPrincipal extends javax.swing.JInternalFrame {
         preencheuAgendas = false;
         //preenchendo as Classes de Exames
         con = Conexao.fazConexao();
-        ResultSet resultSet = agendaDAO.getConsultar(con);
+        ResultSet resultSet = AGENDAS.getConsultar(con);
         listaHandleAgendas.removeAll(listaHandleAgendas);
         jComboBox1.addItem("");  
         jComboBox2.addItem("");  

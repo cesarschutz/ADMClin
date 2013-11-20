@@ -2,12 +2,12 @@ package menu.atendimentos.agenda.internalFrames;
 
 
 import menu.atendimentos.agenda.dao.conveniosDAO;
-import menu.atendimentos.agenda.dao.agendaDAO;
 import menu.atendimentos.agenda.dao.examesDAO;
 import menu.atendimentos.agenda.dao.pacientesDAO;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
@@ -366,7 +366,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
     
     public void preenchendoAsModalidades(){
         con = Conexao.fazConexao();
-        ResultSet resultSet = agendaDAO.getConsultarDadosDeUmaAgenda(con, handle_agenda);
+        ResultSet resultSet = AGENDAS.getConsultarDadosDeUmaAgenda(con, handle_agenda);
         try{
             while(resultSet.next()){
                 //preenchendo as modalidades

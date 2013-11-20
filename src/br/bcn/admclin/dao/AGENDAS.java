@@ -63,22 +63,6 @@ public class AGENDAS {
         }
     }
     /**
-     * Consulta Todas as Agendas existentes no Banco de Dados para colocar na lista!!!
-     * @param Connection
-     * @return ResultSet
-     */
-    public static ResultSet getConsultar(Connection con){
-        ResultSet resultSet = null;
-        try{
-        PreparedStatement stmtQuery = con.prepareStatement("select handle_agenda, nome from agendas order by nome");
-        resultSet = stmtQuery.executeQuery();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Agendas. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
-            return resultSet;
-        }
-    }
-    /**
      * Verifica se Classe De Exame já existe antes de cadastra-lo no Banco de Dados.
      * @param Connection
      * @param Agenda
@@ -217,6 +201,23 @@ public class AGENDAS {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar Agenda. Procure o Administrador." + e,"ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
         }finally{
             return cadastro;
+        }
+    }
+    
+    /**
+     * Consulta Todas as Agendas existentes no Banco de Dados para colocar nos comboBox
+     * @param Connection
+     * @return ResultSet
+     */
+    public static ResultSet getConsultar(Connection con){
+        ResultSet resultSet = null;
+        try{
+        PreparedStatement stmtQuery = con.prepareStatement("select handle_agenda, nome, ativa from agendas order by nome");
+        resultSet = stmtQuery.executeQuery();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao preencher as Agendas. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return resultSet;
         }
     }
 }

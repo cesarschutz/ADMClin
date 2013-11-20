@@ -4,21 +4,10 @@ package menu.atendimentos.agenda.atendimentos.internalFrames;
  * 2 -  falta fazer o metodo preencher caso venha editar um atendimento
  */
 
-import ClasseAuxiliares.MetodosUteis;
-import ClasseAuxiliares.documentoSemAspasEPorcento;
-import ClasseAuxiliares.documentoSomenteLetras;
-import br.bcn.admclin.dao.ATENDIMENTOS;
-import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.dao.A_AGENDAMENTOS;
-import br.bcn.admclin.model.Atendimento_Exames;
-import br.bcn.admclin.model.Atendimentos;
-import calculoValorDeUmExame.calculoValorDeExame;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
 import impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
-import impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
 import impressoes.modelo2.notaFiscal.ImprimirNotaFiscalDoPacienteModelo2;
+import impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
 import impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
 import janelaPrincipal.janelaPrincipal;
 
@@ -40,16 +29,39 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.atendimentos.agenda.dao.agendaDAO;
 import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.atendimentos.agenda.dao.examesDAO;
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
+import ClasseAuxiliares.MetodosUteis;
+import ClasseAuxiliares.documentoSemAspasEPorcento;
+import ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.dao.ATENDIMENTOS;
+import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
+import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.model.Atendimento_Exames;
+import br.bcn.admclin.model.Atendimentos;
+import calculoValorDeUmExame.calculoValorDeExame;
 
 /*
  * To change this template, choose Tools | Templates
@@ -682,7 +694,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
     public void preenchendoAsModalidades (){
          
         
-        ResultSet resultSet = agendaDAO.getConsultarDadosDeUmaAgenda(con, handle_agenda);
+        ResultSet resultSet = AGENDAS.getConsultarDadosDeUmaAgenda(con, handle_agenda);
         try{
             while(resultSet.next()){
                 //preenchendo as modalidades

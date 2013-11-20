@@ -20,6 +20,7 @@ package menu.atendimentos.agenda.internalFrames;
 
 
 import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.Conexao;
@@ -54,7 +55,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import menu.atendimentos.agenda.dao.agendaDAO;
 import menu.atendimentos.agenda.dao.feriadosDAO;
 import menu.atendimentos.agenda.dao.intervalosDiariosDAO;
 import menu.atendimentos.agenda.dao.intervalosPorHorarioDAO;
@@ -533,7 +533,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         
         
         con = Conexao.fazConexao();
-        ResultSet resultSet = agendaDAO.getConsultarDadosDeUmaAgenda(con, handle_agenda);
+        ResultSet resultSet = AGENDAS.getConsultarDadosDeUmaAgenda(con, handle_agenda);
         try{
             while(resultSet.next()){
                 //pegando horario de inicio
