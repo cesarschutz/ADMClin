@@ -5,6 +5,7 @@
 package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 
 import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
 
@@ -25,7 +26,6 @@ import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.financeiro.relatorios.faturarConvenio.arquivoTxtDoIpe.GerarArquivoTxtDaFatura;
 
 /**
@@ -117,7 +117,7 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
     private void preenchendoOsConveniosNoComboBox(){
         //preenchendo as Classes de Exames
         con = Conexao.fazConexao();
-        ResultSet resultSet = conveniosDAO.getConsultar(con);
+        ResultSet resultSet = CONVENIO.getConsultar(con);
         listaHandleConvenio.removeAll(listaHandleConvenio);
         listaPorcentagemConvenio.removeAll(listaPorcentagemConvenio);
         listaPorcentagemPaciente.removeAll(listaPorcentagemPaciente);

@@ -43,7 +43,7 @@ public class CONVENIO {
     public static ResultSet getConsultar(Connection con){
         ResultSet resultSet = null;
         try{
-        PreparedStatement stmtQuery = con.prepareStatement("select handle_convenio, nome from convenio order by nome");
+        PreparedStatement stmtQuery = con.prepareStatement("select handle_convenio, nome, porcentPaciente, porcentConvenio from convenio order by nome");
         resultSet = stmtQuery.executeQuery();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro ao consultar Convênios. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);

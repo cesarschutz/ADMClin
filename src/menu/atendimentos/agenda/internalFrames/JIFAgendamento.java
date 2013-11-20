@@ -1,13 +1,13 @@
 package menu.atendimentos.agenda.internalFrames;
 
 
-import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.atendimentos.agenda.dao.examesDAO;
 import menu.atendimentos.agenda.dao.pacientesDAO;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
@@ -334,7 +334,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
     public void preenchendoOsConvênios(){
         //preenchendo as Classes de Exames
         con = Conexao.fazConexao();
-        ResultSet resultSet = conveniosDAO.getConsultar(con);
+        ResultSet resultSet = CONVENIO.getConsultar(con);
         listaHandleConvenio.removeAll(listaHandleConvenio);
         listaPorcentagemConvenio.removeAll(listaPorcentagemConvenio);
         listaPorcentagemPaciente.removeAll(listaPorcentagemPaciente);

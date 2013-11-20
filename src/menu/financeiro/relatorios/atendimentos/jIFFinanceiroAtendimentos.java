@@ -5,6 +5,7 @@
 package menu.financeiro.relatorios.atendimentos;
 
 import menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos;
+import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.Conexao;
 import janelaPrincipal.janelaPrincipal;
 
@@ -24,7 +25,6 @@ import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos;
 
 /**
@@ -70,7 +70,7 @@ public class jIFFinanceiroAtendimentos extends javax.swing.JInternalFrame {
     
     private void preencherComboBoxComConvenios(){
         con = Conexao.fazConexao();
-        ResultSet resultSet = conveniosDAO.getConsultar(con);
+        ResultSet resultSet = CONVENIO.getConsultar(con);
         listaHandleConvenio.removeAll(listaHandleConvenio);
         jCBConvenio.removeAllItems();
 
