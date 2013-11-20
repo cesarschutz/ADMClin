@@ -2,17 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.atendimentos.agenda.atendimentos.model;
+package br.bcn.admclin.model;
 
 /**
  *
  * @author CeSaR
  */
-public class ATENDIMENTO_EXAMES_MODEL {
+public class Atendimento_Exames {
 
     private int HANDLE_AT, HANDLE_EXAME, DURACAO;
-    private String LADO, MATERIAL, VALOR_EXAME, VALOR_PACIENTE, VALOR_CONVENIO, FILME_CONVENIO, CH_CONVENIO, CH1_EXAME, CH2_EXAME, FILME_EXAME, LISTA_MATERIAIS,NUMERO_SEQUENCIA;
-    private String REDUTOR, DESCONTO_PACIENTE, PORCENTAGEM_CONVENIO, PORCENTAGEM_PACIENTE, VALOR_CORRETO_EXAME, VALOR_CORRETO_CONVENIO, VALOR_CORRETO_PACIENTE, VALOR_DESCONTO;
+    private String LADO, MATERIAL, LISTA_MATERIAIS, NUMERO_SEQUENCIA;
+    private double VALOR_EXAME, VALOR_PACIENTE, VALOR_CONVENIO, FILME_CONVENIO, CH_CONVENIO, CH1_EXAME, CH2_EXAME, FILME_EXAME, REDUTOR, DESCONTO_PACIENTE, PORCENTAGEM_CONVENIO, PORCENTAGEM_PACIENTE;
+    private double VALOR_CORRETO_EXAME, VALOR_CORRETO_CONVENIO, VALOR_CORRETO_PACIENTE, VALOR_DESCONTO;
 
     public int getDURACAO() {
         return DURACAO;
@@ -54,67 +55,67 @@ public class ATENDIMENTO_EXAMES_MODEL {
         this.MATERIAL = MATERIAL;
     }
 
-    public String getVALOR_CONVENIO() {
+    public double getVALOR_CONVENIO() {
         return VALOR_CONVENIO;
     }
 
-    public void setVALOR_CONVENIO(String VALOR_CONVENIO) {
+    public void setVALOR_CONVENIO(double VALOR_CONVENIO) {
         this.VALOR_CONVENIO = VALOR_CONVENIO;
     }
 
-    public String getVALOR_EXAME() {
+    public double getVALOR_EXAME() {
         return VALOR_EXAME;
     }
 
-    public void setVALOR_EXAME(String VALOR_EXAME) {
+    public void setVALOR_EXAME(double VALOR_EXAME) {
         this.VALOR_EXAME = VALOR_EXAME;
     }
 
-    public String getVALOR_PACIENTE() {
+    public double getVALOR_PACIENTE() {
         return VALOR_PACIENTE;
     }
 
-    public void setVALOR_PACIENTE(String VALOR_PACIENTE) {
+    public void setVALOR_PACIENTE(double VALOR_PACIENTE) {
         this.VALOR_PACIENTE = VALOR_PACIENTE;
     }
 
-    public String getFILME_CONVENIO() {
+    public double getFILME_CONVENIO() {
         return FILME_CONVENIO;
     }
 
-    public void setFILME_CONVENIO(String FILME_CONVENIO) {
+    public void setFILME_CONVENIO(double FILME_CONVENIO) {
         this.FILME_CONVENIO = FILME_CONVENIO;
     }
 
-    public String getCH_CONVENIO() {
+    public double getCH_CONVENIO() {
         return CH_CONVENIO;
     }
 
-    public void setCH_CONVENIO(String CH_CONVENIO) {
+    public void setCH_CONVENIO(double CH_CONVENIO) {
         this.CH_CONVENIO = CH_CONVENIO;
     }
 
-    public String getCH1_EXAME() {
+    public double getCH1_EXAME() {
         return CH1_EXAME;
     }
 
-    public void setCH1_EXAME(String CH1_EXAME) {
+    public void setCH1_EXAME(double CH1_EXAME) {
         this.CH1_EXAME = CH1_EXAME;
     }
 
-    public String getCH2_EXAME() {
+    public double getCH2_EXAME() {
         return CH2_EXAME;
     }
 
-    public void setCH2_EXAME(String CH2_EXAME) {
+    public void setCH2_EXAME(double CH2_EXAME) {
         this.CH2_EXAME = CH2_EXAME;
     }
 
-    public String getFILME_EXAME() {
+    public double getFILME_EXAME() {
         return FILME_EXAME;
     }
 
-    public void setFILME_EXAME(String FILME_EXAME) {
+    public void setFILME_EXAME(double FILME_EXAME) {
         this.FILME_EXAME = FILME_EXAME;
     }
 
@@ -126,67 +127,67 @@ public class ATENDIMENTO_EXAMES_MODEL {
         this.LISTA_MATERIAIS = LISTA_MATERIAIS;
     }
 
-    public String getREDUTOR() {
+    public double getREDUTOR() {
         return REDUTOR;
     }
 
-    public void setREDUTOR(String REDUTOR) {
+    public void setREDUTOR(double REDUTOR) {
         this.REDUTOR = REDUTOR;
     }
 
-    public String getDESCONTO_PACIENTE() {
+    public double getDESCONTO_PACIENTE() {
         return DESCONTO_PACIENTE;
     }
 
-    public void setDESCONTO_PACIENTE(String DESCONTO_PACIENTE) {
+    public void setDESCONTO_PACIENTE(double DESCONTO_PACIENTE) {
         this.DESCONTO_PACIENTE = DESCONTO_PACIENTE;
     }
 
-    public String getPORCENTAGEM_CONVENIO() {
+    public double getPORCENTAGEM_CONVENIO() {
         return PORCENTAGEM_CONVENIO;
     }
 
-    public void setPORCENTAGEM_CONVENIO(String PORCENTAGEM_CONVENIO) {
+    public void setPORCENTAGEM_CONVENIO(double PORCENTAGEM_CONVENIO) {
         this.PORCENTAGEM_CONVENIO = PORCENTAGEM_CONVENIO;
     }
 
-    public String getPORCENTAGEM_PACIENTE() {
+    public double getPORCENTAGEM_PACIENTE() {
         return PORCENTAGEM_PACIENTE;
     }
 
-    public void setPORCENTAGEM_PACIENTE(String PORCENTAGEM_PACIENTE) {
+    public void setPORCENTAGEM_PACIENTE(double PORCENTAGEM_PACIENTE) {
         this.PORCENTAGEM_PACIENTE = PORCENTAGEM_PACIENTE;
     }
 
-    public String getVALOR_CORRETO_EXAME() {
+    public double getVALOR_CORRETO_EXAME() {
         return VALOR_CORRETO_EXAME;
     }
 
-    public void setVALOR_CORRETO_EXAME(String VALOR_CORRETO_EXAME) {
+    public void setVALOR_CORRETO_EXAME(double VALOR_CORRETO_EXAME) {
         this.VALOR_CORRETO_EXAME = VALOR_CORRETO_EXAME;
     }
 
-    public String getVALOR_CORRETO_CONVENIO() {
+    public double getVALOR_CORRETO_CONVENIO() {
         return VALOR_CORRETO_CONVENIO;
     }
 
-    public void setVALOR_CORRETO_CONVENIO(String VALOR_CORRETO_CONVENIO) {
+    public void setVALOR_CORRETO_CONVENIO(double VALOR_CORRETO_CONVENIO) {
         this.VALOR_CORRETO_CONVENIO = VALOR_CORRETO_CONVENIO;
     }
 
-    public String getVALOR_CORRETO_PACIENTE() {
+    public double getVALOR_CORRETO_PACIENTE() {
         return VALOR_CORRETO_PACIENTE;
     }
 
-    public void setVALOR_CORRETO_PACIENTE(String VALOR_CORRETO_PACIENTE) {
+    public void setVALOR_CORRETO_PACIENTE(double VALOR_CORRETO_PACIENTE) {
         this.VALOR_CORRETO_PACIENTE = VALOR_CORRETO_PACIENTE;
     }
 
-    public String getVALOR_DESCONTO() {
+    public double getVALOR_DESCONTO() {
         return VALOR_DESCONTO;
     }
 
-    public void setVALOR_DESCONTO(String VALOR_DESCONTO) {
+    public void setVALOR_DESCONTO(double VALOR_DESCONTO) {
         this.VALOR_DESCONTO = VALOR_DESCONTO;
     }
 

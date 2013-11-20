@@ -2,27 +2,29 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.atendimentos.agenda.atendimentos.dao;
+package br.bcn.admclin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTO_EXAMES_MODEL;
+
+import br.bcn.admclin.model.Atendimento_Exames;
 
 /**
  *
  * @author CeSaR
  */
-public class ATENDIMENTO_EXAMES_DAO {
+public class ATENDIMENTO_EXAMES {
     /**
      * Salva os exames de um atendimento no Banco De Dados.
      * @param Connection
-     * @param ATENDIMENTO_EXAMES_MODEL
+     * @param Atendimento_Exames
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, ATENDIMENTO_EXAMES_MODEL atendimento_exame ){
+    public static boolean setCadastrar(Connection con, Atendimento_Exames atendimento_exame ){
         boolean cadastro = false;
         String sql = "insert into atendimento_exames (handle_at, handle_exame, duracao,"
                 + "lado, material, valor_exame, valor_paciente, valor_convenio,"
@@ -36,25 +38,25 @@ public class ATENDIMENTO_EXAMES_DAO {
             
             stmt.setString(4, atendimento_exame.getLADO());
             stmt.setString(5, atendimento_exame.getMATERIAL());
-            stmt.setString(6, atendimento_exame.getVALOR_EXAME());
-            stmt.setString(7, atendimento_exame.getVALOR_PACIENTE());
-            stmt.setString(8, atendimento_exame.getVALOR_CONVENIO());
+            stmt.setDouble(6, atendimento_exame.getVALOR_EXAME());
+            stmt.setDouble(7, atendimento_exame.getVALOR_PACIENTE());
+            stmt.setDouble(8, atendimento_exame.getVALOR_CONVENIO());
             
-            stmt.setString(9, atendimento_exame.getCH_CONVENIO());
-            stmt.setString(10, atendimento_exame.getFILME_CONVENIO());
-            stmt.setString(11, atendimento_exame.getCH1_EXAME());
-            stmt.setString(12, atendimento_exame.getCH2_EXAME());
-            stmt.setString(13, atendimento_exame.getFILME_EXAME());
+            stmt.setDouble(9, atendimento_exame.getCH_CONVENIO());
+            stmt.setDouble(10, atendimento_exame.getFILME_CONVENIO());
+            stmt.setDouble(11, atendimento_exame.getCH1_EXAME());
+            stmt.setDouble(12, atendimento_exame.getCH2_EXAME());
+            stmt.setDouble(13, atendimento_exame.getFILME_EXAME());
             stmt.setString(14, atendimento_exame.getLISTA_MATERIAIS());
             
-            stmt.setString(15, atendimento_exame.getREDUTOR());
-            stmt.setString(16, atendimento_exame.getDESCONTO_PACIENTE());
-            stmt.setString(17, atendimento_exame.getPORCENTAGEM_CONVENIO());
-            stmt.setString(18, atendimento_exame.getPORCENTAGEM_PACIENTE());
-            stmt.setString(19, atendimento_exame.getVALOR_CORRETO_EXAME());
-            stmt.setString(20, atendimento_exame.getVALOR_CORRETO_CONVENIO());
-            stmt.setString(21, atendimento_exame.getVALOR_CORRETO_PACIENTE());
-            stmt.setString(22, atendimento_exame.getVALOR_DESCONTO());
+            stmt.setDouble(15, atendimento_exame.getREDUTOR());
+            stmt.setDouble(16, atendimento_exame.getDESCONTO_PACIENTE());
+            stmt.setDouble(17, atendimento_exame.getPORCENTAGEM_CONVENIO());
+            stmt.setDouble(18, atendimento_exame.getPORCENTAGEM_PACIENTE());
+            stmt.setDouble(19, atendimento_exame.getVALOR_CORRETO_EXAME());
+            stmt.setDouble(20, atendimento_exame.getVALOR_CORRETO_CONVENIO());
+            stmt.setDouble(21, atendimento_exame.getVALOR_CORRETO_PACIENTE());
+            stmt.setDouble(22, atendimento_exame.getVALOR_DESCONTO());
             stmt.setString(23, atendimento_exame.getNUMERO_SEQUENCIA());
             stmt.executeUpdate();
             stmt.close();

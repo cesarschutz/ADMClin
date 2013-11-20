@@ -21,8 +21,10 @@ package menu.atendimentos.agenda.internalFrames;
 
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.ATENDIMENTOS;
+import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.model.Atendimento_Exames;
 import br.bcn.admclin.model.A_Agendamentos;
 import janelaPrincipal.janelaPrincipal;
 
@@ -51,9 +53,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTO_EXAMES_MODEL;
 import menu.atendimentos.agenda.dao.agendaDAO;
 import menu.atendimentos.agenda.dao.feriadosDAO;
 import menu.atendimentos.agenda.dao.intervalosDiariosDAO;
@@ -1667,7 +1667,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
     } 
     
 
-    public static List<ATENDIMENTO_EXAMES_MODEL> listaAtendimentoExamesDaAgenda = new ArrayList<ATENDIMENTO_EXAMES_MODEL>();
+    public static List<Atendimento_Exames> listaAtendimentoExamesDaAgenda = new ArrayList<Atendimento_Exames>();
     public static void preenchendoOsAtendimentosDestaAgenda   (JTable tabelaSelecionada, Icon iconeAtendimento, Icon iconeAtendimentoExt, Connection con)   {
         int numeroDeLinhasDaTabela = tabelaSelecionada.getRowCount();
         //limpando a tabela
@@ -2076,7 +2076,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         
         //exames
          con = Conexao.fazConexao();
-        ResultSet resultSetExames = ATENDIMENTO_EXAMES_DAO.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSetExames = ATENDIMENTO_EXAMES.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
         try {
             int j = 1;
             while(resultSetExames.next()){

@@ -8,9 +8,11 @@ import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.ATENDIMENTOS;
+import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.model.Atendimento_Exames;
 import br.bcn.admclin.model.Atendimentos;
 import calculoValorDeUmExame.calculoValorDeExame;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
@@ -43,8 +45,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
-import menu.atendimentos.agenda.atendimentos.model.ATENDIMENTO_EXAMES_MODEL;
 import menu.atendimentos.agenda.dao.agendaDAO;
 import menu.atendimentos.agenda.dao.conveniosDAO;
 import menu.atendimentos.agenda.dao.examesDAO;
@@ -472,7 +472,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
          
          DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
          con = Conexao.fazConexao();
-        ResultSet resultSetExames = ATENDIMENTO_EXAMES_DAO.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSetExames = ATENDIMENTO_EXAMES.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
         try {
             while(resultSetExames.next()){
                 modelo.addRow(new String[] {Integer.toString(resultSetExames.getInt("handle_exame")),
@@ -598,7 +598,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         //exames
          con = Conexao.fazConexao();
          DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        ResultSet resultSetExames = ATENDIMENTO_EXAMES_DAO.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSetExames = ATENDIMENTO_EXAMES.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
         try {
             while(resultSetExames.next()){
                 modelo.addRow(new String[] {Integer.toString(resultSetExames.getInt("handle_exame")),
@@ -979,36 +979,36 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 if(cadastro){
                     //cadastrando os exames na tabela atendimento_exames
                     for(int i = 0; i < jTable1.getRowCount(); i++){
-                        ATENDIMENTO_EXAMES_MODEL atendimentoExame = new ATENDIMENTO_EXAMES_MODEL();
+                        Atendimento_Exames atendimentoExame = new Atendimento_Exames();
                         atendimentoExame.setHANDLE_AT(handle_at);
                         atendimentoExame.setHANDLE_EXAME(Integer.valueOf( String.valueOf(jTable1.getValueAt(i, 0)) ));
                         atendimentoExame.setDURACAO(MetodosUteis.transformarHorarioEmMinutos(String.valueOf(jTable1.getValueAt(i, 2))));
                         atendimentoExame.setLADO(String.valueOf(jTable1.getValueAt(i, 4)));
                         atendimentoExame.setMATERIAL(String.valueOf(jTable1.getValueAt(i, 5)));
-                        atendimentoExame.setVALOR_EXAME(String.valueOf(jTable1.getValueAt(i, 16)));
-                        atendimentoExame.setCH_CONVENIO(String.valueOf(jTable1.getValueAt(i, 6)));
-                        atendimentoExame.setFILME_CONVENIO(String.valueOf(jTable1.getValueAt(i, 7)));
-                        atendimentoExame.setCH1_EXAME(String.valueOf(jTable1.getValueAt(i, 8)));
-                        atendimentoExame.setCH2_EXAME(String.valueOf(jTable1.getValueAt(i, 9)));
-                        atendimentoExame.setFILME_EXAME(String.valueOf(jTable1.getValueAt(i, 10)));
+                        atendimentoExame.setVALOR_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 16))));
+                        atendimentoExame.setCH_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 6))));
+                        atendimentoExame.setFILME_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 7))));
+                        atendimentoExame.setCH1_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 8))));
+                        atendimentoExame.setCH2_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 9))));
+                        atendimentoExame.setFILME_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 10))));
                         atendimentoExame.setLISTA_MATERIAIS(String.valueOf(jTable1.getValueAt(i, 11)));
-                        atendimentoExame.setREDUTOR(String.valueOf(jTable1.getValueAt(i, 12)));
-                        atendimentoExame.setDESCONTO_PACIENTE(String.valueOf(jTable1.getValueAt(i, 13)));
-                        atendimentoExame.setPORCENTAGEM_CONVENIO(String.valueOf(jTable1.getValueAt(i, 14)));
-                        atendimentoExame.setPORCENTAGEM_PACIENTE(String.valueOf(jTable1.getValueAt(i, 15)));
-                        atendimentoExame.setVALOR_CORRETO_EXAME(String.valueOf(jTable1.getValueAt(i, 3)));
-                        atendimentoExame.setVALOR_CONVENIO(String.valueOf(jTable1.getValueAt(i, 17)));
-                        atendimentoExame.setVALOR_PACIENTE(String.valueOf(jTable1.getValueAt(i, 18)));
-                        atendimentoExame.setVALOR_CORRETO_CONVENIO(String.valueOf(jTable1.getValueAt(i, 19)));
-                        atendimentoExame.setVALOR_CORRETO_PACIENTE(String.valueOf(jTable1.getValueAt(i, 20)));
-                        atendimentoExame.setVALOR_DESCONTO(String.valueOf(jTable1.getValueAt(i, 21)));
+                        atendimentoExame.setREDUTOR(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 12))));
+                        atendimentoExame.setDESCONTO_PACIENTE(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 13))));
+                        atendimentoExame.setPORCENTAGEM_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 14))));
+                        atendimentoExame.setPORCENTAGEM_PACIENTE(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 15))));
+                        atendimentoExame.setVALOR_CORRETO_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 3))));
+                        atendimentoExame.setVALOR_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 17))));
+                        atendimentoExame.setVALOR_PACIENTE(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 18))));
+                        atendimentoExame.setVALOR_CORRETO_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 19))));
+                        atendimentoExame.setVALOR_CORRETO_PACIENTE(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 20))));
+                        atendimentoExame.setVALOR_DESCONTO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 21))));
                         
                         atendimentoExame.setNUMERO_SEQUENCIA(String.valueOf(i + 1));
                         if (atendimentoExame.getNUMERO_SEQUENCIA().length() < 2) {
                             atendimentoExame.setNUMERO_SEQUENCIA("0" + atendimentoExame.getNUMERO_SEQUENCIA());
                         }
                         con = Conexao.fazConexao();
-                        cadastro = ATENDIMENTO_EXAMES_DAO.setCadastrar(con, atendimentoExame);
+                        cadastro = ATENDIMENTO_EXAMES.setCadastrar(con, atendimentoExame);
                     }
                 }
                 
@@ -1210,7 +1210,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
     
     private boolean deletarExamesDeUmAtendimento(){
         con = Conexao.fazConexao();
-        boolean deletou = ATENDIMENTO_EXAMES_DAO.setDeletarTodosDeUmAtendimento(con, handle_at); 
+        boolean deletou = ATENDIMENTO_EXAMES.setDeletarTodosDeUmAtendimento(con, handle_at); 
         Conexao.fechaConexao(con);
         return deletou;
     }

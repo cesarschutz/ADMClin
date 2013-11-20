@@ -11,6 +11,7 @@ package impressoes.modelo1.fichaDeAtendimento;
 
 import ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.ATENDIMENTOS;
+import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
 
@@ -37,8 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.swing.JOptionPane;
-
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 
 /**
  *
@@ -132,7 +131,7 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
     private List<String> listaDeLadoDeExamesDoAtendimento = new ArrayList<String>();
     private List<String> listaDeMaterialDeExamesDoAtendimento = new ArrayList<String>();
     private void buscandoOsExamesDoAtendimento() throws SQLException{
-        ResultSet resultSetExames = ATENDIMENTO_EXAMES_DAO.getConsultarExamesDeUmAtendimento(con,handle_at);
+        ResultSet resultSetExames = ATENDIMENTO_EXAMES.getConsultarExamesDeUmAtendimento(con,handle_at);
         while(resultSetExames.next()){
             listaDeNomeDeExamesDoAtendimento.add(resultSetExames.getString("NomeExame"));
             listaDeLadoDeExamesDoAtendimento.add(resultSetExames.getString("lado"));

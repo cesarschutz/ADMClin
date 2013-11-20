@@ -39,6 +39,7 @@ import ClasseAuxiliares.ColunaAceitandoIcone;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.ATENDIMENTOS;
+import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
@@ -71,8 +72,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-
-import menu.atendimentos.agenda.atendimentos.dao.ATENDIMENTO_EXAMES_DAO;
 
 /**
  *
@@ -1279,7 +1278,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         
         //exames
          con = Conexao.fazConexao();
-        ResultSet resultSetExames = ATENDIMENTO_EXAMES_DAO.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
+        ResultSet resultSetExames = ATENDIMENTO_EXAMES.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
         try {
             int j = 1;
             while(resultSetExames.next()){
