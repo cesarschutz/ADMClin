@@ -10,6 +10,7 @@ public class Pacientes {
     private int handle_paciente, usuarioId;
     private String nome, cpf, nascimento, responsavel, cpfResponsavel, sexo, peso, altura, telefone, celular, endereco, bairro, cep, cidade, uf, rg, profissao, email, cor, estadoCivil, obs, telefone_responsavel;
     private Date data;
+    
     public String getAltura() {
         return altura;
     }

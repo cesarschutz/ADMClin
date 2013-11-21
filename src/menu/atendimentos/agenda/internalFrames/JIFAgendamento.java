@@ -33,7 +33,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.atendimentos.agenda.model.pacientesMODEL;
 import ClasseAuxiliares.MetodosUteis;
 import ClasseAuxiliares.documentoSemAspasEPorcento;
 import ClasseAuxiliares.documentoSomenteLetras;
@@ -45,6 +44,7 @@ import br.bcn.admclin.dao.EXAMES;
 import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.model.A_Agendamentos;
+import br.bcn.admclin.model.Pacientes;
 import calculoValorDeUmExame.calculoValorDeExame;
 
 /*
@@ -503,10 +503,10 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                 //aqui atualizar paciente
                 con = Conexao.fazConexao();
                 
-                pacientesMODEL pacienteModel = new pacientesMODEL();
+                Pacientes pacienteModel = new Pacientes();
                 pacienteModel.setUsuarioId(USUARIOS.usrId);
-                pacienteModel.setDat(dataDeHojeEmVariavelDate);
-                pacienteModel.setHANDLE_PACIENTE(handle_paciente);
+                pacienteModel.setData(dataDeHojeEmVariavelDate);
+                pacienteModel.setHandle_paciente(handle_paciente);
                 pacienteModel.setTelefone(jTFTelefone.getText());
                 pacienteModel.setCelular(jTFCelular.getText());
                 

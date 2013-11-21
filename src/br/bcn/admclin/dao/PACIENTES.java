@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import menu.atendimentos.agenda.model.pacientesMODEL;
 import br.bcn.admclin.model.Pacientes;
 
 /**
@@ -212,16 +211,16 @@ public class PACIENTES {
     }
     
   //atualizar telefones do paciente
-    public static boolean setUpdateTelefone(Connection con, pacientesMODEL paciente){
+    public static boolean setUpdateTelefone(Connection con, Pacientes paciente){
         boolean cadastro = false;
         String sql = "update PACIENTES set usuarioid=?, dat=?, telefone=?, celular=? where handle_paciente=?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, paciente.getUsuarioId());
-            stmt.setDate(2, paciente.getDat());
+            stmt.setDate(2, paciente.getData());
             stmt.setString(3, paciente.getTelefone());
             stmt.setString(4, paciente.getCelular());
-            stmt.setInt(5, paciente.getHANDLE_PACIENTE());
+            stmt.setInt(5, paciente.getHandle_paciente());
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
