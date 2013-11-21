@@ -4,16 +4,15 @@
  */
 package impressoes.modelo2.etiquetaEnvelope;
 
-import ClasseAuxiliares.MetodosUteis;
 import impressoes.modelo2e3.fichaEBoletoDeRetirada.ESCPrinter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-import javax.naming.spi.DirStateFactory;
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.dao.DADOS_EMPRESA;
+import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.USUARIOS;
 
 /**
@@ -50,7 +49,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
     }
     
     private void getDadosDaEtiqueta() throws Exception{
-        ResultSet rs = ImprimirEtiquetaEnvelopeModelo2DAO.getConsultarDadosEtiqueta(con, handle_at);
+        ResultSet rs = ATENDIMENTOS.getConsultarDadosEtiqueta(con, handle_at);
         while(rs.next()){
             nomePaciente = rs.getString("nome");
             modalidade = nomeModalidade(rs.getString("modalidade"));

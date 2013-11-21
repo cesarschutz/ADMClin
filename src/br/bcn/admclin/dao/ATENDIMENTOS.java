@@ -466,4 +466,23 @@ public class ATENDIMENTOS {
             return resultSet;
         }
     }
+    
+    /*
+	 * Consulta a modalidade a data e o nome do paciente de um atendimento
+	 * @param handle_at
+	 */
+    public static ResultSet getConsultarDadosEtiqueta(Connection con, int handle_at){
+        ResultSet resultSet = null;
+        try{
+            PreparedStatement stmtQuery = con.prepareStatement("select data_atendimento, modalidade, p.nome from atendimentos a " +
+                                                                    "inner join pacientes p on a.handle_paciente = p.handle_paciente " +
+                                                                    "where a.handle_at = ?");
+            stmtQuery.setInt(1, handle_at);
+            resultSet = stmtQuery.executeQuery();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao consultar informações para a Etiqueta. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return resultSet;
+        }
+    }
 }
