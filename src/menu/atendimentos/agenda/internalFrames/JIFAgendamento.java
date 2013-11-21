@@ -1,22 +1,16 @@
 package menu.atendimentos.agenda.internalFrames;
 
 
-import menu.atendimentos.agenda.dao.examesDAO;
-import menu.atendimentos.agenda.dao.pacientesDAO;
-import ClasseAuxiliares.documentoSemAspasEPorcento;
-import ClasseAuxiliares.MetodosUteis;
-import ClasseAuxiliares.documentoSomenteLetras;
-import br.bcn.admclin.dao.AGENDAS;
-import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.dao.A_AGENDAMENTOS;
-import br.bcn.admclin.model.A_Agendamentos;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,21 +20,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
+import menu.atendimentos.agenda.dao.pacientesDAO;
 import menu.atendimentos.agenda.model.pacientesMODEL;
+import ClasseAuxiliares.MetodosUteis;
+import ClasseAuxiliares.documentoSemAspasEPorcento;
+import ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.dao.CONVENIO;
+import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.EXAMES;
+import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.model.A_Agendamentos;
 import calculoValorDeUmExame.calculoValorDeExame;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import static menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda.jTable1;
 
 /*
  * To change this template, choose Tools | Templates
@@ -1600,9 +1605,9 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
             
             ResultSet resultSet; 
             if(jCheckBoxOT.isSelected()){
-                resultSet = examesDAO.getConsultar(con, handle_convenio, "OT");
+                resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, "OT");
             }else{
-                resultSet = examesDAO.getConsultar(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
+                resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
             }        
             
             listaHandleExames.removeAll(listaHandleExames);
@@ -1957,7 +1962,7 @@ if(jTFHANDLE_PACIENTE.getText().length()>1){
 
             //preenchendo os exames
             con = Conexao.fazConexao();
-            ResultSet resultSet = examesDAO.getConsultar(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
+            ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
             listaHandleExames.removeAll(listaHandleExames);
             listaDuracaoExames.removeAll(listaDuracaoExames);
             listaVaiMateriaisPorPadrao.removeAll(listaVaiMateriaisPorPadrao);
@@ -2009,7 +2014,7 @@ if(jTFHANDLE_PACIENTE.getText().length()>1){
                 //preenchendo os exames
                 con = Conexao.fazConexao();
 
-                ResultSet resultSet = examesDAO.getConsultar(con, handle_convenio, "OT");        
+                ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, "OT");        
 
                 listaHandleExames.removeAll(listaHandleExames);
                 listaDuracaoExames.removeAll(listaDuracaoExames);
@@ -2046,7 +2051,7 @@ if(jTFHANDLE_PACIENTE.getText().length()>1){
                 //preenchendo os exames
                 con = Conexao.fazConexao();
 
-                ResultSet resultSet = examesDAO.getConsultar(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));        
+                ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));        
 
                 listaHandleExames.removeAll(listaHandleExames);
                 listaDuracaoExames.removeAll(listaDuracaoExames);

@@ -46,7 +46,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import menu.atendimentos.agenda.dao.examesDAO;
 import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
 import ClasseAuxiliares.MetodosUteis;
@@ -58,6 +57,7 @@ import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
 import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.EXAMES;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.model.Atendimento_Exames;
 import br.bcn.admclin.model.Atendimentos;
@@ -2019,9 +2019,9 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             con = Conexao.fazConexao();
             ResultSet resultSet; 
             if(jCheckBoxOT.isSelected()){
-                resultSet = examesDAO.getConsultar(con, handle_convenio, "OT");
+                resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, "OT");
             }else{
-                resultSet = examesDAO.getConsultar(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
+                resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
             } 
             listaHandleExames.removeAll(listaHandleExames);
             listaDuracaoExames.removeAll(listaDuracaoExames);
@@ -2344,7 +2344,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
 
             //preenchendo os exames
             con = Conexao.fazConexao();
-            ResultSet resultSet = examesDAO.getConsultar(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
+            ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
             listaHandleExames.removeAll(listaHandleExames);
             listaDuracaoExames.removeAll(listaDuracaoExames);
             listaVaiMateriaisPorPadrao.removeAll(listaVaiMateriaisPorPadrao);
@@ -2534,7 +2534,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 //preenchendo os exames
                 con = Conexao.fazConexao();
 
-                ResultSet resultSet = examesDAO.getConsultar(con, handle_convenio, "OT");        
+                ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, "OT");        
 
                 listaHandleExames.removeAll(listaHandleExames);
                 listaDuracaoExames.removeAll(listaDuracaoExames);
@@ -2571,7 +2571,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 //preenchendo os exames
                 con = Conexao.fazConexao();
 
-                ResultSet resultSet = examesDAO.getConsultar(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));        
+                ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));        
 
                 listaHandleExames.removeAll(listaHandleExames);
                 listaDuracaoExames.removeAll(listaDuracaoExames);
