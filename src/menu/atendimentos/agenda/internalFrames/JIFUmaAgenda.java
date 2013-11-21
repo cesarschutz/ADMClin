@@ -55,7 +55,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import menu.atendimentos.agenda.dao.intervalosDiariosDAO;
 import menu.atendimentos.agenda.dao.intervalosPorHorarioDAO;
 import menu.atendimentos.agenda.dao.intervalosPorPeriodoDAO;
 import menu.atendimentos.agenda.pinturaDeUmaAgenda.ColorirHorariosIndisponiveisNaAgendaELiberarIconesNaTabela;
@@ -67,6 +66,7 @@ import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
 import br.bcn.admclin.dao.A_FERIADOS;
+import br.bcn.admclin.dao.A_INTERVALOSDIARIOS;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.model.A_Agendamentos;
 import br.bcn.admclin.model.Atendimento_Exames;
@@ -1071,7 +1071,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         
         //verificando intervalos diarios dessa agenda
         con = Conexao.fazConexao();
-        ResultSet resultSet = intervalosDiariosDAO.getConsultarIntervalosDiarios(con, idAgenda);
+        ResultSet resultSet = A_INTERVALOSDIARIOS.getConsultarIntervalosDiariosPorAgenda(con, idAgenda);
         try{
             while(resultSet.next()){               
                 horarioInicial = resultSet.getInt("HORARIOINICIAL");
