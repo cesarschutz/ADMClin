@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import menu.atendimentos.agenda.model.pacientesMODEL;
 import br.bcn.admclin.model.Pacientes;
 
 /**
@@ -209,6 +210,28 @@ public class PACIENTES {
             return cadastro;
         }
     }
+    
+  //atualizar telefones do paciente
+    public static boolean setUpdateTelefone(Connection con, pacientesMODEL paciente){
+        boolean cadastro = false;
+        String sql = "update PACIENTES set usuarioid=?, dat=?, telefone=?, celular=? where handle_paciente=?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, paciente.getUsuarioId());
+            stmt.setDate(2, paciente.getDat());
+            stmt.setString(3, paciente.getTelefone());
+            stmt.setString(4, paciente.getCelular());
+            stmt.setInt(5, paciente.getHANDLE_PACIENTE());
+            stmt.executeUpdate();
+            stmt.close();
+            cadastro = true;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar telefones do Paciente. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return cadastro;
+        }
+    }
+    
     /**
      * Deleta um Paciente no Banco de Dados.
      * @param Connection
