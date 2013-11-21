@@ -36,6 +36,25 @@ public class A_INTERVALOSPORHORARIO {
     }
     
     /**
+     * Consulta Todos os intervalos por horario existentes no Banco de Dados por agenda
+     * @param Connection
+     * @return ResultSet
+     */
+    public static ResultSet getConsultarIntervalosPorHorarioPorAgenda(Connection con, int agendaId){
+        ResultSet resultSet = null;
+        try{
+        PreparedStatement stmtQuery = con.prepareStatement("select A_INTERVALOSPORHORARIO.agendaid, A_INTERVALOSPORHORARIO.A_INTERVALOSPORHORARIONID, A_INTERVALOSPORHORARION.A_INTERVALOPORHORARIONID, A_INTERVALOSPORHORARION.HORARIOINICIAL, "
+                + "A_INTERVALOSPORHORARION.HORARIOFINAL, A_INTERVALOSPORHORARION.SEG, A_INTERVALOSPORHORARION.TER, A_INTERVALOSPORHORARION.QUA, A_INTERVALOSPORHORARION.QUI, A_INTERVALOSPORHORARION.SEX, A_INTERVALOSPORHORARION.SAB, A_INTERVALOSPORHORARION.DOM "
+                + "from A_INTERVALOSPORHORARIO inner join A_INTERVALOSPORHORARION on A_INTERVALOSPORHORARIO.A_INTERVALOSPORHORARIONID = A_INTERVALOSPORHORARION.A_INTERVALOPORHORARIONID where A_INTERVALOSPORHORARIO.agendaid ="+agendaId);
+        resultSet = stmtQuery.executeQuery();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao verificar os Intervalos por Horário. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return resultSet;
+        }
+    }
+    
+    /**
      * Cadastra umnovo intervalo por horario no Banco de Dados.
      * @param Connection 
      * @param A_intervalosPorHorario
