@@ -13,8 +13,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author BCN
- * TROCA OS ID POR HANDLE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * 
+ * SCHUTZ
  * 
  * 
  * */
