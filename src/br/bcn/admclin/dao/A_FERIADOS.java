@@ -18,6 +18,24 @@ public class A_FERIADOS {
     public  static boolean conseguiuConsulta;
     
     /**
+     * Consulta Todos os feriados existentes no Banco de Dados 
+     * @param Connection
+     * @return ResultSet
+     */
+    public static ResultSet getConsultarFeriadosPorAgenda(Connection con, int handle_agenda){
+        ResultSet resultSet = null;
+        try{
+        PreparedStatement stmtQuery = con.prepareStatement("select a_feriados.handle_agenda, a_feriados.handle_feriadon, a_feriadosn.handle_feriadon, a_feriadosn.diadoferiado "
+                + "from a_feriados inner join a_feriadosn on a_feriados.handle_feriadon = a_feriadosn.handle_feriadon where a_feriados.handle_agenda ="+handle_agenda);
+        resultSet = stmtQuery.executeQuery();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao verificar os Feriados. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return resultSet;
+        }
+    }
+    
+    /**
      * Consulta os dados de um feriado
      * @param Connection
      * @return ResultSet

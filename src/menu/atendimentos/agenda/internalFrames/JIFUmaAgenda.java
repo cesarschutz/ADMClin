@@ -19,14 +19,6 @@
 package menu.atendimentos.agenda.internalFrames;
 
 
-import ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.dao.AGENDAS;
-import br.bcn.admclin.dao.ATENDIMENTOS;
-import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.A_AGENDAMENTOS;
-import br.bcn.admclin.model.Atendimento_Exames;
-import br.bcn.admclin.model.A_Agendamentos;
 import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -46,7 +38,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -55,13 +55,21 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import menu.atendimentos.agenda.dao.feriadosDAO;
 import menu.atendimentos.agenda.dao.intervalosDiariosDAO;
 import menu.atendimentos.agenda.dao.intervalosPorHorarioDAO;
 import menu.atendimentos.agenda.dao.intervalosPorPeriodoDAO;
 import menu.atendimentos.agenda.pinturaDeUmaAgenda.ColorirHorariosIndisponiveisNaAgendaELiberarIconesNaTabela;
 import menu.atendimentos.agenda.pinturaDeUmaAgenda.ColorirLinhaJTableInicial;
 import menu.atendimentos.agenda.pinturaDeUmaAgenda.colorirIntervalosNaTabelaDeHorario;
+import ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.AGENDAS;
+import br.bcn.admclin.dao.ATENDIMENTOS;
+import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
+import br.bcn.admclin.dao.A_AGENDAMENTOS;
+import br.bcn.admclin.dao.A_FERIADOS;
+import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.model.A_Agendamentos;
+import br.bcn.admclin.model.Atendimento_Exames;
 
 /**
  *
@@ -803,7 +811,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
     public void verificandoOsFeriadosDaAgenda(int handle_agenda){
         //verificando feriados dessa agenda
         con = Conexao.fazConexao();
-        ResultSet resultSet = feriadosDAO.getConsultarFeriados(con, handle_agenda);
+        ResultSet resultSet = A_FERIADOS.getConsultarFeriadosPorAgenda(con, handle_agenda);
         try{
             while(resultSet.next()){
                 marcandoFlagNosFeriados(resultSet.getString("diadoferiado"));
