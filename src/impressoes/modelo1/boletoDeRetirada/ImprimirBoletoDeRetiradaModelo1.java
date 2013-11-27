@@ -6,6 +6,8 @@
  * ATENÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * SE DER ERRO VERIFICAR SE É POSSIVEL COPIAR UM ARQUIVO PARA O CMINHO C:/ SE PEDIR AUTORIZAÇÃO É ESSE O ERRO
  * TEMOS QUE CONFIGURAR O WINDOWNS PARA PERMITIR ACESSO A PASTA C:/
+ * 
+ * papel 800
  */
 package impressoes.modelo1.boletoDeRetirada;
 
