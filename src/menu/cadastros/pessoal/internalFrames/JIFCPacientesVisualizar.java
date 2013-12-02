@@ -86,36 +86,39 @@ public class JIFCPacientesVisualizar extends javax.swing.JInternalFrame {
         listaPacientes.removeAll(listaPacientes);
         try{
             while(resultSet.next()){
-                //colocando dados na tabela
-                modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_paciente")),resultSet.getString("nome"),resultSet.getString("nascimento")}); 
-                //colocando dados nos objetos
-                Pacientes pacienteModelo = new Pacientes();
-                pacienteModelo.setHandle_paciente(resultSet.getInt("handle_paciente"));
-                pacienteModelo.setUsuarioId(resultSet.getInt("usuarioid"));
-                pacienteModelo.setData(resultSet.getDate("dat"));
-                pacienteModelo.setNome(resultSet.getString("nome"));
-                pacienteModelo.setCpf(resultSet.getString("cpf"));
-                pacienteModelo.setNascimento(resultSet.getString("nascimento"));
-                pacienteModelo.setResponsavel(resultSet.getString("responsavel"));
-                pacienteModelo.setCpfResponsavel(resultSet.getString("cpfresponsavel"));
-                pacienteModelo.setSexo(resultSet.getString("sexo"));
-                pacienteModelo.setPeso(resultSet.getString("peso"));
-                pacienteModelo.setAltura(resultSet.getString("altura"));
-                pacienteModelo.setTelefone(resultSet.getString("telefone"));
-                pacienteModelo.setCelular(resultSet.getString("celular"));
-                pacienteModelo.setEndereco(resultSet.getString("endereco"));
-                pacienteModelo.setBairro(resultSet.getString("bairro"));
-                pacienteModelo.setCep(resultSet.getString("cep"));
-                pacienteModelo.setCidade(resultSet.getString("cidade"));
-                pacienteModelo.setUf(resultSet.getString("uf"));
-                pacienteModelo.setRg(resultSet.getString("rg"));
-                pacienteModelo.setProfissao(resultSet.getString("profissao"));
-                pacienteModelo.setEmail(resultSet.getString("email"));
-                pacienteModelo.setCor(resultSet.getString("cor"));
-                pacienteModelo.setEstadoCivil(resultSet.getString("estadocivil"));
-                pacienteModelo.setObs(resultSet.getString("obs"));
-                pacienteModelo.setTelefone_responsavel(resultSet.getString("telefone_responsavel"));
-                listaPacientes.add(pacienteModelo);
+                if(resultSet.getInt("handle_paciente") != 0){
+                  //colocando dados na tabela
+                    modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_paciente")),resultSet.getString("nome"),resultSet.getString("nascimento")}); 
+                    //colocando dados nos objetos
+                    Pacientes pacienteModelo = new Pacientes();
+                    pacienteModelo.setHandle_paciente(resultSet.getInt("handle_paciente"));
+                    pacienteModelo.setUsuarioId(resultSet.getInt("usuarioid"));
+                    pacienteModelo.setData(resultSet.getDate("dat"));
+                    pacienteModelo.setNome(resultSet.getString("nome"));
+                    pacienteModelo.setCpf(resultSet.getString("cpf"));
+                    pacienteModelo.setNascimento(resultSet.getString("nascimento"));
+                    pacienteModelo.setResponsavel(resultSet.getString("responsavel"));
+                    pacienteModelo.setCpfResponsavel(resultSet.getString("cpfresponsavel"));
+                    pacienteModelo.setSexo(resultSet.getString("sexo"));
+                    pacienteModelo.setPeso(resultSet.getString("peso"));
+                    pacienteModelo.setAltura(resultSet.getString("altura"));
+                    pacienteModelo.setTelefone(resultSet.getString("telefone"));
+                    pacienteModelo.setCelular(resultSet.getString("celular"));
+                    pacienteModelo.setEndereco(resultSet.getString("endereco"));
+                    pacienteModelo.setBairro(resultSet.getString("bairro"));
+                    pacienteModelo.setCep(resultSet.getString("cep"));
+                    pacienteModelo.setCidade(resultSet.getString("cidade"));
+                    pacienteModelo.setUf(resultSet.getString("uf"));
+                    pacienteModelo.setRg(resultSet.getString("rg"));
+                    pacienteModelo.setProfissao(resultSet.getString("profissao"));
+                    pacienteModelo.setEmail(resultSet.getString("email"));
+                    pacienteModelo.setCor(resultSet.getString("cor"));
+                    pacienteModelo.setEstadoCivil(resultSet.getString("estadocivil"));
+                    pacienteModelo.setObs(resultSet.getString("obs"));
+                    pacienteModelo.setTelefone_responsavel(resultSet.getString("telefone_responsavel"));
+                    listaPacientes.add(pacienteModelo);
+                }
+                
             }          
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador","ATENÇÃO!",javax.swing.JOptionPane.ERROR_MESSAGE);
