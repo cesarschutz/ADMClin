@@ -217,6 +217,9 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         agendamentoMODEL.setHORA(MetodosUteis.transformarHorarioEmMinutos(String.valueOf(JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0))));
         agendamentoMODEL.setHANDLE_AP(handle_ap);
         agendamentoMODEL.setNomePaciente("*");
+        agendamentoMODEL.setHANDLE_PACIENTE(0);
+        agendamentoMODEL.setHANDLE_CONVENIO(0);
+        agendamentoMODEL.setHANDLE_EXAME(0);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             java.sql.Date diaDoAgendamento = null;

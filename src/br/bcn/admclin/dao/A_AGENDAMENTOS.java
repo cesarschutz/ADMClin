@@ -79,9 +79,9 @@ public class A_AGENDAMENTOS {
 
             stmt.setInt(4, agendamento.getHANDLE_AGENDA());
             stmt.setInt(5, agendamento.getHORA());
-            stmt.setInt(6, 0);
-            stmt.setInt(7, 0);
-            stmt.setInt(8, 0);
+            stmt.setInt(6, agendamento.getHANDLE_PACIENTE());
+            stmt.setInt(7, agendamento.getHANDLE_CONVENIO());
+            stmt.setInt(8, agendamento.getHANDLE_EXAME());
             stmt.setInt(9, agendamento.getUSUARIOID());
             stmt.setInt(10, agendamento.getDURACAODOEXAME());
             stmt.setInt(11, agendamento.getDuracaoAgendamento());
