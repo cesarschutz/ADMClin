@@ -351,15 +351,18 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         listaPorcentagemPaciente.add(0.0);
         try{
             while(resultSet.next()){
-              jCBConvenio.addItem(resultSet.getString("nome"));
-              int handle_convenio = resultSet.getInt("handle_convenio");
-              listaHandleConvenio.add(handle_convenio);
-              
-              double porcentagemPaciente = Double.valueOf(resultSet.getString("porcentPaciente"));
-              double porcentagemConvenio = Double.valueOf(resultSet.getString("porcentConvenio"));
-              
-              listaPorcentagemConvenio.add(porcentagemConvenio);
-              listaPorcentagemPaciente.add(porcentagemPaciente);
+                if(resultSet.getInt("handle_convenio") > 0){
+                    jCBConvenio.addItem(resultSet.getString("nome"));
+                    int handle_convenio = resultSet.getInt("handle_convenio");
+                    listaHandleConvenio.add(handle_convenio);
+                    
+                    double porcentagemPaciente = Double.valueOf(resultSet.getString("porcentPaciente"));
+                    double porcentagemConvenio = Double.valueOf(resultSet.getString("porcentConvenio"));
+                    
+                    listaPorcentagemConvenio.add(porcentagemConvenio);
+                    listaPorcentagemPaciente.add(porcentagemPaciente);
+                }
+
             }          
         }catch(SQLException e){
             jCBConvenio.setEnabled(false);
