@@ -19,3 +19,5 @@ a tabela MATERIAIS tem o material 0, que significa que não tem material vincula
 a tabela PACIENTE precisa ter um paciente com id 0 para quando for reservar um atendimento ou um agendamento
 
 a tabela CONVENIOS precisa ter um convenio com id 0 para quando for reservar um atendimento ou um agendamento
+
+a tabela EXAMES precisa ter um exame com id 0 para quando for reservar um atendimento ou um agendamento

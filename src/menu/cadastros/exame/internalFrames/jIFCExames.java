@@ -121,18 +121,20 @@ public class jIFCExames extends javax.swing.JInternalFrame {
             while(resultSet.next()){
                 Exames exame = new Exames();
                 //colocando dados na tabela
-                modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_exame")),resultSet.getString("nome")}); 
-                //colocando dados nos objetos
-                exame.setHANDLE_EXAME(resultSet.getInt("handle_exame"));
-                exame.setDuracao(resultSet.getInt("duracao"));
-                exame.setUsuarioId(resultSet.getInt("usuarioid"));
-                exame.setData(resultSet.getDate("dat"));
-                exame.setNOME(resultSet.getString("nome"));
-                exame.setQtdHoras(resultSet.getString("qtdhoras"));
-                exame.setLaudo(resultSet.getString("laudo"));
-                exame.setModalidade(resultSet.getString("modalidade"));
-                exame.setHANDLE_CLASSEDEEXAME(resultSet.getInt("handle_classedeexame"));
-                listaExames.add(exame);      
+                if(resultSet.getInt("handle_exame") > 0){
+                    modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_exame")),resultSet.getString("nome")}); 
+                    //colocando dados nos objetos
+                    exame.setHANDLE_EXAME(resultSet.getInt("handle_exame"));
+                    exame.setDuracao(resultSet.getInt("duracao"));
+                    exame.setUsuarioId(resultSet.getInt("usuarioid"));
+                    exame.setData(resultSet.getDate("dat"));
+                    exame.setNOME(resultSet.getString("nome"));
+                    exame.setQtdHoras(resultSet.getString("qtdhoras"));
+                    exame.setLaudo(resultSet.getString("laudo"));
+                    exame.setModalidade(resultSet.getString("modalidade"));
+                    exame.setHANDLE_CLASSEDEEXAME(resultSet.getInt("handle_classedeexame"));
+                    listaExames.add(exame); 
+                }    
             } 
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
