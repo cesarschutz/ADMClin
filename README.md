@@ -17,3 +17,5 @@ A tabela CONVENIO_GRUPOS deve ter o grupo com ID = 0, isso para que os convenios
 a tabela MATERIAIS tem o material 0, que significa que não tem material vinculado quano o exame for colocado nas tabelas
 
 a tabela PACIENTE precisa ter um paciente com id 0 para quando for reservar um atendimento ou um agendamento
+
+a tabela CONVENIOS precisa ter um convenio com id 0 para quando for reservar um atendimento ou um agendamento
