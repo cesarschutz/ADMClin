@@ -87,8 +87,11 @@ public class JIFCTabelasAdicionarUmMaterialAUmExame extends javax.swing.JInterna
                 listaCodMateriais.add(0);
                 try{
                     while(resultSet.next()){
-                      jCBMateriais.addItem(resultSet.getString("nome"));
-                      listaCodMateriais.add(resultSet.getInt("handle_material"));
+                        if(resultSet.getInt("handle_material") > 0){
+                            jCBMateriais.addItem(resultSet.getString("nome"));
+                            listaCodMateriais.add(resultSet.getInt("handle_material"));
+                        }
+                        
                     }          
                 }catch(SQLException e){
                     JOptionPane.showMessageDialog(null, "Não foi possivel preencher os Materiais. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
