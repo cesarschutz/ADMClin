@@ -188,7 +188,7 @@ public class ATENDIMENTOS {
             stmt.close();
             cadastro = true;
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao registrar Atendimento. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao registrar Atendimento. Procure o Administrador." + e,"ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
         }finally{
             return cadastro;
         }

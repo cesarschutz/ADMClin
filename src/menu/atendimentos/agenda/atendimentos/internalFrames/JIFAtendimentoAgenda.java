@@ -394,6 +394,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         
         atendimentoMODEL.setHANDLE_AGENDA(handle_agenda);
         atendimentoMODEL.setHANDLE_PACIENTE(0);
+        atendimentoMODEL.setHANDLE_MEDICO_SOL(0);
+        atendimentoMODEL.setHANDLE_CONVENIO(0);
         atendimentoMODEL.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(String.valueOf(JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0))));
         atendimentoMODEL.setHANDLE_AT(handle_at);
         try {

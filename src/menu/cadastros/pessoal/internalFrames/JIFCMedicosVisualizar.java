@@ -91,27 +91,30 @@ public class JIFCMedicosVisualizar extends javax.swing.JInternalFrame {
         listaMedicos.removeAll(listaMedicos);
         try{
             while(resultSet.next()){
-                //colocando dados na tabela
-                modelo.addRow(new String[] {Integer.toString(resultSet.getInt("medicoid")),resultSet.getString("nome"),resultSet.getString("nascimento")}); 
-                //colocando dados nos objetos
-                Medicos medicosModelo = new Medicos();
-                medicosModelo.setMedicoId(resultSet.getInt("medicoid"));
-                medicosModelo.setEmId(resultSet.getInt("emid"));
-                medicosModelo.setUsuarioId(resultSet.getInt("usuarioid"));
-                medicosModelo.setDat(resultSet.getDate("dat"));
-                medicosModelo.setNome(resultSet.getString("nome"));
-                medicosModelo.setCrm(resultSet.getString("crm"));
-                medicosModelo.setUfcrm(resultSet.getString("ufcrm"));
-                medicosModelo.setNascimento(resultSet.getString("nascimento"));
-                medicosModelo.setTelefone(resultSet.getString("telefone"));
-                medicosModelo.setCelular(resultSet.getString("celular"));
-                medicosModelo.setEndereco(resultSet.getString("endereco"));
-                medicosModelo.setBairro(resultSet.getString("bairro"));
-                medicosModelo.setCep(resultSet.getString("cep"));
-                medicosModelo.setCidade(resultSet.getString("cidade"));
-                medicosModelo.setUf(resultSet.getString("uf"));
-                medicosModelo.setEmail(resultSet.getString("email"));
-                listaMedicos.add(medicosModelo);
+                if(resultSet.getInt("medicoid") > 0){
+                  //colocando dados na tabela
+                    modelo.addRow(new String[] {Integer.toString(resultSet.getInt("medicoid")),resultSet.getString("nome"),resultSet.getString("nascimento")}); 
+                    //colocando dados nos objetos
+                    Medicos medicosModelo = new Medicos();
+                    medicosModelo.setMedicoId(resultSet.getInt("medicoid"));
+                    medicosModelo.setEmId(resultSet.getInt("emid"));
+                    medicosModelo.setUsuarioId(resultSet.getInt("usuarioid"));
+                    medicosModelo.setDat(resultSet.getDate("dat"));
+                    medicosModelo.setNome(resultSet.getString("nome"));
+                    medicosModelo.setCrm(resultSet.getString("crm"));
+                    medicosModelo.setUfcrm(resultSet.getString("ufcrm"));
+                    medicosModelo.setNascimento(resultSet.getString("nascimento"));
+                    medicosModelo.setTelefone(resultSet.getString("telefone"));
+                    medicosModelo.setCelular(resultSet.getString("celular"));
+                    medicosModelo.setEndereco(resultSet.getString("endereco"));
+                    medicosModelo.setBairro(resultSet.getString("bairro"));
+                    medicosModelo.setCep(resultSet.getString("cep"));
+                    medicosModelo.setCidade(resultSet.getString("cidade"));
+                    medicosModelo.setUf(resultSet.getString("uf"));
+                    medicosModelo.setEmail(resultSet.getString("email"));
+                    listaMedicos.add(medicosModelo);
+                }
+                
             }          
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
