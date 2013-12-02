@@ -74,9 +74,12 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
         listaGrupoId.add(0);
         try{
             while(resultSet.next()){
-              jCBGrupos.addItem(resultSet.getString("nome"));
-              int handle_grupo = resultSet.getInt("grupo_id");
-              listaGrupoId.add(handle_grupo);
+                if(resultSet.getInt("grupo_id") > 0){
+                    jCBGrupos.addItem(resultSet.getString("nome"));
+                    int handle_grupo = resultSet.getInt("grupo_id");
+                    listaGrupoId.add(handle_grupo);
+                }
+              
             }          
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possivel preencher os Grupos de Convênio. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -129,15 +132,17 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
         listaPorcentagemPaciente.add(0.0);
         try{
             while(resultSet.next()){
-              jCBConvenios.addItem(resultSet.getString("nome"));
-              int handle_convenio = resultSet.getInt("handle_convenio");
-              listaHandleConvenio.add(handle_convenio);
-              
-              double porcentagemPaciente = Double.valueOf(resultSet.getString("porcentPaciente"));
-              double porcentagemConvenio = Double.valueOf(resultSet.getString("porcentConvenio"));
-              
-              listaPorcentagemConvenio.add(porcentagemConvenio);
-              listaPorcentagemPaciente.add(porcentagemPaciente);
+                if(resultSet.getInt("handle_convenio") > 0){
+                    jCBConvenios.addItem(resultSet.getString("nome"));
+                    int handle_convenio = resultSet.getInt("handle_convenio");
+                    listaHandleConvenio.add(handle_convenio);
+                    
+                    double porcentagemPaciente = Double.valueOf(resultSet.getString("porcentPaciente"));
+                    double porcentagemConvenio = Double.valueOf(resultSet.getString("porcentConvenio"));
+                    
+                    listaPorcentagemConvenio.add(porcentagemConvenio);
+                    listaPorcentagemPaciente.add(porcentagemPaciente);
+                }
             }          
         }catch(SQLException e){
             jCBConvenios.setEnabled(false);
