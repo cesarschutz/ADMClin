@@ -13,3 +13,5 @@ Agenda deve ser cadastrada uma com ID = 0, isso para que quando forem todas as a
 Todos os generators devem estar como 1 quando o banco estiver zerado.
 
 A tabela CONVENIO_GRUPOS deve ter o grupo com ID = 0, isso para que os convenios que não pertencerem a nenhum grupo vão pertencer a este grupo.
+
+a tabela MATERIAIS tem o material 0, que significa que não tem material vinculado quano o exame for colocado nas tabelas
