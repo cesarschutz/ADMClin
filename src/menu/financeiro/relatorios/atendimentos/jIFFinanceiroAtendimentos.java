@@ -79,9 +79,12 @@ public class jIFFinanceiroAtendimentos extends javax.swing.JInternalFrame {
         listaHandleConvenio.add(0);
         try{
             while(resultSet.next()){
-              jCBConvenio.addItem(resultSet.getString("nome"));
-              int handle_convenio = resultSet.getInt("handle_convenio");
-              listaHandleConvenio.add(handle_convenio);
+                if(resultSet.getInt("handle_convenio") > 0){
+                    jCBConvenio.addItem(resultSet.getString("nome"));
+                    int handle_convenio = resultSet.getInt("handle_convenio");
+                    listaHandleConvenio.add(handle_convenio); 
+                }
+              
             }          
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possível preencher os Convênios. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
