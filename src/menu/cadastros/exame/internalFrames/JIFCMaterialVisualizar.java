@@ -78,16 +78,19 @@ public class JIFCMaterialVisualizar extends javax.swing.JInternalFrame {
         listaMateriais.removeAll(listaMateriais);
         try{
             while(resultSet.next()){
-                //colocando dados na tabela
-                modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_material")),resultSet.getString("nome")}); 
-                //colocando dados nos objetos
-                Materiais materialModel = new Materiais();
-                materialModel.setHandle_material(resultSet.getInt("handle_material"));
-                materialModel.setUsuarioId(resultSet.getInt("usuarioid"));
-                materialModel.setData(resultSet.getDate("dat"));
-                materialModel.setNome(resultSet.getString("nome"));
-                materialModel.setCodigo(resultSet.getString("codigo"));
-                listaMateriais.add(materialModel);
+                if(resultSet.getInt("handle_material") > 0){
+                  //colocando dados na tabela
+                    modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_material")),resultSet.getString("nome")}); 
+                    //colocando dados nos objetos
+                    Materiais materialModel = new Materiais();
+                    materialModel.setHandle_material(resultSet.getInt("handle_material"));
+                    materialModel.setUsuarioId(resultSet.getInt("usuarioid"));
+                    materialModel.setData(resultSet.getDate("dat"));
+                    materialModel.setNome(resultSet.getString("nome"));
+                    materialModel.setCodigo(resultSet.getString("codigo"));
+                    listaMateriais.add(materialModel); 
+                }
+                
             }          
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);

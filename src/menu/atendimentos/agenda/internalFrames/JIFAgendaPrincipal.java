@@ -99,7 +99,7 @@ public class JIFAgendaPrincipal extends javax.swing.JInternalFrame {
         con = Conexao.fazConexao();
         ResultSet resultSet = AGENDAS.getConsultar(con);
         listaHandleAgendas.removeAll(listaHandleAgendas);
-        jComboBox1.addItem("");  
+        jComboBox1.addItem("Selecione uma Agenda");  
         jComboBox2.addItem("");  
         jComboBox3.addItem("");  
         jComboBox4.addItem("");  

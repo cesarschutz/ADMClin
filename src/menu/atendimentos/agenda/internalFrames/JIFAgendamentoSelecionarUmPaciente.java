@@ -66,7 +66,9 @@ public class JIFAgendamentoSelecionarUmPaciente extends javax.swing.JInternalFra
             ResultSet resultSet = PACIENTES.getConsultar(con,sql);
             try{
                 while(resultSet.next()){
+                    if(resultSet.getInt("handle_paciente") > 0){
                         modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_paciente")),resultSet.getString("nome"), resultSet.getString("cpf"), resultSet.getString("nascimento"), resultSet.getString("telefone"), resultSet.getString("celular")}); 
+                    }
                 }          
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador.","ATENÇÃO!",javax.swing.JOptionPane.ERROR_MESSAGE);

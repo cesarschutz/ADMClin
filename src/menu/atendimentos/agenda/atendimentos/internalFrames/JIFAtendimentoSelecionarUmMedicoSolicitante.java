@@ -68,7 +68,9 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
             ResultSet resultSet = MEDICOS.getConsultar(con,sql);
             try{
                 while(resultSet.next()){
+                    if(resultSet.getInt("medicoid") > 0){
                         modelo.addRow(new String[] {Integer.toString(resultSet.getInt("medicoid")),resultSet.getString("nome"), resultSet.getString("crm"), resultSet.getString("ufcrm"), resultSet.getString("nascimento"), resultSet.getString("telefone"), resultSet.getString("celular")}); 
+                    }
                 }          
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador.","ATENÇÃO!",javax.swing.JOptionPane.ERROR_MESSAGE);

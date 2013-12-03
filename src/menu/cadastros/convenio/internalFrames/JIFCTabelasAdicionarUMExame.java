@@ -92,8 +92,11 @@ public class JIFCTabelasAdicionarUMExame extends javax.swing.JInternalFrame {
         listaHandle_Exame.add(0);
         try{
             while(resultSet.next()){
-              jCBExames.addItem(resultSet.getString("nome") + "  " + resultSet.getInt("handle_exame"));
-              listaHandle_Exame.add(resultSet.getInt("handle_exame"));
+                if(resultSet.getInt("handle_exame") > 0){
+                    jCBExames.addItem(resultSet.getString("nome"));
+                    listaHandle_Exame.add(resultSet.getInt("handle_exame"));
+                }
+              
             }          
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Não foi possivel preencher os Exames. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
