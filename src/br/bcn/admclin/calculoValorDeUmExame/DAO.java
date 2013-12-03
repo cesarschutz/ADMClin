@@ -5,6 +5,7 @@
 package br.bcn.admclin.calculoValorDeUmExame;
 
 import java.sql.*;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -13,9 +14,10 @@ import javax.swing.JOptionPane;
  */
 public class DAO {
     
-    /*
+    /**
      * Consultando os materiais do exame
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarMateriaisDoExame(Connection con, int handle_convenio, int handle_exame){
         ResultSet resultSet = null;
         try{
@@ -30,9 +32,10 @@ public class DAO {
         }
     }
     
-    /*
+    /**
      * Consultando os valores dos materiais do exame
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarValoresMateriaisDoExame(Connection con,int handle_material, Date dataDoExame){
         ResultSet resultSet = null;
         try{
@@ -47,9 +50,10 @@ public class DAO {
         }
     }
     
-    /*
+    /**
      * Consultando a porcentagem  do convenio e do paciente
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarPorcentagemDePagamentoDeClienteEConvenio(Connection con, int handle_convenio){
         ResultSet resultSet = null;
         try{
@@ -62,9 +66,10 @@ public class DAO {
             return resultSet;
         }
     }
-    /*
+    /**
      * Consultando a o redutor do convenio
      */
+    @SuppressWarnings("finally")
     public static ResultSet getRedutorDoConvenio(Connection con, int handle_convenio){
         ResultSet resultSet = null;
         try{
@@ -78,9 +83,10 @@ public class DAO {
         }
     }
     
-    /*
+    /**
      * Consultando os valores de ch do convenio de acordo com a data selecionada
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarValorDoCHDoConvenio(Connection con,int handle_convenio, Date dataDoExame){
         ResultSet resultSet = null;
         try{
@@ -95,9 +101,10 @@ public class DAO {
         }
     }
     
-    /*
+    /**
      * Consultando os valores de filme do convenio de acordo com a data selecionada
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarValorDoFILMEDoConvenio(Connection con,int handle_convenio, Date dataDoExame){
         ResultSet resultSet = null;
         try{
@@ -111,9 +118,10 @@ public class DAO {
             return resultSet;
         }
     }
-    /*
+    /**
      * Consultando o valor do exame naquele convenio
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarValoresDoExame(Connection con, int handle_convenio, int handle_exame){
         ResultSet resultSet = null;
         try{

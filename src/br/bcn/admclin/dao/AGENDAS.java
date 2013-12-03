@@ -14,91 +14,105 @@ import javax.swing.JOptionPane;
 import br.bcn.admclin.dao.model.Agenda;
 
 /**
- *
- * @author BCN
+ * 
+ * @author Cesar Schutz
  */
 public class AGENDAS {
     public static boolean conseguiuConsulta;
-    
+
     /**
      * Consulta os dados de uma Agenda
+     * 
      * @param Connection
      * @return ResultSet
      */
-    public static ResultSet getConsultarDadosDeUmaAgenda(Connection con, int handle_agenda){
+    @SuppressWarnings("finally")
+    public static ResultSet getConsultarDadosDeUmaAgenda(Connection con, int handle_agenda) {
         ResultSet resultSet = null;
-        try{
-        PreparedStatement stmtQuery = con.prepareStatement("select * from agendas where handle_agenda=?");
-        stmtQuery.setInt(1, handle_agenda);
-        resultSet = stmtQuery.executeQuery();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Agendas. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        try {
+            PreparedStatement stmtQuery = con.prepareStatement("select * from agendas where handle_agenda=?");
+            stmtQuery.setInt(1, handle_agenda);
+            resultSet = stmtQuery.executeQuery();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Agendas. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return resultSet;
         }
     }
-    
+
     /**
      * Verifica se nome de agenda ja existe sem se o ID q estamos trabalhando!
+     * 
      * @param Connection
      * @param conveniosMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarAtualizarRegistro(Connection con, Agenda model){
-       boolean existe = true;
-        try{
-          PreparedStatement stmtQuery = con.prepareStatement("select * from agendas where nome=? and handle_agenda!=?");
-          stmtQuery.setString(1, model.getNome());
-          stmtQuery.setInt(2, model.getHandle_agenda());
-          ResultSet resultSet = stmtQuery.executeQuery();
-          if(!resultSet.next()){
+    @SuppressWarnings("finally")
+    public static boolean getConsultarParaSalvarAtualizarRegistro(Connection con, Agenda model) {
+        boolean existe = true;
+        try {
+            PreparedStatement stmtQuery =
+                con.prepareStatement("select * from agendas where nome=? and handle_agenda!=?");
+            stmtQuery.setString(1, model.getNome());
+            stmtQuery.setInt(2, model.getHandle_agenda());
+            ResultSet resultSet = stmtQuery.executeQuery();
+            if (!resultSet.next()) {
                 existe = false;
             }
-          conseguiuConsulta = true;
-        }catch(SQLException e){
+            conseguiuConsulta = true;
+        } catch (SQLException e) {
             conseguiuConsulta = false;
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se Agenda já existe. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se Agenda já existe. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return existe;
         }
     }
+
     /**
      * Verifica se Classe De Exame já existe antes de cadastra-lo no Banco de Dados.
+     * 
      * @param Connection
      * @param Agenda
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Agenda model){
-       boolean existe = true;
-        try{
-          PreparedStatement stmtQuery = con.prepareStatement("select * from agendas where nome=?");
-          stmtQuery.setString(1, model.getNome());
-          ResultSet resultSet = stmtQuery.executeQuery();
-          if(!resultSet.next()){
+    @SuppressWarnings("finally")
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Agenda model) {
+        boolean existe = true;
+        try {
+            PreparedStatement stmtQuery = con.prepareStatement("select * from agendas where nome=?");
+            stmtQuery.setString(1, model.getNome());
+            ResultSet resultSet = stmtQuery.executeQuery();
+            if (!resultSet.next()) {
                 existe = false;
             }
-          conseguiuConsulta = true;
-        }catch(SQLException e){
+            conseguiuConsulta = true;
+        } catch (SQLException e) {
             conseguiuConsulta = false;
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se Agenda já existe. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se Agenda já existe. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return existe;
         }
     }
-    
+
     /**
      * Cadastra uma nova agenda no Banco de Dados.
-     * @param Connection 
+     * 
+     * @param Connection
      * @param agendasModel
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, Agenda model){
+    @SuppressWarnings("finally")
+    public static boolean setCadastrar(Connection con, Agenda model) {
         boolean cadastro = false;
-        String sql = "insert into agendas (dat,usuarioid,nome,descricao,horarioinicialTurno1,horariofinalTurno1,horarioinicialTurno2,horariofinalTurno2,horarioinicialTurno3,horariofinalTurno3,horarioinicialTurno4,horariofinalTurno4,"
+        String sql =
+            "insert into agendas (dat,usuarioid,nome,descricao,horarioinicialTurno1,horariofinalTurno1,horarioinicialTurno2,horariofinalTurno2,horarioinicialTurno3,horariofinalTurno3,horarioinicialTurno4,horariofinalTurno4,"
                 + "duracaoturno1,duracaoturno2,duracaoturno3,duracaoturno4,seg,ter,qua,qui,sex,sab,dom,modalidade_cr,modalidade_ct,modalidade_dr,modalidade_dx,modalidade_mg,modalidade_mr,modalidade_nm,"
                 + "modalidade_ot,modalidade_rf,modalidade_do,modalidade_us,modalidade_od, modalidade_tr, ativa) "
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try{
+        try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setDate(1, model.getData());
             stmt.setInt(2, model.getUsuarioId());
@@ -140,20 +154,24 @@ public class AGENDAS {
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             conseguiuConsulta = false;
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Agenda. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Agenda. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return cadastro;
         }
     }
-    //atualizar agenda
-    public static boolean setAtualizar(Connection con, Agenda model){
+
+    // atualizar agenda
+    @SuppressWarnings("finally")
+    public static boolean setAtualizar(Connection con, Agenda model) {
         boolean cadastro = false;
-        String sql = "update agendas set dat=?, usuarioid=?, nome=?, descricao=?, horarioinicialturno1=?, horariofinalturno1=?, horarioinicialturno2=?, horariofinalturno2=?, horarioinicialturno3=?, horariofinalturno3=?, horarioinicialturno4=?, horariofinalturno4=?, duracaoturno1=?, duracaoturno2=?, duracaoturno3=?, duracaoturno4=?,  seg=?, ter=?, qua=?, qui=?, sex=?, sab=?, dom=?,"
+        String sql =
+            "update agendas set dat=?, usuarioid=?, nome=?, descricao=?, horarioinicialturno1=?, horariofinalturno1=?, horarioinicialturno2=?, horariofinalturno2=?, horarioinicialturno3=?, horariofinalturno3=?, horarioinicialturno4=?, horariofinalturno4=?, duracaoturno1=?, duracaoturno2=?, duracaoturno3=?, duracaoturno4=?,  seg=?, ter=?, qua=?, qui=?, sex=?, sab=?, dom=?,"
                 + " modalidade_cr=?, modalidade_ct=?, modalidade_dr=?, modalidade_dx=?, modalidade_mg=?, modalidade_mr=?, modalidade_nm=?, modalidade_ot=?, modalidade_rf=?, modalidade_do=?,"
                 + " modalidade_us=?, modalidade_od=?, modalidade_tr=?, ativa=? where handle_agenda=?";
-        try{
+        try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setDate(1, model.getData());
             stmt.setInt(2, model.getUsuarioId());
@@ -196,27 +214,32 @@ public class AGENDAS {
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             conseguiuConsulta = false;
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar Agenda. Procure o Administrador." + e,"ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Agenda. Procure o Administrador." + e, "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return cadastro;
         }
     }
-    
+
     /**
      * Consulta Todas as Agendas existentes no Banco de Dados para colocar nos comboBox
+     * 
      * @param Connection
      * @return ResultSet
      */
-    public static ResultSet getConsultar(Connection con){
+    @SuppressWarnings("finally")
+    public static ResultSet getConsultar(Connection con) {
         ResultSet resultSet = null;
-        try{
-        PreparedStatement stmtQuery = con.prepareStatement("select handle_agenda, nome, ativa from agendas order by nome");
-        resultSet = stmtQuery.executeQuery();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao preencher as Agendas. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        try {
+            PreparedStatement stmtQuery =
+                con.prepareStatement("select handle_agenda, nome, ativa from agendas order by nome");
+            resultSet = stmtQuery.executeQuery();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao preencher as Agendas. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return resultSet;
         }
     }

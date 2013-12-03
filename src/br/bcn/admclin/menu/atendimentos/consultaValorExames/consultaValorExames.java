@@ -31,14 +31,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author CeSaR
+ * 
+ * @author Cesar Schutz
  */
 public class consultaValorExames extends javax.swing.JInternalFrame {
 
+    private static final long serialVersionUID = 1L;
     String nomeConvenio;
     int handle_convenio;
     Connection con = null;
+
     /**
      * Creates new form consultaValorExames
      */
@@ -51,132 +53,149 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
         iniciarClasse();
         atualizarTabela();
     }
-    
-    public void tirandoBarraDeTitulo(){
-        ((BasicInternalFrameUI)this.getUI()).getNorthPane().setPreferredSize( new Dimension(0,0) );
-        this.setBorder(new EmptyBorder(new Insets(0,0,0,0)));
+
+    public void tirandoBarraDeTitulo() {
+        ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
+        this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
     }
-    
-    public void iniciarClasse(){
-        
-        //alinhando conteudo da coluna de uma tabela
-        
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer(); 
+
+    public void iniciarClasse() {
+
+        // alinhando conteudo da coluna de uma tabela
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        
-        
-        
+
         jTable.setAutoCreateRowSorter(true);
         jTable.setRowHeight(20);
         jTFNomeDaTabela.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTFNomeDaTabela.setText(nomeConvenio);
-        
-        jTable.getColumnModel().getColumn( 0 ).setMaxWidth( 0 );  
-        jTable.getColumnModel().getColumn( 0 ).setMinWidth( 0 );  
-        jTable.getTableHeader().getColumnModel().getColumn( 0 ).setMaxWidth( 0 );  
-        jTable.getTableHeader().getColumnModel().getColumn( 0 ).setMinWidth( 0 );
-        
-        
+
+        jTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+
     }
-    
-    public void preencherModalidades(){
+
+    @SuppressWarnings("unchecked")
+    public void preencherModalidades() {
         con = Conexao.fazConexao();
         ResultSet resultSet = TABELAS.getConsultarModalidades(con);
-        try{
-            while(resultSet.next()){
-              jCBModalidades.addItem(resultSet.getString("modalidade"));
-            }          
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Não foi possivel preencher as Modalidades. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        try {
+            while (resultSet.next()) {
+                jCBModalidades.addItem(resultSet.getString("modalidade"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel preencher as Modalidades. Procure o administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             Conexao.fechaConexao(con);
         }
     }
-    
-    public void atualizarTabela(){
+
+    public void atualizarTabela() {
         ((DefaultTableModel) jTable.getModel()).setNumRows(0);
         jTable.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable.getModel();
         con = Conexao.fazConexao();
         String modalidade = String.valueOf(jCBModalidades.getSelectedItem());
-        ResultSet resultSet = TABELAS.getConsultarExamesDaTabela(con, handle_convenio,modalidade);
-        try{
-            while(resultSet.next()){
-                //colocando dados na tabela
-                modelo.addRow(new String[] {Integer.toString(resultSet.getInt("handle_exame")),resultSet.getString("nome")});
-            } 
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Não foi possivel atualizar os Exames. Procure o administrador","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        ResultSet resultSet = TABELAS.getConsultarExamesDaTabela(con, handle_convenio, modalidade);
+        try {
+            while (resultSet.next()) {
+                // colocando dados na tabela
+                modelo.addRow(new String[] { Integer.toString(resultSet.getInt("handle_exame")),
+                    resultSet.getString("nome") });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel atualizar os Exames. Procure o administrador",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             Conexao.fechaConexao(con);
         }
     }
-    public void botaoRetornar(){
+
+    public void botaoRetornar() {
         this.dispose();
         janelaPrincipal.internalFrameConsultaValorDeExames = null;
-        
-        janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames = new listaConvenios()  ;
+
+        janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames = new listaConvenios();
         janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames);
         janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames.setVisible(true);
-        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();     
-        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();     
-        int lIFrame = janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames.getWidth();     
-        int aIFrame = janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames.getHeight();     
+        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
+        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
+        int lIFrame = janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames.getWidth();
+        int aIFrame = janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames.getHeight();
 
-        janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.internalFrameListaConveniosConsultaValorDeExames.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
+            - aIFrame / 2);
     }
-    
-    public void calcularValorDeExame(){
+
+    public void calcularValorDeExame() {
         if (jTable.getSelectedRow() >= 0) {
-            jLabel1.setText("Modalide: " + String.valueOf(jCBModalidades.getSelectedItem()) + " - Exame: " + jTable.getValueAt(jTable.getSelectedRow(), 1));
-            
-            //pegando a data do sistema
+            jLabel1.setText("Modalide: " + String.valueOf(jCBModalidades.getSelectedItem()) + " - Exame: "
+                + jTable.getValueAt(jTable.getSelectedRow(), 1));
+
+            // pegando a data do sistema
             Calendar hoje = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            String dataDeHoje = format.format( hoje.getTime() );
+            String dataDeHoje = format.format(hoje.getTime());
             Date dataDeHojeEmVariavelDate = null;
             try {
                 dataDeHojeEmVariavelDate = new java.sql.Date(format.parse(dataDeHoje).getTime());
             } catch (ParseException ex) {
             }
-            
-            
-            //preenchendo os valores sem materiais
-            calculoValorDeExame calcularValorExameSemMateriais= new calculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable.getValueAt(jTable.getSelectedRow(), 0))), dataDeHojeEmVariavelDate, false);
-            
-            double valorPacienteSemMaterial = (calcularValorExameSemMateriais.porcentPaciente  / 100) * Double.valueOf(calcularValorExameSemMateriais.valor_correto_exame);
-            double valorConvenioSemMaterial = (calcularValorExameSemMateriais.porcentConvenio  / 100) * Double.valueOf(calcularValorExameSemMateriais.valor_correto_exame);
-            
-            jTFValorTotalSemMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(calcularValorExameSemMateriais.valor_correto_exame).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
-            jTFValorConvenioSemMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(valorConvenioSemMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
-            jTFValorPacienteSemMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(valorPacienteSemMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
-            
-            
-            //preenchendo os valores Com materiais
-            calculoValorDeExame calcularValorExameComMateriais= new calculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable.getValueAt(jTable.getSelectedRow(), 0))), dataDeHojeEmVariavelDate, true);
-            
-            double valorPacienteComMaterial = (calcularValorExameComMateriais.porcentPaciente  / 100) * Double.valueOf(calcularValorExameComMateriais.valor_correto_exame);
-            double valorConvenioComMaterial = (calcularValorExameComMateriais.porcentConvenio  / 100) * Double.valueOf(calcularValorExameComMateriais.valor_correto_exame);
-            
-            jTFValorTotalComMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(calcularValorExameComMateriais.valor_correto_exame).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
-            jTFValorConvenioComMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(valorConvenioComMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
-            jTFValorPacienteComMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(valorPacienteComMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
-            
-            
-        }else{
+
+            // preenchendo os valores sem materiais
+            calculoValorDeExame calcularValorExameSemMateriais =
+                new calculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable
+                    .getValueAt(jTable.getSelectedRow(), 0))), dataDeHojeEmVariavelDate, false);
+
+            double valorPacienteSemMaterial =
+                (calcularValorExameSemMateriais.porcentPaciente / 100)
+                    * Double.valueOf(calcularValorExameSemMateriais.valor_correto_exame);
+            double valorConvenioSemMaterial =
+                (calcularValorExameSemMateriais.porcentConvenio / 100)
+                    * Double.valueOf(calcularValorExameSemMateriais.valor_correto_exame);
+
+            jTFValorTotalSemMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(
+                calcularValorExameSemMateriais.valor_correto_exame).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
+            jTFValorConvenioSemMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(
+                valorConvenioSemMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
+            jTFValorPacienteSemMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(
+                valorPacienteSemMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
+
+            // preenchendo os valores Com materiais
+            calculoValorDeExame calcularValorExameComMateriais =
+                new calculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable
+                    .getValueAt(jTable.getSelectedRow(), 0))), dataDeHojeEmVariavelDate, true);
+
+            double valorPacienteComMaterial =
+                (calcularValorExameComMateriais.porcentPaciente / 100)
+                    * Double.valueOf(calcularValorExameComMateriais.valor_correto_exame);
+            double valorConvenioComMaterial =
+                (calcularValorExameComMateriais.porcentConvenio / 100)
+                    * Double.valueOf(calcularValorExameComMateriais.valor_correto_exame);
+
+            jTFValorTotalComMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(
+                calcularValorExameComMateriais.valor_correto_exame).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
+            jTFValorConvenioComMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(
+                valorConvenioComMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
+            jTFValorPacienteComMateriais.setText(MetodosUteis.colocarZeroEmCampoReais(new BigDecimal(
+                valorPacienteComMaterial).setScale(2, RoundingMode.HALF_EVEN).doubleValue()));
+
+        } else {
             JOptionPane.showMessageDialog(null, "Selecione um Exame!");
         }
-        
+
     }
-    
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -204,34 +223,27 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jBRetornar = new javax.swing.JButton();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Valores dos Exames", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Valores dos Exames",
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jTFNomeDaTabela.setEditable(false);
         jTFNomeDaTabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTFNomeDaTabela.setText("NOME DA TABELA");
         jTFNomeDaTabela.setFocusable(false);
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-            },
-            new String [] {
-                "handle_exame", "Exame(s)"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+        }, new String[] { "handle_exame", "Exame(s)" }) {
+            private static final long serialVersionUID = 1L;
+            Class[] types = new Class[] { java.lang.String.class, java.lang.String.class };
+            boolean[] canEdit = new boolean[] { false, false };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -286,95 +298,154 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jBCalcularValorDoExame)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout
+            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addComponent(jBCalcularValorDoExame)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        Short.MAX_VALUE))
             .addComponent(jTFNomeDaTabela)
             .addComponent(jScrollPane1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTFValorTotalSemMateriais))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTFValorTotalComMateriais))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTFValorConvenioSemMateriais))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTFValorConvenioComMateriais))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTFValorPacienteSemMateriais))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTFValorPacienteComMateriais)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCBModalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTFNomeDaTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jCBModalidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBCalcularValorDoExame)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFValorTotalSemMateriais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFValorPacienteSemMateriais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFValorTotalComMateriais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTFValorConvenioComMateriais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTFValorConvenioSemMateriais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFValorPacienteComMateriais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator2))
-                .addContainerGap())
-        );
+            .addGroup(
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTFValorTotalSemMateriais))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTFValorTotalComMateriais))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTFValorConvenioSemMateriais))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTFValorConvenioComMateriais))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTFValorPacienteSemMateriais))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTFValorPacienteComMateriais)))
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCBModalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 79,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))).addGap(0, 0, Short.MAX_VALUE)));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addComponent(jTFNomeDaTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 27,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jCBModalidades, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(
+                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBCalcularValorDoExame).addComponent(jLabel1))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFValorTotalSemMateriais, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFValorPacienteSemMateriais, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator1)
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFValorTotalComMateriais, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(
+                                jPanel1Layout
+                                    .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTFValorConvenioComMateriais,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTFValorConvenioSemMateriais,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFValorPacienteComMateriais, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator2)).addContainerGap()));
 
         jBRetornar.setBackground(new java.awt.Color(113, 144, 224));
         jBRetornar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
@@ -389,40 +460,48 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBRetornar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jBRetornar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                layout
+                    .createSequentialGroup()
+                    .addGroup(
+                        layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                Short.MAX_VALUE)
+                            .addComponent(jBRetornar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+            javax.swing.GroupLayout.Alignment.TRAILING,
+            layout
+                .createSequentialGroup()
+                .addComponent(jBRetornar, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
+                    javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    Short.MAX_VALUE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRetornarActionPerformed
+    private void jBRetornarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBRetornarActionPerformed
         botaoRetornar();
-    }//GEN-LAST:event_jBRetornarActionPerformed
+    }// GEN-LAST:event_jBRetornarActionPerformed
 
-    private void jBCalcularValorDoExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularValorDoExameActionPerformed
+    private void jBCalcularValorDoExameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCalcularValorDoExameActionPerformed
         calcularValorDeExame();
-    }//GEN-LAST:event_jBCalcularValorDoExameActionPerformed
+    }// GEN-LAST:event_jBCalcularValorDoExameActionPerformed
 
-    private void jCBModalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBModalidadesActionPerformed
+    private void jCBModalidadesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBModalidadesActionPerformed
         atualizarTabela();// TODO add your handling code here:
-    }//GEN-LAST:event_jCBModalidadesActionPerformed
+    }// GEN-LAST:event_jCBModalidadesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCalcularValorDoExame;
     public static javax.swing.JButton jBRetornar;
+    @SuppressWarnings("rawtypes")
     public static javax.swing.JComboBox jCBModalidades;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -27,11 +27,13 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * 
  * @author BCN
  */
 public class JIFIntervaloPorPeriodoVisualizar extends javax.swing.JInternalFrame {
+    private static final long serialVersionUID = 1L;
     private Connection con = null;
+
     /** Creates new form JIFCPacientesVisualizar */
     public JIFIntervaloPorPeriodoVisualizar() {
         initComponents();
@@ -40,60 +42,62 @@ public class JIFIntervaloPorPeriodoVisualizar extends javax.swing.JInternalFrame
         tirandoBarraDeTitulo();
         jTable1.setAutoCreateRowSorter(true);
     }
-    
-    public void tirandoBarraDeTitulo(){
-        ((BasicInternalFrameUI)this.getUI()).getNorthPane().setPreferredSize( new Dimension(0,0) );
-        this.setBorder(new EmptyBorder(new Insets(0,0,0,0)));
+
+    public void tirandoBarraDeTitulo() {
+        ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
+        this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
     }
-    
-    public void iniciarClasse(){
-        //selecionar somente uma linha na tabela
+
+    public void iniciarClasse() {
+        // selecionar somente uma linha na tabela
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //deixando invisivel a coluna 0 da tabela (onde irá o codigo)
-        jTable1.getColumnModel().getColumn( 0 ).setMaxWidth( 0 );  
-        jTable1.getColumnModel().getColumn( 0 ).setMinWidth( 0 );  
-        jTable1.getTableHeader().getColumnModel().getColumn( 0 ).setMaxWidth( 0 );  
-        jTable1.getTableHeader().getColumnModel().getColumn( 0 ).setMinWidth( 0 );
+        // deixando invisivel a coluna 0 da tabela (onde irá o codigo)
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
-    
-    public void PreenchendoTabela(){
+
+    public void PreenchendoTabela() {
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         con = Conexao.fazConexao();
         ResultSet resultSet = A_INTERVALOSPORPERIODON.getConsultar(con);
-        try{
-            while(resultSet.next()){
-                //colocando dados na tabela
-                modelo.addRow(new String[] {String.valueOf(resultSet.getString("a_intervaloporperiodonid")), resultSet.getString("nome")});
-            } 
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        try {
+            while (resultSet.next()) {
+                // colocando dados na tabela
+                modelo.addRow(new String[] { String.valueOf(resultSet.getString("a_intervaloporperiodonid")),
+                    resultSet.getString("nome") });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
         }
         Conexao.fechaConexao(con);
     }
-    
-       
-    public void botaoNovo(){
+
+    public void botaoNovo() {
         this.dispose();
         janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodoVisualizar = null;
-        
+
         janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo = new JIFIntervaloPorPeriodo("novo", 0);
-                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
-                        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setVisible(true);
+        janelaPrincipal.janelaPrincipal.jDesktopPane1
+            .add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setVisible(true);
 
-                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getWidth();     
-                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getHeight();     
+        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
+        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
+        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getWidth();
+        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getHeight();
 
-                        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
+            - aIFrame / 2);
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -104,29 +108,24 @@ public class JIFIntervaloPorPeriodoVisualizar extends javax.swing.JInternalFrame
         jTable1 = new javax.swing.JTable();
         jBNovoRegistro = new javax.swing.JButton();
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Todos os Intervalos por Período", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Todos os Intervalos por Período",
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-            },
-            new String [] {
-                "intervalo por periodo id", "Nome"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+        }, new String[] { "intervalo por periodo id", "Nome" }) {
+            private static final long serialVersionUID = 1L;
+            @SuppressWarnings("rawtypes")
+            Class[] types = new Class[] { java.lang.Integer.class, java.lang.String.class };
+            boolean[] canEdit = new boolean[] { false, false };
 
+            @SuppressWarnings("rawtypes")
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -157,70 +156,71 @@ public class JIFIntervaloPorPeriodoVisualizar extends javax.swing.JInternalFrame
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
-                    .addComponent(jBNovoRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBNovoRegistro)
-                .addContainerGap())
-        );
+        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                jPanel2Layout
+                    .createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(
+                        jPanel2Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                            .addComponent(jBNovoRegistro, javax.swing.GroupLayout.Alignment.LEADING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)).addContainerGap()));
+        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                jPanel2Layout.createSequentialGroup().addContainerGap()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBNovoRegistro)
+                    .addContainerGap()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+            jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE,
+            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+            jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
+    private void jBNovoRegistroActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBNovoRegistroActionPerformed
+        botaoNovo();
+    }// GEN-LAST:event_jBNovoRegistroActionPerformed
 
-    private void jBNovoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoRegistroActionPerformed
-botaoNovo();
-    }//GEN-LAST:event_jBNovoRegistroActionPerformed
+    private void jBNovoRegistroKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBNovoRegistroKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoNovo();
+        }
+    }// GEN-LAST:event_jBNovoRegistroKeyReleased
 
-    private void jBNovoRegistroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBNovoRegistroKeyReleased
-if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  
-    botaoNovo();  
-}
-    }//GEN-LAST:event_jBNovoRegistroKeyReleased
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-this.dispose();
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
+        this.dispose();
         janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodoVisualizar = null;
-        
-        int intervaloDiarioId = Integer.valueOf((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-        
-        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo = new JIFIntervaloPorPeriodo("editar", intervaloDiarioId);
-        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
+
+        int intervaloDiarioId = Integer.valueOf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo =
+            new JIFIntervaloPorPeriodo("editar", intervaloDiarioId);
+        janelaPrincipal.janelaPrincipal.jDesktopPane1
+            .add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
         janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setVisible(true);
         int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
         int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
         int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getWidth();
         int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getHeight();
-        
-        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
-    }//GEN-LAST:event_jTable1MouseClicked
+
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
+            - aIFrame / 2);
+    }// GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBNovoRegistro;

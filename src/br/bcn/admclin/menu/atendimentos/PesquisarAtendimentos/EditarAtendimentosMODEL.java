@@ -4,11 +4,9 @@
  */
 package br.bcn.admclin.menu.atendimentos.PesquisarAtendimentos;
 
-import java.sql.Date;
-
 /**
- *
- * @author BCN
+ * 
+ * @author Cesar Schutz
  */
 public class EditarAtendimentosMODEL {
     private String data_atendimento, hora, mod, paciente, medico_solicitante, crm, statusA;

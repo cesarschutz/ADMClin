@@ -15,7 +15,7 @@ import br.bcn.admclin.dao.model.Tabelas;
 
 /**
  *
- * @author BCN
+ * @author Cesar Schutz
  */
 public class TABELAS {
     
@@ -25,6 +25,7 @@ public class TABELAS {
      * @param Connection
      * @return ResultSet
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarExamesDaTabela(Connection con, int handle_convenio, String modalidade){
         ResultSet resultSet = null;
         try{
@@ -43,6 +44,7 @@ public class TABELAS {
      * @param handle_exame
      * @return 
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarDadosDeUmExame(Connection con, int handle_convenio, String handle_exame){
         ResultSet resultSet = null;
         try{
@@ -60,6 +62,7 @@ public class TABELAS {
      * @param model
      * @return 
      */
+    @SuppressWarnings("finally")
     public static boolean cadastrarExameAUmaTabela(Connection con, Tabelas model){
         boolean cadastro = false;
         String sqlInserirExameAUmaTabela = "insert into tabelas (usuarioid,dat, handle_convenio, handle_exame, coeffilme, cofch1, cofch2, handle_material, qtdmaterial, cod_exame, sinonimo, VAI_MATERIAIS_POR_PADRAO) values(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -91,6 +94,7 @@ public class TABELAS {
      * 
      * @param handle_material 
      */
+    @SuppressWarnings("finally")
     public static boolean verificarSeMaterialEstaSendoUtilizado(Connection con, int handle_material){
         boolean utilizada = true;
         try{
@@ -110,6 +114,7 @@ public class TABELAS {
      * 
      * @param handle_exame 
      */
+    @SuppressWarnings("finally")
     public static boolean verificarSeExameEstaSendoUtilizado(Connection con, int HANDLE_EXAME){
         boolean utilizada = true;
         try{
@@ -129,6 +134,7 @@ public class TABELAS {
      * @param Connection
      * @param UsuarioModel 
      */
+    @SuppressWarnings("finally")
     public static boolean setDeletarUmExame(Connection con, String handle_exame, String handle_convenio){
         boolean deleto = false;
         String sql="delete from tabelas where handle_exame=? and handle_convenio=?";
@@ -150,6 +156,7 @@ public class TABELAS {
      * @param Connection
      * @param UsuarioModel 
      */
+    @SuppressWarnings("finally")
     public static boolean setDeletarUmMaterialDeUmExame(Connection con, String handle_material, String tabeleId){
         boolean deleto = false;
         String sql="delete from tabelas where handle_material=? and tabelaId=?";
@@ -172,6 +179,7 @@ public class TABELAS {
      * @param ExameModel 
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setUpdateCoeficientesDeUmExame(Connection con, Tabelas exame){
         boolean cadastro = false;
         String sql = "update tabelas set usuarioid=?, dat=?, cofch1=?, cofch2=?, coeffilme=?, cod_exame=?, sinonimo=? where handle_convenio=? and handle_exame=?";
@@ -201,6 +209,7 @@ public class TABELAS {
      * @param Connection
      * @return ResultSet
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarModalidades(Connection con){
         ResultSet resultSet = null;
         try{
@@ -208,7 +217,7 @@ public class TABELAS {
         resultSet = stmtQuery.executeQuery();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro ao consultar Modalidades. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } finally {
             return resultSet;
         }
     }

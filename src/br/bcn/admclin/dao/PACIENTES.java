@@ -10,103 +10,125 @@ import javax.swing.JOptionPane;
 import br.bcn.admclin.dao.model.Pacientes;
 
 /**
- *
- * @author BCN
+ * 
+ * @author Cesar Schutz
  */
 public class PACIENTES {
     public static boolean conseguiuConsulta;
+
     /**
      * Consulta todos os pacientes exitentes no Banco De Dados de acordo com o nome pesquisado
+     * 
      * @param Connection
      * @return ResultSet
      */
-    public static ResultSet getConsultar(Connection con, String sql){
+    @SuppressWarnings("finally")
+    public static ResultSet getConsultar(Connection con, String sql) {
         ResultSet resultSet = null;
-        try{
-            PreparedStatement stmtQuery = con.prepareStatement("select * from pacientes where nome like ? order by nome");
+        try {
+            PreparedStatement stmtQuery =
+                con.prepareStatement("select * from pacientes where nome like ? order by nome");
             stmtQuery.setString(1, sql);
             resultSet = stmtQuery.executeQuery();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Pacientes. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Pacientes. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return resultSet;
-        } 
+        }
     }
+
     /**
      * Consulta os dados de um paciente exitentes no Banco De Dados.
+     * 
      * @param Connection
      * @return ResultSet
      */
-    public static ResultSet getConsultarDadosDeUmPaciente(Connection con, int handle_paciente){
+    @SuppressWarnings("finally")
+    public static ResultSet getConsultarDadosDeUmPaciente(Connection con, int handle_paciente) {
         ResultSet resultSet = null;
-        try{
+        try {
             PreparedStatement stmtQuery = con.prepareStatement("select * from pacientes where handle_paciente = ?");
             stmtQuery.setInt(1, handle_paciente);
             resultSet = stmtQuery.executeQuery();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao consultar dados do Paciente. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar dados do Paciente. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return resultSet;
-        } 
+        }
     }
+
     /**
      * Verifica se Paciente já existe antes de cadastra-lo no Banco de Dados.
+     * 
      * @param Connection
      * @param PacienteMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Pacientes paciente){
+    @SuppressWarnings("finally")
+    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Pacientes paciente) {
         boolean existe = true;
-        try{
+        try {
             PreparedStatement stmtQuery = con.prepareStatement("select * from PACIENTES where nome=?");
             stmtQuery.setString(1, paciente.getCpf());
             ResultSet resultSet = stmtQuery.executeQuery();
-            if(!resultSet.next()){
+            if (!resultSet.next()) {
                 existe = false;
             }
             conseguiuConsulta = true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             conseguiuConsulta = false;
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se Paciente existe. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
-           return existe; 
-        }  
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se Paciente existe. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return existe;
+        }
     }
+
     /**
      * Verifica se Paciente já existe antes de fazer um update no Banco de Dados.
+     * 
      * @param Connection
      * @param PacienteMODEL
      * @return boolean
      */
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, Pacientes paciente){
+    @SuppressWarnings("finally")
+    public static boolean getConsultarParaAtualizarRegistro(Connection con, Pacientes paciente) {
         boolean existe = true;
-        try{
-            PreparedStatement pstmt = con.prepareStatement("select * from PACIENTES where (nome=?) and (handle_paciente!=?)");
+        try {
+            PreparedStatement pstmt =
+                con.prepareStatement("select * from PACIENTES where (nome=?) and (handle_paciente!=?)");
             pstmt.setString(1, paciente.getCpf());
             pstmt.setInt(2, paciente.getHandle_paciente());
             ResultSet resultSet = pstmt.executeQuery();
-            if(!resultSet.next()){
+            if (!resultSet.next()) {
                 existe = false;
-            }        
+            }
             conseguiuConsulta = true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             conseguiuConsulta = false;
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se Paciente existe. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se Paciente existe. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return existe;
         }
     }
+
     /**
      * Salva um novo Paciente no Banco De Dados.
+     * 
      * @param Connection
      * @param PacienteMODEL
      * @return Boolean
      */
-    public static boolean setCadastrar(Connection con, Pacientes paciente){
+    @SuppressWarnings("finally")
+    public static boolean setCadastrar(Connection con, Pacientes paciente) {
         boolean cadastro = false;
-        String sql = "insert into PACIENTES (usuarioid, dat, nome, cpf, nascimento, responsavel, cpfResponsavel, sexo, peso, altura, telefone, "
+        String sql =
+            "insert into PACIENTES (usuarioid, dat, nome, cpf, nascimento, responsavel, cpfResponsavel, sexo, peso, altura, telefone, "
                 + "celular, endereco, bairro, cep, cidade, uf, rg, profissao, email, cor, estadoCivil, obs, telefone_responsavel) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try{
+        try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, paciente.getUsuarioId());
             stmt.setDate(2, paciente.getData());
@@ -135,45 +157,54 @@ public class PACIENTES {
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Paciente. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Paciente. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return cadastro;
         }
     }
+
     /**
      * verificar handle_paciente de um paicente cadastrado no banco de dados
+     * 
      * @param Connection
      * @param PacienteMODEL
      * @return boolean
      */
-    public static int getConsultarHandlePaciente(Connection con, String nome){
+    @SuppressWarnings("finally")
+    public static int getConsultarHandlePaciente(Connection con, String nome) {
         int handle_paciente = 0;
-        try{
+        try {
             PreparedStatement stmtQuery = con.prepareStatement("select * from PACIENTES where nome=?");
             stmtQuery.setString(1, nome);
             ResultSet resultSet = stmtQuery.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 handle_paciente = resultSet.getInt("handle_paciente");
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             handle_paciente = 0;
-            JOptionPane.showMessageDialog(null, "Erro ao consultar handle_paciente. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
-           return handle_paciente; 
-        }  
+            JOptionPane.showMessageDialog(null, "Erro ao consultar handle_paciente. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return handle_paciente;
+        }
     }
+
     /**
      * Atualiza um Paciente no Banco De Dados.
-     * @param Connection 
+     * 
+     * @param Connection
      * @param PacienteMODEL
      * @return Boolean
      */
-    public static boolean setUpdate(Connection con, Pacientes paciente){
+    @SuppressWarnings("finally")
+    public static boolean setUpdate(Connection con, Pacientes paciente) {
         boolean cadastro = false;
-        String sql = "update PACIENTES set usuarioid=?, dat=?, nome=?, cpf=?, nascimento=?, responsavel=?, cpfResponsavel=?, sexo=?, peso=?, altura=?, telefone=?, "
+        String sql =
+            "update PACIENTES set usuarioid=?, dat=?, nome=?, cpf=?, nascimento=?, responsavel=?, cpfResponsavel=?, sexo=?, peso=?, altura=?, telefone=?, "
                 + "celular=?, endereco=?, bairro=?, cep=?, cidade=?, uf=?, rg=?, profissao=?, email=?, cor=?, estadoCivil=?, obs=?, telefone_responsavel=? where handle_paciente=?";
-        try{
+        try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, paciente.getUsuarioId());
             stmt.setDate(2, paciente.getData());
@@ -203,18 +234,20 @@ public class PACIENTES {
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar Paciente. Procure o Administrador." + e,"ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Paciente. Procure o Administrador." + e, "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return cadastro;
         }
     }
-    
-  //atualizar telefones do paciente
-    public static boolean setUpdateTelefone(Connection con, Pacientes paciente){
+
+    // atualizar telefones do paciente
+    @SuppressWarnings("finally")
+    public static boolean setUpdateTelefone(Connection con, Pacientes paciente) {
         boolean cadastro = false;
         String sql = "update PACIENTES set usuarioid=?, dat=?, telefone=?, celular=? where handle_paciente=?";
-        try{
+        try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, paciente.getUsuarioId());
             stmt.setDate(2, paciente.getData());
@@ -224,31 +257,35 @@ public class PACIENTES {
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar telefones do Paciente. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar telefones do Paciente. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return cadastro;
         }
     }
-    
+
     /**
      * Deleta um Paciente no Banco de Dados.
+     * 
      * @param Connection
-     * @param PacienteMODEL 
+     * @param PacienteMODEL
      * @return Boolean
      */
-    public static boolean setDeletar(Connection con, Pacientes paciente){
+    @SuppressWarnings("finally")
+    public static boolean setDeletar(Connection con, Pacientes paciente) {
         boolean deleto = false;
         String sql = "delete from PACIENTES where handle_paciente=?";
-        try{
+        try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, paciente.getHandle_paciente());
             stmt.executeUpdate();
             stmt.close();
             deleto = true;
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao deletar Paciente. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao deletar Paciente. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
             return deleto;
         }
     }

@@ -13,7 +13,7 @@ import br.bcn.admclin.dao.model.Convenio;
 
 /**
  *
- * @author BCN
+ * @author Cesar Schutz
  */
 public class CONVENIO {
     public static boolean conseguiuConsulta;
@@ -23,6 +23,7 @@ public class CONVENIO {
      * @param Connection
      * @return ResultSet
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarDadosDeUmConvenio(Connection con, int handle_convenio){
         ResultSet resultSet = null;
         try{
@@ -40,6 +41,7 @@ public class CONVENIO {
      * @param Connection
      * @return ResultSet
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultar(Connection con){
         ResultSet resultSet = null;
         try{
@@ -57,6 +59,7 @@ public class CONVENIO {
      * @param Connection
      * @return ResultSet
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarIdDeUmNomeCadastrado(Connection con, Convenio model){
         ResultSet resultSet = null;
         try{
@@ -76,6 +79,7 @@ public class CONVENIO {
      * @param Convenio
      * @return boolean
      */
+    @SuppressWarnings("finally")
     public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Convenio model){
        boolean existe = true;
         try{
@@ -100,6 +104,7 @@ public class CONVENIO {
      * @param Convenio
      * @return boolean
      */
+    @SuppressWarnings("finally")
     public static boolean getConsultarParaSalvarAtualizarRegistro(Connection con, Convenio model){
        boolean existe = true;
         try{
@@ -125,6 +130,7 @@ public class CONVENIO {
      * @param Convenio
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setCadastrarSomenteNome(Connection con, Convenio model){
         boolean cadastro = false;
         String sql = "insert into convenio (nome) values(?)";
@@ -148,6 +154,7 @@ public class CONVENIO {
      * @param especialidades_medicasMODEL
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setUpdate(Connection con, Convenio model){
         boolean atualizo = false;
         String sql = "update convenio set sigla=?, cgc=?, regans=?, nome=?, endereco=?, cidade=?, cep=?, uf=?, telefone=?, contato=?, email=?"
@@ -209,6 +216,7 @@ public class CONVENIO {
      * @param ExameMODEL 
      * @return boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setDeletar(Connection con, int handle_convenio){
         boolean deleto = false; 
         String sql="delete from convenio where handle_convenio=?";
@@ -231,6 +239,7 @@ public class CONVENIO {
      * @return ResultSet
      */
     public static boolean conseguiuConsultaCH = false;
+    @SuppressWarnings("finally")
     public static String getConsultarCh(Connection con, int handle_convenio){
         String valorCh = null;
         try{
@@ -256,6 +265,7 @@ public class CONVENIO {
      * @return ResultSet
      */
     public static boolean conseguiuConsultaFilme = false;
+    @SuppressWarnings("finally")
     public static String getConsultarFilme(Connection con, int handle_convenio){
         String valorFilme = null;
         try{
@@ -280,6 +290,7 @@ public class CONVENIO {
      * @param Connection
      * @return ResultSet
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarGruposDeConvenios(Connection con){
         ResultSet resultSet = null;
         try{
@@ -298,6 +309,7 @@ public class CONVENIO {
      * @param Connection
      * @return ResultSet
      */
+    @SuppressWarnings("finally")
     public static ResultSet getConsultarDadosDeUmGrupo(Connection con, int grupo_id){
         ResultSet resultSet = null;
         try{
@@ -318,6 +330,7 @@ public class CONVENIO {
      * @param Convenio
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setUpdateNumeroNotaGrupo(Connection con, int numero_nota, int grupo_id){
         boolean cadastro = false;
         String sql = "update convenios_grupos set  numero_nota=? where grupo_id=?";
@@ -341,6 +354,7 @@ public class CONVENIO {
      * @param Convenio
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setUpdateNumeroNotaConvenio(Connection con, int numero_nota, int handle_convenio){
         boolean cadastro = false;
         String sql = "update convenio set  numero_nota=? where handle_convenio=?";
@@ -364,6 +378,7 @@ public class CONVENIO {
      * @param Convenio
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setCadastrarGrupoDeConvenio(Connection con, String nome, int geraTxt){
         boolean cadastro = false;
         String sql = "insert into convenios_grupos (nome, gera_arquivo_texto, numero_nota) values(?,?,?)";
@@ -389,6 +404,7 @@ public class CONVENIO {
      * @param Convenio
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setUpdateGrupoDeConvenio(Connection con, String nome, int gera_txt, int grupo_id){
         boolean cadastro = false;
         String sql = "update convenios_grupos set nome=?, gera_arquivo_texto=? where grupo_id=?";
@@ -414,6 +430,7 @@ public class CONVENIO {
      * @param ExameMODEL 
      * @return boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setDeletarGrupoDeConveio(Connection con, int grupo_id){
         boolean deleto = false; 
         String sql="delete from convenios_grupos where grupo_id=?";
@@ -436,6 +453,7 @@ public class CONVENIO {
      * @param Convenio
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setUpdateNumeroFaturoGrupoConvenios(Connection con, int numero_fatura, int grupo_id){
         boolean cadastro = false;
         String sql = "update convenios_grupos set numero_fatura=? where grupo_id=?";
@@ -459,6 +477,7 @@ public class CONVENIO {
      * @param Convenio
      * @return Boolean
      */
+    @SuppressWarnings("finally")
     public static boolean setUpdateNumeroFaturaConvenio(Connection con, int numero_fatura, int handle_convenio){
         boolean cadastro = false;
         String sql = "update convenio set numero_fatura=? where handle_convenio=?";
@@ -471,7 +490,7 @@ public class CONVENIO {
             cadastro = true;
         }catch(SQLException e){
             cadastro = false;
-        }finally{
+        } finally {
             return cadastro;
         }
     }
