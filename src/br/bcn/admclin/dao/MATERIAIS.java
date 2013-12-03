@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.Materiais;
-import br.bcn.admclin.model.ValoresMateriais;
+import br.bcn.admclin.dao.model.Materiais;
+import br.bcn.admclin.dao.model.ValoresMateriais;
 
 /**
  * Classe DAO da tabela MATERIAIS.

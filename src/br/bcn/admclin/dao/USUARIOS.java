@@ -1,7 +1,5 @@
 package br.bcn.admclin.dao;
 
-import ClasseAuxiliares.OSvalidator;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +7,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.Usuario;
+import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.model.Usuario;
 
 /**
  * Classe DAO para tabela USUARIOS

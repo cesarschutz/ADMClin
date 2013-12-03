@@ -8,7 +8,7 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.Atendimentos;
+import br.bcn.admclin.dao.model.Atendimentos;
 
 /**
  *

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.Tb_ClassesDeExames;
+import br.bcn.admclin.dao.model.Tb_ClassesDeExames;
 /**
  * Classe DAO da classe JIFCClassesDeExames
  * @author BCN

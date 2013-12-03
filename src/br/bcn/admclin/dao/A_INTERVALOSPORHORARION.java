@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.A_intervalosPorHorarioN;
+import br.bcn.admclin.dao.model.A_intervalosPorHorarioN;
 
 /**
  *

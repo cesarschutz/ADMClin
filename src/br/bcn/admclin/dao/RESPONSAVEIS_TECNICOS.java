@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.Responsaveis_Tecnicos;
+import br.bcn.admclin.dao.model.Responsaveis_Tecnicos;
 
 /**
  *

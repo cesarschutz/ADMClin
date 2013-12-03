@@ -1,8 +1,6 @@
 
 package br.bcn.admclin.dao;
 
-import ClasseAuxiliares.MetodosUteis;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +11,8 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import br.bcn.admclin.model.ValoresMateriais;
+import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.model.ValoresMateriais;
 
 /**
  * Classe DAO da tabela ValoresMateriais

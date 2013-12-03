@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.Atendimento_Exames;
+import br.bcn.admclin.dao.model.Atendimento_Exames;
 
 /**
  *

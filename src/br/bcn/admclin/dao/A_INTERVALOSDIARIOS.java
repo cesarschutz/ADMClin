@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.A_intervalosDiarios;
-import br.bcn.admclin.model.A_intervalosDiariosN;
+import br.bcn.admclin.dao.model.A_intervalosDiarios;
+import br.bcn.admclin.dao.model.A_intervalosDiariosN;
 
 /**
  *

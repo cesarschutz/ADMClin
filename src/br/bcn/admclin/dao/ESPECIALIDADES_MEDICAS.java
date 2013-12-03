@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.model.Especialidades_Medicas;
+import br.bcn.admclin.dao.model.Especialidades_Medicas;
 
 /**
  *
