@@ -6,9 +6,9 @@ package br.bcn.admclin.menu.financeiro.relatorios.atendimentos;
 
 import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos;
 import br.bcn.admclin.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

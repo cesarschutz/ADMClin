@@ -58,7 +58,7 @@ public class GerarDmed {
             gerandoPDF();
             abrindoPDF();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao gerar DMED. Procure o Administrador.");
+            JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao gerar DMED. Procure o Administrador.");
         }
     }
     

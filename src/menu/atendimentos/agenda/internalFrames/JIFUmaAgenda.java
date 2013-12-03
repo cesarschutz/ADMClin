@@ -16,8 +16,10 @@
  * 1 = agendado
  * 2 = feito entrada de ficha
  */
-package br.bcn.admclin.menu.atendimentos.agenda.internalFrames;
+package menu.atendimentos.agenda.internalFrames;
 
+
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -64,7 +66,6 @@ import br.bcn.admclin.dao.A_INTERVALOSPORPERIODO;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.model.A_Agendamentos;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import br.bcn.admclin.menu.atendimentos.agenda.pinturaDeUmaAgenda.ColorirHorariosIndisponiveisNaAgendaELiberarIconesNaTabela;
 import br.bcn.admclin.menu.atendimentos.agenda.pinturaDeUmaAgenda.ColorirLinhaJTableInicial;

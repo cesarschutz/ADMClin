@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
+package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
@@ -148,7 +148,7 @@ public class faturaConvenio {
             abrirFichaPDF();
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao gerar Fatura. Procure o Administrador.");
+            JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao gerar Fatura. Procure o Administrador.");
             return false;
         } finally {
             Conexao.fechaConexao(con);
@@ -795,7 +795,7 @@ public class faturaConvenio {
          } else if ("TR".equals(modalidade)) {
              return "TR";
          } else {
-             JOptionPane.showMessageDialog(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro nas modalidades. Procure o Administrador.");
+             JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro nas modalidades. Procure o Administrador.");
              return "OT";
          }
      }

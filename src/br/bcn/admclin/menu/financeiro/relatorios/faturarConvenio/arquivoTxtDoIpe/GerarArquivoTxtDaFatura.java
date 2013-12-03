@@ -10,7 +10,6 @@ import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.faturarConvenio.atendimentoModel;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -25,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.atendimentoModel;
 
 /**
  *
@@ -492,7 +493,7 @@ public class GerarArquivoTxtDaFatura {
                 validarNumeroNota();
                 Conexao.fechaConexao(con);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao gerar arquivo TXT desta fatura. Procure o Administrador." + e, "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao gerar arquivo TXT desta fatura. Procure o Administrador." + e, "Erro", JOptionPane.ERROR_MESSAGE);
                 Conexao.fechaConexao(con);
             }
         }

@@ -18,7 +18,7 @@ import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
 import br.bcn.admclin.dao.MEDICOS;
 import br.bcn.admclin.dao.model.Medicos;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

@@ -115,17 +115,17 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
     /**Volta a janela ao seu estado inicial, dexando inativo os jTextField por exemplo. Atualiza a tabela de acordo com os objetos.*/
     public void botaoCancelar(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames = null;
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = new JIFCClassesDeExamesVisualizar()  ;
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.setVisible(true);
-        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.getWidth();     
-        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = new JIFCClassesDeExamesVisualizar()  ;
+        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar);
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.setVisible(true);
+        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.getWidth();     
+        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.getHeight();     
 
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
 
     /**Salva uma nova classe de exame na banco de dados.*/

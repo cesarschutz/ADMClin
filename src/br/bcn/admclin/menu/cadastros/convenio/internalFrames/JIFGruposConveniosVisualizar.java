@@ -6,7 +6,7 @@ package br.bcn.admclin.menu.cadastros.convenio.internalFrames;
 
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

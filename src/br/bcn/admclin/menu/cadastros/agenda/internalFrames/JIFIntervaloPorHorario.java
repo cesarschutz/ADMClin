@@ -253,17 +253,17 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
     
     public void botaoCancelar(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario = null;
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar = new JIFIntervaloPorHorarioVisualizar()  ;
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.setVisible(true);
-        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.getWidth();     
-        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar = new JIFIntervaloPorHorarioVisualizar()  ;
+        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar);
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.setVisible(true);
+        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.getWidth();     
+        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.getHeight();     
 
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
     
     public void botaoSalvar(){

@@ -1,7 +1,7 @@
-package br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
+package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 
-import static br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameFinanceiroRelatorioFaturarConvenios;
-import static br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1;
+import static janelaPrincipal.janelaPrincipal.internalFrameFinanceiroRelatorioFaturarConvenios;
+import static janelaPrincipal.janelaPrincipal.jDesktopPane1;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -188,7 +188,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
     
     private void abrirFinanceiroRelatorioFaturarConvenios(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameAtendimentosParaFaturar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameAtendimentosParaFaturar = null;
         internalFrameFinanceiroRelatorioFaturarConvenios.setVisible(true);
     }
     /**
@@ -392,7 +392,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
 
             abrirFinanceiroRelatorioFaturarConvenios();
         }else{
-            JOptionPane.showMessageDialog(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Selecione um Atendimento.");
+            JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Selecione um Atendimento.");
         }
     }//GEN-LAST:event_jBGerarFaturaActionPerformed
 

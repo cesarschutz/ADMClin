@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.janelaPrincipal;
+package janelaPrincipal;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -16,10 +16,16 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
+import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
+import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
+import menu.atendimentos.agenda.internalFrames.JIFAgendamento;
+import menu.atendimentos.agenda.internalFrames.JIFAgendamentoSelecionarUmPaciente;
+import menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
+import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFFaturarConvenios;
+import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFListaAtendimentosParaFaturar;
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
 import br.bcn.admclin.ClasseAuxiliares.jIFAguarde;
 import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 import br.bcn.admclin.menu.atendimentos.PesquisarAtendimentos.JIFPesquisarAtendimentos;
 import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
 import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoSelecionarUmMedicoSolicitante;
@@ -27,10 +33,6 @@ import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.JIFAt
 import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.JIFCMedicosAtendimentos;
 import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.JIFCPacientesAtendimentos;
 import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.jIFAlterarValorDeExame;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFAgendamento;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFAgendamentoSelecionarUmPaciente;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
 import br.bcn.admclin.menu.atendimentos.consultaValorExames.consultaValorExames;
 import br.bcn.admclin.menu.atendimentos.consultaValorExames.listaConvenios;
 import br.bcn.admclin.menu.cadastros.agenda.internalFrames.JIFFeriado;
@@ -70,8 +72,6 @@ import br.bcn.admclin.menu.cadastros.pessoal.internalFrames.JIFCUsuarios;
 import br.bcn.admclin.menu.cadastros.pessoal.internalFrames.JIFCUsuariosVisualizar;
 import br.bcn.admclin.menu.financeiro.relatorios.atendimentos.jIFFinanceiroAtendimentos;
 import br.bcn.admclin.menu.financeiro.relatorios.demed.jIFDemed;
-import br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFFaturarConvenios;
-import br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFListaAtendimentosParaFaturar;
 
 /**
  *

@@ -15,7 +15,7 @@ import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.MATERIAIS;
 import br.bcn.admclin.dao.TABELAS;
 import br.bcn.admclin.dao.model.Tabelas;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

@@ -96,17 +96,17 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
        
     public void botaoNovo(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames = new JIFCClassesDeExames("novo", 0)  ;
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setVisible(true);
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames = new JIFCClassesDeExames("novo", 0)  ;
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames);
+                        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setVisible(true);
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
 
     /** This method is called from within the constructor to
@@ -294,19 +294,19 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
         int ClasseDeExameId = Integer.valueOf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames = new JIFCClassesDeExames("editar", ClasseDeExameId)  ;
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setVisible(true);
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames = new JIFCClassesDeExames("editar", ClasseDeExameId)  ;
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames);
+                        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setVisible(true);
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
 
                         
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = null;
     }//GEN-LAST:event_jTable1FocusGained
 
     private void jBNovoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoRegistroActionPerformed

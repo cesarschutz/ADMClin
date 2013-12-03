@@ -7,7 +7,7 @@ import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcentoMinusculas;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.model.Usuario;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

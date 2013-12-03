@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.janelaPrincipal;
+package janelaPrincipal;
 
 import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;

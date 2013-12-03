@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
+package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.arquivoTxtDoIpe.GerarArquivoTxtDaFatura;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

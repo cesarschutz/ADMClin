@@ -4,6 +4,8 @@
  */
 package br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames;
 
+import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -17,9 +19,8 @@ import java.util.Calendar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import br.bcn.admclin.ClasseAuxiliares.jTextFieldDinheiroReais;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 
 /**
  *

@@ -8,7 +8,7 @@ import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.calculoValorDeUmExame.calculoValorDeExame;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.TABELAS;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

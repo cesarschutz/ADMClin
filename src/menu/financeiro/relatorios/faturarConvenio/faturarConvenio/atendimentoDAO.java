@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
+package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 
 import java.sql.Connection;
 import java.sql.Date;

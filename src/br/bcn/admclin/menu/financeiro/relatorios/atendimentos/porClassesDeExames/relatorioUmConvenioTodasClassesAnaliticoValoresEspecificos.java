@@ -81,7 +81,7 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
             abrirFichaPDF();
             return true;
         } catch (Exception e) { 
-            JOptionPane.showMessageDialog(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao elaborar Relatório. Procure o Administrador.");
+            JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao elaborar Relatório. Procure o Administrador.");
             return false;
         } finally {
             Conexao.fechaConexao(con);

@@ -19,7 +19,7 @@ import br.bcn.admclin.dao.A_INTERVALOSDIARIOS;
 import br.bcn.admclin.dao.A_INTERVALOSDIARIOSN;
 import br.bcn.admclin.dao.model.A_intervalosDiarios;
 import br.bcn.admclin.dao.model.A_intervalosDiariosN;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

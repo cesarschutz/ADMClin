@@ -21,7 +21,7 @@ import br.bcn.admclin.dao.VALORESMATERIAIS;
 import br.bcn.admclin.dao.TABELAS;
 import br.bcn.admclin.dao.model.Materiais;
 import br.bcn.admclin.dao.model.ValoresMateriais;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

@@ -12,8 +12,8 @@ package br.bcn.admclin.menu.atendimentos.consultaValorExames;
 
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.menu.cadastros.convenio.internalFrames.*;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

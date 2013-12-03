@@ -8,8 +8,7 @@ import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.PACIENTES;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -23,6 +22,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+
+import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 /**
  *
  * @author CeSaR

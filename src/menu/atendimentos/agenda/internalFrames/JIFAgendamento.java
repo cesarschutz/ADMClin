@@ -1,5 +1,7 @@
-package br.bcn.admclin.menu.atendimentos.agenda.internalFrames;
+package menu.atendimentos.agenda.internalFrames;
 
+
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -44,7 +46,6 @@ import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.model.A_Agendamentos;
 import br.bcn.admclin.dao.model.Pacientes;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 
 /*
  * To change this template, choose Tools | Templates

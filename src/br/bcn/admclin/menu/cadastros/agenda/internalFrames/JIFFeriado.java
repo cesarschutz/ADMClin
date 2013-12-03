@@ -20,7 +20,7 @@ import br.bcn.admclin.dao.A_FERIADOS;
 import br.bcn.admclin.dao.A_FERIADOSN;
 import br.bcn.admclin.dao.model.A_feriados;
 import br.bcn.admclin.dao.model.A_feriadosN;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

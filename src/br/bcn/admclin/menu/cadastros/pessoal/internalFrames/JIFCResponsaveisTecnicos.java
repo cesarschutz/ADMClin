@@ -86,17 +86,17 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
     /**Volta a janela ao seu estado inicial, dexando inativo os jTextField por exemplo. Atualiza a tabela de acordo com os objetos.*/
     public void botaoCancelar(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos = null;
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar = new JIFCResponsaveisTecnicosVisualizar()  ;
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.setVisible(true);
-        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.getWidth();     
-        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar = new JIFCResponsaveisTecnicosVisualizar()  ;
+        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar);
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.setVisible(true);
+        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.getWidth();     
+        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.getHeight();     
 
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
     /**Salva um novo Responsável Técnico na banco de dados.*/
     public void botaoSalvarRegistro(){

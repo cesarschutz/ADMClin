@@ -88,17 +88,17 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
     /**Volta a janela ao seu estado inicial, dexando inativo os jTextField por exemplo. Atualiza a tabela de acordo com os objetos.*/
     public void botaoCancelar(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas = null;
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar = new JIFCEspecialidadesMedicasVisualizar()  ;
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.setVisible(true);
-        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.getWidth();     
-        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar = new JIFCEspecialidadesMedicasVisualizar()  ;
+        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar);
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.setVisible(true);
+        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.getWidth();     
+        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.getHeight();     
 
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
     /**Salva uma nova Especialidade Medica na banco de dados.*/
     public void botaoSalvarRegistro(){

@@ -97,17 +97,17 @@ public class JIFCEspecialidadesMedicasVisualizar extends javax.swing.JInternalFr
     
     public void botaoNovo(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas = new JIFCEspecialidadesMedicas("novo", 0)  ;
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setVisible(true);
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas = new JIFCEspecialidadesMedicas("novo", 0)  ;
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas);
+                        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setVisible(true);
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
 
     /** This method is called from within the constructor to
@@ -314,19 +314,19 @@ if(jTable1.getSelectedRow()==-1){
         int especialidadeMedicaId = Integer.valueOf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas = new JIFCEspecialidadesMedicas("editar", especialidadeMedicaId)  ;
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setVisible(true);
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas = new JIFCEspecialidadesMedicas("editar", especialidadeMedicaId)  ;
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas);
+                        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setVisible(true);
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicas.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
 
                         
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar = null;        // TODO add your handling code here:
+        janelaPrincipal.janelaPrincipal.internalFrameEspecialidadeMedicasVisualizar = null;        // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

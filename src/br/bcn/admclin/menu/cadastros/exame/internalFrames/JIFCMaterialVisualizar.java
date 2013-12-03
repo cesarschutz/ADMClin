@@ -15,7 +15,7 @@ import br.bcn.admclin.ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.MATERIAIS;
 import br.bcn.admclin.dao.model.Materiais;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

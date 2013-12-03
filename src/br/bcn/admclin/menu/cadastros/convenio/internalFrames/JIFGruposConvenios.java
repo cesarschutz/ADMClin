@@ -4,6 +4,8 @@
  */
 package br.bcn.admclin.menu.cadastros.convenio.internalFrames;
 
+import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -16,7 +18,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 
 /**
  *

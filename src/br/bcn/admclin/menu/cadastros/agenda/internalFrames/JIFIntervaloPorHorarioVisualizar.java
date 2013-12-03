@@ -75,18 +75,18 @@ public class JIFIntervaloPorHorarioVisualizar extends javax.swing.JInternalFrame
     
     public void botaoNovo(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario = new JIFIntervaloPorHorario("novo", 0);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setVisible(true);
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario = new JIFIntervaloPorHorario("novo", 0);
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario);
+                        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setVisible(true);
 
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getHeight();     
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
                         
     }
 
@@ -207,19 +207,19 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorarioVisualizar = null;
         
         int intervaloPorHorarioId = Integer.valueOf((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario = new JIFIntervaloPorHorario("editar", intervaloPorHorarioId);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setVisible(true);
-        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
-        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
-        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getWidth();
-        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getHeight();
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario = new JIFIntervaloPorHorario("editar", intervaloPorHorarioId);
+        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario);
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setVisible(true);
+        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
+        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
+        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getWidth();
+        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.getHeight();
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );        // TODO add your handling code here:
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorHorario.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );        // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

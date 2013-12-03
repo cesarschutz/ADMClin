@@ -76,18 +76,18 @@ public class JIFIntervaloPorPeriodoVisualizar extends javax.swing.JInternalFrame
        
     public void botaoNovo(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodoVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodoVisualizar = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo = new JIFIntervaloPorPeriodo("novo", 0);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setVisible(true);
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo = new JIFIntervaloPorPeriodo("novo", 0);
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
+                        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setVisible(true);
 
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getHeight();     
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
 
     /** This method is called from within the constructor to
@@ -207,19 +207,19 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodoVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodoVisualizar = null;
         
         int intervaloDiarioId = Integer.valueOf((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo = new JIFIntervaloPorPeriodo("editar", intervaloDiarioId);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setVisible(true);
-        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
-        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
-        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getWidth();
-        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getHeight();
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo = new JIFIntervaloPorPeriodo("editar", intervaloDiarioId);
+        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo);
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setVisible(true);
+        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
+        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
+        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getWidth();
+        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.getHeight();
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        janelaPrincipal.janelaPrincipal.internalFrameIntervaloPorPeriodo.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

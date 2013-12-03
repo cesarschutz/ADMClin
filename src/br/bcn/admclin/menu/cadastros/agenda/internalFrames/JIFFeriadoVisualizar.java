@@ -12,7 +12,7 @@ package br.bcn.admclin.menu.cadastros.agenda.internalFrames;
 
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.A_FERIADOSN;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

@@ -101,17 +101,17 @@ public class JIFCResponsaveisTecnicosVisualizar extends javax.swing.JInternalFra
     
     public void botaoNovo(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar = null;
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar = null;
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos = new JIFCResponsaveisTecnicos("novo", 0)  ;
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setVisible(true);
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos = new JIFCResponsaveisTecnicos("novo", 0)  ;
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos);
+                        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setVisible(true);
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
     }
 
     /** This method is called from within the constructor to
@@ -318,19 +318,19 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         int responsavelTecnicoId = Integer.valueOf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         
         
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos = new JIFCResponsaveisTecnicos("editar", responsavelTecnicoId)  ;
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos);
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setVisible(true);
-                        int lDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
-                        int aDesk = br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
-                        int lIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getWidth();     
-                        int aIFrame = br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getHeight();     
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos = new JIFCResponsaveisTecnicos("editar", responsavelTecnicoId)  ;
+                        janelaPrincipal.janelaPrincipal.jDesktopPane1.add(janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos);
+                        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setVisible(true);
+                        int lDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();     
+                        int aDesk = janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();     
+                        int lIFrame = janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getWidth();     
+                        int aIFrame = janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.getHeight();     
 
-                        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicos.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
 
                         
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar = null;        // TODO add your handling code here:
+        janelaPrincipal.janelaPrincipal.internalFrameResponsaveisTecnicosVisualizar = null;        // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -33,7 +33,7 @@
  * caso um dos dois seja entregue ele marcao icone correspondente!
  * 
  */
-package br.bcn.admclin.menu.atendimentos.FichasDeAtendimentos;
+package menu.atendimentos.FichasDeAtendimentos;
 
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
@@ -49,7 +49,7 @@ import br.bcn.admclin.impressoes.modelo2.etiquetaCodigoDeBarras.ImprimirEtiqueta
 import br.bcn.admclin.impressoes.modelo2.etiquetaEnvelope.ImprimirEtiquetaEnvelopeModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

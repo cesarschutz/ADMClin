@@ -1,4 +1,4 @@
-package br.bcn.admclin.menu.atendimentos.agenda.internalFrames;
+package menu.atendimentos.agenda.internalFrames;
 
 
 import java.awt.Dimension;

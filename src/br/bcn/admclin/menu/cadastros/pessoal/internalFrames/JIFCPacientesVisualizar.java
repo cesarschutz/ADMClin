@@ -15,7 +15,7 @@ import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.dao.model.Pacientes;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

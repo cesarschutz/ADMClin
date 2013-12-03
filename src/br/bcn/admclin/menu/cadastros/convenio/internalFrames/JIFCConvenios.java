@@ -19,7 +19,7 @@ import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.CONVENIOCH;
 import br.bcn.admclin.dao.CONVENIOFILME;
 import br.bcn.admclin.dao.model.Convenio;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

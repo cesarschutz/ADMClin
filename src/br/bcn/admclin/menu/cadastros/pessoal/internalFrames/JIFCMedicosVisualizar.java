@@ -15,7 +15,7 @@ import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.MEDICOS;
 import br.bcn.admclin.dao.model.Medicos;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

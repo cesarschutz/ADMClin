@@ -4,6 +4,8 @@ package br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames;
  * 2 -  falta fazer o metodo preencher caso venha editar um atendimento
  */
 
+import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -39,6 +41,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
+import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
+import menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
@@ -58,9 +62,6 @@ import br.bcn.admclin.impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutor
 import br.bcn.admclin.impressoes.modelo2.notaFiscal.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFUmaAgenda;
 
 /*
  * To change this template, choose Tools | Templates

@@ -1,13 +1,13 @@
 package br.bcn.admclin.dao;
 
+import janelaPrincipal.janelaPrincipal;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
-
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 
 /**
  * Classe responsavel por conexões com Banco de Dados e fechamento de conexão.

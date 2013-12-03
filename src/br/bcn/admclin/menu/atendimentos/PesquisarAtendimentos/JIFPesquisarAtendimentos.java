@@ -9,10 +9,9 @@ import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.documentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 import br.bcn.admclin.menu.atendimentos.agenda.atendimentos.internalFrames.JIFAtendimentoAgenda;
-import static br.bcn.admclin.janelaPrincipal.janelaPrincipal.jDesktopPane1;
+import static janelaPrincipal.janelaPrincipal.jDesktopPane1;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -39,6 +38,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
+import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 
 /**
  *

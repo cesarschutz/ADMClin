@@ -19,9 +19,8 @@ import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
 import br.bcn.admclin.dao.MEDICOS;
 import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.dao.model.Medicos;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 import br.bcn.admclin.menu.cadastros.pessoal.internalFrames.*;
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -39,6 +38,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
+import menu.atendimentos.agenda.internalFrames.JIFAgendaPrincipal;
 
 /**
  *

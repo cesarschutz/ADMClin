@@ -1,5 +1,7 @@
-package br.bcn.admclin.menu.atendimentos.agenda.internalFrames;
+package menu.atendimentos.agenda.internalFrames;
 
+
+import janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -21,7 +23,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
 import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 
 
 

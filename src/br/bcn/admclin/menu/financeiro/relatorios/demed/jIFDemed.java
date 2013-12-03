@@ -4,6 +4,8 @@
  */
 package br.bcn.admclin.menu.financeiro.relatorios.demed;
 
+import janelaPrincipal.janelaPrincipal;
+
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.text.SimpleDateFormat;
@@ -12,8 +14,6 @@ import java.util.Calendar;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import br.bcn.admclin.janelaPrincipal.janelaPrincipal;
 
 /**
  *

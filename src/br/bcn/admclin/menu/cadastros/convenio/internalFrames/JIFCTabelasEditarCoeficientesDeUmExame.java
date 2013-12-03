@@ -93,17 +93,17 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
             Conexao.fechaConexao(con);
             
             if(atualizo){
-                br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameTabelas.atualizarTabela1();
+                janelaPrincipal.janelaPrincipal.internalFrameTabelas.atualizarTabela1();
                 botaoCancelar();
-                br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameTabelas.botaoCancelar();
+                janelaPrincipal.janelaPrincipal.internalFrameTabelas.botaoCancelar();
             }
 
     }
     
     public void botaoCancelar(){
         this.dispose();
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameTabelasEditarCoefExame = null;
-        br.bcn.admclin.janelaPrincipal.janelaPrincipal.internalFrameTabelas.setVisible(true);
+        janelaPrincipal.janelaPrincipal.internalFrameTabelasEditarCoefExame = null;
+        janelaPrincipal.janelaPrincipal.internalFrameTabelas.setVisible(true);
     }
 
     /** This method is called from within the constructor to
