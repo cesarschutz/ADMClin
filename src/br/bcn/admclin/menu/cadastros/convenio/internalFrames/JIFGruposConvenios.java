@@ -15,18 +15,18 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
 import br.bcn.admclin.dao.CONVENIO;
 
 /**
- *
- * @author BCN
+ * 
+ * @author Cesar Schutz
  */
 public class JIFGruposConvenios extends javax.swing.JInternalFrame {
 
+    private static final long serialVersionUID = 1L;
     Connection con;
-    
+
     /**
      * Creates new form JIFGruposConvenios
      */
@@ -37,8 +37,9 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         jBDeletar.setVisible(false);
         jTFNome.setDocument(new documentoSemAspasEPorcento(64));
     }
-    
+
     int grupo_id;
+
     public JIFGruposConvenios(int grupo_id, int gera_arquivo_texto, String nome) {
         initComponents();
         tirandoBarraDeTitulo();
@@ -47,65 +48,71 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         this.grupo_id = grupo_id;
         jTFNome.setText(nome);
         jCBGeraArquivoTexto.setSelectedIndex(gera_arquivo_texto);
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Grupo de Convênios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Grupo de Convênios",
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
     }
-    
-    public void tirandoBarraDeTitulo(){
-        ((BasicInternalFrameUI)this.getUI()).getNorthPane().setPreferredSize( new Dimension(0,0) );
-        this.setBorder(new EmptyBorder(new Insets(0,0,0,0)));
+
+    public void tirandoBarraDeTitulo() {
+        ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
+        this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
     }
-    
-    private boolean tudoPreenchido(){
+
+    private boolean tudoPreenchido() {
         if (jTFNome.getText().length() >= 3) {
             return true;
-        }else{
+        } else {
             jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
             jTFMensagemParaUsuario.setText("Nome deve ter no mínimo 3 caracteres.");
             return false;
         }
     }
-    
-    private void botaoCancelar(){
+
+    private void botaoCancelar() {
         this.dispose();
         janelaPrincipal.internalFrameGruposDeConvenios = null;
-        
+
         janelaPrincipal.internalFrameGruposConveniosVisualizar = new JIFGruposConveniosVisualizar();
         janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameGruposConveniosVisualizar);
         janelaPrincipal.internalFrameGruposConveniosVisualizar.setVisible(true);
-        
+
         int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
         int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
         int lIFrame = janelaPrincipal.internalFrameGruposConveniosVisualizar.getWidth();
         int aIFrame = janelaPrincipal.internalFrameGruposConveniosVisualizar.getHeight();
-        
-        janelaPrincipal.internalFrameGruposConveniosVisualizar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+
+        janelaPrincipal.internalFrameGruposConveniosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame
+            / 2);
     }
-    
-    private void botaoSalvar(){
+
+    private void botaoSalvar() {
         if (tudoPreenchido()) {
             con = br.bcn.admclin.dao.Conexao.fazConexao();
-            boolean cadastro = CONVENIO.setCadastrarGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex());
+            boolean cadastro =
+                CONVENIO.setCadastrarGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex());
             br.bcn.admclin.dao.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
             }
         }
     }
-    
-    private void botaoAtualizar(){
+
+    private void botaoAtualizar() {
         if (tudoPreenchido()) {
             con = br.bcn.admclin.dao.Conexao.fazConexao();
-            boolean cadastro = CONVENIO.setUpdateGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex(), grupo_id);
+            boolean cadastro =
+                CONVENIO.setUpdateGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex(),
+                    grupo_id);
             br.bcn.admclin.dao.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
             }
         }
     }
-    
-    private void botaoDeletar(){
-        int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente deletar esse Grupo de Convênio?", "ATENÇÃO",0);   
-        if(resposta == JOptionPane.YES_OPTION){
+
+    private void botaoDeletar() {
+        int resposta =
+            JOptionPane.showConfirmDialog(null, "Deseja realmente deletar esse Grupo de Convênio?", "ATENÇÃO", 0);
+        if (resposta == JOptionPane.YES_OPTION) {
             con = br.bcn.admclin.dao.Conexao.fazConexao();
             boolean deleto = CONVENIO.setDeletarGrupoDeConveio(con, grupo_id);
             br.bcn.admclin.dao.Conexao.fechaConexao(con);
@@ -113,17 +120,14 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
                 botaoCancelar();
             }
         }
-        
+
     }
-    
-    
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -138,7 +142,8 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         jBSalvar = new javax.swing.JButton();
         jTFMensagemParaUsuario = new javax.swing.JTextField();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar novo Grupo de Convênios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar novo Grupo de Convênios",
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jLabel1.setText("Nome");
 
@@ -148,29 +153,38 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 485,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jCBGeraArquivoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 96,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))).addGap(0, 0, Short.MAX_VALUE)));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                jPanel1Layout
+                    .createSequentialGroup()
                     .addComponent(jLabel1)
-                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCBGeraArquivoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jCBGeraArquivoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jCBGeraArquivoTexto, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))));
 
         jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
         jBDeletar.setText("Apagar");
@@ -236,83 +250,85 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        layout.setHorizontalGroup(layout
+            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                Short.MAX_VALUE)
             .addComponent(jTFMensagemParaUsuario)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jBCancelar)
+            .addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                layout.createSequentialGroup().addComponent(jBCancelar)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBSalvar)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBEditar)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBDeletar)
+                    .addGap(0, 0, Short.MAX_VALUE)));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+            layout
+                .createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBSalvar)
+                .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
+                    javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBDeletar)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBSalvar)
-                        .addComponent(jBEditar)
-                        .addComponent(jBDeletar))
-                    .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+                .addGroup(
+                    layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jBSalvar).addComponent(jBEditar).addComponent(jBDeletar))
+                        .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
+                            javax.swing.GroupLayout.PREFERRED_SIZE))));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDeletarActionPerformed
-        botaoDeletar();        // TODO add your handling code here:
-    }//GEN-LAST:event_jBDeletarActionPerformed
+    private void jBDeletarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBDeletarActionPerformed
+        botaoDeletar(); // TODO add your handling code here:
+    }// GEN-LAST:event_jBDeletarActionPerformed
 
-    private void jBDeletarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBDeletarKeyReleased
+    private void jBDeletarKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBDeletarKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             botaoDeletar();
         }
-    }//GEN-LAST:event_jBDeletarKeyReleased
+    }// GEN-LAST:event_jBDeletarKeyReleased
 
-    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCancelarActionPerformed
         botaoCancelar();
-    }//GEN-LAST:event_jBCancelarActionPerformed
+    }// GEN-LAST:event_jBCancelarActionPerformed
 
-    private void jBCancelarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBCancelarKeyReleased
+    private void jBCancelarKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBCancelarKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             botaoCancelar();
         }
-    }//GEN-LAST:event_jBCancelarKeyReleased
+    }// GEN-LAST:event_jBCancelarKeyReleased
 
-    private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
+    private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBEditarActionPerformed
         botaoAtualizar();
-    }//GEN-LAST:event_jBEditarActionPerformed
+    }// GEN-LAST:event_jBEditarActionPerformed
 
-    private void jBEditarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBEditarKeyReleased
+    private void jBEditarKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBEditarKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             botaoAtualizar();
         }
-    }//GEN-LAST:event_jBEditarKeyReleased
+    }// GEN-LAST:event_jBEditarKeyReleased
 
-    private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+    private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBSalvarActionPerformed
         botaoSalvar();
-    }//GEN-LAST:event_jBSalvarActionPerformed
+    }// GEN-LAST:event_jBSalvarActionPerformed
 
-    private void jBSalvarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBSalvarKeyReleased
+    private void jBSalvarKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBSalvarKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             botaoSalvar();
         }
-    }//GEN-LAST:event_jBSalvarKeyReleased
+    }// GEN-LAST:event_jBSalvarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBDeletar;
     private javax.swing.JButton jBEditar;
     private javax.swing.JButton jBSalvar;
+    @SuppressWarnings("rawtypes")
     private javax.swing.JComboBox jCBGeraArquivoTexto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

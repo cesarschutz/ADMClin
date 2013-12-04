@@ -7,15 +7,15 @@ package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 import java.sql.Date;
 
 /**
- *
- * @author Cesar
+ * 
+ * @author Cesar Schutz
  */
 public class atendimentoModel {
-    
+
     private int handle_at, handle_convenio, flag_laudo, flag_faturado;
-    private String nomePaciente, matricula_convenio, modalidade, nascimentoPaciente, crmMedico, hora;      
+    private String nomePaciente, matricula_convenio, modalidade, nascimentoPaciente, crmMedico, hora;
     private Date data_atendimento;
-    
+
     public int getHandle_at() {
         return handle_at;
     }
@@ -103,6 +103,5 @@ public class atendimentoModel {
     public void setHora(String hora) {
         this.hora = hora;
     }
-    
-    
+
 }

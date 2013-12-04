@@ -30,33 +30,34 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
- *
- * @author BCN
+ * 
+ * @author Cesar Schutz
  */
 public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInternalFrame {
 
+    private static final long serialVersionUID = 1L;
     String handle_exame = null;
     public String handle_convenio = null;
     public String nomeConvenio = null;
     public String nomeExame = null;
     java.sql.Date dataDeHojeEmVariavelDate = null;
     private Connection con = null;
-    
-    
-    public void pegandoDataDoSistema(){
-    //pegando data do sistema
+
+    public void pegandoDataDoSistema() {
+        // pegando data do sistema
         Calendar hoje = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String dataDeHoje = format.format( hoje.getTime() );
+        String dataDeHoje = format.format(hoje.getTime());
         try {
             dataDeHojeEmVariavelDate = new java.sql.Date(format.parse(dataDeHoje).getTime());
         } catch (ParseException ex) {
-            
+
         }
     }
-    
+
     /** Creates new form JIFCTabelasEditarCoeficientesDeUmExame */
-    public JIFCTabelasEditarCoeficientesDeUmExame(String handle_convenio, String nomeConvenio, String handle_exame, String nomeExame) {
+    public JIFCTabelasEditarCoeficientesDeUmExame(String handle_convenio, String nomeConvenio, String handle_exame,
+        String nomeExame) {
         initComponents();
         this.handle_convenio = handle_convenio;
         this.nomeConvenio = nomeConvenio;
@@ -66,52 +67,52 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
         jTFCofCh1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTFCofCh2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTFCofFilme.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exame: " + nomeExame  , javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exame: " + nomeExame,
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         tirandoBarraDeTitulo();
-        
-    }
-    
-    public void tirandoBarraDeTitulo(){
-        ((BasicInternalFrameUI)this.getUI()).getNorthPane().setPreferredSize( new Dimension(0,0) );
-        this.setBorder(new EmptyBorder(new Insets(0,0,0,0)));
-    } 
-    
-    public void botaoOk(){
-            con = Conexao.fazConexao();
-            Tabelas tabelaMODELO = new Tabelas();
-            tabelaMODELO.setUsuarioId(USUARIOS.usrId);
-            tabelaMODELO.setDat(dataDeHojeEmVariavelDate);
-            tabelaMODELO.setCofCh1(Double.valueOf(jTFCofCh1.getText().replace(",", ".")));
-            tabelaMODELO.setCofCh2(Double.valueOf(jTFCofCh2.getText().replace(",", ".")));
-            tabelaMODELO.setCofFilme(Double.valueOf(jTFCofFilme.getText().replace(",", ".")));
-            tabelaMODELO.setCod_exame(jTFCodigo_exame.getText());
-            tabelaMODELO.setSinonimo(jTFSinonimo.getText());
-            tabelaMODELO.sethandle_convenio(Integer.valueOf(handle_convenio));
-            tabelaMODELO.sethandle_exame(Integer.valueOf(handle_exame)); 
-            con = Conexao.fazConexao();
-            boolean atualizo = TABELAS.setUpdateCoeficientesDeUmExame(con, tabelaMODELO);
-            Conexao.fechaConexao(con);
-            
-            if(atualizo){
-                janelaPrincipal.janelaPrincipal.internalFrameTabelas.atualizarTabela1();
-                botaoCancelar();
-                janelaPrincipal.janelaPrincipal.internalFrameTabelas.botaoCancelar();
-            }
 
     }
-    
-    public void botaoCancelar(){
+
+    public void tirandoBarraDeTitulo() {
+        ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
+        this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
+    }
+
+    public void botaoOk() {
+        con = Conexao.fazConexao();
+        Tabelas tabelaMODELO = new Tabelas();
+        tabelaMODELO.setUsuarioId(USUARIOS.usrId);
+        tabelaMODELO.setDat(dataDeHojeEmVariavelDate);
+        tabelaMODELO.setCofCh1(Double.valueOf(jTFCofCh1.getText().replace(",", ".")));
+        tabelaMODELO.setCofCh2(Double.valueOf(jTFCofCh2.getText().replace(",", ".")));
+        tabelaMODELO.setCofFilme(Double.valueOf(jTFCofFilme.getText().replace(",", ".")));
+        tabelaMODELO.setCod_exame(jTFCodigo_exame.getText());
+        tabelaMODELO.setSinonimo(jTFSinonimo.getText());
+        tabelaMODELO.sethandle_convenio(Integer.valueOf(handle_convenio));
+        tabelaMODELO.sethandle_exame(Integer.valueOf(handle_exame));
+        con = Conexao.fazConexao();
+        boolean atualizo = TABELAS.setUpdateCoeficientesDeUmExame(con, tabelaMODELO);
+        Conexao.fechaConexao(con);
+
+        if (atualizo) {
+            janelaPrincipal.janelaPrincipal.internalFrameTabelas.atualizarTabela1();
+            botaoCancelar();
+            janelaPrincipal.janelaPrincipal.internalFrameTabelas.botaoCancelar();
+        }
+
+    }
+
+    public void botaoCancelar() {
         this.dispose();
         janelaPrincipal.janelaPrincipal.internalFrameTabelasEditarCoefExame = null;
         janelaPrincipal.janelaPrincipal.internalFrameTabelas.setVisible(true);
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -122,27 +123,33 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTFCofFilme = new jTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
+            private static final long serialVersionUID = 1L;
+
             {// limita a 8
-                // caracteres
+             // caracteres
                 setLimit(11);
             }
         };
         jTFCofCh2 = new jTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
+            private static final long serialVersionUID = 1L;
+
             {// limita a 8
-                // caracteres
+             // caracteres
                 setLimit(11);
             }
         };
         jTFCofCh1 = new jTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
+            private static final long serialVersionUID = 1L;
+
             {// limita a 8
-                // caracteres
+             // caracteres
                 setLimit(11);
             }
         };
-        jTFSinonimo = new javax.swing.JTextField(new documentoSemAspasEPorcento(100),null,0);
+        jTFSinonimo = new javax.swing.JTextField(new documentoSemAspasEPorcento(100), null, 0);
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTFCodigo_exame = new javax.swing.JTextField(new documentoSemAspasEPorcento(16),null,0);
+        jTFCodigo_exame = new javax.swing.JTextField(new documentoSemAspasEPorcento(16), null, 0);
 
         setTitle("Editar Dados Do Exame");
 
@@ -175,7 +182,8 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AAAA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AAAA",
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jLabel1.setText("CH 1");
 
@@ -189,102 +197,129 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTFCofFilme, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                            .addComponent(jTFCofCh2)
-                            .addComponent(jTFCofCh1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addGroup(
+                                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3).addComponent(jLabel2).addComponent(jLabel1))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(
+                                        jPanel1Layout
+                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTFCofFilme, javax.swing.GroupLayout.DEFAULT_SIZE, 284,
+                                                Short.MAX_VALUE).addComponent(jTFCofCh2).addComponent(jTFCofCh1)))
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addGroup(
+                                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4).addComponent(jLabel5))
+                                    .addGap(16, 16, 16)
+                                    .addGroup(
+                                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTFSinonimo).addComponent(jTFCodigo_exame))))
+                    .addContainerGap()));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTFCodigo_exame, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTFSinonimo, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFSinonimo)
-                            .addComponent(jTFCodigo_exame))))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFCodigo_exame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFSinonimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFCofCh1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFCofCh2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFCofFilme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                    .addGap(18, 18, 18)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTFCofCh1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTFCofCh2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTFCofFilme, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+            layout
+                .createSequentialGroup()
+                .addGroup(
+                    layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                            layout.createSequentialGroup().addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+            layout
+                .createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
+                .addGroup(
+                    layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
+                            javax.swing.GroupLayout.PREFERRED_SIZE)).addContainerGap(19, Short.MAX_VALUE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         botaoCancelar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }// GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-botaoOk();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+        botaoOk(); // TODO add your handling code here:
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
-    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {   
-           botaoOk();      
-       }     // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1KeyReleased
+    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jButton1KeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoOk();
+        } // TODO add your handling code here:
+    }// GEN-LAST:event_jButton1KeyReleased
 
-    private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
-    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {   
-           botaoCancelar();      
-       }
-    }//GEN-LAST:event_jButton2KeyReleased
+    private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jButton2KeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoCancelar();
+        }
+    }// GEN-LAST:event_jButton2KeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

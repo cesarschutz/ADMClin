@@ -74,15 +74,17 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
- *
- * @author CeSaR
+ * 
+ * @author Cesar Schutz
  */
 public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
-    //lista para guardar as informações da tabela!! isso para quando pesquisar os pacientes ou mudar a modalidade
-    //ae consultamos da lista, consultamos do banco somente quando muda a data
+    private static final long serialVersionUID = 1L;
+    // lista para guardar as informações da tabela!! isso para quando pesquisar os pacientes ou mudar a modalidade
+    // ae consultamos da lista, consultamos do banco somente quando muda a data
     private Object[][] atendimentos;
     private Connection con = null;
+
     /**
      * Creates new form JIFAtendimentos
      */
@@ -92,87 +94,87 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         tirandoBarraDeTitulo();
         iniciarClasse();
         reescreverMetodoActionPerformanceDoDatePicker();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {  
-            public void run() {  
-                jTFPesquisaPaciente.requestFocusInWindow();  
-            }  
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jTFPesquisaPaciente.requestFocusInWindow();
+            }
         });
     }
-    
-    //metodo construtor para chamar esta janela apartir da pesquisa de atendimentos
+
+    // metodo construtor para chamar esta janela apartir da pesquisa de atendimentos
     public JIFListaAtendimentos(int handle_at, String dataDaVisualizacao) {
         initComponents();
-        jXDatePicker1.setDate(formDataStrgToJava(dataDaVisualizacao));  
+        jXDatePicker1.setDate(formDataStrgToJava(dataDaVisualizacao));
         ativandoSelecaoDeLinhaComBotaoDireitoDoMouse();
         tirandoBarraDeTitulo();
         iniciarClasse();
         reescreverMetodoActionPerformanceDoDatePicker();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {  
-            public void run() {  
-                jTFPesquisaPaciente.requestFocusInWindow();  
-            }  
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jTFPesquisaPaciente.requestFocusInWindow();
+            }
         });
-        
-        //selecionando a lnha do handleAT
+
+        // selecionando a lnha do handleAT
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             if (Integer.valueOf(String.valueOf(jTable1.getValueAt(i, 0))) == handle_at) {
                 jTable1.addRowSelectionInterval(i, i);
             }
         }
     }
-    
-    public java.util.Date formDataStrgToJava(String data){  
-        /* Função de conversão de uma data do tipo STRING dd-MM-yyyy para formato 
-         * date do java.util 
-         */          
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");//Formato da data que virá do banco  
-        java.util.Date date = null;    
-        try {  
-            date = (java.util.Date) formatter.parse(data);//convertendo o formato para Date  
-        } catch (ParseException ex) {  
-            System.out.println(ex);  
-        }  
-        return date;  
+
+    public java.util.Date formDataStrgToJava(String data) {
+        /*
+         * Função de conversão de uma data do tipo STRING dd-MM-yyyy para formato date do java.util
+         */
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");// Formato da data que virá do banco
+        java.util.Date date = null;
+        try {
+            date = (java.util.Date) formatter.parse(data);// convertendo o formato para Date
+        } catch (ParseException ex) {
+            System.out.println(ex);
+        }
+        return date;
     }
+
     /*
      * metodo apra selecionar a linha se clicar com o botao direito
-     * 
      */
-    public void ativandoSelecaoDeLinhaComBotaoDireitoDoMouse   (){
-        jTable1.addMouseListener(new MouseAdapter() {  
-                    @Override  
-                    public void mousePressed(MouseEvent e) {    
-                        
-                        if (e.getButton() == MouseEvent.BUTTON3) {  
-                            int col = jTable1.columnAtPoint(e.getPoint());  
-                            int row = jTable1.rowAtPoint(e.getPoint());  
-                            if (col != -1 && row != -1) {  
-                                jTable1.setColumnSelectionInterval(col, col);  
-                                jTable1.setRowSelectionInterval(row, row);  
-                            }
-                        }         
-                        
-                        //colocando a seleção na celula clicada
-                        int linhaSelecionada = jTable1.getSelectedRow();
-                        int colunaSelecionada = jTable1.getSelectedColumn();
-                        
-                        jTable1.editCellAt(linhaSelecionada, colunaSelecionada);
-                    }  
-                });
+    public void ativandoSelecaoDeLinhaComBotaoDireitoDoMouse() {
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    int col = jTable1.columnAtPoint(e.getPoint());
+                    int row = jTable1.rowAtPoint(e.getPoint());
+                    if (col != -1 && row != -1) {
+                        jTable1.setColumnSelectionInterval(col, col);
+                        jTable1.setRowSelectionInterval(row, row);
+                    }
+                }
+
+                // colocando a seleção na celula clicada
+                int linhaSelecionada = jTable1.getSelectedRow();
+                int colunaSelecionada = jTable1.getSelectedColumn();
+
+                jTable1.editCellAt(linhaSelecionada, colunaSelecionada);
+            }
+        });
     }
-    
+
     /*
      * metodo que pega a data do datapicker e retorna como uma sq.date
      */
-    private Date pegandoDataDoDataPicker(){
+    private Date pegandoDataDoDataPicker() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         java.sql.Date data = null;
         java.util.Date dataSelecionada = jXDatePicker1.getDate();
-        //criando um formato de data
+        // criando um formato de data
         SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-        //colocando data selecionado no formato criado acima
+        // colocando data selecionado no formato criado acima
         String data2 = dataFormatada.format(dataSelecionada);
-        
+
         try {
             data = new java.sql.Date(format.parse(data2).getTime());
             return data;
@@ -180,98 +182,97 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             return null;
         }
     }
-    
-    //metodo que soh serve para reescrever o evento ActionPerformance do DatePicker
-    private void reescreverMetodoActionPerformanceDoDatePicker(){
-        jXDatePicker1.addActionListener(new ActionListener() {  
-              @Override
-              public void actionPerformed(ActionEvent evt) { 
-                   preenchendoTabela(pegandoDataDoDataPicker()); 
-                   javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                       public void run() {
-                           jTFPesquisaPaciente.requestFocusInWindow();
-                       }
-                   });
-              }  
+
+    // metodo que soh serve para reescrever o evento ActionPerformance do DatePicker
+    private void reescreverMetodoActionPerformanceDoDatePicker() {
+        jXDatePicker1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                preenchendoTabela(pegandoDataDoDataPicker());
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        jTFPesquisaPaciente.requestFocusInWindow();
+                    }
+                });
+            }
         });
     }
-    
-    private void iniciarClasse(){
-        //arrumando formatação do data picker
-        jXDatePicker1.setFormats(new String [] { "E dd/MM/yyyy" }); 
+
+    private void iniciarClasse() {
+        // arrumando formatação do data picker
+        jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Hoje");
-        
-        //selecionar somente uma linha na tabela
+
+        // selecionar somente uma linha na tabela
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //aumentando tamanho da linha
+        // aumentando tamanho da linha
         jTable1.setRowHeight(30);
-        
-        //pegamos a data do dataPicker e atualizamos a tabelas
+
+        // pegamos a data do dataPicker e atualizamos a tabelas
         preenchendoTabela(pegandoDataDoDataPicker());
-        
-        //coluna de status aceitando icones
+
+        // coluna de status aceitando icones
         TableCellRenderer tcrColuna6 = new ColunaAceitandoIcone();
-        TableColumn column6 =  jTable1.getColumnModel().getColumn(6);
+        TableColumn column6 = jTable1.getColumnModel().getColumn(6);
         column6.setCellRenderer(tcrColuna6);
-        
+
         TableCellRenderer tcrColuna7 = new ColunaAceitandoIcone();
-        TableColumn column7 =  jTable1.getColumnModel().getColumn(7);
+        TableColumn column7 = jTable1.getColumnModel().getColumn(7);
         column7.setCellRenderer(tcrColuna7);
-        
+
         TableCellRenderer tcrColuna8 = new ColunaAceitandoIcone();
-        TableColumn column8 =  jTable1.getColumnModel().getColumn(8);
+        TableColumn column8 = jTable1.getColumnModel().getColumn(8);
         column8.setCellRenderer(tcrColuna8);
-        
-        //tamanho das colunas
+
+        // tamanho das colunas
         jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
         jTable1.getColumnModel().getColumn(1).setMaxWidth(38);
         jTable1.getColumnModel().getColumn(2).setMaxWidth(45);
-        //jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
-        //jTable1.getColumnModel().getColumn(4).setMaxWidth(55);
+        // jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
+        // jTable1.getColumnModel().getColumn(4).setMaxWidth(55);
         jTable1.getColumnModel().getColumn(5).setMaxWidth(105);
         jTable1.getColumnModel().getColumn(5).setPreferredWidth(105);
         jTable1.getColumnModel().getColumn(6).setMaxWidth(60);
         jTable1.getColumnModel().getColumn(7).setMaxWidth(60);
         jTable1.getColumnModel().getColumn(8).setMaxWidth(60);
-        
-        
-        //alinhando conteudo da coluna de uma tabela
-        DefaultTableCellRenderer direita = new DefaultTableCellRenderer(); 
+
+        // alinhando conteudo da coluna de uma tabela
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
-        
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer(); 
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         jTable1.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTable1.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTable1.getColumnModel().getColumn(0).setCellRenderer(direita);
-        
+
     }
-    
+
     /*
      * Tira a barra e o contorno do internal frame (this)
      */
-    private void tirandoBarraDeTitulo(){
-        ((BasicInternalFrameUI)this.getUI()).getNorthPane().setPreferredSize( new Dimension(0,0) );
-        this.setBorder(new EmptyBorder(new Insets(0,0,0,0)));
+    private void tirandoBarraDeTitulo() {
+        ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
+        this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
     }
+
     /*
      * metodo que preenche a tabela DE ACORDO COM O BANCO DE DADOS E PREENCHENDO O ARRAY COM AS INFORMAÇÕES
      */
-    private void preenchendoTabela(Date data){
+    private void preenchendoTabela(Date data) {
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        
 
         con = Conexao.fazConexao();
-        ResultSet resultSet = ATENDIMENTOS.getConsultarAtendimentos(con,data); 
-        try{
-            int i = 0;
-            while(resultSet.next()){
+        ResultSet resultSet = ATENDIMENTOS.getConsultarAtendimentos(con, data);
+        try {
+            while (resultSet.next()) {
                 int handle_at = resultSet.getInt("handle_at");
                 String modalidade = resultSet.getString("modalidade");
-                String hora_atendimento = MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento"));
+                String hora_atendimento =
+                    MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento"));
                 String nomePaciente = resultSet.getString("nomePaciente");
                 String nomeMedico = resultSet.getString("nomeMedico");
                 String crmMedico = resultSet.getString("crmMedico");
@@ -282,19 +283,19 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 String entrega = "";
                 if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE) && "S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
                     entrega = "3";
-                }else if(!"S".equals(EXAME_ENTREGUE_AO_PACIENTE) && "S".equals(LAUDO_ENTREGUE_AO_PACIENTE)){
+                } else if (!"S".equals(EXAME_ENTREGUE_AO_PACIENTE) && "S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
                     entrega = "2";
-                }else if("S".equals(EXAME_ENTREGUE_AO_PACIENTE) && !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)){
+                } else if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE) && !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
                     entrega = "1";
                 }
-                modelo.addRow(new Object[] {handle_at, modalidade, hora_atendimento, nomePaciente, nomeMedico, crmMedico, status1, status2, entrega});
-                i++;
+                modelo.addRow(new Object[] { handle_at, modalidade, hora_atendimento, nomePaciente, nomeMedico,
+                    crmMedico, status1, status2, entrega });
             }
-            
+
             salvandoInformacoesDaTabelaNoArray();
             colocarIconesNoStatusA();
             colocarIconesNoEntrega();
-            
+
             jCBTodas.setSelected(true);
             jCBcr.setSelected(true);
             jCBct.setSelected(true);
@@ -311,174 +312,207 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             jCBod.setSelected(true);
             jTFMensagemParaUsuario.setText("");
             jTFPesquisaPaciente.setText("");
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             atendimentos = null;
             ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
             jTable1.updateUI();
-            JOptionPane.showMessageDialog(null, "Não foi possivel consultar os Atendimentos. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não foi possivel consultar os Atendimentos. Procure o administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /*
      * prenche a tabela de acordo com a pesquisa e a modalidade selecionada
-     * 
      */
-    private void preenchendoATabela (){
+    private void preenchendoATabela() {
         boolean isNumber;
-        //essa variavel fica false se ele preenche com todas as modalidades e nenhum pesquisa
-        //pq dae preenche do banco e isso ja preenche os icones, se eu preencher novamente da erro
+        // essa variavel fica false se ele preenche com todas as modalidades e nenhum pesquisa
+        // pq dae preenche do banco e isso ja preenche os icones, se eu preencher novamente da erro
         boolean colocarIcone = true;
-        //zerando a tabela e pegando o modelo
+        // zerando a tabela e pegando o modelo
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        
-        
-        //se for todas as modalidades
+
+        // se for todas as modalidades
         if (jCBTodas.isSelected()) {
-            //se nao tiver nada na pesquisa
+            // se nao tiver nada na pesquisa
             if ("".equals(jTFPesquisaPaciente.getText())) {
-                //se for todas as modalidades e sem pesquisa ele preenche a tabela com o banco de dados
+                // se for todas as modalidades e sem pesquisa ele preenche a tabela com o banco de dados
                 preenchendoTabela(pegandoDataDoDataPicker());
                 colocarIcone = false;
                 jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
-                jTFMensagemParaUsuario.setText("Digite um Código ou um Paciente para Pesquisar");  
-            }else{
-                //CAI AQUI SE FOR TODAS AS MODALIDADE TIVER UMA PESQUISA
+                jTFMensagemParaUsuario.setText("Digite um Código ou um Paciente para Pesquisar");
+            } else {
+                // CAI AQUI SE FOR TODAS AS MODALIDADE TIVER UMA PESQUISA
                 try {
-                    int codigo = Integer.valueOf(jTFPesquisaPaciente.getText());
                     isNumber = true;
                 } catch (Exception e) {
                     isNumber = false;
                 }
-                
-                //SE FOR NUMERO PESQUISA POR CODIGO
-                if(isNumber){
-                jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
-                jTFMensagemParaUsuario.setText("Pesquisa por Código");
-                //vamos pesquisar pelo codigo
-                for (int i = 0; i < atendimentos.length; i++) {
-                    //essas duas linhas tiram os 0 digitados antes do handle_at
-                    int handleDigitado = Integer.valueOf(jTFPesquisaPaciente.getText());
-                    String handleDigitadoString = String.valueOf(handleDigitado);
-                    //se o codigo da lista começa com o codigo ditado
-                    if(String.valueOf(atendimentos[i][0]).startsWith(handleDigitadoString)){
-                        //colocando na tabela
-                        modelo.addRow(new Object[] {atendimentos[i][0],atendimentos[i][1],atendimentos[i][2],atendimentos[i][3],atendimentos[i][4],atendimentos[i][5],atendimentos[i][6],atendimentos[i][7],atendimentos[i][8]});
+
+                // SE FOR NUMERO PESQUISA POR CODIGO
+                if (isNumber) {
+                    jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
+                    jTFMensagemParaUsuario.setText("Pesquisa por Código");
+                    // vamos pesquisar pelo codigo
+                    for (int i = 0; i < atendimentos.length; i++) {
+                        // essas duas linhas tiram os 0 digitados antes do handle_at
+                        int handleDigitado = Integer.valueOf(jTFPesquisaPaciente.getText());
+                        String handleDigitadoString = String.valueOf(handleDigitado);
+                        // se o codigo da lista começa com o codigo ditado
+                        if (String.valueOf(atendimentos[i][0]).startsWith(handleDigitadoString)) {
+                            // colocando na tabela
+                            modelo.addRow(new Object[] { atendimentos[i][0], atendimentos[i][1], atendimentos[i][2],
+                                atendimentos[i][3], atendimentos[i][4], atendimentos[i][5], atendimentos[i][6],
+                                atendimentos[i][7], atendimentos[i][8] });
+                        }
                     }
-                }
-                
-                //se nao for numero pesquisa por nome
-                }else{
+
+                    // se nao for numero pesquisa por nome
+                } else {
                     jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
                     jTFMensagemParaUsuario.setText("Pesquisa por Paciente");
-                    //vamos pesquisar pelo codigo
+                    // vamos pesquisar pelo codigo
                     for (int i = 0; i < atendimentos.length; i++) {
-                        //se o pedaço de nome tiver em algum nome da tabela ele aparece na tabela
-                        if(String.valueOf(atendimentos[i][3]).toUpperCase().contains(jTFPesquisaPaciente.getText())){
-                            //colocando na tabela
-                            modelo.addRow(new Object[] {atendimentos[i][0],atendimentos[i][1],atendimentos[i][2],atendimentos[i][3],atendimentos[i][4],atendimentos[i][5],atendimentos[i][6],atendimentos[i][7],atendimentos[i][8]});
+                        // se o pedaço de nome tiver em algum nome da tabela ele aparece na tabela
+                        if (String.valueOf(atendimentos[i][3]).toUpperCase().contains(jTFPesquisaPaciente.getText())) {
+                            // colocando na tabela
+                            modelo.addRow(new Object[] { atendimentos[i][0], atendimentos[i][1], atendimentos[i][2],
+                                atendimentos[i][3], atendimentos[i][4], atendimentos[i][5], atendimentos[i][6],
+                                atendimentos[i][7], atendimentos[i][8] });
                         }
                     }
 
                 }
             }
-        }else{
-            //CAI AQUI SE FOR UMA MODALIDADE
+        } else {
+            // CAI AQUI SE FOR UMA MODALIDADE
             String modalidade = null;
-            if(jCBcr.isSelected()){ modalidade = "CR";}
-            if(jCBct.isSelected()){ modalidade = "CT";}
-            if(jCBdo.isSelected()){ modalidade = "DO";}
-            if(jCBdr.isSelected()){ modalidade = "DR";}
-            if(jCBdx.isSelected()){ modalidade = "DX";}
-            if(jCBmg.isSelected()){ modalidade = "MG";}
-            if(jCBmr.isSelected()){ modalidade = "MR";}
-            if(jCBnm.isSelected()){ modalidade = "NM";}
-            if(jCBod.isSelected()){ modalidade = "OD";}
-            if(jCBot.isSelected()){ modalidade = "OT";}
-            if(jCBrf.isSelected()){ modalidade = "RF";}
-            if(jCBtr.isSelected()){ modalidade = "SC";}
-            if(jCBus.isSelected()){ modalidade = "US";}
-            
-            //se nao tiver nada na pesquisa
+            if (jCBcr.isSelected()) {
+                modalidade = "CR";
+            }
+            if (jCBct.isSelected()) {
+                modalidade = "CT";
+            }
+            if (jCBdo.isSelected()) {
+                modalidade = "DO";
+            }
+            if (jCBdr.isSelected()) {
+                modalidade = "DR";
+            }
+            if (jCBdx.isSelected()) {
+                modalidade = "DX";
+            }
+            if (jCBmg.isSelected()) {
+                modalidade = "MG";
+            }
+            if (jCBmr.isSelected()) {
+                modalidade = "MR";
+            }
+            if (jCBnm.isSelected()) {
+                modalidade = "NM";
+            }
+            if (jCBod.isSelected()) {
+                modalidade = "OD";
+            }
+            if (jCBot.isSelected()) {
+                modalidade = "OT";
+            }
+            if (jCBrf.isSelected()) {
+                modalidade = "RF";
+            }
+            if (jCBtr.isSelected()) {
+                modalidade = "SC";
+            }
+            if (jCBus.isSelected()) {
+                modalidade = "US";
+            }
+
+            // se nao tiver nada na pesquisa
             if ("".equals(jTFPesquisaPaciente.getText())) {
-                //vamos pesquisar pelA MODALIDADE
+                // vamos pesquisar pelA MODALIDADE
                 for (int i = 0; i < atendimentos.length; i++) {
-                    //se o codigo da lista começa com o codigo ditado
-                    if(String.valueOf(atendimentos[i][1]).equals(modalidade)){
-                        //colocando na tabela
-                        modelo.addRow(new Object[] {atendimentos[i][0],atendimentos[i][1],atendimentos[i][2],atendimentos[i][3],atendimentos[i][4],atendimentos[i][5],atendimentos[i][6],atendimentos[i][7],atendimentos[i][8]});
+                    // se o codigo da lista começa com o codigo ditado
+                    if (String.valueOf(atendimentos[i][1]).equals(modalidade)) {
+                        // colocando na tabela
+                        modelo.addRow(new Object[] { atendimentos[i][0], atendimentos[i][1], atendimentos[i][2],
+                            atendimentos[i][3], atendimentos[i][4], atendimentos[i][5], atendimentos[i][6],
+                            atendimentos[i][7], atendimentos[i][8] });
                     }
                 }
                 jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
-                jTFMensagemParaUsuario.setText("Digite um Código ou um Paciente para Pesquisar");  
-            }else{
-                //cai aqui caso tenha algo na pesquisa
+                jTFMensagemParaUsuario.setText("Digite um Código ou um Paciente para Pesquisar");
+            } else {
+                // cai aqui caso tenha algo na pesquisa
                 try {
-                    int codigo = Integer.valueOf(jTFPesquisaPaciente.getText());
                     isNumber = true;
                 } catch (Exception e) {
                     isNumber = false;
                 }
-                
-                //SE FOR NUMERO PESQUISA POR CODIGO
-                if(isNumber){
-                jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
-                jTFMensagemParaUsuario.setText("Pesquisa por Código");
-                //vamos pesquisar pelo codigo
-                for (int i = 0; i < atendimentos.length; i++) {
-                    //essas duas linhas tiram os 0 digitados antes do handle_at
-                    int handleDigitado = Integer.valueOf(jTFPesquisaPaciente.getText());
-                    String handleDigitadoString = String.valueOf(handleDigitado);
-                    //se o codigo da lista começa com o codigo ditado
-                    if(String.valueOf(atendimentos[i][0]).startsWith(handleDigitadoString) && String.valueOf(atendimentos[i][1]).equals(modalidade)){
-                        //colocando na tabela
-                        modelo.addRow(new Object[] {atendimentos[i][0],atendimentos[i][1],atendimentos[i][2],atendimentos[i][3],atendimentos[i][4],atendimentos[i][5],atendimentos[i][6],atendimentos[i][7],atendimentos[i][8]});
+
+                // SE FOR NUMERO PESQUISA POR CODIGO
+                if (isNumber) {
+                    jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
+                    jTFMensagemParaUsuario.setText("Pesquisa por Código");
+                    // vamos pesquisar pelo codigo
+                    for (int i = 0; i < atendimentos.length; i++) {
+                        // essas duas linhas tiram os 0 digitados antes do handle_at
+                        int handleDigitado = Integer.valueOf(jTFPesquisaPaciente.getText());
+                        String handleDigitadoString = String.valueOf(handleDigitado);
+                        // se o codigo da lista começa com o codigo ditado
+                        if (String.valueOf(atendimentos[i][0]).startsWith(handleDigitadoString)
+                            && String.valueOf(atendimentos[i][1]).equals(modalidade)) {
+                            // colocando na tabela
+                            modelo.addRow(new Object[] { atendimentos[i][0], atendimentos[i][1], atendimentos[i][2],
+                                atendimentos[i][3], atendimentos[i][4], atendimentos[i][5], atendimentos[i][6],
+                                atendimentos[i][7], atendimentos[i][8] });
+                        }
                     }
-                }
-                
-                //se nao for numero pesquisa por nome
-                }else{
+
+                    // se nao for numero pesquisa por nome
+                } else {
                     jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
                     jTFMensagemParaUsuario.setText("Pesquisa por Paciente");
-                    //vamos pesquisar pelo codigo
+                    // vamos pesquisar pelo codigo
                     for (int i = 0; i < atendimentos.length; i++) {
-                        //se o pedaço de nome tiver em algum nome da tabela ele aparece na tabela
-                        if(String.valueOf(atendimentos[i][3]).toUpperCase().contains(jTFPesquisaPaciente.getText()) && String.valueOf(atendimentos[i][1]).equals(modalidade)){
-                            //colocando na tabela
-                            modelo.addRow(new Object[] {atendimentos[i][0],atendimentos[i][1],atendimentos[i][2],atendimentos[i][3],atendimentos[i][4],atendimentos[i][5],atendimentos[i][6],atendimentos[i][7],atendimentos[i][8]});
+                        // se o pedaço de nome tiver em algum nome da tabela ele aparece na tabela
+                        if (String.valueOf(atendimentos[i][3]).toUpperCase().contains(jTFPesquisaPaciente.getText())
+                            && String.valueOf(atendimentos[i][1]).equals(modalidade)) {
+                            // colocando na tabela
+                            modelo.addRow(new Object[] { atendimentos[i][0], atendimentos[i][1], atendimentos[i][2],
+                                atendimentos[i][3], atendimentos[i][4], atendimentos[i][5], atendimentos[i][6],
+                                atendimentos[i][7], atendimentos[i][8] });
                         }
                     }
 
                 }
             }
         }
-        
-       
-        
-        
-        //VAMOS COLOCAR OS ICONES se nao tiver atualizado com o banco
+
+        // VAMOS COLOCAR OS ICONES se nao tiver atualizado com o banco
         if (colocarIcone) {
             try {
-                //colocando icones
+                // colocando icones
                 colocarIconesNoStatusA();
                 colocarIconesNoEntrega();
             } catch (Exception e) {
-                //caso nao consiga coloca os icones ele zera a tabela
+                // caso nao consiga coloca os icones ele zera a tabela
                 jTFMensagemParaUsuario.setText("");
                 jTFPesquisaPaciente.setText("");
                 preenchendoTabela(pegandoDataDoDataPicker());
-            }  
+            }
         }
-        
+
     }
+
     /*
      * metodo que guarda os atendimentos colocados na tabela em um array list
      */
-    private void salvandoInformacoesDaTabelaNoArray() throws Exception{
+    private void salvandoInformacoesDaTabelaNoArray() throws Exception {
         atendimentos = new Object[jTable1.getRowCount()][9];
-        
+
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             atendimentos[i][0] = jTable1.getValueAt(i, 0).toString();
             atendimentos[i][1] = jTable1.getValueAt(i, 1).toString();
@@ -486,91 +520,98 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             atendimentos[i][3] = jTable1.getValueAt(i, 3).toString();
             atendimentos[i][4] = jTable1.getValueAt(i, 4).toString();
             atendimentos[i][5] = jTable1.getValueAt(i, 5).toString();
-            if(jTable1.getValueAt(i, 6) == null || "null".equals(jTable1.getValueAt(i, 6))|| "".equals(jTable1.getValueAt(i, 6))){
+            if (jTable1.getValueAt(i, 6) == null || "null".equals(jTable1.getValueAt(i, 6))
+                || "".equals(jTable1.getValueAt(i, 6))) {
                 atendimentos[i][6] = "";
-            }else{
+            } else {
                 atendimentos[i][6] = jTable1.getValueAt(i, 6).toString();
             }
-            if(jTable1.getValueAt(i, 7) == null || "null".equals(jTable1.getValueAt(i, 7))|| "".equals(jTable1.getValueAt(i, 7))){
+            if (jTable1.getValueAt(i, 7) == null || "null".equals(jTable1.getValueAt(i, 7))
+                || "".equals(jTable1.getValueAt(i, 7))) {
                 atendimentos[i][7] = "";
-            }else{
+            } else {
                 atendimentos[i][7] = jTable1.getValueAt(i, 7).toString();
             }
-            if(jTable1.getValueAt(i, 8) == null || "null".equals(jTable1.getValueAt(i, 8))|| "".equals(jTable1.getValueAt(i, 8))){
+            if (jTable1.getValueAt(i, 8) == null || "null".equals(jTable1.getValueAt(i, 8))
+                || "".equals(jTable1.getValueAt(i, 8))) {
                 atendimentos[i][8] = "";
-            }else{
+            } else {
                 atendimentos[i][8] = jTable1.getValueAt(i, 8).toString();
             }
         }
     }
+
     /*
      * coloca os icones dos atendimentos de acordo com o status
      */
-    Icon iconeAtendimento = new ImageIcon (getToolkit().createImage( getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimento.png" )));
-    Icon iconeImprimuFicha = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"));
-    Icon iconeLaudoDigitado = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/laudoDigitado.png"));
-    Icon iconeLaudoAssinado = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/laudoAssinado.png"));
-    Icon iconeJaFezOExame = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/jaFezOExame.png"));
-    private void colocarIconesNoStatusA() throws Exception{
-        //icone atendimento
+    Icon iconeAtendimento = new ImageIcon(getToolkit().createImage(
+        getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimento.png")));
+    Icon iconeImprimuFicha = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"));
+    Icon iconeLaudoDigitado = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/laudoDigitado.png"));
+    Icon iconeLaudoAssinado = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/laudoAssinado.png"));
+    Icon iconeJaFezOExame = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/jaFezOExame.png"));
+
+    private void colocarIconesNoStatusA() throws Exception {
+        // icone atendimento
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             try {
                 int status1 = Integer.valueOf(String.valueOf(jTable1.getValueAt(i, 6)));
-                //ja imprimiu ficha
-                if(status1 == 1){
+                // ja imprimiu ficha
+                if (status1 == 1) {
                     jTable1.setValueAt(iconeImprimuFicha, i, 6);
                 }
-                //ja fez o exame
-                if(status1 == 2){
+                // ja fez o exame
+                if (status1 == 2) {
                     jTable1.setValueAt(iconeJaFezOExame, i, 6);
                 }
-                //laudo digitado
-                if(status1 == 4){
+                // laudo digitado
+                if (status1 == 4) {
                     jTable1.setValueAt(iconeLaudoDigitado, i, 6);
                 }
-                //laudo assinado
-                if(status1 == 5){
+                // laudo assinado
+                if (status1 == 5) {
                     jTable1.setValueAt(iconeLaudoAssinado, i, 6);
                 }
-                
-                
-                
+
             } catch (Exception e) {
-                //cai aqui se nao tive nada na coluna do bando status1 (como nao tem nada ainda nao foi feito nada naquele atendimento)
+                // cai aqui se nao tive nada na coluna do bando status1 (como nao tem nada ainda nao foi feito nada
+                // naquele atendimento)
                 jTable1.setValueAt(iconeAtendimento, i, 6);
             }
         }
     }
-    
-    private void colocarIconesNoEntrega() throws Exception{
-        //icone atendimento
+
+    private void colocarIconesNoEntrega() throws Exception {
+        // icone atendimento
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             try {
                 int status1 = Integer.valueOf(String.valueOf(jTable1.getValueAt(i, 8)));
-                //exame entregue
-                if(status1 == 1){
+                // exame entregue
+                if (status1 == 1) {
                     jTable1.setValueAt(iconExameEntregue, i, 8);
                 }
-                //laudo entregue
-                if(status1 == 2){
+                // laudo entregue
+                if (status1 == 2) {
                     jTable1.setValueAt(iconeLaudoEntregue, i, 8);
                 }
-                //os dois entregue
-                if(status1 == 3){
+                // os dois entregue
+                if (status1 == 3) {
                     jTable1.setValueAt(iconeLaudoEExameEntregue, i, 8);
                 }
             } catch (Exception e) {
             }
         }
     }
-    
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -591,7 +632,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         jCBmr = new javax.swing.JCheckBox();
         jCBTodas = new javax.swing.JCheckBox();
         jCBus = new javax.swing.JCheckBox();
-        jTFPesquisaPaciente = new javax.swing.JTextField(new documentoSomenteNumerosELetras(100),null,0);
+        jTFPesquisaPaciente = new javax.swing.JTextField(new documentoSomenteNumerosELetras(100), null, 0);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -600,7 +641,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         jCBdo = new javax.swing.JCheckBox();
         jCBod = new javax.swing.JCheckBox();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Atendimentos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Atendimentos",
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jTFMensagemParaUsuario.setBackground(new java.awt.Color(220, 220, 220));
         jTFMensagemParaUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -609,23 +651,17 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jXDatePicker1.setRequestFocusEnabled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Código", "Mod.", "Hora", "Paciente", "Médico Solicitante", "CRM", "Status A.", "Status P.", "Entrega"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+            { null, null, null, null, null, null, null, null, null },
+            { null, null, null, null, null, null, null, null, null },
+            { null, null, null, null, null, null, null, null, null },
+            { null, null, null, null, null, null, null, null, null } }, new String[] { "Código", "Mod.", "Hora",
+            "Paciente", "Médico Solicitante", "CRM", "Status A.", "Status P.", "Entrega" }) {
+            private static final long serialVersionUID = 1L;
+            boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -737,6 +773,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTFPesquisaPacienteFocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTFPesquisaPacienteFocusLost(evt);
             }
@@ -785,452 +822,444 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout
+            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
             .addComponent(jTFPesquisaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCBcr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBct)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBdo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBdr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBdx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBmg)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBmr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBnm)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBod)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBot)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBrf)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBtr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCBTodas))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 660, Short.MAX_VALUE)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5))
-            .addComponent(jTFMensagemParaUsuario)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton5)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCBcr)
-                            .addComponent(jCBct)
-                            .addComponent(jCBdr)
-                            .addComponent(jCBdx)
-                            .addComponent(jCBmg)
-                            .addComponent(jCBmr)
-                            .addComponent(jCBnm)
-                            .addComponent(jCBot)
-                            .addComponent(jCBrf)
-                            .addComponent(jCBtr)
-                            .addComponent(jCBus)
-                            .addComponent(jCBTodas)
-                            .addComponent(jCBdo)
-                            .addComponent(jCBod))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jTFPesquisaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
-        );
+            .addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addComponent(jLabel2)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(jCBcr)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBct)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBdo)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBdr)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBdx)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBmg)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBmr)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBnm)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBod)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBot)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBrf)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBtr)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBus)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCBTodas))
+            .addGroup(
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 145,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 660, Short.MAX_VALUE)
+                    .addComponent(jButton6).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton5)).addComponent(jTFMensagemParaUsuario));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                jPanel1Layout
+                    .createSequentialGroup()
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton5)
+                            .addGroup(
+                                jPanel1Layout
+                                    .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)).addComponent(jButton6))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(
+                        jPanel1Layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addGroup(
+                                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jCBcr).addComponent(jCBct).addComponent(jCBdr)
+                                            .addComponent(jCBdx).addComponent(jCBmg).addComponent(jCBmr)
+                                            .addComponent(jCBnm).addComponent(jCBot).addComponent(jCBrf)
+                                            .addComponent(jCBtr).addComponent(jCBus).addComponent(jCBTodas)
+                                            .addComponent(jCBdo).addComponent(jCBod)).addGap(18, 18, 18))
+                            .addGroup(
+                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                jPanel1Layout
+                                    .createSequentialGroup()
+                                    .addGroup(
+                                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3).addComponent(jLabel2))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(jTFPesquisaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
+                        javax.swing.GroupLayout.PREFERRED_SIZE).addGap(12, 12, 12)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+            jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+            jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCBtrActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBtrActionPerformed
 
-    private void jCBtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBtrActionPerformed
-
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBtr.setSelected(true);
-        
+
         preenchendoATabela();
-    }//GEN-LAST:event_jCBtrActionPerformed
+    }// GEN-LAST:event_jCBtrActionPerformed
 
-    private void jCBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBotActionPerformed
+    private void jCBotActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBotActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBot.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBotActionPerformed
+    }// GEN-LAST:event_jCBotActionPerformed
 
-    private void jCBrfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBrfActionPerformed
+    private void jCBrfActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBrfActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
-  
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
+
         jCBrf.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBrfActionPerformed
+    }// GEN-LAST:event_jCBrfActionPerformed
 
-    private void jCBnmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBnmActionPerformed
+    private void jCBnmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBnmActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBnm.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBnmActionPerformed
+    }// GEN-LAST:event_jCBnmActionPerformed
 
-    private void jCBdrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBdrActionPerformed
+    private void jCBdrActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBdrActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBdr.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBdrActionPerformed
+    }// GEN-LAST:event_jCBdrActionPerformed
 
-    private void jCBctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBctActionPerformed
+    private void jCBctActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBctActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBct.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBctActionPerformed
+    }// GEN-LAST:event_jCBctActionPerformed
 
-    private void jCBmgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBmgActionPerformed
+    private void jCBmgActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBmgActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBmg.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBmgActionPerformed
+    }// GEN-LAST:event_jCBmgActionPerformed
 
-    private void jCBdxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBdxActionPerformed
+    private void jCBdxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBdxActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBdx.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBdxActionPerformed
+    }// GEN-LAST:event_jCBdxActionPerformed
 
-    private void jCBcrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBcrActionPerformed
+    private void jCBcrActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBcrActionPerformed
 
-            jCBTodas.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+        jCBTodas.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBcr.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBcrActionPerformed
+    }// GEN-LAST:event_jCBcrActionPerformed
 
-    private void jCBmrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBmrActionPerformed
-  
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+    private void jCBmrActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBmrActionPerformed
+
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBmr.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBmrActionPerformed
+    }// GEN-LAST:event_jCBmrActionPerformed
 
-    private void jCBTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBTodasActionPerformed
-        //marca todas as modalidades
-            jCBcr.setSelected(true);
-            jCBct.setSelected(true);
-            jCBdr.setSelected(true);
-            jCBdx.setSelected(true);
-            jCBmg.setSelected(true);
-            jCBmr.setSelected(true);
-            jCBnm.setSelected(true);
-            jCBot.setSelected(true);
-            jCBrf.setSelected(true);
-            jCBtr.setSelected(true);
-            jCBus.setSelected(true);
-            jCBdo.setSelected(true);
-            jCBod.setSelected(true);
-        
+    private void jCBTodasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBTodasActionPerformed
+        // marca todas as modalidades
+        jCBcr.setSelected(true);
+        jCBct.setSelected(true);
+        jCBdr.setSelected(true);
+        jCBdx.setSelected(true);
+        jCBmg.setSelected(true);
+        jCBmr.setSelected(true);
+        jCBnm.setSelected(true);
+        jCBot.setSelected(true);
+        jCBrf.setSelected(true);
+        jCBtr.setSelected(true);
+        jCBus.setSelected(true);
+        jCBdo.setSelected(true);
+        jCBod.setSelected(true);
+
         jCBTodas.setSelected(true);
-        
+
         preenchendoATabela();
 
-    }//GEN-LAST:event_jCBTodasActionPerformed
+    }// GEN-LAST:event_jCBTodasActionPerformed
 
-    private void jCBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBusActionPerformed
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBdo.setSelected(false);
-            jCBod.setSelected(false);
+    private void jCBusActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBusActionPerformed
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBdo.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBus.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBusActionPerformed
+    }// GEN-LAST:event_jCBusActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
         int colunaClicada = jTable1.columnAtPoint(evt.getPoint());
         int linhaClicada = jTable1.rowAtPoint(evt.getPoint());
         int linhaSelecionada = jTable1.getSelectedRow();
-        
-        if(MouseEvent.BUTTON3 == evt.getButton() && linhaClicada==linhaSelecionada){
-            if(colunaClicada == 6){
+
+        if (MouseEvent.BUTTON3 == evt.getButton() && linhaClicada == linhaSelecionada) {
+            if (colunaClicada == 6) {
                 abrirPopUpDoAtendimento(evt);
-            } else if(colunaClicada == 7){
-                
-            } else if(colunaClicada == 8){
+            } else if (colunaClicada == 7) {
+
+            } else if (colunaClicada == 8) {
                 abrirPopUpEntregue(evt);
-            }else{
+            } else {
                 abrirPopUpMenu(evt);
             }
         }
-        
+
         jTFMensagemParaUsuario.requestFocusInWindow();
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void jTFPesquisaPacienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPesquisaPacienteKeyReleased
+    private void jTFPesquisaPacienteKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTFPesquisaPacienteKeyReleased
         preenchendoATabela();
-    }//GEN-LAST:event_jTFPesquisaPacienteKeyReleased
+    }// GEN-LAST:event_jTFPesquisaPacienteKeyReleased
 
-    private void jTFPesquisaPacienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFPesquisaPacienteFocusGained
+    private void jTFPesquisaPacienteFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFPesquisaPacienteFocusGained
         if ("".equals(jTFPesquisaPaciente.getText())) {
-          jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
-          jTFMensagemParaUsuario.setText("Digite um Código ou um Paciente para Pesquisar");  
+            jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
+            jTFMensagemParaUsuario.setText("Digite um Código ou um Paciente para Pesquisar");
         }
-        
-    }//GEN-LAST:event_jTFPesquisaPacienteFocusGained
 
-    private void jTFPesquisaPacienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFPesquisaPacienteFocusLost
+    }// GEN-LAST:event_jTFPesquisaPacienteFocusGained
+
+    private void jTFPesquisaPacienteFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFPesquisaPacienteFocusLost
         if ("".equals(jTFPesquisaPaciente.getText())) {
             jTFMensagemParaUsuario.setText("");
         }
-    }//GEN-LAST:event_jTFPesquisaPacienteFocusLost
+    }// GEN-LAST:event_jTFPesquisaPacienteFocusLost
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
         preenchendoTabela(pegandoDataDoDataPicker());
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }// GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
         JIFLlegendasAtendimentos legenda = new JIFLlegendasAtendimentos();
         legenda.setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }// GEN-LAST:event_jButton6ActionPerformed
 
-    private void jCBdoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBdoActionPerformed
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBod.setSelected(false);
+    private void jCBdoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBdoActionPerformed
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBod.setSelected(false);
 
         jCBdo.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBdoActionPerformed
+    }// GEN-LAST:event_jCBdoActionPerformed
 
-    private void jCBodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBodActionPerformed
-            jCBTodas.setSelected(false);
-            jCBcr.setSelected(false);
-            jCBct.setSelected(false);
-            jCBdr.setSelected(false);
-            jCBdx.setSelected(false);
-            jCBmg.setSelected(false);
-            jCBnm.setSelected(false);
-            jCBot.setSelected(false);
-            jCBrf.setSelected(false);
-            jCBtr.setSelected(false);
-            jCBmr.setSelected(false);
-            jCBus.setSelected(false);
-            jCBdo.setSelected(false);
+    private void jCBodActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBodActionPerformed
+        jCBTodas.setSelected(false);
+        jCBcr.setSelected(false);
+        jCBct.setSelected(false);
+        jCBdr.setSelected(false);
+        jCBdx.setSelected(false);
+        jCBmg.setSelected(false);
+        jCBnm.setSelected(false);
+        jCBot.setSelected(false);
+        jCBrf.setSelected(false);
+        jCBtr.setSelected(false);
+        jCBmr.setSelected(false);
+        jCBus.setSelected(false);
+        jCBdo.setSelected(false);
 
         jCBod.setSelected(true);
         preenchendoATabela();
-    }//GEN-LAST:event_jCBodActionPerformed
+    }// GEN-LAST:event_jCBodActionPerformed
 
     /*
-    * metodo que abre um pop up com os dados do atendimento
-    */
-    public void abrirPopUpDoAtendimento(MouseEvent evt){
+     * metodo que abre um pop up com os dados do atendimento
+     */
+    public void abrirPopUpDoAtendimento(MouseEvent evt) {
         JPopupMenu popup = new JPopupMenu();
-        
-        //buscando as informações do atendimento
+
+        // buscando as informações do atendimento
         con = Conexao.fazConexao();
         int handle_atendimento = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con,handle_atendimento);
-        
-        String data_atendimento = null, hora_atendimento = null,nome_paciente = null,nome_medico_sol = null,nome_convenio = null, nascimento_paciente= null, telefone_paciente= null, celular_paciente = null;;
+        ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con, handle_atendimento);
+
+        String data_atendimento = null, hora_atendimento = null, nome_paciente = null, nome_medico_sol = null, nome_convenio =
+            null, nascimento_paciente = null, telefone_paciente = null, celular_paciente = null;
+        ;
         int duracao_atendimento, finalDoAtendimento = 0;
-        
+
         try {
-            while(resultSet.next()){
-                data_atendimento = MetodosUteis.converterDataParaMostrarAoUsuario(resultSet.getString("data_atendimento"));
+            while (resultSet.next()) {
+                data_atendimento =
+                    MetodosUteis.converterDataParaMostrarAoUsuario(resultSet.getString("data_atendimento"));
                 hora_atendimento = MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento"));
                 nome_paciente = resultSet.getString("nomepac");
                 nome_medico_sol = resultSet.getString("nomemed");
@@ -1239,330 +1268,358 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 nascimento_paciente = resultSet.getString("nascimento_paciente");
                 telefone_paciente = resultSet.getString("telefone_paciente");
                 celular_paciente = resultSet.getString("celular_paciente");
-                try { 
-                    finalDoAtendimento = Integer.valueOf(MetodosUteis.transformarHorarioEmMinutos(hora_atendimento)) + duracao_atendimento;
-                } catch(Exception e) { System.out.println(e); }
+                try {
+                    finalDoAtendimento =
+                        Integer.valueOf(MetodosUteis.transformarHorarioEmMinutos(hora_atendimento))
+                            + duracao_atendimento;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel preencher os dados deste Atendimento. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "Não foi possivel preencher os dados deste Atendimento. Procure o administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        //fechando a conexao
+        // fechando a conexao
         Conexao.fechaConexao(con);
-        
 
-        //adicionando as informações do agendaento
+        // adicionando as informações do agendaento
         popup.add("Data                               : " + data_atendimento).setEnabled(false);
         popup.add("").setEnabled(true);
-        
+
         popup.add("Horário                          : " + hora_atendimento).setEnabled(false);
         popup.add("").setEnabled(true);
-        
+
         popup.add("Paciente                       : " + nome_paciente).setEnabled(false);
         popup.add("").setEnabled(true);
-        
+
         popup.add("Nascimento                 : " + nascimento_paciente).setEnabled(false);
         popup.add("").setEnabled(true);
-        
+
         popup.add("Telefone                       : " + telefone_paciente).setEnabled(false);
         popup.add("").setEnabled(true);
-        
+
         popup.add("Celular                          : " + celular_paciente).setEnabled(false);
         popup.add("").setEnabled(true);
-        
+
         popup.add("Médico Solicitante       : " + nome_medico_sol).setEnabled(false);
         popup.add("").setEnabled(true);
-        
+
         popup.add("Convênio                      : " + nome_convenio).setEnabled(false);
         popup.add("").setEnabled(true);
-        
-        
-        //exames
-         con = Conexao.fazConexao();
-        ResultSet resultSetExames = ATENDIMENTO_EXAMES.getConsultarExamesDeUmAtendimento(con,handle_atendimento);
+
+        // exames
+        con = Conexao.fazConexao();
+        ResultSet resultSetExames = ATENDIMENTO_EXAMES.getConsultarExamesDeUmAtendimento(con, handle_atendimento);
         try {
             int j = 1;
-            while(resultSetExames.next()){
-                //adicionando o exame
-                popup.add("Exame "+j+"                       : " + resultSetExames.getString("nomeExame") + " - " + resultSetExames.getString("lado") + " - " + resultSetExames.getString("material")).setEnabled(false);
+            while (resultSetExames.next()) {
+                // adicionando o exame
+                popup.add(
+                    "Exame " + j + "                       : " + resultSetExames.getString("nomeExame") + " - "
+                        + resultSetExames.getString("lado") + " - " + resultSetExames.getString("material"))
+                    .setEnabled(false);
                 popup.add("").setEnabled(true);
                 j++;
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Não foi possivel preencher os Exames deste Atendimento. Procure o administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                "Não foi possivel preencher os Exames deste Atendimento. Procure o administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        //fechando a conexao
+        // fechando a conexao
         Conexao.fechaConexao(con);
-        
-        
-        
-        //adicionando o final do atendimento
-        popup.add("Final do Atendimento: " + MetodosUteis.transformarMinutosEmHorario(finalDoAtendimento)).setEnabled(false);
-        
-        
-        
-        
-        //mostra na tela
+
+        // adicionando o final do atendimento
+        popup.add("Final do Atendimento: " + MetodosUteis.transformarMinutosEmHorario(finalDoAtendimento)).setEnabled(
+            false);
+
+        // mostra na tela
         int x = evt.getX();
         int y = evt.getY();
         popup.show(jTable1, x, y);
-        
-        
+
     }
-    
+
     /*
      * metodo para abrir o popUp de menu do Atendimento
      */
-    ImageIcon iconeImprimir = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/imprimir.png"));
-    ImageIcon iconeImprimirFicha = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"));
-    ImageIcon iconeImprimirLaudo = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/imprimirLaudo.png"));
-    ImageIcon iconeImprimirBoletoDeRetirada = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/imprimirBoletoDeRetirada.png"));
-    ImageIcon iconeImrimirEtiqueta = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/imprimirEtiqueta.png"));
-    ImageIcon iconeImprimirCodigoDeBarras = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/Barcode.png"));
-    
-    private void abrirPopUpMenu(MouseEvent evt){
-        
-        
-        
-        //menu imprimir
+    ImageIcon iconeImprimir = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/imprimir.png"));
+    ImageIcon iconeImprimirFicha = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"));
+    ImageIcon iconeImprimirLaudo = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/imprimirLaudo.png"));
+    ImageIcon iconeImprimirBoletoDeRetirada = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/imprimirBoletoDeRetirada.png"));
+    ImageIcon iconeImrimirEtiqueta = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/imprimirEtiqueta.png"));
+    ImageIcon iconeImprimirCodigoDeBarras = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/Barcode.png"));
+
+    private void abrirPopUpMenu(MouseEvent evt) {
+
+        // menu imprimir
         JMenu imprimir = new JMenu("Imprimir");
         imprimir.setIcon(iconeImprimir);
 
-        //imprimir laudo
+        // imprimir laudo
         JMenuItem imprimirLaudo = new JMenuItem("Laudo", iconeImprimirLaudo);
         imprimirLaudo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //fazer o metodo
+                // fazer o metodo
             }
         });
-        
-        //imprimir etiqueta
+
+        // imprimir etiqueta
         JMenuItem imprimirEtiqueta = new JMenuItem("Etiqueta", iconeImrimirEtiqueta);
         imprimirEtiqueta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 imprimirEiqueta();
             }
         });
-        
-        //imprimir ficha
+
+        // imprimir ficha
         JMenuItem imprimirFicha = new JMenuItem("Ficha", iconeImprimirFicha);
         imprimirFicha.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 imprimirFicha();
             }
         });
-        
-        //imprimir ficha
+
+        // imprimir ficha
         JMenuItem imprimirBoletoDeRetirada = new JMenuItem("Boleto de Retirada", iconeImprimirBoletoDeRetirada);
         imprimirBoletoDeRetirada.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 imprimirBoletoDeRetirada();
             }
         });
-        
-        //imprimir codigo de barras
+
+        // imprimir codigo de barras
         JMenuItem imprimirCodigoDeBarras = new JMenuItem("Código de Barras", iconeImprimirCodigoDeBarras);
         imprimirCodigoDeBarras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 imprimirCodigoDeBarras();
             }
         });
-        
-        //adicionando os submenus no impimir
-        
-        //imprimir.add(imprimirLaudo);
+
+        // adicionando os submenus no impimir
+
+        // imprimir.add(imprimirLaudo);
         if (janelaPrincipal.modeloDeImpressao == 1) {
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirBoletoDeRetirada);
-            imprimir.add(imprimirEtiqueta); 
-        }else if(janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3){
+            imprimir.add(imprimirEtiqueta);
+        } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirEtiqueta);
             imprimir.add(imprimirCodigoDeBarras);
         }
-        
-        
-        
-        
-        
-        
-        //cria o menu popup e adiciona os itens
+
+        // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
         popup.add(imprimir);
 
-        //mostra na tela
-        //mostra na tela
+        // mostra na tela
+        // mostra na tela
         int x = evt.getX();
         int y = evt.getY();
         popup.show(jTable1, x, y);
     }
-    private void imprimirFicha(){
-        //pegando o handle_at
+
+    @SuppressWarnings("rawtypes")
+    private void imprimirFicha() {
+        // pegando o handle_at
         final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
         janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
-        SwingWorker worker = new SwingWorker(){
-                   @Override  
-                   protected Object doInBackground() throws Exception {
-                       boolean abriuFicha = false;
-                       
-                       //abrindo impressao de ficha de acordo com o modelo de impressao
-                       if (janelaPrincipal.modeloDeImpressao == 1) {
-                           ImprimirFichaDeAutorizacaoModelo1 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo1(handle_at);
-                           abriuFicha = imprimirFicha.salvarEImprimirFicha();
-                       } else if(janelaPrincipal.modeloDeImpressao == 2){
-                           ImprimirFichaEBoletoDeRetiradaModelo2 imprimirFicha = new ImprimirFichaEBoletoDeRetiradaModelo2(handle_at);
-                           abriuFicha = imprimirFicha.imprimir();
-                       } else if(janelaPrincipal.modeloDeImpressao == 3){
-                           if (USUARIOS.impressora_ficha.contains("http")) {
-                                String retorno = MetodosUteis.imprimir(USUARIOS.impressora_ficha, "3", String.valueOf(handle_at));
-                                if (retorno.equals("NOT") || retorno.length() > 5) {
-                                    JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                                }else{
-                                    abriuFicha = true;
-                                }
-                            }else{
-                               ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha = new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
-                               abriuFicha = imprimirFicha.imprimir();
-                           }
-                           
-                       }
-                       
-                       //se deu tudo certo na impressao entra nesse if
-                        if(abriuFicha){
-                           //aqui colocar o flag_imprimiu como "S" 
-                            con = Conexao.fazConexao();
-                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
-                            if(ATENDIMENTOS.getMarcarStatus1(con, handle_at)){
-                                //verifica no banco se tem algum numero ja no status um. se tiver retorna false e se nao tiver retorna true
-                                //se for true marcamos o status1 como 1 que imprimiu se nao soh imprimi e pronto
-                                ATENDIMENTOS.setUpdateStatus1(con, handle_at, "1");
-                            }
-                            Conexao.fechaConexao(con);
-                        }
-                       return null;   
-                   }  
-                   @Override  
-                   protected void done() { 
-                       preenchendoTabela(pegandoDataDoDataPicker());
-                        janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
-                   }  
-              };
-        
-        worker.execute(); 
-    }
-    private void imprimirBoletoDeRetirada(){
-        final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
-        SwingWorker worker = new SwingWorker(){
-                   @Override  
-                   protected Object doInBackground() throws Exception {
-                       ImprimirBoletoDeRetiradaModelo1 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo1(handle_at);
-                        boolean abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
-                        if(abriuBoletoDeRetirada){
-                           //aqui colocar o flag_imprimiu como "S" 
-                            con = Conexao.fazConexao();
-                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
-                            Conexao.fechaConexao(con);
-                        }
-                       return null;  
-                   }  
-                   @Override  
-                   protected void done() { 
-                        preenchendoTabela(pegandoDataDoDataPicker());
-                        janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
-                   }  
-              };
-        
-        worker.execute();
-    }
-    private void imprimirEiqueta(){
-        final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
-        SwingWorker worker = new SwingWorker(){
+        SwingWorker worker = new SwingWorker() {
             @Override
             protected Object doInBackground() throws Exception {
-                boolean abriuEtiqueta = false;
+                boolean abriuFicha = false;
+
+                // abrindo impressao de ficha de acordo com o modelo de impressao
                 if (janelaPrincipal.modeloDeImpressao == 1) {
-                    ImprimirEtiquetaEnvelopeModelo1 imprimirEtiqueta = new ImprimirEtiquetaEnvelopeModelo1(handle_at);
-                    abriuEtiqueta = imprimirEtiqueta.salvarEIMprimirEtiqueta();
-                } else if(janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3){
-                    if (USUARIOS.impressora_etiqueta_envelope.contains("http")) {
-                        
-                        String retorno = MetodosUteis.imprimir(USUARIOS.impressora_etiqueta_envelope, "1", String.valueOf(handle_at));
-                        
-                        if (retorno.equals("NOT") || retorno.length()>5) {
-                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        }else{
-                            abriuEtiqueta = true;
+                    ImprimirFichaDeAutorizacaoModelo1 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo1(handle_at);
+                    abriuFicha = imprimirFicha.salvarEImprimirFicha();
+                } else if (janelaPrincipal.modeloDeImpressao == 2) {
+                    ImprimirFichaEBoletoDeRetiradaModelo2 imprimirFicha =
+                        new ImprimirFichaEBoletoDeRetiradaModelo2(handle_at);
+                    abriuFicha = imprimirFicha.imprimir();
+                } else if (janelaPrincipal.modeloDeImpressao == 3) {
+                    if (USUARIOS.impressora_ficha.contains("http")) {
+                        String retorno =
+                            MetodosUteis.imprimir(USUARIOS.impressora_ficha, "3", String.valueOf(handle_at));
+                        if (retorno.equals("NOT") || retorno.length() > 5) {
+                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
+                                "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            abriuFicha = true;
                         }
-                        
-                        
-                    }else{
-                        ImprimirEtiquetaEnvelopeModelo2 imprimir = new ImprimirEtiquetaEnvelopeModelo2(handle_at);
-                        abriuEtiqueta = imprimir.imprimir();
+                    } else {
+                        ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha =
+                            new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
+                        abriuFicha = imprimirFicha.imprimir();
                     }
-                } 
-                
-                if(abriuEtiqueta){
-                    //aqui colocar o flag_imprimiu como "S" 
+
+                }
+
+                // se deu tudo certo na impressao entra nesse if
+                if (abriuFicha) {
+                    // aqui colocar o flag_imprimiu como "S"
+                    con = Conexao.fazConexao();
+                    ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
+                    if (ATENDIMENTOS.getMarcarStatus1(con, handle_at)) {
+                        // verifica no banco se tem algum numero ja no status um. se tiver retorna false e se nao tiver
+                        // retorna true
+                        // se for true marcamos o status1 como 1 que imprimiu se nao soh imprimi e pronto
+                        ATENDIMENTOS.setUpdateStatus1(con, handle_at, "1");
+                    }
+                    Conexao.fechaConexao(con);
+                }
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                preenchendoTabela(pegandoDataDoDataPicker());
+                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
+            }
+        };
+
+        worker.execute();
+    }
+
+    @SuppressWarnings("rawtypes")
+    private void imprimirBoletoDeRetirada() {
+        final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                ImprimirBoletoDeRetiradaModelo1 imprimirBoletoDeRetirada =
+                    new ImprimirBoletoDeRetiradaModelo1(handle_at);
+                boolean abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+                if (abriuBoletoDeRetirada) {
+                    // aqui colocar o flag_imprimiu como "S"
                     con = Conexao.fazConexao();
                     ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
                     Conexao.fechaConexao(con);
                 }
                 return null;
             }
+
+            @Override
+            protected void done() {
+                preenchendoTabela(pegandoDataDoDataPicker());
+                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
+            }
+        };
+
+        worker.execute();
+    }
+
+    @SuppressWarnings("rawtypes")
+    private void imprimirEiqueta() {
+        final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                boolean abriuEtiqueta = false;
+                if (janelaPrincipal.modeloDeImpressao == 1) {
+                    ImprimirEtiquetaEnvelopeModelo1 imprimirEtiqueta = new ImprimirEtiquetaEnvelopeModelo1(handle_at);
+                    abriuEtiqueta = imprimirEtiqueta.salvarEIMprimirEtiqueta();
+                } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
+                    if (USUARIOS.impressora_etiqueta_envelope.contains("http")) {
+
+                        String retorno =
+                            MetodosUteis
+                                .imprimir(USUARIOS.impressora_etiqueta_envelope, "1", String.valueOf(handle_at));
+
+                        if (retorno.equals("NOT") || retorno.length() > 5) {
+                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
+                                "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            abriuEtiqueta = true;
+                        }
+
+                    } else {
+                        ImprimirEtiquetaEnvelopeModelo2 imprimir = new ImprimirEtiquetaEnvelopeModelo2(handle_at);
+                        abriuEtiqueta = imprimir.imprimir();
+                    }
+                }
+
+                if (abriuEtiqueta) {
+                    // aqui colocar o flag_imprimiu como "S"
+                    con = Conexao.fazConexao();
+                    ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
+                    Conexao.fechaConexao(con);
+                }
+                return null;
+            }
+
             @Override
             protected void done() {
                 janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
             }
         };
-        
+
         worker.execute();
     }
-    
-    public void imprimirCodigoDeBarras(){
+
+    @SuppressWarnings("rawtypes")
+    public void imprimirCodigoDeBarras() {
         final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
         janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
-        SwingWorker worker = new SwingWorker(){
-                   @Override  
-                   protected Object doInBackground() throws Exception {
-                       boolean abriuEtiqueta = false;
-                       
-                       if (USUARIOS.impressora_codigo_de_barras.contains("http")) {
-                           String retorno = MetodosUteis.imprimir(USUARIOS.impressora_codigo_de_barras, "0", String.valueOf(handle_at));
-                           if (retorno.equals("NOT") || retorno.length()>5) {
-                               JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                           }else{
-                               abriuEtiqueta = true;
-                           }
-                       }else{
-                           ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at,USUARIOS.impressora_codigo_de_barras);
-                           abriuEtiqueta = imprimir.writeFile();
-                       }
-                       
-                       if(abriuEtiqueta){
-                           //aqui colocar o flag_imprimiu como "S" 
-                            con = Conexao.fazConexao();
-                            ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
-                            Conexao.fechaConexao(con);
-                        }
-                       return null;  
-                   }  
-                   @Override  
-                   protected void done() { 
-                        janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
-                   }  
-              };
-        
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                boolean abriuEtiqueta = false;
+
+                if (USUARIOS.impressora_codigo_de_barras.contains("http")) {
+                    String retorno =
+                        MetodosUteis.imprimir(USUARIOS.impressora_codigo_de_barras, "0", String.valueOf(handle_at));
+                    if (retorno.equals("NOT") || retorno.length() > 5) {
+                        JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
+                            "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        abriuEtiqueta = true;
+                    }
+                } else {
+                    ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir =
+                        new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at, USUARIOS.impressora_codigo_de_barras);
+                    abriuEtiqueta = imprimir.writeFile();
+                }
+
+                if (abriuEtiqueta) {
+                    // aqui colocar o flag_imprimiu como "S"
+                    con = Conexao.fazConexao();
+                    ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
+                    Conexao.fechaConexao(con);
+                }
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
+            }
+        };
+
         worker.execute();
     }
-    
-    
-    ImageIcon iconExameEntregue = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/ExameEntregue.png"));
-    ImageIcon iconeLaudoEntregue = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/LaudoEntregue.png"));
-    ImageIcon iconeLaudoEExameEntregue = new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/FichasDeAtendimentos/LaudoEExameEntregue.png"));
-    private void abrirPopUpEntregue(MouseEvent evt){
-        
-        //Paciente recebeu o exame
+
+    ImageIcon iconExameEntregue = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/ExameEntregue.png"));
+    ImageIcon iconeLaudoEntregue = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/LaudoEntregue.png"));
+    ImageIcon iconeLaudoEExameEntregue = new javax.swing.ImageIcon(getClass().getResource(
+        "/menu/atendimentos/FichasDeAtendimentos/LaudoEExameEntregue.png"));
+
+    private void abrirPopUpEntregue(MouseEvent evt) {
+
+        // Paciente recebeu o exame
         JMenuItem exameEntregue = new JMenuItem("Exame Entregue ao Paciente", iconExameEntregue);
         exameEntregue.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1570,8 +1627,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 jTable1.setValueAt(iconExameEntregue, jTable1.getSelectedRow(), 8);
             }
         });
-        
-        //Paciente recebeu o laudo
+
+        // Paciente recebeu o laudo
         JMenuItem laudoEntregue = new JMenuItem("Laudo Entregue ao Paciente", iconeLaudoEntregue);
         laudoEntregue.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1579,8 +1636,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 jTable1.setValueAt(iconeLaudoEntregue, jTable1.getSelectedRow(), 8);
             }
         });
-        
-        //Paciente recebeu o exame e laudo
+
+        // Paciente recebeu o exame e laudo
         JMenuItem laudoEExameEntregue = new JMenuItem("Exame/Laudo Entregue ao Paciente", iconeLaudoEExameEntregue);
         laudoEExameEntregue.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1588,41 +1645,43 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 jTable1.setValueAt(iconeLaudoEExameEntregue, jTable1.getSelectedRow(), 8);
             }
         });
-        
-        
-        //cria o menu popup e adiciona os itens
+
+        // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
         popup.add(exameEntregue);
         popup.add(laudoEntregue);
         popup.addSeparator();
         popup.add(laudoEExameEntregue);
-        
-        
-        //mostra na tela
+
+        // mostra na tela
         int x = evt.getX();
         int y = evt.getY();
         popup.show(jTable1, x, y);
     }
-    //parametro 1 marca entregou o exame, parametro dois marca que entregou laudo, parametro 3 entregou os dois
-    private void entregaDeExame(final int parametro){
+
+    // parametro 1 marca entregou o exame, parametro dois marca que entregou laudo, parametro 3 entregou os dois
+    @SuppressWarnings("rawtypes")
+    private void entregaDeExame(final int parametro) {
         final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        SwingWorker worker = new SwingWorker(){
-                   @Override  
-                   protected Object doInBackground() throws Exception {
-                           //aqui colocar o flag correspondentes como "S" 
-                            con = Conexao.fazConexao();
-                            ATENDIMENTOS.setEntregaDeExame(con, parametro, handle_at);
-                            Conexao.fechaConexao(con);
-                       return null;  
-                   }  
-                   @Override  
-                   protected void done() { 
-                        
-                   }  
-              };
-        
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                // aqui colocar o flag correspondentes como "S"
+                con = Conexao.fazConexao();
+                ATENDIMENTOS.setEntregaDeExame(con, parametro, handle_at);
+                Conexao.fechaConexao(con);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+
+            }
+        };
+
         worker.execute();
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
