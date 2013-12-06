@@ -393,7 +393,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/cancelar.png"))); // NOI18N
         jBCancelar.setText("Cancelar");
         jBCancelar.setEnabled(false);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -407,7 +407,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBEditarCoeficientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBEditarCoeficientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBEditarCoeficientes.setText("Editar Coef.");
         jBEditarCoeficientes.setEnabled(false);
         jBEditarCoeficientes.addActionListener(new java.awt.event.ActionListener() {
@@ -421,7 +421,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBRemoverExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBRemoverExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBRemoverExame.setText("Remover Exame");
         jBRemoverExame.setEnabled(false);
         jBRemoverExame.addActionListener(new java.awt.event.ActionListener() {
@@ -435,7 +435,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBAdicionarExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo.png"))); // NOI18N
+        jBAdicionarExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/novo.png"))); // NOI18N
         jBAdicionarExame.setText("Adicionar Exame");
         jBAdicionarExame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -521,7 +521,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         jBRetornar.setBackground(new java.awt.Color(113, 144, 224));
-        jBRetornar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBRetornar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBRetornar.setText("Voltar");
         jBRetornar.setAlignmentY(0.0F);
         jBRetornar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -563,7 +563,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        jBAdicionarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo.png"))); // NOI18N
+        jBAdicionarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/novo.png"))); // NOI18N
         jBAdicionarMaterial.setText("Adicionar Material");
         jBAdicionarMaterial.setEnabled(false);
         jBAdicionarMaterial.addActionListener(new java.awt.event.ActionListener() {
@@ -577,7 +577,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBRemoverMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBRemoverMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBRemoverMaterial.setText("Remover Material");
         jBRemoverMaterial.setEnabled(false);
         jBRemoverMaterial.addActionListener(new java.awt.event.ActionListener() {
@@ -631,7 +631,7 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calcular Valor do Exame",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBCalcularValorDoExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/calcular.png"))); // NOI18N
+        jBCalcularValorDoExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/calcular.png"))); // NOI18N
         jBCalcularValorDoExame.setText("Calcular");
         jBCalcularValorDoExame.setEnabled(false);
         jBCalcularValorDoExame.addActionListener(new java.awt.event.ActionListener() {

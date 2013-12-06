@@ -1413,7 +1413,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-        jBNovoRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo.png"))); // NOI18N
+        jBNovoRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/novo.png"))); // NOI18N
         jBNovoRegistro.setText("Novo");
         jBNovoRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBNovoRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -1432,7 +1432,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTFMensagemParaUsuario.setFocusable(false);
 
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/cancelar.png"))); // NOI18N
         jBCancelar.setText("Cancelar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -1446,7 +1446,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -1465,7 +1465,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBEditar.setText("Atualizar");
         jBEditar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -1484,7 +1484,7 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBDeletar.setText("Apagar");
         jBDeletar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBDeletar.addActionListener(new java.awt.event.ActionListener() {

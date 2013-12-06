@@ -398,7 +398,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         jLDataValor.setText("Data a Valer Valor");
 
         jBAdicionarValor
-            .setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaPraDireita.png"))); // NOI18N
+            .setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaPraDireita.png"))); // NOI18N
         jBAdicionarValor.setText("Adicionar");
         jBAdicionarValor.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBAdicionarValor.addActionListener(new java.awt.event.ActionListener() {
@@ -412,7 +412,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
             }
         });
 
-        jBRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBRemover.setText("Remover");
         jBRemover.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBRemover.addActionListener(new java.awt.event.ActionListener() {
@@ -531,7 +531,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addContainerGap(50, Short.MAX_VALUE)));
 
-        jBApagarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBApagarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBApagarRegistro.setText("Apagar");
         jBApagarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBApagarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -545,7 +545,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvarRegistro.setText("Salvar");
         jBSalvarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -565,7 +565,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         });
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -617,7 +617,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addContainerGap()));
 
-        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBEditar.setText("Editar");
         jBEditar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBEditar.addActionListener(new java.awt.event.ActionListener() {

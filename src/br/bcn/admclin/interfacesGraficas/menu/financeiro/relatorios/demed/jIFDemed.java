@@ -75,7 +75,7 @@ public class jIFDemed extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Selecione o ano");
 
-        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemBotaoOk.png"))); // NOI18N
+        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoOk.png"))); // NOI18N
         jBGerarFatura.setText("Gerar Documento DMED");
         jBGerarFatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

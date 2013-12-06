@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
+package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -346,7 +346,7 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
 
         jCBConvenios.setEnabled(false);
 
-        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemBotaoOk.png"))); // NOI18N
+        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoOk.png"))); // NOI18N
         jBGerarFatura.setText("Preencher Lista");
         jBGerarFatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

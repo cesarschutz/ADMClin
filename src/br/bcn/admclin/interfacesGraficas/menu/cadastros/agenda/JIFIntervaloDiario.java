@@ -476,7 +476,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTFMensagemParaUsuario.setFocusable(false);
 
-        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -495,7 +495,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
             }
         });
 
-        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBEditar.setText("Editar");
         jBEditar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -514,7 +514,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
             }
         });
 
-        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBDeletar.setText("Apagar");
         jBDeletar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -529,7 +529,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
         });
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -555,7 +555,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agendas que utilizam o Intervalo",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaBaixo.png"))); // NOI18N
+        jBIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaBaixo.png"))); // NOI18N
         jBIncluir.setText("Incluir");
         jBIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBIncluir.addActionListener(new java.awt.event.ActionListener() {

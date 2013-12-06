@@ -11,6 +11,7 @@ import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoAgenda;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
 import static br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1;
 
 import java.awt.Dimension;
@@ -38,8 +39,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-
-import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
 
 /**
  * 
@@ -234,15 +233,15 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
      * coloca os icones dos atendimentos de acordo com o status
      */
     Icon iconeAtendimento = new ImageIcon(getToolkit().createImage(
-        getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimento.png")));
+        getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png")));
     Icon iconeImprimuFicha = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"));
+        "/br/bcn/admclin/imagens/imprimirFicha.png"));
     Icon iconeLaudoDigitado = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/laudoDigitado.png"));
+        "/br/bcn/admclin/imagens/laudoDigitado.png"));
     Icon iconeLaudoAssinado = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/laudoAssinado.png"));
+        "/br/bcn/admclin/imagens/laudoAssinado.png"));
     Icon iconeJaFezOExame = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/jaFezOExame.png"));
+        "/br/bcn/admclin/imagens/jaFezOExame.png"));
 
     private void colocarIconesNoStatusA() throws Exception {
         // icone atendimento
@@ -298,7 +297,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Código / Paciente");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemPesquisar.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemPesquisar.png"))); // NOI18N
 
         jTFPesquisaPaciente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -340,7 +339,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setFocusable(false);
 
         jBPesquisaPaciente2.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/Lupa.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaPaciente2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaPaciente2ActionPerformed(evt);
@@ -442,9 +441,9 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
     }// GEN-LAST:event_jBPesquisaPaciente2ActionPerformed
 
     ImageIcon iconeVisualizarAtendimento = new javax.swing.ImageIcon(getClass().getResource(
-        "/Imagens/imagemPesquisarInvertida.png"));
+        "/br/bcn/admclin/imagens/imagemPesquisarInvertida.png"));
     ImageIcon iconeEditarAtendimento = new javax.swing.ImageIcon(getClass().getResource(
-        "/janelaPrincipal/imagensMenu/menuAtendimentoAtendimento.png"));
+        "/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"));
 
     private void abrirPopUp(MouseEvent evt) {
 

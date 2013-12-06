@@ -158,7 +158,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/imagemLogin.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemLogin.png"))); // NOI18N
 
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setText("Usuário ou Senha inválido");

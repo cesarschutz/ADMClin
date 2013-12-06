@@ -265,7 +265,7 @@ public class jIFFinanceiroAtendimentos extends javax.swing.JInternalFrame {
 
         jCBRelatorioPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Classes de Exames", "Médicos" }));
 
-        jBGerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemBotaoOk.png"))); // NOI18N
+        jBGerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoOk.png"))); // NOI18N
         jBGerarRelatorio.setText("Gerar Relatório");
         jBGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

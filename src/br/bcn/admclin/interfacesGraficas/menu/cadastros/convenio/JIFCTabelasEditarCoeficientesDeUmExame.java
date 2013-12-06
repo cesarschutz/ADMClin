@@ -153,7 +153,7 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
 
         setTitle("Editar Dados Do Exame");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jButton1.setText("Salvar");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +168,7 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
         });
 
         jButton2.setBackground(new java.awt.Color(113, 144, 224));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jButton2.setText("Voltar");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButton2.addActionListener(new java.awt.event.ActionListener() {

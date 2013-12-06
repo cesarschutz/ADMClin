@@ -1034,7 +1034,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTFMensagemParaUsuario.setFocusable(false);
 
-        jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBAtualizarRegistro.setText("Atualizar");
         jBAtualizarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBAtualizarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -1053,7 +1053,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jBApagarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBApagarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBApagarRegistro.setText("Apagar");
         jBApagarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBApagarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -1067,7 +1067,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvarRegistro.setText("Salvar");
         jBSalvarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -1087,7 +1087,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
         });
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.setPreferredSize(new java.awt.Dimension(89, 39));

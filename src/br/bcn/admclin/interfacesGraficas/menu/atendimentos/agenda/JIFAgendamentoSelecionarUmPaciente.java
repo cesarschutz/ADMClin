@@ -195,7 +195,7 @@ public class JIFAgendamentoSelecionarUmPaciente extends javax.swing.JInternalFra
         });
 
         jBPesquisaPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/Lupa.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaPacienteActionPerformed(evt);
@@ -249,7 +249,7 @@ public class JIFAgendamentoSelecionarUmPaciente extends javax.swing.JInternalFra
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318,
                         javax.swing.GroupLayout.PREFERRED_SIZE).addGap(91, 91, 91)));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/cancelar.png"))); // NOI18N
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

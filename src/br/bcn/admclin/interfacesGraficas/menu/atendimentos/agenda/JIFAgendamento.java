@@ -726,16 +726,16 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         // atualizando a janela de uma agenda
         Icon iconeAgendado =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAgendar.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAgendar.png")));
         Icon iconeAgendadoExt =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAgendarExtendido.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAgendarExtendido.png")));
         Icon iconeAtendimento =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimento.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png")));
         Icon iconeAtendmentoExt =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimentoExtendido.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentoExtendido.png")));
         JIFUmaAgenda.listaAgendamentosDaAgenda.clear();
         con = Conexao.fazConexao();
         JIFUmaAgenda.preenchendoOsAtendimentosDestaAgenda(JIFUmaAgenda.jTable2, iconeAtendimento, iconeAtendmentoExt,
@@ -1066,7 +1066,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -1080,7 +1080,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -1099,7 +1099,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
             }
         });
 
-        jBDeletarAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBDeletarAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBDeletarAgendamento.setText("Apagar");
         jBDeletarAgendamento.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBDeletarAgendamento.addActionListener(new java.awt.event.ActionListener() {
@@ -1230,7 +1230,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
                     .addContainerGap()));
 
-        jBAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBAtualizar.setText("Atualizar");
         jBAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -1258,7 +1258,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBPesquisaPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/Lupa.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaPacienteActionPerformed(evt);
@@ -1471,7 +1471,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
             }
         });
 
-        jBIncluirExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaBaixo.png"))); // NOI18N
+        jBIncluirExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaBaixo.png"))); // NOI18N
         jBIncluirExame.setText("Incluir Exame");
         jBIncluirExame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1577,7 +1577,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addContainerGap()));
 
-        jbImportarAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/paste.png"))); // NOI18N
+        jbImportarAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/paste.png"))); // NOI18N
         jbImportarAgendamento.setText("Colar Agendamento");
         jbImportarAgendamento.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jbImportarAgendamento.addActionListener(new java.awt.event.ActionListener() {
@@ -1596,7 +1596,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
             }
         });
 
-        jBArmazenarAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/copy.png"))); // NOI18N
+        jBArmazenarAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/copy.png"))); // NOI18N
         jBArmazenarAgendamento.setText("Copiar Agendamento");
         jBArmazenarAgendamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1911,20 +1911,20 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                 // abrindo o popUp
                 ImageIcon iconeCancelarLado =
                     new javax.swing.ImageIcon(getClass().getResource(
-                        "/menu/atendimentos/agenda/imagens/popUpCancelar.png"));
+                        "/br/bcn/admclin/imagens/popUpCancelar.png"));
                 ImageIcon iconDireito =
                     new javax.swing.ImageIcon(getClass().getResource(
-                        "/menu/atendimentos/agenda/imagens/popUpDireito.png"));
+                        "/br/bcn/admclin/imagens/popUpDireito.png"));
                 ImageIcon iconEsquerdo =
                     new javax.swing.ImageIcon(getClass().getResource(
-                        "/menu/atendimentos/agenda/imagens/popUpEsquerdo.png"));
+                        "/br/bcn/admclin/imagens/popUpEsquerdo.png"));
                 ImageIcon iconCancelarContraste =
                     new javax.swing.ImageIcon(getClass().getResource(
-                        "/menu/atendimentos/agenda/imagens/popUpCancelarContraste.png"));
+                        "/br/bcn/admclin/imagens/popUpCancelarContraste.png"));
                 ImageIcon iconComContraste =
-                    new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/agenda/imagens/contrast.png"));
+                    new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/contrast.png"));
                 ImageIcon iconComMaterial =
-                    new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/agenda/imagens/materiais.png"));
+                    new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/materiais.png"));
 
                 if (jTable1.getSelectedColumn() == 4) {
                     // cria o primeiro item do menu e atribui uma ação pra ele

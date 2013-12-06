@@ -1,4 +1,4 @@
-package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
+package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio;
 
 import static br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameFinanceiroRelatorioFaturarConvenios;
 
@@ -39,11 +39,11 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
     public ArrayList<atendimentoModel> listaDeAtendimentos = new ArrayList<atendimentoModel>();
 
     ImageIcon iconeSim = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/financeiro/relatorios/faturarConvenio/faturarConvenio/sim.png"));
+        "/br/bcn/admclin/imagens/sim.png"));
     ImageIcon iconeSimPretoBranco = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/financeiro/relatorios/faturarConvenio/faturarConvenio/simPretoBranco.png"));
+        "/br/bcn/admclin/imagens/simPretoBranco.png"));
     ImageIcon iconeNao = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/financeiro/relatorios/faturarConvenio/faturarConvenio/nao.png"));
+        "/br/bcn/admclin/imagens/nao.png"));
 
     /*
      * metodo construtor por convenio
@@ -333,7 +333,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemBotaoOk.png"))); // NOI18N
+        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoOk.png"))); // NOI18N
         jBGerarFatura.setText("Gerar Fatura");
         jBGerarFatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

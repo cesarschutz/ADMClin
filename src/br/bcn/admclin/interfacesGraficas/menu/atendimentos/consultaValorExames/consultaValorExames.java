@@ -280,7 +280,7 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jBCalcularValorDoExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/calcular.png"))); // NOI18N
+        jBCalcularValorDoExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/calcular.png"))); // NOI18N
         jBCalcularValorDoExame.setText("Calcular");
         jBCalcularValorDoExame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,7 +448,7 @@ public class consultaValorExames extends javax.swing.JInternalFrame {
                             .addComponent(jSeparator2)).addContainerGap()));
 
         jBRetornar.setBackground(new java.awt.Color(113, 144, 224));
-        jBRetornar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBRetornar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBRetornar.setText("Voltar");
         jBRetornar.setAlignmentY(0.0F);
         jBRetornar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

@@ -185,7 +185,7 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
                             .addComponent(jCBGeraArquivoTexto, javax.swing.GroupLayout.PREFERRED_SIZE,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))));
 
-        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBDeletar.setText("Apagar");
         jBDeletar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -200,7 +200,7 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         });
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +214,7 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBEditar.setText("Editar");
         jBEditar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +228,7 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvar.addActionListener(new java.awt.event.ActionListener() {

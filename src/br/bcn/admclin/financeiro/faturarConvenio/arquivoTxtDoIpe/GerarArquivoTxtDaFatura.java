@@ -10,6 +10,7 @@ import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.CONVENIO;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.atendimentoModel;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
-import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.atendimentoModel;
 
 /**
  * 

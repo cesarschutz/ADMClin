@@ -148,7 +148,7 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemPesquisar.png"))); // NOI18N
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemPesquisar.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -188,7 +188,7 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
-        jBNovoRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo.png"))); // NOI18N
+        jBNovoRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/novo.png"))); // NOI18N
         jBNovoRegistro.setText("Cadastrar nova Classe de Exame");
         jBNovoRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

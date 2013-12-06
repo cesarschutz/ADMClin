@@ -33,7 +33,7 @@
  * caso um dos dois seja entregue ele marcao icone correspondente!
  * 
  */
-package menu.atendimentos.FichasDeAtendimentos;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos;
 
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
@@ -545,15 +545,15 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
      * coloca os icones dos atendimentos de acordo com o status
      */
     Icon iconeAtendimento = new ImageIcon(getToolkit().createImage(
-        getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimento.png")));
+        getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png")));
     Icon iconeImprimuFicha = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"));
+        "/br/bcn/admclin/imagens/imprimirFicha.png"));
     Icon iconeLaudoDigitado = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/laudoDigitado.png"));
+        "/br/bcn/admclin/imagens/laudoDigitado.png"));
     Icon iconeLaudoAssinado = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/laudoAssinado.png"));
+        "/br/bcn/admclin/imagens/laudoAssinado.png"));
     Icon iconeJaFezOExame = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/jaFezOExame.png"));
+        "/br/bcn/admclin/imagens/jaFezOExame.png"));
 
     private void colocarIconesNoStatusA() throws Exception {
         // icone atendimento
@@ -788,16 +788,16 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Código / Paciente");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemPesquisar.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemPesquisar.png"))); // NOI18N
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizarTabela.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizarTabela.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/legenda.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/legenda.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -1346,17 +1346,17 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
      * metodo para abrir o popUp de menu do Atendimento
      */
     ImageIcon iconeImprimir = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/imprimir.png"));
+        "/br/bcn/admclin/imagens/imprimir.png"));
     ImageIcon iconeImprimirFicha = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"));
+        "/br/bcn/admclin/imagens/imprimirFicha.png"));
     ImageIcon iconeImprimirLaudo = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/imprimirLaudo.png"));
+        "/br/bcn/admclin/imagens/imprimirLaudo.png"));
     ImageIcon iconeImprimirBoletoDeRetirada = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/imprimirBoletoDeRetirada.png"));
+        "/br/bcn/admclin/imagens/imprimirBoletoDeRetirada.png"));
     ImageIcon iconeImrimirEtiqueta = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/imprimirEtiqueta.png"));
+        "/br/bcn/admclin/imagens/imprimirEtiqueta.png"));
     ImageIcon iconeImprimirCodigoDeBarras = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/Barcode.png"));
+        "/br/bcn/admclin/imagens/Barcode.png"));
 
     private void abrirPopUpMenu(MouseEvent evt) {
 
@@ -1611,11 +1611,11 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     }
 
     ImageIcon iconExameEntregue = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/ExameEntregue.png"));
+        "/br/bcn/admclin/imagens/ExameEntregue.png"));
     ImageIcon iconeLaudoEntregue = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/LaudoEntregue.png"));
+        "/br/bcn/admclin/imagens/LaudoEntregue.png"));
     ImageIcon iconeLaudoEExameEntregue = new javax.swing.ImageIcon(getClass().getResource(
-        "/menu/atendimentos/FichasDeAtendimentos/LaudoEExameEntregue.png"));
+        "/br/bcn/admclin/imagens/LaudoEExameEntregue.png"));
 
     private void abrirPopUpEntregue(MouseEvent evt) {
 

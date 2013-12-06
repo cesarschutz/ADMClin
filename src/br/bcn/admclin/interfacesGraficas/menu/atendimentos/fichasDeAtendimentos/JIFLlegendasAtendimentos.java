@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.atendimentos.FichasDeAtendimentos;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class JIFLlegendasAtendimentos extends javax.swing.JFrame {
      */
     public JIFLlegendasAtendimentos() {
         initComponents();
-        setIconImage(getToolkit().createImage(getClass().getResource("/Imagens/imagemIconePrograma.png")));
+        setIconImage(getToolkit().createImage(getClass().getResource("/br/bcn/admclin/imagens/imagemIconePrograma.png")));
     }
 
     /**
@@ -54,7 +54,7 @@ public class JIFLlegendasAtendimentos extends javax.swing.JFrame {
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBLegAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/menuAtendimento.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/menuAtendimento.png"))); // NOI18N
         jBLegAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLegAtendimentoActionPerformed(evt);
@@ -66,22 +66,22 @@ public class JIFLlegendasAtendimentos extends javax.swing.JFrame {
         jLLegAtendimento1.setText("Paciente em Atendimento");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/FichasDeAtendimentos/imprimirFicha.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/imprimirFicha.png"))); // NOI18N
 
         jLLegAtendimento2.setText("Exame Realizado");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/FichasDeAtendimentos/jaFezOExame.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/jaFezOExame.png"))); // NOI18N
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/FichasDeAtendimentos/laudoDigitado.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/laudoDigitado.png"))); // NOI18N
 
         jLLegAtendimento3.setText("Laudo Digitado");
 
         jLLegAtendimento4.setText("Laudo Assinado");
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/FichasDeAtendimentos/laudoAssinado.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/laudoAssinado.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,7 +176,7 @@ public class JIFLlegendasAtendimentos extends javax.swing.JFrame {
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBLegAtendimento1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/FichasDeAtendimentos/ExameEntregue.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/ExameEntregue.png"))); // NOI18N
         jBLegAtendimento1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLegAtendimento1ActionPerformed(evt);
@@ -188,12 +188,12 @@ public class JIFLlegendasAtendimentos extends javax.swing.JFrame {
         jLLegAtendimento6.setText("Laudo Entregue ao Paciente");
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/FichasDeAtendimentos/LaudoEntregue.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/LaudoEntregue.png"))); // NOI18N
 
         jLLegAtendimento7.setText("Exame/Laudo Entregue ao Paciente");
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/FichasDeAtendimentos/LaudoEExameEntregue.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/LaudoEExameEntregue.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

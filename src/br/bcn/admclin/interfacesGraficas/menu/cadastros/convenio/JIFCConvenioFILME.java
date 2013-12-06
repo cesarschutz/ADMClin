@@ -210,7 +210,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
         setTitle("Valores CH");
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -250,7 +250,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane1.setViewportView(jTable1);
 
-        jBAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaPraDireita.png"))); // NOI18N
+        jBAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaPraDireita.png"))); // NOI18N
         jBAdicionar.setText("Adicionar");
         jBAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +269,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
             }
         });
 
-        jBRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBRemover.setText("Remover");
         jBRemover.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBRemover.addActionListener(new java.awt.event.ActionListener() {

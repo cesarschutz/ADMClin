@@ -233,7 +233,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
         });
 
         jBPesquisaMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/Lupa.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaMedicoActionPerformed(evt);
@@ -288,7 +288,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
                         javax.swing.GroupLayout.PREFERRED_SIZE).addGap(91, 91, 91)));
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setPreferredSize(new java.awt.Dimension(89, 39));
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +307,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
         jTFMensagemParaUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTFMensagemParaUsuario.setFocusable(false);
 
-        jBNovoMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo.png"))); // NOI18N
+        jBNovoMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/novo.png"))); // NOI18N
         jBNovoMedico.setText("Novo Médico");
         jBNovoMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +320,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
             }
         });
 
-        jBEditarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBEditarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBEditarMedico.setText("Editar Médico");
         jBEditarMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,7 +333,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
             }
         });
 
-        jBSelecionarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemBotaoOk.png"))); // NOI18N
+        jBSelecionarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoOk.png"))); // NOI18N
         jBSelecionarMedico.setText("Selecionar Médico");
         jBSelecionarMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

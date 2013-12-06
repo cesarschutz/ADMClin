@@ -179,7 +179,7 @@ public class JIFCTabelasAdicionarUmMaterialAUmExame extends javax.swing.JInterna
         setTitle("Adicionar Material");
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +193,7 @@ public class JIFCTabelasAdicionarUmMaterialAUmExame extends javax.swing.JInterna
             }
         });
 
-        jBOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBOk.setText("Salvar");
         jBOk.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBOk.addActionListener(new java.awt.event.ActionListener() {

@@ -218,7 +218,7 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
         jLabel4.setText("Valor Paciente");
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +232,7 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
             }
         });
 
-        jBOkExame3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBOkExame3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBOkExame3.setText("Salvar");
         jBOkExame3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBOkExame3.addActionListener(new java.awt.event.ActionListener() {

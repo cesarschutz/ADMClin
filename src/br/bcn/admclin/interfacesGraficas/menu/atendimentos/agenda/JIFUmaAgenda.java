@@ -76,13 +76,13 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = 1L;
     public Icon iconeAgendado = new ImageIcon(getClass().getResource(
-        "/menu/atendimentos/agenda/imagens/menuAgendar.png"));
+        "/br/bcn/admclin/imagens/menuAgendar.png"));
     public Icon iconeAgendadoExt = new ImageIcon(getClass().getResource(
-        "/menu/atendimentos/agenda/imagens/menuAgendarExtendido.png"));
+        "/br/bcn/admclin/imagens/menuAgendarExtendido.png"));
     public Icon iconeAtendimento = new ImageIcon(getClass().getResource(
-        "/menu/atendimentos/agenda/imagens/menuAtendimento.png"));
+        "/br/bcn/admclin/imagens/menuAtendimento.png"));
     public Icon iconeAtendmentoExt = new ImageIcon(getClass().getResource(
-        "/menu/atendimentos/agenda/imagens/menuAtendimentoExtendido.png"));
+        "/br/bcn/admclin/imagens/menuAtendimentoExtendido.png"));
 
     public static int handle_agenda;
     public static Connection con = null;
@@ -1943,7 +1943,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         });
         jScrollPane6.setViewportView(jTable6);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizarTabela.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizarTabela.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -2473,9 +2473,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
         // icones do popup
         ImageIcon iconeAgendar =
-            new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/agenda/imagens/menuAgendar.png"));
+            new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendar.png"));
         ImageIcon iconeRegistrarEntrada =
-            new javax.swing.ImageIcon(getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimento.png"));
+            new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png"));
 
         if (evt.getButton() == MouseEvent.BUTTON3 && liberarPopUp) {
 

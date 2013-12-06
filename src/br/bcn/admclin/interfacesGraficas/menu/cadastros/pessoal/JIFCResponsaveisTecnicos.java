@@ -447,7 +447,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-        jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBAtualizarRegistro.setText("Atualizar");
         jBAtualizarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBAtualizarRegistro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -467,7 +467,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBApagarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBApagarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBApagarRegistro.setText("Apagar");
         jBApagarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBApagarRegistro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -482,7 +482,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvarRegistro.setText("Salvar");
         jBSalvarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBSalvarRegistro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -502,7 +502,7 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/cancelar.png"))); // NOI18N
         jBCancelar.setText("Cancelar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

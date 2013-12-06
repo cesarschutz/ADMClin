@@ -482,7 +482,7 @@ public class JIFAgendaPrincipal extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jDesktopPane1 = new ImagemNoJDesktopPane("/Imagens/fundoJDesktopAgenda.jpg");
+        jDesktopPane1 = new ImagemNoJDesktopPane("/br/bcn/admclin/imagens/fundoJDesktopAgenda.jpg");
         jComboBox4 = new javax.swing.JComboBox();
         jComboBox1 = new javax.swing.JComboBox();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
@@ -540,16 +540,16 @@ public class JIFAgendaPrincipal extends javax.swing.JInternalFrame {
         jLLegAgendamentoExt.setText("Agendamento estendido");
 
         jBLegAgendamentoExt.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/menuAgendarExtendido.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/menuAgendarExtendido.png"))); // NOI18N
 
         jBLegAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/menuAtendimento.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/menuAtendimento.png"))); // NOI18N
 
         jBLegAtendimentoExt.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/menuAtendimentoExtendido.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/menuAtendimentoExtendido.png"))); // NOI18N
 
         jBLegAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/menuAgendar.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/menuAgendar.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

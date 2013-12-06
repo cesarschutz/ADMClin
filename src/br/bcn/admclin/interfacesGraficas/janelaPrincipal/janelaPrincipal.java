@@ -16,9 +16,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
-import menu.atendimentos.FichasDeAtendimentos.JIFListaAtendimentos;
-import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFFaturarConvenios;
-import menu.financeiro.relatorios.faturarConvenio.faturarConvenio.jIFListaAtendimentosParaFaturar;
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
 import br.bcn.admclin.ClasseAuxiliares.jIFAguarde;
 import br.bcn.admclin.dao.USUARIOS;
@@ -34,6 +31,7 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFUmaAgenda;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.jIFAlterarValorDeExame;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.consultaValorExames;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.listaConvenios;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimentos.JIFPesquisarAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriado;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriadoVisualizar;
@@ -72,6 +70,8 @@ import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuarios;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuariosVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.jIFFinanceiroAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.demed.jIFDemed;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFFaturarConvenios;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFListaAtendimentosParaFaturar;
 
 /**
  *
@@ -188,7 +188,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });  
 
         
-        setIconImage(getToolkit().createImage(getClass().getResource("/Imagens/imagemIconePrograma.png")));
+        setIconImage(getToolkit().createImage(getClass().getResource("/br/bcn/admclin/imagens/imagemIconePrograma.png")));
         
                 
               
@@ -284,7 +284,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new ImagemNoJDesktopPane("/Imagens/fundoJDesktop.jpg");
+        jDesktopPane1 = new ImagemNoJDesktopPane("/br/bcn/admclin/imagens/fundoJDesktop.jpg");
         jMenuBar1 = new javax.swing.JMenuBar();
         jMSair = new javax.swing.JMenu();
         jMCadastros = new javax.swing.JMenu();
@@ -324,7 +324,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
 
-        jMSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/imagemBotaoLogoff.png"))); // NOI18N
+        jMSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoLogoff.png"))); // NOI18N
         jMSair.setEnabled(false);
         jMSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -336,10 +336,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMCadastros.setText("Cadastros");
         jMCadastros.setEnabled(false);
 
-        jMCAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAgenda.png"))); // NOI18N
+        jMCAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgenda.png"))); // NOI18N
         jMCAgenda.setText("Agendas");
 
-        jMCAAgendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAgendaAgendas.png"))); // NOI18N
+        jMCAAgendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaAgendas.png"))); // NOI18N
         jMCAAgendas.setText("Agendas");
         jMCAAgendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +348,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAAgendas);
 
-        jMCAFeriados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAgendaFeriados.png"))); // NOI18N
+        jMCAFeriados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaFeriados.png"))); // NOI18N
         jMCAFeriados.setText("Feriados");
         jMCAFeriados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,7 +357,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAFeriados);
 
-        jMCAIntervalosDiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAgendaIntervaloDiario.png"))); // NOI18N
+        jMCAIntervalosDiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaIntervaloDiario.png"))); // NOI18N
         jMCAIntervalosDiarios.setText("Intervalos Diários");
         jMCAIntervalosDiarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,7 +366,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAIntervalosDiarios);
 
-        jMCAIntervaloPorHorario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAgendaIntervaloPorHorario.png"))); // NOI18N
+        jMCAIntervaloPorHorario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaIntervaloPorHorario.png"))); // NOI18N
         jMCAIntervaloPorHorario.setText("Intervalos por Horário");
         jMCAIntervaloPorHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,7 +375,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAIntervaloPorHorario);
 
-        jMCAIntervalosPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAgendaIntervaloPeriodo.png"))); // NOI18N
+        jMCAIntervalosPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaIntervaloPeriodo.png"))); // NOI18N
         jMCAIntervalosPorPeriodo.setText("Intervalos por Período");
         jMCAIntervalosPorPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,10 +386,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMCadastros.add(jMCAgenda);
 
-        jMCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuConvenios.png"))); // NOI18N
+        jMCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuConvenios.png"))); // NOI18N
         jMCConvenios.setText("Convênios");
 
-        jMCCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuConveniosConvenios.png"))); // NOI18N
+        jMCCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuConveniosConvenios.png"))); // NOI18N
         jMCCConvenios.setText("Convênios");
         jMCCConvenios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -398,7 +398,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCConvenios.add(jMCCConvenios);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/GrupoDeConvenios.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/GrupoDeConvenios.png"))); // NOI18N
         jMenuItem3.setText("Grupos de Convênios");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,7 +407,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCConvenios.add(jMenuItem3);
 
-        jMCCTabelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuConveniosTabelas.png"))); // NOI18N
+        jMCCTabelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuConveniosTabelas.png"))); // NOI18N
         jMCCTabelas.setText("Tabelas");
         jMCCTabelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,10 +418,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMCadastros.add(jMCConvenios);
 
-        jMCExames.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuExames.png"))); // NOI18N
+        jMCExames.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExames.png"))); // NOI18N
         jMCExames.setText("Exames");
 
-        jMCEClassesDeExames.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuExamesClassesDeExames.png"))); // NOI18N
+        jMCEClassesDeExames.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExamesClassesDeExames.png"))); // NOI18N
         jMCEClassesDeExames.setText("Classes de Exames");
         jMCEClassesDeExames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,7 +430,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCExames.add(jMCEClassesDeExames);
 
-        jMCEEXAMES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuExamesExames.png"))); // NOI18N
+        jMCEEXAMES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExamesExames.png"))); // NOI18N
         jMCEEXAMES.setText("Exames");
         jMCEEXAMES.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -439,7 +439,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCExames.add(jMCEEXAMES);
 
-        jMCEMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuExamesMateriais.png"))); // NOI18N
+        jMCEMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExamesMateriais.png"))); // NOI18N
         jMCEMateriais.setText("Materiais");
         jMCEMateriais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -450,10 +450,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMCadastros.add(jMCExames);
 
-        jMCPessoal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuPessoal.png"))); // NOI18N
+        jMCPessoal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoal.png"))); // NOI18N
         jMCPessoal.setText("Pessoal");
 
-        jMICPEspecialidadesMedicas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuPessoalEspecialidadesMedicas.png"))); // NOI18N
+        jMICPEspecialidadesMedicas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalEspecialidadesMedicas.png"))); // NOI18N
         jMICPEspecialidadesMedicas.setText("Especialidades Médicas");
         jMICPEspecialidadesMedicas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -462,7 +462,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPEspecialidadesMedicas);
 
-        jMICPMedicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuPessoalMedicos.png"))); // NOI18N
+        jMICPMedicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalMedicos.png"))); // NOI18N
         jMICPMedicos.setText("Médicos");
         jMICPMedicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -471,7 +471,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPMedicos);
 
-        jMICPPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuPessoalPacientes.png"))); // NOI18N
+        jMICPPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalPacientes.png"))); // NOI18N
         jMICPPacientes.setText("Pacientes");
         jMICPPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -480,7 +480,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPPacientes);
 
-        jMICPResponsaveisTecnicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuPessoalResponsaveisTecnicos.png"))); // NOI18N
+        jMICPResponsaveisTecnicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalResponsaveisTecnicos.png"))); // NOI18N
         jMICPResponsaveisTecnicos.setText("Responsáveis Técnicos");
         jMICPResponsaveisTecnicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -489,7 +489,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPResponsaveisTecnicos);
 
-        jMICPUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuPessoalUsuarios.png"))); // NOI18N
+        jMICPUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalUsuarios.png"))); // NOI18N
         jMICPUsuarios.setText("Usuários");
         jMICPUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,10 +505,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMEntradaESaida.setText("Atendimentos");
         jMEntradaESaida.setEnabled(false);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAtendimentoAtendimento.png"))); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
         jMenu1.setText("Atendimentos");
 
-        jMEFichasDeAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAtendimentoAtendimento.png"))); // NOI18N
+        jMEFichasDeAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
         jMEFichasDeAtendimento.setText("Fichas de Atendimento");
         jMEFichasDeAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,7 +518,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMEFichasDeAtendimento);
 
         jMIEditarAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
-        jMIEditarAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemPesquisarInvertida.png"))); // NOI18N
+        jMIEditarAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemPesquisarInvertida.png"))); // NOI18N
         jMIEditarAtendimentos.setText("Pesquisar Atendimentos");
         jMIEditarAtendimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -529,7 +529,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMEntradaESaida.add(jMenu1);
 
-        jMEAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/agenda1.png"))); // NOI18N
+        jMEAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/agenda1.png"))); // NOI18N
         jMEAgenda.setText("Agenda");
         jMEAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -538,7 +538,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMEntradaESaida.add(jMEAgenda);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuAtendimentosConsultaValoresDeExames.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentosConsultaValoresDeExames.png"))); // NOI18N
         jMenuItem1.setText("Consultar Valores dos Exames");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -552,10 +552,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMFinanceiro.setText("Financeiro");
         jMFinanceiro.setEnabled(false);
 
-        jMRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/financeiroAtendimentos.png"))); // NOI18N
+        jMRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/financeiroAtendimentos.png"))); // NOI18N
         jMRelatorios.setText("Relatórios");
 
-        jMIAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/menuFinanceiroAtendimento.png"))); // NOI18N
+        jMIAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuFinanceiroAtendimento.png"))); // NOI18N
         jMIAtendimentos.setText("Atendimentos");
         jMIAtendimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -564,7 +564,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMRelatorios.add(jMIAtendimentos);
 
-        jMIDemed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/receita-federal.png"))); // NOI18N
+        jMIDemed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/receita-federal.png"))); // NOI18N
         jMIDemed.setText("Dmed");
         jMIDemed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -573,7 +573,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMRelatorios.add(jMIDemed);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/janelaPrincipal/imagensMenu/faturamentoDeConvenios.png"))); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/faturamentoDeConvenios.png"))); // NOI18N
         jMenuItem2.setText("Faturamento de Convênios");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

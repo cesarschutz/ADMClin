@@ -1208,16 +1208,16 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         // atualizando a janela de uma agenda
         Icon iconeAgendado =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAgendar.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAgendar.png")));
         Icon iconeAgendadoExt =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAgendarExtendido.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAgendarExtendido.png")));
         Icon iconeAtendimento =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimento.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png")));
         Icon iconeAtendmentoExt =
             new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/menu/atendimentos/agenda/imagens/menuAtendimentoExtendido.png")));
+                getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentoExtendido.png")));
         JIFUmaAgenda.listaAgendamentosDaAgenda.clear();
         con = Conexao.fazConexao();
         JIFUmaAgenda.preenchendoOsAtendimentosDestaAgenda(JIFUmaAgenda.jTable2, iconeAtendimento, iconeAtendmentoExt,
@@ -1482,7 +1482,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         jTBDesconto = new javax.swing.JToggleButton();
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -1496,7 +1496,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -1652,7 +1652,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)).addContainerGap(17, Short.MAX_VALUE)));
 
-        jBAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBAtualizar.setText("Atualizar");
         jBAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -1680,7 +1680,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBPesquisaPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/Lupa.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaPacienteActionPerformed(evt);
@@ -1727,7 +1727,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         });
 
         jBPesquisaMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/Lupa.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaMedicoActionPerformed(evt);
@@ -1880,7 +1880,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             }
         });
 
-        jBIncluirExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaBaixo.png"))); // NOI18N
+        jBIncluirExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaBaixo.png"))); // NOI18N
         jBIncluirExame.setText("Incluir Exame");
         jBIncluirExame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2025,7 +2025,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)));
 
         jBImprimirNotaFiscal.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/imprimirNotaFiscal.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/imprimirNotaFiscal.png"))); // NOI18N
         jBImprimirNotaFiscal.setText("Imprimir Nota Fiscal");
         jBImprimirNotaFiscal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2034,7 +2034,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         });
 
         jBImprimirBoletoDeRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/imrpimirBoletoRetirada.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/imrpimirBoletoRetirada.png"))); // NOI18N
         jBImprimirBoletoDeRetirada.setText("Imprimir boleto de Retirada");
         jBImprimirBoletoDeRetirada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2048,7 +2048,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         });
 
         jBImprimirFicha.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/menu/atendimentos/agenda/imagens/imprimirFicha.png"))); // NOI18N
+            "/br/bcn/admclin/imagens/imprimirFicha.png"))); // NOI18N
         jBImprimirFicha.setText("Imprimir Ficha");
         jBImprimirFicha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2351,25 +2351,25 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     // abrindo o popUp
                     ImageIcon iconeCancelarLado =
                         new javax.swing.ImageIcon(getClass().getResource(
-                            "/menu/atendimentos/agenda/imagens/popUpCancelar.png"));
+                            "/br/bcn/admclin/imagens/popUpCancelar.png"));
                     ImageIcon iconDireito =
                         new javax.swing.ImageIcon(getClass().getResource(
-                            "/menu/atendimentos/agenda/imagens/popUpDireito.png"));
+                            "/br/bcn/admclin/imagens/popUpDireito.png"));
                     ImageIcon iconEsquerdo =
                         new javax.swing.ImageIcon(getClass().getResource(
-                            "/menu/atendimentos/agenda/imagens/popUpEsquerdo.png"));
+                            "/br/bcn/admclin/imagens/popUpEsquerdo.png"));
                     ImageIcon iconCancelarContraste =
                         new javax.swing.ImageIcon(getClass().getResource(
-                            "/menu/atendimentos/agenda/imagens/popUpCancelarContraste.png"));
+                            "/br/bcn/admclin/imagens/popUpCancelarContraste.png"));
                     ImageIcon iconComContraste =
                         new javax.swing.ImageIcon(getClass().getResource(
-                            "/menu/atendimentos/agenda/imagens/contrast.png"));
+                            "/br/bcn/admclin/imagens/contrast.png"));
                     ImageIcon iconComMaterial =
                         new javax.swing.ImageIcon(getClass().getResource(
-                            "/menu/atendimentos/agenda/imagens/materiais.png"));
+                            "/br/bcn/admclin/imagens/materiais.png"));
                     ImageIcon iconAlterarValorExame =
                         new javax.swing.ImageIcon(getClass().getResource(
-                            "/menu/atendimentos/agenda/imagens/popUpAlterarValorDeExame.png"));
+                            "/br/bcn/admclin/imagens/popUpAlterarValorDeExame.png"));
 
                     if (jTable1.getSelectedColumn() == 4) {
                         // cria o primeiro item do menu e atribui uma ação pra ele

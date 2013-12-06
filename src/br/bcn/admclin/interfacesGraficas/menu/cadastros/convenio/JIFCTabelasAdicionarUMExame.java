@@ -354,7 +354,7 @@ public class JIFCTabelasAdicionarUMExame extends javax.swing.JInternalFrame {
                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))));
 
-        jBOkExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBOkExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBOkExame.setText("Salvar");
         jBOkExame.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBOkExame.addActionListener(new java.awt.event.ActionListener() {
@@ -374,7 +374,7 @@ public class JIFCTabelasAdicionarUMExame extends javax.swing.JInternalFrame {
         });
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {

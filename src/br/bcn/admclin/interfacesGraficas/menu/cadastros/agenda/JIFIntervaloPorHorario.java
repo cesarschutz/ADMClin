@@ -585,7 +585,7 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTFMensagemParaUsuario.setFocusable(false);
 
-        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -605,7 +605,7 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
             }
         });
 
-        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBEditar.setText("Editar");
         jBEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -625,7 +625,7 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
             }
         });
 
-        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/deletar.png"))); // NOI18N
+        jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBDeletar.setText("Deletar");
         jBDeletar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBDeletar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -640,7 +640,7 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
             }
         });
 
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/cancelar.png"))); // NOI18N
         jBCancelar.setText("Cancelar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -687,7 +687,7 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agendas que utilizam o Intervalo",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaBaixo.png"))); // NOI18N
+        jBIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaBaixo.png"))); // NOI18N
         jBIncluir.setText("Incluir");
         jBIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBIncluir.addActionListener(new java.awt.event.ActionListener() {

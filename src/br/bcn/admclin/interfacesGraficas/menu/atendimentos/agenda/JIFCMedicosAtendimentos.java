@@ -669,7 +669,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
                                             javax.swing.GroupLayout.DEFAULT_SIZE,
                                             javax.swing.GroupLayout.PREFERRED_SIZE)))));
 
-        jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
+        jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBAtualizarRegistro.setText("Atualizar e Selecionar Médico");
         jBAtualizarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBAtualizarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -688,7 +688,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvar.png"))); // NOI18N
+        jBSalvarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/salvar.png"))); // NOI18N
         jBSalvarRegistro.setText("Salvar e Selecionar Médico");
         jBSalvarRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBSalvarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -708,7 +708,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         });
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.setPreferredSize(new java.awt.Dimension(89, 39));
