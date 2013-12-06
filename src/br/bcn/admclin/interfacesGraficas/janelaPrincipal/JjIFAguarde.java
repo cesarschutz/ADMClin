@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.ClasseAuxiliares;
+package br.bcn.admclin.interfacesGraficas.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;
