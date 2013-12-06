@@ -4,8 +4,6 @@
  */
 package menu.financeiro.relatorios.faturarConvenio.faturarConvenio;
 
-import janelaPrincipal.janelaPrincipal;
-
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.sql.Connection;
@@ -26,6 +24,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
  * 

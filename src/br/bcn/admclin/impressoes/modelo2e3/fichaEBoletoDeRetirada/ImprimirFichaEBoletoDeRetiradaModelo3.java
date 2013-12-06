@@ -246,7 +246,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         } else if ("TR".equals(modalidade)) {
             return "TR";
         } else {
-            JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
+            JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
                 "Erro nas modalidades. Procure o Administrador.");
             return "OT";
         }

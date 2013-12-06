@@ -49,7 +49,7 @@ import br.bcn.admclin.impressoes.modelo2.etiquetaCodigoDeBarras.ImprimirEtiqueta
 import br.bcn.admclin.impressoes.modelo2.etiquetaEnvelope.ImprimirEtiquetaEnvelopeModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
-import janelaPrincipal.janelaPrincipal;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
 import java.awt.Insets;

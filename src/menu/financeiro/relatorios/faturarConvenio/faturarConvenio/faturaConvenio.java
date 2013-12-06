@@ -154,7 +154,7 @@ public class faturaConvenio {
             abrirFichaPDF();
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
+            JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
                 "Erro ao gerar Fatura. Procure o Administrador.");
             return false;
         } finally {
@@ -769,7 +769,7 @@ public class faturaConvenio {
         } else if ("TR".equals(modalidade)) {
             return "TR";
         } else {
-            JOptionPane.showMessageDialog(janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
+            JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
                 "Erro nas modalidades. Procure o Administrador.");
             return "OT";
         }
