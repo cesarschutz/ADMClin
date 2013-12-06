@@ -10,8 +10,8 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio;
 
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.jTextFieldDinheiroReaisCom5CasasDecimais;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReaisCom5CasasDecimais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.TABELAS;
@@ -122,7 +122,7 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTFCofFilme = new jTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
+        jTFCofFilme = new JTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8
@@ -130,7 +130,7 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
                 setLimit(11);
             }
         };
-        jTFCofCh2 = new jTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
+        jTFCofCh2 = new JTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8
@@ -138,7 +138,7 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
                 setLimit(11);
             }
         };
-        jTFCofCh1 = new jTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
+        jTFCofCh1 = new JTextFieldDinheiroReaisCom5CasasDecimais(new DecimalFormat("0.00000")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8
@@ -146,10 +146,10 @@ public class JIFCTabelasEditarCoeficientesDeUmExame extends javax.swing.JInterna
                 setLimit(11);
             }
         };
-        jTFSinonimo = new javax.swing.JTextField(new documentoSemAspasEPorcento(100), null, 0);
+        jTFSinonimo = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(100), null, 0);
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTFCodigo_exame = new javax.swing.JTextField(new documentoSemAspasEPorcento(16), null, 0);
+        jTFCodigo_exame = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(16), null, 0);
 
         setTitle("Editar Dados Do Exame");
 

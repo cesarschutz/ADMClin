@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
-import br.bcn.admclin.ClasseAuxiliares.jIFAguarde;
+import br.bcn.admclin.ClasseAuxiliares.JjIFAguarde;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamento;
@@ -29,8 +29,8 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFCMedicosAte
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFCPacientesAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFUmaAgenda;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.jIFAlterarValorDeExame;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.consultaValorExames;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.listaConvenios;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ConsultaValorExames;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ListaConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimentos.JIFPesquisarAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriado;
@@ -80,7 +80,7 @@ import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConve
 public class janelaPrincipal extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
-    public static jIFAguarde internalFrameAguarde;
+    public static JjIFAguarde internalFrameAguarde;
     public static janelaPrincipal internalFrameJanelaPrincipal;
     public static JIFAgendaPrincipal internalFrameAgendaPrincipal;
     public static jIFCAgendas internalFrameCadastroAgendas;
@@ -120,8 +120,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFCEspecialidadesMedicas internalFrameEspecialidadeMedicas;
     public static JIFCResponsaveisTecnicos internalFrameResponsaveisTecnicos;
     public static JIFCResponsaveisTecnicosVisualizar internalFrameResponsaveisTecnicosVisualizar;
-    public static listaConvenios internalFrameListaConveniosConsultaValorDeExames;
-    public static consultaValorExames internalFrameConsultaValorDeExames;
+    public static ListaConvenios internalFrameListaConveniosConsultaValorDeExames;
+    public static ConsultaValorExames internalFrameConsultaValorDeExames;
     public static jIFFaturarConvenios internalFrameFinanceiroRelatorioFaturarConvenios;
     public static jIFFinanceiroAtendimentos internalFrameFinanceiroRelatorioAtendimentos;
     public static jIFAlterarValorDeExame internalFrameAlterarValorDeExamesNoAtendimento;
@@ -254,7 +254,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
      * Ativando o ato de aguardar o carregamento
      */
     public void ativarCarregamento(){
-        janelaPrincipal.internalFrameAguarde = new jIFAguarde();
+        janelaPrincipal.internalFrameAguarde = new JjIFAguarde();
         jDesktopPane1.add(janelaPrincipal.internalFrameAguarde);
         janelaPrincipal.internalFrameAguarde.setVisible(true);
         int lDesk = jDesktopPane1.getWidth();
@@ -914,7 +914,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         fechandoTodosOsInternalFrames();
         
-        internalFrameListaConveniosConsultaValorDeExames = new listaConvenios();
+        internalFrameListaConveniosConsultaValorDeExames = new ListaConvenios();
         jDesktopPane1.add(internalFrameListaConveniosConsultaValorDeExames);
         internalFrameListaConveniosConsultaValorDeExames.setVisible(true);
         int lDesk = jDesktopPane1.getWidth();

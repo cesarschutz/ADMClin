@@ -436,10 +436,6 @@ public class MetodosUteis {
     @SuppressWarnings("finally")
     public static String imprimir(String comando, String tipo, String handleat) {
 
-        JOptionPane.showMessageDialog(null, "Tipo: " + tipo);
-        JOptionPane.showMessageDialog(null, "handle_at: " + handleat);
-        JOptionPane.showMessageDialog(null, "comando: " + comando);
-
         boolean gerouErro = false;
 
         String temp[] = comando.split(" ");

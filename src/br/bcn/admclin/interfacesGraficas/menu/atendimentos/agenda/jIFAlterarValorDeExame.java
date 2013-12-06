@@ -17,7 +17,7 @@ import java.util.Calendar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import br.bcn.admclin.ClasseAuxiliares.jTextFieldDinheiroReais;
+import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
@@ -168,7 +168,7 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jTFValorExame = new jTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTFValorExame = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8
@@ -176,7 +176,7 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
                 setLimit(8);
             }
         };
-        jTFValorConvenio = new jTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTFValorConvenio = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8
@@ -186,7 +186,7 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
         };
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTFValorPaciente = new jTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTFValorPaciente = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8

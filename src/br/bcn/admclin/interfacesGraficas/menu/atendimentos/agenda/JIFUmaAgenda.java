@@ -54,7 +54,7 @@ import javax.swing.table.TableColumn;
 import br.bcn.admclin.ClasseAuxiliares.ColorirHorariosIndisponiveisNaAgendaELiberarIconesNaTabela;
 import br.bcn.admclin.ClasseAuxiliares.ColorirLinhaJTableInicial;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.colorirIntervalosNaTabelaDeHorario;
+import br.bcn.admclin.ClasseAuxiliares.ColorirIntervalosNaTabelaDeHorario;
 import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
@@ -1526,7 +1526,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
     public void pintandoAAgenda(JTable tabela) {
         // utilizam classes de pinturas diferentes pois sao celulas diferentes do flag (flag utilizado para pintar)
         if (tabela == jTable1) {
-            TableCellRenderer tcrColuna0 = new colorirIntervalosNaTabelaDeHorario();
+            TableCellRenderer tcrColuna0 = new ColorirIntervalosNaTabelaDeHorario();
             TableColumn column0 = tabela.getColumnModel().getColumn(0);
             column0.setCellRenderer(tcrColuna0);
         } else {

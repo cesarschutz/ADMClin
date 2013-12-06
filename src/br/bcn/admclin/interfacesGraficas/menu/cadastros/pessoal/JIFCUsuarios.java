@@ -2,8 +2,8 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcentoMinusculas;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcentoMinusculas;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.model.Usuario;
@@ -75,16 +75,16 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
     public void iniciarClasse(){
         
         //colocando maximo de caracteres nos jTextField
-        jTFDescricao.setDocument(new documentoSemAspasEPorcento(64));
-        jTFSenha.setDocument(new documentoSemAspasEPorcento(16));
-        jTFUsuario.setDocument(new documentoSemAspasEPorcento(32));
-        jTFEmail.setDocument(new documentoSemAspasEPorcento(64));
+        jTFDescricao.setDocument(new DocumentoSemAspasEPorcento(64));
+        jTFSenha.setDocument(new DocumentoSemAspasEPorcento(16));
+        jTFUsuario.setDocument(new DocumentoSemAspasEPorcento(32));
+        jTFEmail.setDocument(new DocumentoSemAspasEPorcento(64));
         
-        jTFImpressoraEtiquetaEnvelope.setDocument(new documentoSemAspasEPorcentoMinusculas(240));
-        jTFImpressoraFicha.setDocument(new documentoSemAspasEPorcentoMinusculas(240));
-        jTFImpressoraNotaFiscal.setDocument(new documentoSemAspasEPorcentoMinusculas(240));
-        jTFPastaRaiz.setDocument(new documentoSemAspasEPorcentoMinusculas(240));
-        jTFImpressora_cod_de_barras.setDocument(new documentoSemAspasEPorcentoMinusculas(240));
+        jTFImpressoraEtiquetaEnvelope.setDocument(new DocumentoSemAspasEPorcentoMinusculas(240));
+        jTFImpressoraFicha.setDocument(new DocumentoSemAspasEPorcentoMinusculas(240));
+        jTFImpressoraNotaFiscal.setDocument(new DocumentoSemAspasEPorcentoMinusculas(240));
+        jTFPastaRaiz.setDocument(new DocumentoSemAspasEPorcentoMinusculas(240));
+        jTFImpressora_cod_de_barras.setDocument(new DocumentoSemAspasEPorcentoMinusculas(240));
         
         if("novo".equals(novoOuEditar)){
             jBApagarRegistro.setVisible(false);

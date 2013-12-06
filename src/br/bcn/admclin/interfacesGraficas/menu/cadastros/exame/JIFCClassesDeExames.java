@@ -1,7 +1,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.exame;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
@@ -88,7 +88,7 @@ public class JIFCClassesDeExames extends javax.swing.JInternalFrame {
         }
 
         // colocando maximo de caracteres nos jtextfield
-        jTDescricao.setDocument(new documentoSemAspasEPorcento(64));
+        jTDescricao.setDocument(new DocumentoSemAspasEPorcento(64));
 
         if ("novo".equals(novoOuEditar)) {
             jBAtualizarRegistro.setVisible(false);

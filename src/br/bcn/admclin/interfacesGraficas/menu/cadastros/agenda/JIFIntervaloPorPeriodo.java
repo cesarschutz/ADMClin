@@ -11,7 +11,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.AGENDAS;
@@ -70,8 +70,8 @@ public class JIFIntervaloPorPeriodo extends javax.swing.JInternalFrame {
     @SuppressWarnings("static-access")
     public JIFIntervaloPorPeriodo(String novoOuEditar, int intervaloPorPeriodoId) {
         initComponents();
-        jTFNome.setDocument(new documentoSemAspasEPorcento(64));
-        jTADescricao.setDocument(new documentoSemAspasEPorcento(500));
+        jTFNome.setDocument(new DocumentoSemAspasEPorcento(64));
+        jTADescricao.setDocument(new DocumentoSemAspasEPorcento(500));
         jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker2.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Ir para data atual");

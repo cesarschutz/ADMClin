@@ -5,8 +5,8 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteNumerosELetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.AGENDAS;
@@ -945,11 +945,11 @@ public class jIFCAgendas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTADescricao = new javax.swing.JTextArea(new documentoSemAspasEPorcento(500));
+        jTADescricao = new javax.swing.JTextArea(new DocumentoSemAspasEPorcento(500));
         jLabel4 = new javax.swing.JLabel();
         jCBSab = new javax.swing.JCheckBox();
         jCBDom = new javax.swing.JCheckBox();
-        jTFNome = new javax.swing.JTextField(new documentoSomenteNumerosELetras(64), null, 0);
+        jTFNome = new javax.swing.JTextField(new DocumentoSomenteNumerosELetras(64), null, 0);
         jCBSex = new javax.swing.JCheckBox();
         jCBQui = new javax.swing.JCheckBox();
         jCBQua = new javax.swing.JCheckBox();

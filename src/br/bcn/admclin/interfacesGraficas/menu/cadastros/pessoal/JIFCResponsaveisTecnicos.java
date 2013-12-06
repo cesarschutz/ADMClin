@@ -1,7 +1,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.RESPONSAVEIS_TECNICOS;
@@ -60,8 +60,8 @@ public class JIFCResponsaveisTecnicos extends javax.swing.JInternalFrame {
     /** Metodo que vai no construtor da classe. Eexecuta operações antes de abrir a janela. */
     public void iniciarClasse() {
         // colocando maximo de caracteres nos jtextfield
-        jTFNome.setDocument(new documentoSemAspasEPorcento(64));
-        jTFConselho.setDocument(new documentoSemAspasEPorcento(8));
+        jTFNome.setDocument(new DocumentoSemAspasEPorcento(64));
+        jTFConselho.setDocument(new DocumentoSemAspasEPorcento(8));
         if ("novo".equals(novoOuEditar)) {
             jBApagarRegistro.setVisible(false);
             jBAtualizarRegistro.setVisible(false);

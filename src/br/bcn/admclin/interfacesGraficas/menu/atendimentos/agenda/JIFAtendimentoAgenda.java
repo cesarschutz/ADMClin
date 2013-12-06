@@ -40,9 +40,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
-import br.bcn.admclin.calculoValorDeUmExame.calculoValorDeExame;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
+import br.bcn.admclin.ClasseAuxiliares.VerificacaoDeMatricula;
+import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
 import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
@@ -53,11 +54,11 @@ import br.bcn.admclin.dao.EXAMES;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
 import br.bcn.admclin.dao.model.Atendimentos;
-import br.bcn.admclin.impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
-import br.bcn.admclin.impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
-import br.bcn.admclin.impressoes.modelo2.notaFiscal.ImprimirNotaFiscalDoPacienteModelo2;
-import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
-import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
+import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
+import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /*
@@ -365,14 +366,14 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                             "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
                     }
                     // calculando valor do exame
-                    calculoValorDeExame calculoValorExame;
+                    CalculoValorDeExame calculoValorExame;
                     if ("CM".equals(resultSet.getString("material")) || "CC".equals(resultSet.getString("material"))) {
                         calculoValorExame =
-                            new calculoValorDeExame(resultSet.getInt("handle_convenio"),
+                            new CalculoValorDeExame(resultSet.getInt("handle_convenio"),
                                 resultSet.getInt("handle_exame"), dataDoExame, true, porcentagemDeDesconto);
                     } else {
                         calculoValorExame =
-                            new calculoValorDeExame(resultSet.getInt("handle_convenio"),
+                            new CalculoValorDeExame(resultSet.getInt("handle_convenio"),
                                 resultSet.getInt("handle_exame"), dataDoExame, false, porcentagemDeDesconto);
                     }
 
@@ -1340,8 +1341,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     "Não foi possível verificar a data do exame, o mesmo será calculado com a data atual!", "ERRO",
                     javax.swing.JOptionPane.ERROR_MESSAGE);
             }
-            calculoValorDeExame calculoValorExame =
-                new calculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
+            CalculoValorDeExame calculoValorExame =
+                new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
                     listaHandleExames.get(jCBExame.getSelectedIndex()), dataDoExame, false, porcentagemDeDesconto);
 
             // colocando o valor do exame
@@ -1439,7 +1440,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTAObservacao = new javax.swing.JTextArea(new documentoSemAspasEPorcento(500));
+        jTAObservacao = new javax.swing.JTextArea(new DocumentoSemAspasEPorcento(500));
         jLabel6 = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
@@ -1449,10 +1450,10 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jBPesquisaPaciente = new javax.swing.JButton();
         jTFHANDLE_PACIENTE = new javax.swing.JTextField();
-        jTFPaciente = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
+        jTFPaciente = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTFMedicoSol = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
+        jTFMedicoSol = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
         jBPesquisaMedico = new javax.swing.JButton();
         jTFHANDLE_MEDICO_SOL = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -1464,9 +1465,9 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         jCBModalidade = new javax.swing.JComboBox();
         jLabel17 = new javax.swing.JLabel();
-        jTFMatricula = new javax.swing.JTextField(new documentoSemAspasEPorcento(30), null, 0);
+        jTFMatricula = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(30), null, 0);
         jLabel18 = new javax.swing.JLabel();
-        jTFComplemento = new javax.swing.JTextField(new documentoSemAspasEPorcento(32), null, 0);
+        jTFComplemento = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(32), null, 0);
         jLabel8 = new javax.swing.JLabel();
         jCBExame = new javax.swing.JComboBox();
         jCheckBoxOT = new javax.swing.JCheckBox();
@@ -2563,9 +2564,9 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
 
-        calculoValorDeExame calculoValorExame;
+        CalculoValorDeExame calculoValorExame;
         calculoValorExame =
-            new calculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()), Integer.valueOf(String
+            new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()), Integer.valueOf(String
                 .valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0))), dataDoExame, somarValoresDeMateriais,
                 porcentagemDeDesconto);
 

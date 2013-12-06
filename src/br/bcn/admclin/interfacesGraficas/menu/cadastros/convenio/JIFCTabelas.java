@@ -11,7 +11,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.calculoValorDeUmExame.calculoValorDeExame;
+import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.TABELAS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
@@ -863,13 +863,13 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
 
         // calculando o valor e mostrando ao usuario
         if (jCBCalcularMateriais.getSelectedIndex() == 0) {
-            calculoValorDeExame calcularValorExame =
-                new calculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable1
+            CalculoValorDeExame calcularValorExame =
+                new CalculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable1
                     .getValueAt(jTable1.getSelectedRow(), 0))), data, false);
             jtfValorDoExame.setText(MetodosUteis.colocarZeroEmCampoReais(calcularValorExame.valor_correto_exame));
         } else {
-            calculoValorDeExame calcularValorExame =
-                new calculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable1
+            CalculoValorDeExame calcularValorExame =
+                new CalculoValorDeExame(Integer.valueOf(handle_convenio), Integer.valueOf(String.valueOf(jTable1
                     .getValueAt(jTable1.getSelectedRow(), 0))), data, true);
             jtfValorDoExame.setText(MetodosUteis.colocarZeroEmCampoReais(calcularValorExame.valor_correto_exame));
         }

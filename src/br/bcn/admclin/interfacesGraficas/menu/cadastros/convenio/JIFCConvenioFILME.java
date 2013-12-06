@@ -29,7 +29,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.jTextFieldDinheiroReais;
+import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
 import br.bcn.admclin.dao.CONVENIOFILME;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
@@ -193,7 +193,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTFValorFilme = new jTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTFValorFilme = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8

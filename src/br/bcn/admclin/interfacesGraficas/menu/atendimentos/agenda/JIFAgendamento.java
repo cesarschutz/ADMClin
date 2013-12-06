@@ -31,9 +31,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
-import br.bcn.admclin.calculoValorDeUmExame.calculoValorDeExame;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
+import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
 import br.bcn.admclin.dao.AGENDAS;
 import br.bcn.admclin.dao.A_AGENDAMENTOS;
 import br.bcn.admclin.dao.CONVENIO;
@@ -306,11 +306,11 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                 double valorDoExame;
                 if ("CM".equals(resultSet.getString("material")) || "CC".equals(resultSet.getString("material"))) {
                     valorDoExame =
-                        new calculoValorDeExame(resultSet.getInt("handle_convenio"), resultSet.getInt("handle_exame"),
+                        new CalculoValorDeExame(resultSet.getInt("handle_convenio"), resultSet.getInt("handle_exame"),
                             dataDoExame, true).valor_correto_exame;
                 } else {
                     valorDoExame =
-                        new calculoValorDeExame(resultSet.getInt("handle_convenio"), resultSet.getInt("handle_exame"),
+                        new CalculoValorDeExame(resultSet.getInt("handle_convenio"), resultSet.getInt("handle_exame"),
                             dataDoExame, false).valor_correto_exame;
                 }
                 // formatando com duas casas apos a virgula no valor do exame
@@ -960,8 +960,8 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                     "Não foi possível verificar a data do exame, o mesmo será calculado com a data atual!", "ERRO",
                     javax.swing.JOptionPane.ERROR_MESSAGE);
             }
-            calculoValorDeExame calculoValorExame =
-                new calculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
+            CalculoValorDeExame calculoValorExame =
+                new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
                     listaHandleExames.get(jCBExame.getSelectedIndex()), dataDoExame, false);
             valorTotal += calculoValorExame.valor_correto_exame;
             valorTotal = new BigDecimal(valorTotal).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
@@ -1028,7 +1028,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTAObservacao = new javax.swing.JTextArea(new documentoSemAspasEPorcento(500));
+        jTAObservacao = new javax.swing.JTextArea(new DocumentoSemAspasEPorcento(500));
         jBAtualizar = new javax.swing.JButton();
         jTFMensagemParaUsuario = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -1041,7 +1041,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         jTFCelular = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
         jTFHANDLE_PACIENTE = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTFPaciente = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
+        jTFPaciente = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
         jLabel4 = new javax.swing.JLabel();
         jTFCpfPaciente = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("###.###.###-##"));
         jLabel15 = new javax.swing.JLabel();
@@ -2053,10 +2053,10 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
 
-        calculoValorDeExame calculoValorExame;
+        CalculoValorDeExame calculoValorExame;
 
         calculoValorExame =
-            new calculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()), Integer.valueOf(String
+            new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()), Integer.valueOf(String
                 .valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0))), dataDoExame, somarValoresDeMateriais);
 
         jTable1.setValueAt(calculoValorExame.valor_correto_exame, jTable1.getSelectedRow(), 3);
@@ -2406,15 +2406,15 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                     }
                     // calculando o valor do exame
                     double valorDoExame;
-                    calculoValorDeExame calculoValorExame;
+                    CalculoValorDeExame calculoValorExame;
                     if ("CM".equals(agendamentoImportado.getMaterial())
                         || "CC".equals(agendamentoImportado.getMaterial())) {
                         calculoValorExame =
-                            new calculoValorDeExame(agendamentoImportado.getHANDLE_CONVENIO(),
+                            new CalculoValorDeExame(agendamentoImportado.getHANDLE_CONVENIO(),
                                 agendamentoImportado.getHANDLE_EXAME(), dataDoExame, true);
                     } else {
                         calculoValorExame =
-                            new calculoValorDeExame(agendamentoImportado.getHANDLE_CONVENIO(),
+                            new CalculoValorDeExame(agendamentoImportado.getHANDLE_CONVENIO(),
                                 agendamentoImportado.getHANDLE_EXAME(), dataDoExame, false);
                     }
 

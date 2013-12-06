@@ -11,7 +11,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.dao.model.Pacientes;
@@ -166,7 +166,7 @@ public class JIFCPacientesVisualizar extends javax.swing.JInternalFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jTFPesquisaNome = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
+        jTFPesquisaNome = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
         jLabel24 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();

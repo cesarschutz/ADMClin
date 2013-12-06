@@ -6,7 +6,7 @@ package br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimento
 
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteNumerosELetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
@@ -125,6 +125,8 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
 
         boolean isNumber;
         try {
+            @SuppressWarnings("unused")
+            int x = Integer.valueOf(jTFPesquisaPaciente.getText());
             isNumber = true;
         } catch (Exception e) {
             isNumber = false;
@@ -286,7 +288,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTFPesquisaPaciente = new javax.swing.JTextField(new documentoSomenteNumerosELetras(100), null, 0);
+        jTFPesquisaPaciente = new javax.swing.JTextField(new DocumentoSomenteNumerosELetras(100), null, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTFMensagemParaUsuario = new javax.swing.JTextField();

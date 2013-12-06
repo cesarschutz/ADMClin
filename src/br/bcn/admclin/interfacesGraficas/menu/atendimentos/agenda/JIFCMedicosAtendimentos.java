@@ -28,8 +28,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
 import br.bcn.admclin.dao.MEDICOS;
@@ -126,10 +126,10 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
     /** Metodo que vai no construtor da classe. Eexecuta operações antes de abrir a janela. */
 
     public void iniciarClasse() {
-        jTFEmail.setDocument(new documentoSemAspasEPorcento(64));
-        jTFEndereco.setDocument(new documentoSemAspasEPorcento(80));
-        jTFBairro.setDocument(new documentoSemAspasEPorcento(32));
-        jTFCidade.setDocument(new documentoSemAspasEPorcento(32));
+        jTFEmail.setDocument(new DocumentoSemAspasEPorcento(64));
+        jTFEndereco.setDocument(new DocumentoSemAspasEPorcento(80));
+        jTFBairro.setDocument(new DocumentoSemAspasEPorcento(32));
+        jTFCidade.setDocument(new DocumentoSemAspasEPorcento(32));
         // preenchendo as Especialidades Médicas
         con = Conexao.fazConexao();
         ResultSet resultSet = ESPECIALIDADES_MEDICAS.getConsultar(con);
@@ -286,7 +286,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTFEmail = new javax.swing.JTextField(new documentoSemAspasEPorcento(64), null, 0);
+        jTFEmail = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jLabel20 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jCBUf = new javax.swing.JComboBox();
@@ -296,11 +296,11 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFNascimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##/##/####"));
         jLabel3 = new javax.swing.JLabel();
-        jTFNome = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
-        jTFEndereco = new javax.swing.JTextField(new documentoSemAspasEPorcento(80), null, 0);
-        jTFCidade = new javax.swing.JTextField(new documentoSemAspasEPorcento(32), null, 0);
+        jTFNome = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
+        jTFEndereco = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(80), null, 0);
+        jTFCidade = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(32), null, 0);
         jLabel15 = new javax.swing.JLabel();
-        jTFBairro = new javax.swing.JTextField(new documentoSemAspasEPorcento(32), null, 0);
+        jTFBairro = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(32), null, 0);
         jLabel13 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFCep = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##.###-###"));
@@ -315,7 +315,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         jCBEspecialidadeMedica = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTFCRM = new javax.swing.JTextField(new documentoSemAspasEPorcento(20), null, 0);
+        jTFCRM = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(20), null, 0);
         jLabel7 = new javax.swing.JLabel();
         jCBUfCRM = new javax.swing.JComboBox();
         jBAtualizarRegistro = new javax.swing.JButton();

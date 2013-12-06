@@ -6,6 +6,7 @@ package br.bcn.admclin.financeiro.faturarConvenio.arquivoTxtDoIpe;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
 import br.bcn.admclin.dao.USUARIOS;
@@ -98,23 +99,23 @@ public class GerarArquivoTxtDaFatura {
     }
 
     // busca os atendimentos e cria as notas
-    private List<exameMODEL> listaDeExames = new ArrayList<exameMODEL>();
+    private List<ExameModel> listaDeExames = new ArrayList<ExameModel>();
     int totalDeLançamentos = 0;
 
     private void buscarAtendimentosNoBanco(int handle_at) throws SQLException {
         ResultSet resultSet;
         if (tipo.equals("grupo")) {
             resultSet =
-                GerarArquivoTxtDaFaturaDAO.getConsultarAtendimentosPorPeriodoEGrupo(con, dataInicial, dataFinal,
+                ATENDIMENTOS.getConsultarAtendimentosPorPeriodoEGrupo(con, dataInicial, dataFinal,
                     grupo_id, handle_at);
         } else {
             resultSet =
-                GerarArquivoTxtDaFaturaDAO.getConsultarAtendimentosPorPeriodoEConvenio(con, dataInicial, dataFinal,
+                ATENDIMENTOS.getConsultarAtendimentosPorPeriodoEConvenio(con, dataInicial, dataFinal,
                     handle_convenio, handle_at);
         }
 
         while (resultSet.next()) {
-            exameMODEL exame = new exameMODEL();
+            ExameModel exame = new ExameModel();
             exame.setHandle_at(resultSet.getString("handle_at"));
             exame.setMatricula(resultSet.getString("matricula_convenio"));
             exame.setCrm(resultSet.getString("crm"));
@@ -175,7 +176,7 @@ public class GerarArquivoTxtDaFatura {
                         qtdString = "0" + qtdString;
                     }
 
-                    exameMODEL linhaDeMateriais = new exameMODEL();
+                    ExameModel linhaDeMateriais = new ExameModel();
                     linhaDeMateriais.setHandle_at(exame.getHandle_at());
                     linhaDeMateriais.setMatricula(exame.getMatricula());
                     linhaDeMateriais.setCrm(exame.getCrm());

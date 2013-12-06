@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.CONVENIO;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
@@ -34,7 +34,7 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         tirandoBarraDeTitulo();
         jBEditar.setVisible(false);
         jBDeletar.setVisible(false);
-        jTFNome.setDocument(new documentoSemAspasEPorcento(64));
+        jTFNome.setDocument(new DocumentoSemAspasEPorcento(64));
     }
 
     int grupo_id;
@@ -43,7 +43,7 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         initComponents();
         tirandoBarraDeTitulo();
         jBSalvar.setVisible(false);
-        jTFNome.setDocument(new documentoSemAspasEPorcento(64));
+        jTFNome.setDocument(new DocumentoSemAspasEPorcento(64));
         this.grupo_id = grupo_id;
         jTFNome.setText(nome);
         jCBGeraArquivoTexto.setSelectedIndex(gera_arquivo_texto);

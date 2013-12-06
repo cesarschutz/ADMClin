@@ -37,18 +37,18 @@ package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos
 
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteNumerosELetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.ATENDIMENTOS;
 import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.impressoes.modelo1.boletoDeRetirada.ImprimirBoletoDeRetiradaModelo1;
-import br.bcn.admclin.impressoes.modelo1.etiqueta.ImprimirEtiquetaEnvelopeModelo1;
-import br.bcn.admclin.impressoes.modelo1.fichaDeAtendimento.ImprimirFichaDeAutorizacaoModelo1;
-import br.bcn.admclin.impressoes.modelo2.etiquetaCodigoDeBarras.ImprimirEtiquetaCodigoDeBarrasModelo2;
-import br.bcn.admclin.impressoes.modelo2.etiquetaEnvelope.ImprimirEtiquetaEnvelopeModelo2;
-import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo2;
-import br.bcn.admclin.impressoes.modelo2e3.fichaEBoletoDeRetirada.ImprimirFichaEBoletoDeRetiradaModelo3;
+import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
+import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1;
+import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaCodigoDeBarrasModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -347,6 +347,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             } else {
                 // CAI AQUI SE FOR TODAS AS MODALIDADE TIVER UMA PESQUISA
                 try {
+                    @SuppressWarnings("unused")
+                    int x = Integer.valueOf(jTFPesquisaPaciente.getText());
                     isNumber = true;
                 } catch (Exception e) {
                     isNumber = false;
@@ -632,7 +634,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         jCBmr = new javax.swing.JCheckBox();
         jCBTodas = new javax.swing.JCheckBox();
         jCBus = new javax.swing.JCheckBox();
-        jTFPesquisaPaciente = new javax.swing.JTextField(new documentoSomenteNumerosELetras(100), null, 0);
+        jTFPesquisaPaciente = new javax.swing.JTextField(new DocumentoSomenteNumerosELetras(100), null, 0);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();

@@ -5,8 +5,8 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.exame;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteNumerosELetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
@@ -385,7 +385,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTFNome = new javax.swing.JTextField(new documentoSemAspasEPorcento(101), null, 0);
+        jTFNome = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(101), null, 0);
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jCBDescricaoClasse = new javax.swing.JComboBox();
@@ -400,7 +400,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jTFPesquisaNome = new javax.swing.JTextField(new documentoSomenteNumerosELetras(64), null, 0);
+        jTFPesquisaNome = new javax.swing.JTextField(new DocumentoSomenteNumerosELetras(64), null, 0);
         jLabel24 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();

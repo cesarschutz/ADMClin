@@ -11,7 +11,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.jTextFieldDinheiroReais;
+import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.CONVENIOCH;
@@ -189,7 +189,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
         jBCancelar = new javax.swing.JButton();
         jTFMensagemParaUsuario = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jTFValorCh = new jTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTFValorCh = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8

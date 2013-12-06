@@ -15,8 +15,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.dao.USUARIOS;
@@ -316,7 +316,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTFNome = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
+        jTFNome = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
@@ -335,23 +335,23 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFCelular = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
-        jTFEndereco = new javax.swing.JTextField(new documentoSemAspasEPorcento(80), null, 0);
+        jTFEndereco = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(80), null, 0);
         jLabel13 = new javax.swing.JLabel();
-        jTFBairro = new javax.swing.JTextField(new documentoSomenteLetras(32), null, 0);
+        jTFBairro = new javax.swing.JTextField(new DocumentoSomenteLetras(32), null, 0);
         jLabel14 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFCep = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##.###-###"));
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTFCidade = new javax.swing.JTextField(new documentoSomenteLetras(32), null, 0);
+        jTFCidade = new javax.swing.JTextField(new DocumentoSomenteLetras(32), null, 0);
         jCBUf = new javax.swing.JComboBox();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFRg = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##########"));
         jLabel18 = new javax.swing.JLabel();
-        jTFProfissao = new javax.swing.JTextField(new documentoSomenteLetras(32), null, 0);
+        jTFProfissao = new javax.swing.JTextField(new DocumentoSomenteLetras(32), null, 0);
         jLabel19 = new javax.swing.JLabel();
-        jTFEmail = new javax.swing.JTextField(new documentoSemAspasEPorcento(64), null, 0);
+        jTFEmail = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jLabel20 = new javax.swing.JLabel();
         jCBCor = new javax.swing.JComboBox();
         jLabel21 = new javax.swing.JLabel();
@@ -361,10 +361,10 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFCpfResponsavel = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("###.###.###-##"));
         jLabel6 = new javax.swing.JLabel();
-        jTFResponsavel = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
+        jTFResponsavel = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
         jLabel23 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTAObs = new javax.swing.JTextArea(new documentoSemAspasEPorcento(1600));
+        jTAObs = new javax.swing.JTextArea(new DocumentoSemAspasEPorcento(1600));
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();

@@ -11,10 +11,10 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.exame;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemeComercialESemJogoDaVelhaParaOsMateriais;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteNumerosELetras;
-import br.bcn.admclin.ClasseAuxiliares.jTextFieldDinheiroReais;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemeComercialESemJogoDaVelhaParaOsMateriais;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
+import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.MATERIAIS;
 import br.bcn.admclin.dao.VALORESMATERIAIS;
@@ -97,7 +97,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
         // colocando maximo de caracteres nos jtextfield
-        jTDescricao.setDocument(new documentoSemeComercialESemJogoDaVelhaParaOsMateriais(64));
+        jTDescricao.setDocument(new DocumentoSemeComercialESemJogoDaVelhaParaOsMateriais(64));
         jTable2.setRowHeight(20);
 
         if ("novo".equals(novoOuEditar)) {
@@ -347,8 +347,8 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTDescricao = new javax.swing.JTextField(new documentoSomenteNumerosELetras(64), null, 0);
-        jTFValor = new jTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTDescricao = new javax.swing.JTextField(new DocumentoSomenteNumerosELetras(64), null, 0);
+        jTFValor = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8
@@ -362,7 +362,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         jBAdicionarValor = new javax.swing.JButton();
         jBRemover = new javax.swing.JButton();
         jLValor1 = new javax.swing.JLabel();
-        jTFCodigo = new javax.swing.JTextField(new documentoSemAspasEPorcento(16), null, 0);
+        jTFCodigo = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(16), null, 0);
         jBApagarRegistro = new javax.swing.JButton();
         jBSalvarRegistro = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();

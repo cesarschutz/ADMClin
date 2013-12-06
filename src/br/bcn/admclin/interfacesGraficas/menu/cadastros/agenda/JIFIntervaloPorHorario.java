@@ -11,7 +11,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.AGENDAS;
@@ -69,7 +69,7 @@ public class JIFIntervaloPorHorario extends javax.swing.JInternalFrame {
     @SuppressWarnings("static-access")
     public JIFIntervaloPorHorario(String novoOuEditar, int intervaloPorHorarioId) {
         initComponents();
-        jTFNome.setDocument(new documentoSemAspasEPorcento(64));
+        jTFNome.setDocument(new DocumentoSemAspasEPorcento(64));
         this.novoOuEditar = novoOuEditar;
         pegandoDataDoSistema();
 

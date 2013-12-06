@@ -11,7 +11,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.AGENDAS;
@@ -71,8 +71,8 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
     @SuppressWarnings("static-access")
     public JIFIntervaloDiario(String novoOuEditar, int intervaloDiarioId) {
         initComponents();
-        jTFNome.setDocument(new documentoSemAspasEPorcento(64));
-        jTADescricao.setDocument(new documentoSemAspasEPorcento(500));
+        jTFNome.setDocument(new DocumentoSemAspasEPorcento(64));
+        jTADescricao.setDocument(new DocumentoSemAspasEPorcento(500));
         jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Ir para data atual");
 
@@ -453,7 +453,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
         jBDeletar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jTFNome = new javax.swing.JTextField(new documentoSemAspasEPorcento(64), null, 0);
+        jTFNome = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
@@ -468,7 +468,7 @@ public class JIFIntervaloDiario extends javax.swing.JInternalFrame {
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTADescricao = new javax.swing.JTextArea(new documentoSemAspasEPorcento(500));
+        jTADescricao = new javax.swing.JTextArea(new DocumentoSemAspasEPorcento(500));
         jLabel5 = new javax.swing.JLabel();
 
         jTFMensagemParaUsuario.setBackground(new java.awt.Color(220, 220, 220));

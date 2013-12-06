@@ -10,7 +10,7 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.model.Usuario;
@@ -54,7 +54,7 @@ public class JIFCUsuariosVisualizar extends javax.swing.JInternalFrame {
     }
     
     public void iniciarClasse(){
-        jTFPesquisaNome.setDocument(new documentoSemAspasEPorcento(64));
+        jTFPesquisaNome.setDocument(new DocumentoSemAspasEPorcento(64));
         //selecionar somente uma linha na tabela
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //deixando invisivel a coluna 0 da tabela (onde irá o codigo)

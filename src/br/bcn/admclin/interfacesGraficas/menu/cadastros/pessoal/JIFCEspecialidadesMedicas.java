@@ -1,7 +1,7 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.USUARIOS;
 import br.bcn.admclin.dao.ESPECIALIDADES_MEDICAS;
@@ -63,7 +63,7 @@ public class JIFCEspecialidadesMedicas extends javax.swing.JInternalFrame {
     /** Metodo que vai no construtor da classe. Eexecuta operações antes de abrir a janela. */
     public void iniciarClasse() {
         // colocando maximo de caracteres nos jtextfield
-        jTDescricao.setDocument(new documentoSemAspasEPorcento(64));
+        jTDescricao.setDocument(new DocumentoSemAspasEPorcento(64));
 
         if ("novo".equals(novoOuEditar)) {
             jBApagarRegistro.setVisible(false);

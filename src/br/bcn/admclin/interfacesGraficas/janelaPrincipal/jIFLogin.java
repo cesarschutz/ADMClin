@@ -4,7 +4,7 @@
  */
 package br.bcn.admclin.interfacesGraficas.janelaPrincipal;
 
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.DADOS_EMPRESA;
 import br.bcn.admclin.dao.USUARIOS;
@@ -134,9 +134,9 @@ public class jIFLogin extends javax.swing.JInternalFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTFUsuario = new javax.swing.JTextField(new documentoSemAspasEPorcento(64),null,0);
+        jTFUsuario = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64),null,0);
         jLabel2 = new javax.swing.JLabel();
-        jTFSenha = new javax.swing.JPasswordField(new documentoSemAspasEPorcento(64),null,0);
+        jTFSenha = new javax.swing.JPasswordField(new DocumentoSemAspasEPorcento(64),null,0);
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();

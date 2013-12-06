@@ -18,7 +18,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.documentoSomenteLetras;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.PACIENTES;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
@@ -189,7 +189,7 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTFNomePaciente = new javax.swing.JTextField(new documentoSomenteLetras(64), null, 0);
+        jTFNomePaciente = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
         jBPesquisaPaciente = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         jTFMensagemParaUsuario = new javax.swing.JTextField();

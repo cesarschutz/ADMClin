@@ -10,7 +10,7 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.exame;
 
-import br.bcn.admclin.ClasseAuxiliares.documentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.Conexao;
 import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
 import br.bcn.admclin.dao.model.Tb_ClassesDeExames;
@@ -55,7 +55,7 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
 
     public void iniciarClasse() {
         jTable1.setRowHeight(20);
-        jTFPesquisaNome.setDocument(new documentoSemAspasEPorcento(64));
+        jTFPesquisaNome.setDocument(new DocumentoSemAspasEPorcento(64));
         // selecionar somente uma linha na tabela
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // deixando invisivel a coluna 0 da tabela (onde irá o codigo)
