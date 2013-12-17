@@ -96,13 +96,13 @@ public class ImprimirBoletoDeRetiradaModelo1 {
     }
 
     private String nomeEmpresa, enderecoEmpresa;
-    private int telefoneEmpresa;
+    private String telefoneEmpresa;
 
     private void buscarInformacoesDaEmpresa() throws SQLException {
         ResultSet resultSet = DADOS_EMPRESA.getConsultar(con);
         while (resultSet.next()) {
             nomeEmpresa = resultSet.getString("nome");
-            telefoneEmpresa = resultSet.getInt("telefone");
+            telefoneEmpresa = resultSet.getString("telefone");
             enderecoEmpresa = resultSet.getString("endereco");
         }
     }
