@@ -72,7 +72,7 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
             conseguiuAbrirAFicha = true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível Criar Ficha de Atendimento. Procure o Administrador."
-                + " 000001", "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                + " 000001" + e, "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } catch (DocumentException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível Criar Ficha de Atendimento. Procure o Administrador."
                 + " 000002", "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -102,7 +102,7 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
     private String nome_paciente, nascimento_paciente, sexo_paciente, telefone_paciente, peso_paciente,
                     altura_paciente;
     private String nome_convenio, matricula_convenio, complemento, nome_medico_sol, crm_medico_sol;
-    private String data_atendimento, hora_atendimento, observacao;
+    private String data_atendimento, hora_atendimento, observacao, cidade;
 
     private void buscarInformaçõesDoAtendimento() throws SQLException {
         // buscando as informações do atendimento
@@ -116,6 +116,7 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
             nascimento_paciente = resultSet.getString("nascimento_paciente");
             sexo_paciente = resultSet.getString("sexo_paciente");
             telefone_paciente = resultSet.getString("telefone_paciente");
+            cidade = resultSet.getString("cidade");
 
             nome_convenio = resultSet.getString("nomeConv");
             matricula_convenio = resultSet.getString("matricula_convenio");
@@ -198,7 +199,7 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
 
         // preenchendo dados do paciente
 
-        cell = new PdfPCell(new Phrase("Paciente: " + nome_paciente, fontNormal));
+        cell = new PdfPCell(new Phrase("Paciente: " + nome_paciente + "\nCidade: " + cidade, fontNormal));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setColspan(2);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
