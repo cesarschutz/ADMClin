@@ -99,10 +99,11 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
                 if (resultSet.getInt("grupo_id") != 0) {
                     lista_handle_grupo_convenio.add(resultSet.getInt("grupo_id"));
                     jCBGrupo.addItem(resultSet.getString("nome"));
-                    Conexao.fechaConexao(con);
+                    
                 }
 
             }
+            Conexao.fechaConexao(con);
         } catch (Exception e) {
             this.dispose();
             janelaPrincipal.internalFrameConvenios = null;
