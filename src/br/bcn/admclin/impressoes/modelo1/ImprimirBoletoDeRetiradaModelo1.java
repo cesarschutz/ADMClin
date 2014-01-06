@@ -41,7 +41,13 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 /**
+ * Configuração da impressora!!
+ * baixar drive Elgin VOX: https://www.elgin.com.br/portalelgin/site/produto/detalhe/produtodetalhe.aspx?idprod=641&sm=p12
+ * imprimir pagina teste para verificar se foi instalado corretamente.
  * 
+ * Vamos em propriedades da impressora
+ * na aba Utilitarios criamos um papel 800 x 800
+ * na aba Configuração de Dispositivos definimos o papel que foi criado anteriormente
  * @author Cesar Schutz
  */
 public class ImprimirBoletoDeRetiradaModelo1 {

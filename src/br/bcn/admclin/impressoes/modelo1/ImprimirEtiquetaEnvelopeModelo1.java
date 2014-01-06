@@ -29,6 +29,13 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
+ * Configuração da impressora
+ * baixar driver: http://www.argox.com/content.php?sno=0000033&P_ID=19
+ * 
+ * criar o papel da bcn: 98,5 mm  por 44,0 mm
+ * 
+ * na aba papel etiquetas: no processamento de midia coloca na ação pos-impressao como separar!!
+ * 
  * 
  * @author Cesar Schutz
  */
