@@ -1,5 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
+- * To change this template, choose Tools | Templates
  * and open the template in the editor.
  * 
  * 992 - 641 o tamanho maximo da janela!!
@@ -206,7 +206,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         // selecionar somente uma linha na tabela
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // aumentando tamanho da linha
-        jTable1.setRowHeight(30);
+        jTable1.setRowHeight(35);
 
         // pegamos a data do dataPicker e atualizamos a tabelas
         preenchendoTabela(pegandoDataDoDataPicker());

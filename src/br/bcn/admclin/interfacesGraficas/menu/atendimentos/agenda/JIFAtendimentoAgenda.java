@@ -108,6 +108,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form JIFagendamento
+     * @wbp.parser.constructor
      */
     public JIFAtendimentoAgenda(String horarioLivreOuOcupado, int handle_at, int handle_agenda,
         JTable tabelaSelecionada, JInternalFrame internalFrame) {

@@ -360,8 +360,11 @@ public class ATENDIMENTOS {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 try {
+                    int status1 = Integer.valueOf(rs.getString("status1"));
+                    if(status1 > 1){
+                        marcarStatus1 = false;
+                    }
                 } catch (Exception e) {
-                    // se cai aqui é pq é vazio ou nulo entao retorna true que pode mudar o icone
                     marcarStatus1 = true;
                 }
             }
