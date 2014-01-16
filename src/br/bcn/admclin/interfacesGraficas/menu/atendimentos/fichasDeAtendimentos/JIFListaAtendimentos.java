@@ -206,7 +206,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         // selecionar somente uma linha na tabela
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // aumentando tamanho da linha
-        jTable1.setRowHeight(35);
+        jTable1.setRowHeight(30);
 
         // pegamos a data do dataPicker e atualizamos a tabelas
         preenchendoTabela(pegandoDataDoDataPicker());
@@ -1359,6 +1359,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         "/br/bcn/admclin/imagens/imprimirEtiqueta.png"));
     ImageIcon iconeImprimirCodigoDeBarras = new javax.swing.ImageIcon(getClass().getResource(
         "/br/bcn/admclin/imagens/Barcode.png"));
+    ImageIcon iconeHistoriaClinica = new javax.swing.ImageIcon(getClass().getResource(
+                    "/br/bcn/admclin/imagens/Historia.png"));
 
     private void abrirPopUpMenu(MouseEvent evt) {
 
@@ -1406,6 +1408,14 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             }
         });
 
+        // Historia Clinica
+        JMenuItem historiaClinica = new JMenuItem("Historia Clínica", iconeHistoriaClinica);
+        historiaClinica.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                historiaClincia();
+            }
+        });
+        
         // adicionando os submenus no impimir
 
         // imprimir.add(imprimirLaudo);
@@ -1422,12 +1432,18 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
         popup.add(imprimir);
+        popup.add(historiaClinica);
 
         // mostra na tela
         // mostra na tela
         int x = evt.getX();
         int y = evt.getY();
         popup.show(jTable1, x, y);
+    }
+    
+    private void historiaClincia(){
+        JFHistoriaClinica his = new JFHistoriaClinica(12345, "22/05/2012", "CESAR AUGUSTO SCHUTZ FAGUNDES");
+        his.setVisible(true);
     }
 
     @SuppressWarnings("rawtypes")
