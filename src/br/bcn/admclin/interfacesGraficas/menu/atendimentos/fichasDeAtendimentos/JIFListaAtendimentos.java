@@ -1442,7 +1442,18 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     }
     
     private void historiaClincia(){
-        JFHistoriaClinica his = new JFHistoriaClinica(12345, "22/05/2012", "CESAR AUGUSTO SCHUTZ FAGUNDES");
+        //pegando o handle_at
+        int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        //pegando o nome do paciente
+        String paciente = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 3));
+        //pegando a data
+        java.util.Date dataSelecionada = jXDatePicker1.getDate();
+        // criando um formato de data
+        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+        // colocando data selecionado no formato criado acima
+        String data2 = dataFormatada.format(dataSelecionada);
+        
+        JFHistoriaClinica his = new JFHistoriaClinica(handle_at, data2, paciente);
         his.setVisible(true);
     }
 
