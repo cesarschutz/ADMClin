@@ -73,7 +73,7 @@ import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConve
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFListaAtendimentosParaFaturar;
 
 /**
- *
+ * 
  * @author CeSaR
  */
 public class janelaPrincipal extends javax.swing.JFrame {
@@ -86,7 +86,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFFeriadoVisualizar internalFrameFeriadoVisualizar;
     public static JIFFeriado internalFrameFeriado;
     public static jIFCExames internalFrameCadastroExames;
-    //public static JIFCriarRelatorioDeAgendamentos internalFrameCriarRelatorioDeAgendamento;
+    // public static JIFCriarRelatorioDeAgendamentos internalFrameCriarRelatorioDeAgendamento;
     public static JIFCConveniosVisualizar internalFrameConvenioVisualizar;
     public static JIFCConvenios internalFrameConvenios;
     public static JIFCConvenioCH internalFrameConveioCH;
@@ -136,89 +136,75 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFAgendamento internalFrameAgendamento;
     public static JIFUmaAgenda internalFrameUmaTabela;
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
-    
-   
-    
-    
-    //variavel que guarda o tipo de impressao da empresa
-    public static int  modeloDeImpressao = 0;
-     Connection con = null;
+
+    // variavel que guarda o tipo de impressao da empresa
+    public static int modeloDeImpressao = 0;
+    Connection con = null;
+
     /**
      * Creates new form janelaPrincipal
      */
-    public static boolean apagarPasta(File dir) {  
-        if (dir.isDirectory()) {  
-            String[] children = dir.list();  
-            for (int i=0; i<children.length; i++) {  
-                boolean success = apagarPasta(new File(dir, children[i] ));  
-                if (!success) {  
-                    return false;  
-                }  
-            }  
+    public static boolean apagarPasta(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = apagarPasta(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
         }
-        // The directory is now empty so delete it  
-        return dir.delete();  
+        // The directory is now empty so delete it
+        return dir.delete();
     }
 
-
-    
-    
-    
-    
     /*
-     * TESTANDO PARA MOSTRAR AO THEO
-     * ESSE METODO FAZ ISSO ISSO E ISSO
+     * TESTANDO PARA MOSTRAR AO THEO ESSE METODO FAZ ISSO ISSO E ISSO
      */
     public janelaPrincipal() {
-        
-        
+
         initComponents();
-        
-        //sobreescrevendo o metodo de fechar
-        this.addWindowListener(new WindowAdapter() {  
-  
-            @Override  
-            public void windowClosing(WindowEvent we) {  
-                //se for pra fechar ele apaga as pastas, se tiver pra nao fazer nada ele nao apaga 
+
+        // sobreescrevendo o metodo de fechar
+        this.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent we) {
+                // se for pra fechar ele apaga as pastas, se tiver pra nao fazer nada ele nao apaga
                 File dir = new File(USUARIOS.pasta_raiz);
                 apagarPasta(dir);
-                
-            }  
-        });  
 
-        
+            }
+        });
+
         setIconImage(getToolkit().createImage(getClass().getResource("/br/bcn/admclin/imagens/imagemIconePrograma.png")));
-        
-                
-              
-        
-        
-        this.setTitle("ADMClin - BCN Medical System");
-        
-        jDesktopPane1.addComponentListener(new ComponentAdapter() {   
-            @Override
-            public void componentResized(ComponentEvent e) {   
-                //aqui vai o que quero que aconteça quando mecher no tamanho do jdesktoppane
-                //pega todos os jinternalframes do jdesktoppane
-                JInternalFrame[] iframes = jDesktopPane1.getAllFrames(); 
-                //percorrendo todos os jinternalframes pegos
-                for ( JInternalFrame iframe: iframes ) {
-                    //se jinternalframe estiver aberto, vai ser centralizado
-                   if ( iframe.isVisible() ){
-                       //centralizando jinternalframe
-                       
-                       int lDesk = jDesktopPane1.getWidth();     
-                        int aDesk = jDesktopPane1.getHeight();     
-                        int lIFrame = iframe.getWidth();     
-                        int aIFrame = iframe.getHeight();     
 
-                        iframe.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
-                  }  
-               }  
-          }   
-      });
-        
-        //abrindo login
+        this.setTitle("ADMClin - BCN Medical System");
+
+        jDesktopPane1.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                // aqui vai o que quero que aconteça quando mecher no tamanho do jdesktoppane
+                // pega todos os jinternalframes do jdesktoppane
+                JInternalFrame[] iframes = jDesktopPane1.getAllFrames();
+                // percorrendo todos os jinternalframes pegos
+                for (JInternalFrame iframe : iframes) {
+                    // se jinternalframe estiver aberto, vai ser centralizado
+                    if (iframe.isVisible()) {
+                        // centralizando jinternalframe
+
+                        int lDesk = jDesktopPane1.getWidth();
+                        int aDesk = jDesktopPane1.getHeight();
+                        int lIFrame = iframe.getWidth();
+                        int aIFrame = iframe.getHeight();
+
+                        iframe.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+                    }
+                }
+            }
+        });
+
+        // abrindo login
         jIFLogin login = new jIFLogin();
         jDesktopPane1.add(login);
         login.setVisible(true);
@@ -228,31 +214,30 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = login.getHeight();
 
         login.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-        
-        
+
         setResizable(false);
     }
-    
-    public void desativandoOMenu(){
+
+    public void desativandoOMenu() {
         jMCadastros.setEnabled(false);
         jMEntradaESaida.setEnabled(false);
         jMSair.setEnabled(false);
         jMFinanceiro.setEnabled(false);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
-    
-    public void ativandoOMenu(){
+
+    public void ativandoOMenu() {
         jMCadastros.setEnabled(true);
         jMEntradaESaida.setEnabled(true);
         jMSair.setEnabled(true);
         jMFinanceiro.setEnabled(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
-    
+
     /*
      * Ativando o ato de aguardar o carregamento
      */
-    public void ativarCarregamento(){
+    public void ativarCarregamento() {
         janelaPrincipal.internalFrameAguarde = new JjIFAguarde();
         jDesktopPane1.add(janelaPrincipal.internalFrameAguarde);
         janelaPrincipal.internalFrameAguarde.setVisible(true);
@@ -262,23 +247,22 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = janelaPrincipal.internalFrameAguarde.getHeight();
 
         janelaPrincipal.internalFrameAguarde.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    
+
         janelaPrincipal.internalFrameJanelaPrincipal.setEnabled(false);
     }
-    
+
     /*
      * Desativando o ato de aguardar o carregamento
      */
-    public void desativarCarregamento(){
+    public void desativarCarregamento() {
         janelaPrincipal.internalFrameAguarde.dispose();
         janelaPrincipal.internalFrameAguarde = null;
         janelaPrincipal.internalFrameJanelaPrincipal.setEnabled(true);
     }
-    
+
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -323,7 +307,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
 
-        jMSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoLogoff.png"))); // NOI18N
+        jMSair.setIcon(new javax.swing.ImageIcon(getClass()
+            .getResource("/br/bcn/admclin/imagens/imagemBotaoLogoff.png"))); // NOI18N
         jMSair.setEnabled(false);
         jMSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -338,7 +323,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMCAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgenda.png"))); // NOI18N
         jMCAgenda.setText("Agendas");
 
-        jMCAAgendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaAgendas.png"))); // NOI18N
+        jMCAAgendas.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAgendaAgendas.png"))); // NOI18N
         jMCAAgendas.setText("Agendas");
         jMCAAgendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,7 +333,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAAgendas);
 
-        jMCAFeriados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaFeriados.png"))); // NOI18N
+        jMCAFeriados.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAgendaFeriados.png"))); // NOI18N
         jMCAFeriados.setText("Feriados");
         jMCAFeriados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,7 +343,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAFeriados);
 
-        jMCAIntervalosDiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaIntervaloDiario.png"))); // NOI18N
+        jMCAIntervalosDiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAgendaIntervaloDiario.png"))); // NOI18N
         jMCAIntervalosDiarios.setText("Intervalos Diários");
         jMCAIntervalosDiarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,7 +353,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAIntervalosDiarios);
 
-        jMCAIntervaloPorHorario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaIntervaloPorHorario.png"))); // NOI18N
+        jMCAIntervaloPorHorario.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAgendaIntervaloPorHorario.png"))); // NOI18N
         jMCAIntervaloPorHorario.setText("Intervalos por Horário");
         jMCAIntervaloPorHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,7 +363,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(jMCAIntervaloPorHorario);
 
-        jMCAIntervalosPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendaIntervaloPeriodo.png"))); // NOI18N
+        jMCAIntervalosPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAgendaIntervaloPeriodo.png"))); // NOI18N
         jMCAIntervalosPorPeriodo.setText("Intervalos por Período");
         jMCAIntervalosPorPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -385,10 +375,12 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMCadastros.add(jMCAgenda);
 
-        jMCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuConvenios.png"))); // NOI18N
+        jMCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuConvenios.png"))); // NOI18N
         jMCConvenios.setText("Convênios");
 
-        jMCCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuConveniosConvenios.png"))); // NOI18N
+        jMCCConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuConveniosConvenios.png"))); // NOI18N
         jMCCConvenios.setText("Convênios");
         jMCCConvenios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,7 +389,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCConvenios.add(jMCCConvenios);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/GrupoDeConvenios.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/GrupoDeConvenios.png"))); // NOI18N
         jMenuItem3.setText("Grupos de Convênios");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,7 +399,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCConvenios.add(jMenuItem3);
 
-        jMCCTabelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuConveniosTabelas.png"))); // NOI18N
+        jMCCTabelas.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuConveniosTabelas.png"))); // NOI18N
         jMCCTabelas.setText("Tabelas");
         jMCCTabelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,7 +414,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMCExames.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExames.png"))); // NOI18N
         jMCExames.setText("Exames");
 
-        jMCEClassesDeExames.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExamesClassesDeExames.png"))); // NOI18N
+        jMCEClassesDeExames.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuExamesClassesDeExames.png"))); // NOI18N
         jMCEClassesDeExames.setText("Classes de Exames");
         jMCEClassesDeExames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,7 +424,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCExames.add(jMCEClassesDeExames);
 
-        jMCEEXAMES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExamesExames.png"))); // NOI18N
+        jMCEEXAMES.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuExamesExames.png"))); // NOI18N
         jMCEEXAMES.setText("Exames");
         jMCEEXAMES.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,7 +434,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCExames.add(jMCEEXAMES);
 
-        jMCEMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuExamesMateriais.png"))); // NOI18N
+        jMCEMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuExamesMateriais.png"))); // NOI18N
         jMCEMateriais.setText("Materiais");
         jMCEMateriais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -449,10 +446,12 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMCadastros.add(jMCExames);
 
-        jMCPessoal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoal.png"))); // NOI18N
+        jMCPessoal
+            .setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoal.png"))); // NOI18N
         jMCPessoal.setText("Pessoal");
 
-        jMICPEspecialidadesMedicas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalEspecialidadesMedicas.png"))); // NOI18N
+        jMICPEspecialidadesMedicas.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuPessoalEspecialidadesMedicas.png"))); // NOI18N
         jMICPEspecialidadesMedicas.setText("Especialidades Médicas");
         jMICPEspecialidadesMedicas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,7 +460,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPEspecialidadesMedicas);
 
-        jMICPMedicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalMedicos.png"))); // NOI18N
+        jMICPMedicos.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuPessoalMedicos.png"))); // NOI18N
         jMICPMedicos.setText("Médicos");
         jMICPMedicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,7 +470,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPMedicos);
 
-        jMICPPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalPacientes.png"))); // NOI18N
+        jMICPPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuPessoalPacientes.png"))); // NOI18N
         jMICPPacientes.setText("Pacientes");
         jMICPPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,7 +480,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPPacientes);
 
-        jMICPResponsaveisTecnicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalResponsaveisTecnicos.png"))); // NOI18N
+        jMICPResponsaveisTecnicos.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuPessoalResponsaveisTecnicos.png"))); // NOI18N
         jMICPResponsaveisTecnicos.setText("Responsáveis Técnicos");
         jMICPResponsaveisTecnicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,7 +490,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCPessoal.add(jMICPResponsaveisTecnicos);
 
-        jMICPUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuPessoalUsuarios.png"))); // NOI18N
+        jMICPUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuPessoalUsuarios.png"))); // NOI18N
         jMICPUsuarios.setText("Usuários");
         jMICPUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -504,10 +507,12 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMEntradaESaida.setText("Atendimentos");
         jMEntradaESaida.setEnabled(false);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
         jMenu1.setText("Atendimentos");
 
-        jMEFichasDeAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
+        jMEFichasDeAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
         jMEFichasDeAtendimento.setText("Fichas de Atendimento");
         jMEFichasDeAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -517,7 +522,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMEFichasDeAtendimento);
 
         jMIEditarAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
-        jMIEditarAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemPesquisarInvertida.png"))); // NOI18N
+        jMIEditarAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/imagemPesquisarInvertida.png"))); // NOI18N
         jMIEditarAtendimentos.setText("Pesquisar Atendimentos");
         jMIEditarAtendimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -537,7 +543,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMEntradaESaida.add(jMEAgenda);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimentosConsultaValoresDeExames.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuAtendimentosConsultaValoresDeExames.png"))); // NOI18N
         jMenuItem1.setText("Consultar Valores dos Exames");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -551,10 +558,12 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMFinanceiro.setText("Financeiro");
         jMFinanceiro.setEnabled(false);
 
-        jMRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/financeiroAtendimentos.png"))); // NOI18N
+        jMRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/financeiroAtendimentos.png"))); // NOI18N
         jMRelatorios.setText("Relatórios");
 
-        jMIAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuFinanceiroAtendimento.png"))); // NOI18N
+        jMIAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/menuFinanceiroAtendimento.png"))); // NOI18N
         jMIAtendimentos.setText("Atendimentos");
         jMIAtendimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -563,7 +572,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMRelatorios.add(jMIAtendimentos);
 
-        jMIDemed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/receita-federal.png"))); // NOI18N
+        jMIDemed.setIcon(new javax.swing.ImageIcon(getClass()
+            .getResource("/br/bcn/admclin/imagens/receita-federal.png"))); // NOI18N
         jMIDemed.setText("Dmed");
         jMIDemed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -572,7 +582,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMRelatorios.add(jMIDemed);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/faturamentoDeConvenios.png"))); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/faturamentoDeConvenios.png"))); // NOI18N
         jMenuItem2.setText("Faturamento de Convênios");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -589,74 +600,67 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+            jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+            jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE));
 
         setSize(new java.awt.Dimension(1024, 725));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void fechandoTodosOsInternalFrames(){       
-        //fechando os outros jinternalframes abertos antes de abrir este
-        JInternalFrame[] iframes = jDesktopPane1.getAllFrames(); 
-        //percorrendo todos os jinternalframes pegos
+    public void fechandoTodosOsInternalFrames() {
+        // fechando os outros jinternalframes abertos antes de abrir este
+        JInternalFrame[] iframes = jDesktopPane1.getAllFrames();
+        // percorrendo todos os jinternalframes pegos
 
-        for ( JInternalFrame iframe: iframes ) {
-            //se tive aberto vo fecha
-            if ( iframe != null){
-               //fecha oi internal frame 
-               iframe.dispose();
-               iframe = null;
-            }  
+        for (JInternalFrame iframe : iframes) {
+            // se tive aberto vo fecha
+            if (iframe != null) {
+                // fecha oi internal frame
+                iframe.dispose();
+                iframe = null;
+            }
         }
     }
-    
-    private void jMEAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMEAgendaActionPerformed
-        
+
+    private void jMEAgendaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMEAgendaActionPerformed
+
         fechandoTodosOsInternalFrames();
         janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
-                    
-                    
-                    SwingWorker<?, ?> worker = new SwingWorker<Object, Object>(){
-                                @Override  
-                                protected Object doInBackground() throws Exception {
-                                    
-                                    internalFrameAgendaPrincipal = new JIFAgendaPrincipal();
-                                    jDesktopPane1.add(internalFrameAgendaPrincipal);
-                                    internalFrameAgendaPrincipal.setVisible(true);
-                                    //essa parte esta no fim do processo
-                                    int lDesk = jDesktopPane1.getWidth();
-                                    int aDesk = jDesktopPane1.getHeight();
-                                    int lIFrame = internalFrameAgendaPrincipal.getWidth();
-                                    int aIFrame = internalFrameAgendaPrincipal.getHeight();
 
-                                    internalFrameAgendaPrincipal.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-                                    return null;  
-                                }  
-                                @Override  
-                                protected void done() { 
+        SwingWorker<?, ?> worker = new SwingWorker<Object, Object>() {
+            @Override
+            protected Object doInBackground() throws Exception {
 
-                                    janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
-                                    internalFrameAgendaPrincipal.setVisible(true);
-                                }  
-                           };
+                internalFrameAgendaPrincipal = new JIFAgendaPrincipal();
+                jDesktopPane1.add(internalFrameAgendaPrincipal);
+                internalFrameAgendaPrincipal.setVisible(true);
+                // essa parte esta no fim do processo
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFrameAgendaPrincipal.getWidth();
+                int aIFrame = internalFrameAgendaPrincipal.getHeight();
 
-                     worker.execute();
-        
-        
-        
-        
-    }//GEN-LAST:event_jMEAgendaActionPerformed
+                internalFrameAgendaPrincipal.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+                return null;
+            }
 
-    private void jMCAAgendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCAAgendasActionPerformed
+            @Override
+            protected void done() {
+
+                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
+                internalFrameAgendaPrincipal.setVisible(true);
+            }
+        };
+
+        worker.execute();
+
+    }// GEN-LAST:event_jMEAgendaActionPerformed
+
+    private void jMCAAgendasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAAgendasActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameCadastroAgendas = new jIFCAgendas();
         jDesktopPane1.add(internalFrameCadastroAgendas);
         internalFrameCadastroAgendas.setVisible(true);
@@ -666,23 +670,23 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameCadastroAgendas.getHeight();
 
         internalFrameCadastroAgendas.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCAAgendasActionPerformed
+    }// GEN-LAST:event_jMCAAgendasActionPerformed
 
-    private void jMSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMSairMouseClicked
-        if(jMSair.isEnabled()){
-           int resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente Sair?", "ATENÇÃO",0);   
-            if(resposta == JOptionPane.YES_OPTION){
-                
+    private void jMSairMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jMSairMouseClicked
+        if (jMSair.isEnabled()) {
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente Sair?", "ATENÇÃO", 0);
+            if (resposta == JOptionPane.YES_OPTION) {
+
                 jMCadastros.setVisible(true);
                 jMFinanceiro.setVisible(true);
                 jMEntradaESaida.setVisible(true);
-                
+
                 fechandoTodosOsInternalFrames();
-                //sumindo o menu
+                // sumindo o menu
                 desativandoOMenu();
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                //abrindo login
+                // abrindo login
                 jIFLogin login = new jIFLogin();
                 jDesktopPane1.add(login);
                 login.setVisible(true);
@@ -692,17 +696,15 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 int aIFrame = login.getHeight();
 
                 login.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-            }  
+            }
 
-                
-       } 
-        
-        
-    }//GEN-LAST:event_jMSairMouseClicked
+        }
 
-    private void jMCAFeriadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCAFeriadosActionPerformed
+    }// GEN-LAST:event_jMSairMouseClicked
+
+    private void jMCAFeriadosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAFeriadosActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameFeriadoVisualizar = new JIFFeriadoVisualizar();
         jDesktopPane1.add(internalFrameFeriadoVisualizar);
         internalFrameFeriadoVisualizar.setVisible(true);
@@ -712,11 +714,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameFeriadoVisualizar.getHeight();
 
         internalFrameFeriadoVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCAFeriadosActionPerformed
+    }// GEN-LAST:event_jMCAFeriadosActionPerformed
 
-    private void jMCEEXAMESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCEEXAMESActionPerformed
+    private void jMCEEXAMESActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCEEXAMESActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameCadastroExames = new jIFCExames();
         jDesktopPane1.add(internalFrameCadastroExames);
         internalFrameCadastroExames.setVisible(true);
@@ -726,11 +728,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameCadastroExames.getHeight();
 
         internalFrameCadastroExames.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCEEXAMESActionPerformed
+    }// GEN-LAST:event_jMCEEXAMESActionPerformed
 
-    private void jMCCConveniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCCConveniosActionPerformed
+    private void jMCCConveniosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCCConveniosActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameConvenioVisualizar = new JIFCConveniosVisualizar();
         jDesktopPane1.add(internalFrameConvenioVisualizar);
         internalFrameConvenioVisualizar.setVisible(true);
@@ -740,11 +742,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameConvenioVisualizar.getHeight();
 
         internalFrameConvenioVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCCConveniosActionPerformed
+    }// GEN-LAST:event_jMCCConveniosActionPerformed
 
-    private void jMCCTabelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCCTabelasActionPerformed
+    private void jMCCTabelasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCCTabelasActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameTabelasVisualizar = new JIFCTabelasVisualizar();
         jDesktopPane1.add(internalFrameTabelasVisualizar);
         internalFrameTabelasVisualizar.setVisible(true);
@@ -754,11 +756,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameTabelasVisualizar.getHeight();
 
         internalFrameTabelasVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCCTabelasActionPerformed
+    }// GEN-LAST:event_jMCCTabelasActionPerformed
 
-    private void jMCEMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCEMateriaisActionPerformed
+    private void jMCEMateriaisActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCEMateriaisActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameMateriaisVisualizar = new JIFCMaterialVisualizar();
         jDesktopPane1.add(internalFrameMateriaisVisualizar);
         internalFrameMateriaisVisualizar.setVisible(true);
@@ -768,11 +770,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameMateriaisVisualizar.getHeight();
 
         internalFrameMateriaisVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCEMateriaisActionPerformed
+    }// GEN-LAST:event_jMCEMateriaisActionPerformed
 
-    private void jMICPPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICPPacientesActionPerformed
+    private void jMICPPacientesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMICPPacientesActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFramePacienteVisualizar = new JIFCPacientesVisualizar();
         jDesktopPane1.add(internalFramePacienteVisualizar);
         internalFramePacienteVisualizar.setVisible(true);
@@ -782,11 +784,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFramePacienteVisualizar.getHeight();
 
         internalFramePacienteVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMICPPacientesActionPerformed
+    }// GEN-LAST:event_jMICPPacientesActionPerformed
 
-    private void jMCAIntervalosDiariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCAIntervalosDiariosActionPerformed
+    private void jMCAIntervalosDiariosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAIntervalosDiariosActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameIntervalosDiariosVisualizar = new JIFIntervaloDiarioVisualizar();
         jDesktopPane1.add(internalFrameIntervalosDiariosVisualizar);
         internalFrameIntervalosDiariosVisualizar.setVisible(true);
@@ -796,11 +798,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameIntervalosDiariosVisualizar.getHeight();
 
         internalFrameIntervalosDiariosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCAIntervalosDiariosActionPerformed
+    }// GEN-LAST:event_jMCAIntervalosDiariosActionPerformed
 
-    private void jMICPMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICPMedicosActionPerformed
+    private void jMICPMedicosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMICPMedicosActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameMedicosVisualizar = new JIFCMedicosVisualizar();
         jDesktopPane1.add(internalFrameMedicosVisualizar);
         internalFrameMedicosVisualizar.setVisible(true);
@@ -810,11 +812,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameMedicosVisualizar.getHeight();
 
         internalFrameMedicosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMICPMedicosActionPerformed
+    }// GEN-LAST:event_jMICPMedicosActionPerformed
 
-    private void jMEFichasDeAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMEFichasDeAtendimentoActionPerformed
+    private void jMEFichasDeAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMEFichasDeAtendimentoActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameListaAtendimentos = new JIFListaAtendimentos();
         jDesktopPane1.add(internalFrameListaAtendimentos);
         internalFrameListaAtendimentos.setVisible(true);
@@ -824,11 +826,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameListaAtendimentos.getHeight();
 
         internalFrameListaAtendimentos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMEFichasDeAtendimentoActionPerformed
+    }// GEN-LAST:event_jMEFichasDeAtendimentoActionPerformed
 
-    private void jMCEClassesDeExamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCEClassesDeExamesActionPerformed
+    private void jMCEClassesDeExamesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCEClassesDeExamesActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameClasseDeExamesVisualizar = new JIFCClassesDeExamesVisualizar();
         jDesktopPane1.add(internalFrameClasseDeExamesVisualizar);
         internalFrameClasseDeExamesVisualizar.setVisible(true);
@@ -838,11 +840,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameClasseDeExamesVisualizar.getHeight();
 
         internalFrameClasseDeExamesVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCEClassesDeExamesActionPerformed
+    }// GEN-LAST:event_jMCEClassesDeExamesActionPerformed
 
-    private void jMICPUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICPUsuariosActionPerformed
+    private void jMICPUsuariosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMICPUsuariosActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameUsuariosVisualizar = new JIFCUsuariosVisualizar();
         jDesktopPane1.add(internalFrameUsuariosVisualizar);
         internalFrameUsuariosVisualizar.setVisible(true);
@@ -852,11 +854,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameUsuariosVisualizar.getHeight();
 
         internalFrameUsuariosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMICPUsuariosActionPerformed
+    }// GEN-LAST:event_jMICPUsuariosActionPerformed
 
-    private void jMCAIntervaloPorHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCAIntervaloPorHorarioActionPerformed
+    private void jMCAIntervaloPorHorarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAIntervaloPorHorarioActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameIntervaloPorHorarioVisualizar = new JIFIntervaloPorHorarioVisualizar();
         jDesktopPane1.add(internalFrameIntervaloPorHorarioVisualizar);
         internalFrameIntervaloPorHorarioVisualizar.setVisible(true);
@@ -866,11 +868,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameIntervaloPorHorarioVisualizar.getHeight();
 
         internalFrameIntervaloPorHorarioVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCAIntervaloPorHorarioActionPerformed
+    }// GEN-LAST:event_jMCAIntervaloPorHorarioActionPerformed
 
-    private void jMCAIntervalosPorPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCAIntervalosPorPeriodoActionPerformed
+    private void jMCAIntervalosPorPeriodoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAIntervalosPorPeriodoActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameIntervaloPorPeriodoVisualizar = new JIFIntervaloPorPeriodoVisualizar();
         jDesktopPane1.add(internalFrameIntervaloPorPeriodoVisualizar);
         internalFrameIntervaloPorPeriodoVisualizar.setVisible(true);
@@ -880,11 +882,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameIntervaloPorPeriodoVisualizar.getHeight();
 
         internalFrameIntervaloPorPeriodoVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMCAIntervalosPorPeriodoActionPerformed
+    }// GEN-LAST:event_jMCAIntervalosPorPeriodoActionPerformed
 
-    private void jMICPEspecialidadesMedicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICPEspecialidadesMedicasActionPerformed
+    private void jMICPEspecialidadesMedicasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMICPEspecialidadesMedicasActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameEspecialidadeMedicasVisualizar = new JIFCEspecialidadesMedicasVisualizar();
         jDesktopPane1.add(internalFrameEspecialidadeMedicasVisualizar);
         internalFrameEspecialidadeMedicasVisualizar.setVisible(true);
@@ -894,11 +896,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameEspecialidadeMedicasVisualizar.getHeight();
 
         internalFrameEspecialidadeMedicasVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMICPEspecialidadesMedicasActionPerformed
+    }// GEN-LAST:event_jMICPEspecialidadesMedicasActionPerformed
 
-    private void jMICPResponsaveisTecnicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICPResponsaveisTecnicosActionPerformed
+    private void jMICPResponsaveisTecnicosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMICPResponsaveisTecnicosActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameResponsaveisTecnicosVisualizar = new JIFCResponsaveisTecnicosVisualizar();
         jDesktopPane1.add(internalFrameResponsaveisTecnicosVisualizar);
         internalFrameResponsaveisTecnicosVisualizar.setVisible(true);
@@ -908,11 +910,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameResponsaveisTecnicosVisualizar.getHeight();
 
         internalFrameResponsaveisTecnicosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMICPResponsaveisTecnicosActionPerformed
+    }// GEN-LAST:event_jMICPResponsaveisTecnicosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameListaConveniosConsultaValorDeExames = new ListaConvenios();
         jDesktopPane1.add(internalFrameListaConveniosConsultaValorDeExames);
         internalFrameListaConveniosConsultaValorDeExames.setVisible(true);
@@ -922,11 +924,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameListaConveniosConsultaValorDeExames.getHeight();
 
         internalFrameListaConveniosConsultaValorDeExames.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }// GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem2ActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameFinanceiroRelatorioFaturarConvenios = new jIFFaturarConvenios();
         jDesktopPane1.add(internalFrameFinanceiroRelatorioFaturarConvenios);
         internalFrameFinanceiroRelatorioFaturarConvenios.setVisible(true);
@@ -936,11 +938,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameFinanceiroRelatorioFaturarConvenios.getHeight();
 
         internalFrameFinanceiroRelatorioFaturarConvenios.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }// GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMIAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAtendimentosActionPerformed
+    private void jMIAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMIAtendimentosActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameFinanceiroRelatorioAtendimentos = new jIFFinanceiroAtendimentos();
         jDesktopPane1.add(internalFrameFinanceiroRelatorioAtendimentos);
         internalFrameFinanceiroRelatorioAtendimentos.setVisible(true);
@@ -950,11 +952,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameFinanceiroRelatorioAtendimentos.getHeight();
 
         internalFrameFinanceiroRelatorioAtendimentos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMIAtendimentosActionPerformed
+    }// GEN-LAST:event_jMIAtendimentosActionPerformed
 
-    private void jMIDemedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIDemedActionPerformed
+    private void jMIDemedActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMIDemedActionPerformed
         fechandoTodosOsInternalFrames();
-        
+
         internalFrameDmed = new jIFDemed();
         jDesktopPane1.add(internalFrameDmed);
         internalFrameDmed.setVisible(true);
@@ -964,14 +966,14 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameDmed.getHeight();
 
         internalFrameDmed.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMIDemedActionPerformed
+    }// GEN-LAST:event_jMIDemedActionPerformed
 
-    private void jMIEditarAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIEditarAtendimentosActionPerformed
+    private void jMIEditarAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMIEditarAtendimentosActionPerformed
 
         fechandoTodosOsInternalFrames();
 
         internalFramePesquisarAtendimentos = new JIFPesquisarAtendimentos();
-        
+
         jDesktopPane1.add(internalFramePesquisarAtendimentos);
         internalFramePesquisarAtendimentos.setVisible(true);
         int lDesk = jDesktopPane1.getWidth();
@@ -980,14 +982,14 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFramePesquisarAtendimentos.getHeight();
 
         internalFramePesquisarAtendimentos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-        
-    }//GEN-LAST:event_jMIEditarAtendimentosActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-         fechandoTodosOsInternalFrames();
-        
+    }// GEN-LAST:event_jMIEditarAtendimentosActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem3ActionPerformed
+        fechandoTodosOsInternalFrames();
+
         internalFrameGruposConveniosVisualizar = new JIFGruposConveniosVisualizar();
-        
+
         jDesktopPane1.add(internalFrameGruposConveniosVisualizar);
         internalFrameGruposConveniosVisualizar.setVisible(true);
         int lDesk = jDesktopPane1.getWidth();
@@ -996,28 +998,25 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameGruposConveniosVisualizar.getHeight();
 
         internalFrameGruposConveniosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }// GEN-LAST:event_jMenuItem3ActionPerformed
 
-
-
-    
     /**
-     * @param args the command line arguments
+     * @param args
+     *            the command line arguments
      */
-    
-    //variavel definida no OS para o IP do servidor...
+
+    // variavel definida no OS para o IP do servidor...
     public static String RISIP = "";
-    //variavel definida no OS para o caminho do banco de dados no servidor
+    // variavel definida no OS para o caminho do banco de dados no servidor
     public static String RISDB = "";
-    
+
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
@@ -1028,37 +1027,40 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
         }
-        //</editor-fold>
+        // </editor-fold>
 
         /*
          * Create and display the form
          */
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                
+
                 RISIP = System.getenv("RISIP");
-                //RISIP = "10.2.2.249";
-                //RISIP = "192.168.25.15";
+                // RISIP = "10.2.2.249";
+                // RISIP = "192.168.25.15";
                 RISDB = System.getenv("RISDB");
-                 
-                
+
                 internalFrameJanelaPrincipal = new janelaPrincipal();
-          
+
                 internalFrameJanelaPrincipal.setVisible(true);
-                //new janelaPrincipal().setVisible(true);
+                // new janelaPrincipal().setVisible(true);
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuItem jMCAAgendas;

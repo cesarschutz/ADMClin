@@ -7,8 +7,6 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.bcn.admclin.dao.model.A_feriados;
-
 public class JHISTORIA {
     
     /**

@@ -1,6 +1,8 @@
 package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -9,7 +11,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -17,9 +18,6 @@ import javax.swing.border.EmptyBorder;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.JHISTORIA;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class JFHistoriaClinica extends JFrame {
 
@@ -53,17 +51,18 @@ public class JFHistoriaClinica extends JFrame {
         btnAtualizar
             .setIcon(new ImageIcon(JFHistoriaClinica.class.getResource("/br/bcn/admclin/imagens/atualizar.png")));
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
-        gl_contentPane.setHorizontalGroup(gl_contentPane
-            .createParallelGroup(Alignment.LEADING)
-            .addGroup(
-                gl_contentPane.createSequentialGroup()
-                    .addComponent(btnAtualizar, GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE).addContainerGap())
-            .addComponent(textArea, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE));
-        gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(
-            Alignment.TRAILING,
-            gl_contentPane.createSequentialGroup()
-                .addComponent(textArea, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                .addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAtualizar)));
+        gl_contentPane.setHorizontalGroup(
+            gl_contentPane.createParallelGroup(Alignment.LEADING)
+                .addComponent(textArea, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
+                .addComponent(btnAtualizar, GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
+        );
+        gl_contentPane.setVerticalGroup(
+            gl_contentPane.createParallelGroup(Alignment.TRAILING)
+                .addGroup(gl_contentPane.createSequentialGroup()
+                    .addComponent(textArea, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(btnAtualizar))
+        );
         contentPane.setLayout(gl_contentPane);
 
         iniciarClasse();
