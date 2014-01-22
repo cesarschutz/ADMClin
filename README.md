@@ -27,4 +27,4 @@ a tabela MEDICOS precisa ter um medico com id 0 para quando for reservar um aten
 
 
 NO BANCO DO PAC - o campo LAUDO na tabela JLAUDOS deve ser NONE ao inves de ASCII para aparecer os ascentos!!!!!!
-
+NO BANCO PAC - o campo CODIGO e CODTXT na tabela CODIGOS deve ser NONE ao inves de ASCII!!

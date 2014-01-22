@@ -29,11 +29,39 @@ public class JLAUDOS {
             Conexao.fechaConexao(con);
             return laudo;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Laudo. Procure o Administrador." + e, "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Laudo. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
             System.out.println(e);
             Conexao.fechaConexao(con);
             return "erro";
+        }
+    }
+    
+    /**
+     * Salva o laudo em um atendimento
+     */
+    @SuppressWarnings("finally")
+    public static boolean setCadastrarLaudo(int handle_at, String laudo, String dataExame, String usr) {
+        boolean cadastro = false;
+        Connection con = Conexao.fazConexaoPAC();
+        String sql = "update or insert into jlaudos (handle_at, laudo, flagsign, flagrisupdate, DATESIGN, usr) values(?,?,?,?,?,?) matching (handle_at)";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1,handle_at);
+            stmt.setString(2, laudo);
+            stmt.setInt(3, 0);
+            stmt.setInt(4, 0);
+            stmt.setString(5, dataExame);
+            stmt.setString(6, usr);
+            stmt.executeUpdate();
+            stmt.close();
+            cadastro = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Laudo. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            Conexao.fechaConexao(con);
+        } finally {
+            return cadastro;
         }
     }
     

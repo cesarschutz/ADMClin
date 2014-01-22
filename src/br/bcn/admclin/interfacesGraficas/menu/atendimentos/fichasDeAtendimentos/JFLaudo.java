@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.bcn.admclin.dao.db.JLAUDOS;
 import br.bcn.admclin.dao.dbris.Conexao;
-import br.bcn.admclin.dao.dbris.JHISTORIA;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 public class JFLaudo extends JFrame {
 
@@ -162,14 +162,14 @@ public class JFLaudo extends JFrame {
         txtLaudo.setLineWrap(true);
         txtLaudo.setRows(5);
         txtLaudo.setWrapStyleWord(true);
-        txtLaudo.setDocument(new br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento(6144));
+        txtLaudo.setDocument(new br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcentoMinusculas(6144));
         txtLaudo.setBounds(6, 120, 720, 270);
         contentPane.add(scroll);
         
         JBSalvar = new JButton("Salvar");
         JBSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-               
+               botaoSalvar();
             }
         });
         JBSalvar.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/salvar.png")));
@@ -256,12 +256,43 @@ public class JFLaudo extends JFrame {
         }
     }
     
+    private void botaoSalvar() {
+        int handle_at = Integer.valueOf(txtHandle_at.getText());
+        String laudo = criaLaudo();
+        String dataAtendimentoSplit[] = txtDataAtendimento.getText().split("/");
+        String dataAtendimento = dataAtendimentoSplit[2] + dataAtendimentoSplit[1] + dataAtendimentoSplit[0];
+        boolean retorno = JLAUDOS.setCadastrarLaudo(handle_at, laudo, dataAtendimento, USUARIOS.nomeUsuario);
+        if(retorno){
+            this.dispose();
+        }
+    }
+    
     private void bloquear(){
         txtLaudo.setEnabled(false);
         JBSalvar.setEnabled(false);
         JBAssinar.setEnabled(false);
         JBGerarPdf.setEnabled(false);
         jBGravarCodigo.setEnabled(false);
-        
+    }
+    
+    private String criaLaudo() {
+        String texto = "";
+        if (txtLaudo.getText().length() > 0) {
+            // ----------------------------------------------------------------------------------Create History
+            String histoText = txtLaudo.getText();
+            int totalLinesh = txtLaudo.getLineCount();
+            texto = "";
+            for (int i = 0; i < totalLinesh; i++) {
+                try {
+                    int start = txtLaudo.getLineStartOffset(i);
+                    int end = txtLaudo.getLineEndOffset(i);
+                    String line = histoText.substring(start, end);
+                    String sline = line.replaceAll("\\n", "\\[\\]");
+                    texto += sline;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        return texto;
     }
 }
