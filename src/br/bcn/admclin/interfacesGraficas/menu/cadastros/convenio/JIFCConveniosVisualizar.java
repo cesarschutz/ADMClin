@@ -10,8 +10,8 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio;
 
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.CONVENIO;
+import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;

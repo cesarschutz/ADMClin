@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamento;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamentoSelecionarUmPaciente;

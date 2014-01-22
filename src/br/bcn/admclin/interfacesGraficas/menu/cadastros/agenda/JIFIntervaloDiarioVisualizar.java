@@ -10,8 +10,8 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
 
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.A_INTERVALOSDIARIOSN;
+import br.bcn.admclin.dao.dbris.A_INTERVALOSDIARIOSN;
+import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;

@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.dao.ATENDIMENTOS;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 /**
  *
@@ -32,7 +32,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
     
     public boolean imprimir(){
         boolean imprimiu = false;
-        con = br.bcn.admclin.dao.Conexao.fazConexao();
+        con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
             try {
                 
                 imprimir.initialize();
@@ -42,7 +42,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao imprimir Etiqueta. Procure o Administrador.");
             } finally{
-                br.bcn.admclin.dao.Conexao.fechaConexao(con);
+                br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
             }
         return imprimiu;
     }

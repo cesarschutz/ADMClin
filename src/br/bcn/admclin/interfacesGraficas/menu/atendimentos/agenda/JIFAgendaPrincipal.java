@@ -18,8 +18,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
-import br.bcn.admclin.dao.AGENDAS;
-import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.dbris.AGENDAS;
+import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /*

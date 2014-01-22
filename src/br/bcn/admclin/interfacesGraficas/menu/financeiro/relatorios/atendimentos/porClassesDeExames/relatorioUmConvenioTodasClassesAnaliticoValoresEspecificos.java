@@ -6,8 +6,8 @@ package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimento
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;

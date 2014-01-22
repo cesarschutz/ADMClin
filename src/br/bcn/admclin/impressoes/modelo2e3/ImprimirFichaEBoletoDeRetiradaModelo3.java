@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 /**
  * @author Cesar Schutz
@@ -34,7 +34,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
 
     public boolean imprimir() {
         boolean imprimiu = false;
-        con = br.bcn.admclin.dao.Conexao.fazConexao();
+        con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
         try {
             getDadosParaAFicha();
             // inicializando a impressora

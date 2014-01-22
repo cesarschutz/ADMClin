@@ -12,10 +12,10 @@
 package br.bcn.admclin.impressoes.modelo1;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.dao.ATENDIMENTOS;
-import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.DADOS_EMPRESA;
+import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
+import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;

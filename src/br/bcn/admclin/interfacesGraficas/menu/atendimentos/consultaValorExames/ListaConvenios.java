@@ -22,8 +22,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**

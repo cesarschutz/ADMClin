@@ -12,10 +12,10 @@ package br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReaisCom5CasasDecimais;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.dao.EXAMES;
-import br.bcn.admclin.dao.TABELAS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.EXAMES;
+import br.bcn.admclin.dao.dbris.TABELAS;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Tabelas;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

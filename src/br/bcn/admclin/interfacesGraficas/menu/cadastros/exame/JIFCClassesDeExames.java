@@ -2,9 +2,9 @@ package br.bcn.admclin.interfacesGraficas.menu.cadastros.exame;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.dao.TB_CLASSESDEEXAMES;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.TB_CLASSESDEEXAMES;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Tb_ClassesDeExames;
 
 import java.awt.Dimension;

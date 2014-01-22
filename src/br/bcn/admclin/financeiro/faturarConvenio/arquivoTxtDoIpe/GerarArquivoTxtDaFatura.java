@@ -6,11 +6,11 @@ package br.bcn.admclin.financeiro.faturarConvenio.arquivoTxtDoIpe;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
-import br.bcn.admclin.dao.ATENDIMENTOS;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.DADOS_EMPRESA;
-import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.dao.CONVENIO;
+import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
+import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.atendimentoModel;
 
 import java.io.File;

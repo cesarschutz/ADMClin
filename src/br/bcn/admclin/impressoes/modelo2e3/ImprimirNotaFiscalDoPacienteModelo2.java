@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 /**
  * 
@@ -39,7 +39,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
 
     public boolean imprimir() {
         boolean imprimiu = false;
-        con = br.bcn.admclin.dao.Conexao.fazConexao();
+        con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
         try {
             getDadosPaciente();
             getExamesRealizados();
@@ -49,7 +49,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
             JOptionPane.showMessageDialog(null, "Erro ao imprimir Nota Fiscal. Procure o Administrador.", "Erro",
                 JOptionPane.ERROR_MESSAGE);
         } finally {
-            br.bcn.admclin.dao.Conexao.fechaConexao(con);
+            br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
             imprimir.close();
         }
         return imprimiu;

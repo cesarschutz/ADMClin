@@ -12,9 +12,9 @@ package br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.dao.CONVENIOCH;
+import br.bcn.admclin.dao.dbris.CONVENIOCH;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.ConvenioCh;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

@@ -4,8 +4,8 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos;
 
-import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.dao;
+package br.bcn.admclin.dao.dbris;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,13 +14,13 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.dao.model.ConvenioCh;
+import br.bcn.admclin.dao.model.ConvenioFilme;
 
 /**
  * 
  * @author Cesar Schutz
  */
-public class CONVENIOCH {
+public class CONVENIOFILME {
     public static boolean conseguiuConsulta;
 
     /**
@@ -34,12 +34,12 @@ public class CONVENIOCH {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select * from convenioch where handle_convenio=? order by dataavaler Desc");
+                con.prepareStatement("select * from conveniofilme where handle_convenio=? order by dataavaler Desc");
             stmtQuery.setInt(1, handle_convenio);
             resultSet = stmtQuery.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
-                "Erro ao consultar Valores de CH's do Convênio. Procure o Administrador.", "ERRO",
+                "Erro ao consultar Valor de Filme's do Convênio. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return resultSet;
@@ -59,7 +59,7 @@ public class CONVENIOCH {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select * from convenioch where handle_convenio=? order by dataavaler");
+                con.prepareStatement("select * from conveniofilme where handle_convenio=? order by dataavaler");
             stmtQuery.setInt(1, handle_convenio);
             resultSet = stmtQuery.executeQuery();
             while (resultSet.next()) {
@@ -75,6 +75,7 @@ public class CONVENIOCH {
                     ok = true;
                 } else {
                     ok = false;
+
                 }
             }
         } catch (SQLException e) {
@@ -100,23 +101,23 @@ public class CONVENIOCH {
      * @return se cadastrou ou nao
      */
     @SuppressWarnings("finally")
-    public static boolean setCadastrar(Connection con, ConvenioCh convenioCHMODEL) {
+    public static boolean setCadastrar(Connection con, ConvenioFilme convenioFilmeMODEL) {
         boolean cadastro = false;
         String sqlInsrtValor =
-            "insert into convenioCH (usuarioid,dat,handle_convenio,valor, dataavaler) values(?,?,?,?,?)";
+            "insert into conveniofilme (usuarioid,dat,handle_convenio,valor, dataavaler) values(?,?,?,?,?)";
         try {
             // inserindo valor no material
             PreparedStatement stmtInsertValor = con.prepareStatement(sqlInsrtValor);
-            stmtInsertValor.setInt(1, convenioCHMODEL.getUsuarioId());
-            stmtInsertValor.setDate(2, convenioCHMODEL.getDat());
-            stmtInsertValor.setInt(3, convenioCHMODEL.getHandle_convenio());
-            stmtInsertValor.setDouble(4, convenioCHMODEL.getValor());
-            stmtInsertValor.setDate(5, convenioCHMODEL.getDataAValer());
+            stmtInsertValor.setInt(1, convenioFilmeMODEL.getUsuarioId());
+            stmtInsertValor.setDate(2, convenioFilmeMODEL.getDat());
+            stmtInsertValor.setInt(3, convenioFilmeMODEL.getHandle_convenio());
+            stmtInsertValor.setDouble(4, convenioFilmeMODEL.getValor());
+            stmtInsertValor.setDate(5, convenioFilmeMODEL.getDataAValer());
             stmtInsertValor.executeUpdate();
             stmtInsertValor.close();
             cadastro = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Valor de CH. Procure o Administrador.", "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Valor de Filme. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return cadastro;
@@ -124,7 +125,7 @@ public class CONVENIOCH {
     }
 
     /**
-     * Deleta Valores de CH de um convenio do Banco De Dados
+     * Deleta Valores de Filme do Banco De Dados
      * 
      * @param Connection
      * @param ExameMODEL
@@ -133,7 +134,7 @@ public class CONVENIOCH {
     @SuppressWarnings("finally")
     public static boolean setDeletar(Connection con, int handle_convenio) {
         boolean deleto = false;
-        String sql = "delete from convenioch where handle_convenio=?";
+        String sql = "delete from conveniofilme where handle_convenio=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, handle_convenio);
@@ -141,32 +142,32 @@ public class CONVENIOCH {
             stmt.close();
             deleto = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar Valores de CH. Procure o Administrador.", "ERRO",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao deletar Valores de Filme. Procure o Administrador." + e,
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return deleto;
         }
     }
 
     /**
-     * Deleta um Valor de CH do Banco De Dados
+     * Deleta um Valor de Filme do Banco De Dados
      * 
      * @param Connection
      * @param ExameMODEL
      * @return boolean
      */
     @SuppressWarnings("finally")
-    public static boolean setDeletarUmValor(Connection con, int convenioChId) {
+    public static boolean setDeletarUmValor(Connection con, int convenioFilmeId) {
         boolean deleto = false;
-        String sql = "delete from convenioch where convenioChId=?";
+        String sql = "delete from conveniofilme where convenioFilmeId=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, convenioChId);
+            stmt.setInt(1, convenioFilmeId);
             stmt.executeUpdate();
             stmt.close();
             deleto = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar Valor de CH. Procure o Administrador.", "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao deletar Valor de Filme. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return deleto;

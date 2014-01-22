@@ -22,9 +22,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -71,7 +72,7 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
     private void preenchendoOsGruposNoComboBox() {
         // preenchendo as Classes de Exames
         con = Conexao.fazConexao();
-        ResultSet resultSet = br.bcn.admclin.dao.CONVENIO.getConsultarGruposDeConvenios(con);
+        ResultSet resultSet = br.bcn.admclin.dao.dbris.CONVENIO.getConsultarGruposDeConvenios(con);
         listaGrupoId.removeAll(listaGrupoId);
 
         jCBGrupos.addItem("Selecione um Grupo");

@@ -1,4 +1,4 @@
-package br.bcn.admclin.dao;
+package br.bcn.admclin.dao.dbris;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

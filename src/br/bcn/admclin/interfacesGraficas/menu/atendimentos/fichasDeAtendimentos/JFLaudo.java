@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.dbris.Conexao;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

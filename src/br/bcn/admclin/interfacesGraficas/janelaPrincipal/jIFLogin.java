@@ -5,9 +5,9 @@
 package br.bcn.admclin.interfacesGraficas.janelaPrincipal;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.DADOS_EMPRESA;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Usuario;
 
 import java.awt.Dimension;
@@ -107,7 +107,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
     public void getModeloImpressao(){
         ResultSet resultSet = null;
         try {
-            con = br.bcn.admclin.dao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
             resultSet = DADOS_EMPRESA.getConsultar(con);
             while(resultSet.next()){
                 janelaPrincipal.modeloDeImpressao = resultSet.getInt("modelo_impressao");

@@ -9,7 +9,7 @@
  */
 package br.bcn.admclin.calculoValorDeUmExame;
 
-import br.bcn.admclin.dao.Conexao;
+import br.bcn.admclin.dao.dbris.Conexao;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

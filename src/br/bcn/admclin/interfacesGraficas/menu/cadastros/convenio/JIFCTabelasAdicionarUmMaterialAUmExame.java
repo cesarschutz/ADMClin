@@ -26,10 +26,10 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.MATERIAIS;
-import br.bcn.admclin.dao.TABELAS;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.MATERIAIS;
+import br.bcn.admclin.dao.dbris.TABELAS;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Tabelas;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

@@ -26,8 +26,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.MATERIAIS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.MATERIAIS;
 import br.bcn.admclin.dao.model.Materiais;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

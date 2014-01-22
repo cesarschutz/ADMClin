@@ -31,11 +31,11 @@ import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.AGENDAS;
-import br.bcn.admclin.dao.A_FERIADOS;
-import br.bcn.admclin.dao.A_FERIADOSN;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.AGENDAS;
+import br.bcn.admclin.dao.dbris.A_FERIADOS;
+import br.bcn.admclin.dao.dbris.A_FERIADOSN;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.A_feriados;
 import br.bcn.admclin.dao.model.A_feriadosN;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;

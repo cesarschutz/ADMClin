@@ -17,7 +17,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.JHISTORIA;
+import br.bcn.admclin.dao.dbris.JHISTORIA;
 
 public class JFHistoriaClinica extends JFrame {
 

@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.CONVENIO;
+import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
@@ -85,10 +85,10 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
 
     private void botaoSalvar() {
         if (tudoPreenchido()) {
-            con = br.bcn.admclin.dao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
             boolean cadastro =
                 CONVENIO.setCadastrarGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex());
-            br.bcn.admclin.dao.Conexao.fechaConexao(con);
+            br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
             }
@@ -97,11 +97,11 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
 
     private void botaoAtualizar() {
         if (tudoPreenchido()) {
-            con = br.bcn.admclin.dao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
             boolean cadastro =
                 CONVENIO.setUpdateGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex(),
                     grupo_id);
-            br.bcn.admclin.dao.Conexao.fechaConexao(con);
+            br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
             }
@@ -112,9 +112,9 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         int resposta =
             JOptionPane.showConfirmDialog(null, "Deseja realmente deletar esse Grupo de Convênio?", "ATENÇÃO", 0);
         if (resposta == JOptionPane.YES_OPTION) {
-            con = br.bcn.admclin.dao.Conexao.fazConexao();
+            con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
             boolean deleto = CONVENIO.setDeletarGrupoDeConveio(con, grupo_id);
-            br.bcn.admclin.dao.Conexao.fechaConexao(con);
+            br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
             if (deleto) {
                 botaoCancelar();
             }

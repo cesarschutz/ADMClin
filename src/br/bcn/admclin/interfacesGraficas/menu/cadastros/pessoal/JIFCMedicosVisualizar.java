@@ -12,8 +12,8 @@ package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.MEDICOS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.MEDICOS;
 import br.bcn.admclin.dao.model.Medicos;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

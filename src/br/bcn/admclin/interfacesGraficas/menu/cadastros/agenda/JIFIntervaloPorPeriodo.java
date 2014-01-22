@@ -12,11 +12,11 @@ package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
-import br.bcn.admclin.dao.AGENDAS;
-import br.bcn.admclin.dao.A_INTERVALOSPORPERIODO;
-import br.bcn.admclin.dao.A_INTERVALOSPORPERIODON;
+import br.bcn.admclin.dao.dbris.AGENDAS;
+import br.bcn.admclin.dao.dbris.A_INTERVALOSPORPERIODO;
+import br.bcn.admclin.dao.dbris.A_INTERVALOSPORPERIODON;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.A_intervalosPorPeriodo;
 import br.bcn.admclin.dao.model.A_intervalosPorPeriodoN;
 

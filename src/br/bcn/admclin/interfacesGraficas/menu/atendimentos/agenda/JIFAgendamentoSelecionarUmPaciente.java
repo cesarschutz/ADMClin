@@ -19,8 +19,8 @@ import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.PACIENTES;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.PACIENTES;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**

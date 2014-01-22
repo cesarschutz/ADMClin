@@ -17,9 +17,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.PACIENTES;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.PACIENTES;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Pacientes;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

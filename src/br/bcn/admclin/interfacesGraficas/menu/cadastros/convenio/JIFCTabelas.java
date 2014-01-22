@@ -12,8 +12,8 @@ package br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.TABELAS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.TABELAS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;

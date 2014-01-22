@@ -30,9 +30,9 @@ import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
-import br.bcn.admclin.dao.CONVENIOFILME;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.CONVENIOFILME;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.ConvenioFilme;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

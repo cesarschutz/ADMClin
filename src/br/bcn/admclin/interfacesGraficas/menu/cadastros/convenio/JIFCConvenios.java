@@ -30,11 +30,11 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
-import br.bcn.admclin.dao.CONVENIO;
-import br.bcn.admclin.dao.CONVENIOCH;
-import br.bcn.admclin.dao.CONVENIOFILME;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.CONVENIOCH;
+import br.bcn.admclin.dao.dbris.CONVENIOFILME;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Convenio;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

@@ -4,8 +4,8 @@ package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcentoMinusculas;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Usuario;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 

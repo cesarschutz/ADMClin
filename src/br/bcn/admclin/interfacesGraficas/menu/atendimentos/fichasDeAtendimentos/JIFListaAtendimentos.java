@@ -38,10 +38,10 @@ package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
-import br.bcn.admclin.dao.ATENDIMENTOS;
-import br.bcn.admclin.dao.ATENDIMENTO_EXAMES;
-import br.bcn.admclin.dao.Conexao;
-import br.bcn.admclin.dao.USUARIOS;
+import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
+import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
