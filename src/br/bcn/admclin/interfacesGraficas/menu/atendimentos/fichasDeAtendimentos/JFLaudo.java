@@ -1,6 +1,8 @@
 package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,17 +14,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.dao.db.JLAUDOS;
 import br.bcn.admclin.dao.dbris.Conexao;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import br.bcn.admclin.dao.dbris.JHISTORIA;
 
 public class JFLaudo extends JFrame {
 
@@ -43,6 +44,10 @@ public class JFLaudo extends JFrame {
     private JLabel lblMdico;
     private JTextField txtSexoPaciente;
     private JTextArea txtLaudo;
+    private JButton JBSalvar;
+    private JButton JBAssinar;
+    private JButton JBGerarPdf;
+    private JButton jBGravarCodigo;
 
     /**
      * Create the frame.
@@ -151,35 +156,37 @@ public class JFLaudo extends JFrame {
         contentPane.add(txtSexoPaciente);
         
         txtLaudo = new JTextArea();
+        JScrollPane scroll = new JScrollPane(txtLaudo);
+        scroll.setBounds(6, 120, 720, 270);
         txtLaudo.setColumns(20);
         txtLaudo.setLineWrap(true);
         txtLaudo.setRows(5);
         txtLaudo.setWrapStyleWord(true);
         txtLaudo.setDocument(new br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento(6144));
         txtLaudo.setBounds(6, 120, 720, 270);
-        contentPane.add(txtLaudo);
+        contentPane.add(scroll);
         
-        JButton JBSalvar = new JButton("Salvar");
+        JBSalvar = new JButton("Salvar");
         JBSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                Conexao.fazConexaoPAC();
+               
             }
         });
         JBSalvar.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/salvar.png")));
         JBSalvar.setBounds(6, 402, 158, 42);
         contentPane.add(JBSalvar);
         
-        JButton JBAssinar = new JButton("Assinar");
+        JBAssinar = new JButton("Assinar");
         JBAssinar.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/botaoAssinar.png")));
         JBAssinar.setBounds(549, 402, 177, 42);
         contentPane.add(JBAssinar);
         
-        JButton JBGerarPdf = new JButton("Gerar PDF");
+        JBGerarPdf = new JButton("Gerar PDF");
         JBGerarPdf.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/pdf.png")));
         JBGerarPdf.setBounds(360, 402, 177, 42);
         contentPane.add(JBGerarPdf);
         
-        JButton jBGravarCodigo = new JButton("Gravar Código");
+        jBGravarCodigo = new JButton("Gravar Código");
         jBGravarCodigo.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/botaoCadastrarCodigo.png")));
         jBGravarCodigo.setBounds(176, 402, 172, 42);
         contentPane.add(jBGravarCodigo);
@@ -194,6 +201,7 @@ public class JFLaudo extends JFrame {
         txtCrmMedico.setText(crmMedico);
         txtMod.setText(mod);
         buscaDadosPaciente(Integer.valueOf(handle_at));
+        preencheLaudo(Integer.valueOf(handle_at));
     }
     
     private void iniciarClasse(){
@@ -218,7 +226,7 @@ public class JFLaudo extends JFrame {
         }); 
     }
 
-    public void buscaDadosPaciente(int handle_at) {
+    private void buscaDadosPaciente(int handle_at) {
         ResultSet resultSet = null;
         Connection con = Conexao.fazConexao();
         try {
@@ -235,5 +243,25 @@ public class JFLaudo extends JFrame {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
             
         }
+    }
+
+    private void preencheLaudo(int handle_at){
+        String retorno = JLAUDOS.getConsultarLaudo(handle_at);
+        if (retorno == "erro") {
+            bloquear();
+        } else if (retorno == "vazio") {
+
+        } else {
+            txtLaudo.setText(retorno.replaceAll("\\[\\]", "\n"));
+        }
+    }
+    
+    private void bloquear(){
+        txtLaudo.setEnabled(false);
+        JBSalvar.setEnabled(false);
+        JBAssinar.setEnabled(false);
+        JBGerarPdf.setEnabled(false);
+        jBGravarCodigo.setEnabled(false);
+        
     }
 }
