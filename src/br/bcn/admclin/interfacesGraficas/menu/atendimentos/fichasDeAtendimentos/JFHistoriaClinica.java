@@ -101,7 +101,6 @@ public class JFHistoriaClinica extends JFrame {
 
     private void consultarHistoria() {
         String retorno = JHISTORIA.getConsultar(handle_at);
-        System.out.println(retorno);
         if (retorno == "erro") {
             textArea.setEnabled(false);
             btnAtualizar.setEnabled(false);

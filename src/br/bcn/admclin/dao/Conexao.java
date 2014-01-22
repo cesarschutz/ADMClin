@@ -19,7 +19,7 @@ public class Conexao {
     public static Connection con = null;
 
     /**
-     * Faz conexao com o banco de dados FireBird
+     * Faz conexao com o banco de dados FireBird do RIS
      * 
      * @return Connection
      */
@@ -52,6 +52,40 @@ public class Conexao {
         }
     }
 
+    /**
+     * Faz conexao com o banco de dados FireBird com o banco pac
+     * 
+     * @return Connection
+     */
+    @SuppressWarnings("finally")
+    public static Connection fazConexaoPAC() {
+
+        try {
+
+            // carrega o drive do banco de dados
+            Class.forName("org.firebirdsql.jdbc.FBDriver");
+
+            // setando propriedades para que pegue as informaçoes do banco com ascento e caracteres especais e etc
+            Properties props = new Properties();
+            props.put("user", "SYSDBA");
+            props.put("password", "masterkey");
+            props.put("charset", "UTF8");
+            props.put("lc_ctype", "ISO8859_1");
+
+            con =
+                DriverManager.getConnection("jdbc:firebirdsql:" + janelaPrincipal.RISIP + "/3050:"
+                    + janelaPrincipal.PACDB, props);
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
+                "Erro no drive de conexão. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
+                "Erro na conexao! Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return con;
+        }
+    }
+    
     /**
      * Metodo para fechar uma conexão copm o banco de dados.
      * 

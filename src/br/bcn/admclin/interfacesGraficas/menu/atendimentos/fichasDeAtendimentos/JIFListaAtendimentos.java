@@ -1361,7 +1361,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         "/br/bcn/admclin/imagens/Barcode.png"));
     ImageIcon iconeHistoriaClinica = new javax.swing.ImageIcon(getClass().getResource(
                     "/br/bcn/admclin/imagens/Historia.png"));
-
+    ImageIcon iconeEscreverLaudo = new javax.swing.ImageIcon(getClass().getResource(
+                    "/br/bcn/admclin/imagens/EscreverLaudo.png"));
+    
     private void abrirPopUpMenu(MouseEvent evt) {
 
         // menu imprimir
@@ -1416,6 +1418,14 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             }
         });
         
+        // Laudo
+        JMenuItem laudo = new JMenuItem("Laudo", iconeEscreverLaudo);
+        laudo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                laudo();
+            }
+        });
+        
         // adicionando os submenus no impimir
 
         // imprimir.add(imprimirLaudo);
@@ -1433,7 +1443,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         JPopupMenu popup = new JPopupMenu();
         popup.add(imprimir);
         popup.add(historiaClinica);
-
+        popup.add(laudo);
+        
         // mostra na tela
         // mostra na tela
         int x = evt.getX();
@@ -1457,6 +1468,34 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         his.setVisible(true);
     }
 
+    private void laudo(){
+        //pegando a data
+        java.util.Date dataSelecionada = jXDatePicker1.getDate();
+        // criando um formato de data
+        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+        // colocando data selecionado no formato criado acima
+        String data2 = dataFormatada.format(dataSelecionada);
+        
+        //pegando o nome do paciente
+        String paciente = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 3));
+        
+        //pegando o handle_at
+        String handle_at = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+        
+        //pegando o medico
+        String medicoSolicitante = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 4));
+        
+        //pegando o crm
+        String crmMedico = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 5));
+        
+        //pegando a modalidade
+        String mod = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+        
+        //abrindo a janela de laudo
+        JFLaudo laudo = new JFLaudo(data2, paciente, handle_at, medicoSolicitante, crmMedico, mod);
+        laudo.setVisible(true);
+    }
+    
     @SuppressWarnings("rawtypes")
     private void imprimirFicha() {
         // pegando o handle_at

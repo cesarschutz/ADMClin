@@ -1009,7 +1009,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static String RISIP = "";
     // variavel definida no OS para o caminho do banco de dados no servidor
     public static String RISDB = "";
-
+    public static String PACDB = "";
+    
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
@@ -1052,6 +1053,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 // RISIP = "10.2.2.249";
                 // RISIP = "192.168.25.15";
                 RISDB = System.getenv("RISDB");
+                PACDB = System.getenv("PACDB");
 
                 internalFrameJanelaPrincipal = new janelaPrincipal();
 
