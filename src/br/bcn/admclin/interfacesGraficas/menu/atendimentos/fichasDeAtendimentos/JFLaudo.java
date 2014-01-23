@@ -186,17 +186,17 @@ public class JFLaudo extends JFrame {
             }
         });
         JBSalvar.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/salvar.png")));
-        JBSalvar.setBounds(6, 402, 158, 42);
+        JBSalvar.setBounds(65, 402, 151, 42);
         contentPane.add(JBSalvar);
         
         JBAssinar = new JButton("Assinar");
         JBAssinar.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/botaoAssinar.png")));
-        JBAssinar.setBounds(549, 402, 177, 42);
+        JBAssinar.setBounds(575, 402, 151, 42);
         contentPane.add(JBAssinar);
         
         JBGerarPdf = new JButton("Gerar PDF");
         JBGerarPdf.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/pdf.png")));
-        JBGerarPdf.setBounds(360, 402, 177, 42);
+        JBGerarPdf.setBounds(406, 402, 157, 42);
         contentPane.add(JBGerarPdf);
         
         jBGravarCodigo = new JButton("Gravar Código");
@@ -206,7 +206,7 @@ public class JFLaudo extends JFrame {
             }
         });
         jBGravarCodigo.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/botaoCadastrarCodigo.png")));
-        jBGravarCodigo.setBounds(176, 402, 172, 42);
+        jBGravarCodigo.setBounds(228, 402, 166, 42);
         contentPane.add(jBGravarCodigo);
         
         
@@ -218,6 +218,24 @@ public class JFLaudo extends JFrame {
         txtMedico.setText(medico);
         txtCrmMedico.setText(crmMedico);
         txtMod.setText(mod);
+        
+        JButton btnAjuda = new JButton("");
+        btnAjuda.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                setAlwaysOnTop(false);
+                String texto = "Para salvar um código:\n" +
+                                "Selecione o texto desejado e pressione \"Gravar Código\".\n"+
+                                "Digite o código para o texto e salve.\n\n"+
+                                "Para utilizar um código:\n"+
+                                "Em uma única linha digite == + o código desejado, por exemplo, '==123'.\n"+
+                                "Para alterar o código pelo seus respectivo texto, pressione F5.";
+                JOptionPane.showMessageDialog(null, texto);
+                setAlwaysOnTop(true);
+            }
+        });
+        btnAjuda.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/help.png")));
+        btnAjuda.setBounds(6, 402, 47, 42);
+        contentPane.add(btnAjuda);
         buscaDadosPaciente(Integer.valueOf(handle_at));
         preencheLaudo(Integer.valueOf(handle_at));
     }
@@ -318,7 +336,7 @@ public class JFLaudo extends JFrame {
         for (int i = 0; i < linhasArray.size(); i++) {
             todoText += linhasArray.get(i);
         }
-        txtLaudo.setText(todoText);
+        txtLaudo.setText(todoText.replaceAll("\\[\\]", "\n"));
     }
     
     private void botaoGravarCodigo(){
