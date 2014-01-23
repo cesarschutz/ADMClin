@@ -3,10 +3,13 @@ package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +23,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
 
+import br.bcn.admclin.dao.db.CODIGOS;
 import br.bcn.admclin.dao.db.JLAUDOS;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
@@ -156,6 +161,14 @@ public class JFLaudo extends JFrame {
         contentPane.add(txtSexoPaciente);
         
         txtLaudo = new JTextArea();
+        txtLaudo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent arg0) {
+                if (arg0.getKeyCode() == KeyEvent.VK_F5) {
+                    alterarCodigosPorTexto();
+                }
+            }
+        });
         JScrollPane scroll = new JScrollPane(txtLaudo);
         scroll.setBounds(6, 120, 720, 270);
         txtLaudo.setColumns(20);
@@ -187,6 +200,11 @@ public class JFLaudo extends JFrame {
         contentPane.add(JBGerarPdf);
         
         jBGravarCodigo = new JButton("Gravar Código");
+        jBGravarCodigo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                botaoGravarCodigo();
+            }
+        });
         jBGravarCodigo.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/botaoCadastrarCodigo.png")));
         jBGravarCodigo.setBounds(176, 402, 172, 42);
         contentPane.add(jBGravarCodigo);
@@ -265,6 +283,56 @@ public class JFLaudo extends JFrame {
         if(retorno){
             this.dispose();
         }
+    }
+    
+    private void alterarCodigosPorTexto(){
+        ArrayList<String> linhasArray = new ArrayList<String>();
+        String textLaudo = txtLaudo.getText();
+        int totalLines   = txtLaudo.getLineCount();
+        String line      = "";
+        for (int i=0; i < totalLines; i++) {
+            try {
+                int start    = txtLaudo.getLineStartOffset(i);
+                int end      = txtLaudo.getLineEndOffset(i);
+                line         = textLaudo.substring(start, end);
+                if (line.substring(0,2).equals("==")) {
+                    String codigo = line.substring(2,line.length());
+                    String retorno = CODIGOS.getConsultarLaudo(codigo.trim());
+                    if (retorno.length() > 5) {
+                        linhasArray.add(retorno + "\n");
+                    } else{
+                        linhasArray.add("==" + codigo);
+                    }
+                }else{
+                   linhasArray.add(line);
+                }
+            } catch (BadLocationException ex) {
+                linhasArray.add("\n");
+            } catch (StringIndexOutOfBoundsException ex) {
+                linhasArray.add("\n");
+            }
+        }
+        //preenchendo o laudo
+        txtLaudo.setText("");
+        String todoText = "";
+        for (int i = 0; i < linhasArray.size(); i++) {
+            todoText += linhasArray.get(i);
+        }
+        txtLaudo.setText(todoText);
+    }
+    
+    private void botaoGravarCodigo(){
+        String texto = txtLaudo.getSelectedText();
+        JFLaudoSalvarCodigo gravarCodigo = new JFLaudoSalvarCodigo(texto);
+        gravarCodigo.setVisible(true);
+        //nao pode maximizar
+        gravarCodigo.setResizable(false);
+        
+        //deixa por cima de todas as outras janelas
+        gravarCodigo.setAlwaysOnTop(true);
+        
+        //centraliza na tela
+        gravarCodigo.setLocationRelativeTo(null);
     }
     
     private void bloquear(){

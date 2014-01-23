@@ -31,7 +31,6 @@ public class JLAUDOS {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Laudo. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
-            System.out.println(e);
             Conexao.fechaConexao(con);
             return "erro";
         }
