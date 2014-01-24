@@ -1010,6 +1010,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     // variavel definida no OS para o caminho do banco de dados no servidor
     public static String RISDB = "";
     public static String PACDB = "";
+    public static String RISPORTAL = "";
     
     public static void main(String args[]) {
         /*

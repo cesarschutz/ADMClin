@@ -5,12 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.print.attribute.IntegerSyntax;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +27,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 
+import com.lowagie.text.DocumentException;
+
 import br.bcn.admclin.dao.db.CODIGOS;
 import br.bcn.admclin.dao.db.JLAUDOS;
 import br.bcn.admclin.dao.dbris.Conexao;
@@ -32,6 +36,11 @@ import br.bcn.admclin.dao.dbris.USUARIOS;
 
 public class JFLaudo extends JFrame {
 
+    private int handle_at_selecionado;
+    private int flagsign = 0;
+    private boolean existeStudyDone;
+    private String radiologista = "";
+    
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField txtPaciente;
@@ -57,7 +66,8 @@ public class JFLaudo extends JFrame {
     /**
      * Create the frame.
      */
-    public JFLaudo(String data, String nomePaciente, String handle_at, String medico, String crmMedico, String mod) {      
+    public JFLaudo(String data, String nomePaciente, String handle_at, String medico, String crmMedico, String mod) {    
+        this.handle_at_selecionado = Integer.valueOf(handle_at);
         //padrao do designer
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 738, 480);
@@ -190,11 +200,21 @@ public class JFLaudo extends JFrame {
         contentPane.add(JBSalvar);
         
         JBAssinar = new JButton("Assinar");
+        JBAssinar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                botaoAssinar();
+            }
+        });
         JBAssinar.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/botaoAssinar.png")));
         JBAssinar.setBounds(575, 402, 151, 42);
         contentPane.add(JBAssinar);
         
         JBGerarPdf = new JButton("Gerar PDF");
+        JBGerarPdf.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                botaoGerarPDF();
+            }
+        });
         JBGerarPdf.setIcon(new ImageIcon(JFLaudo.class.getResource("/br/bcn/admclin/imagens/pdf.png")));
         JBGerarPdf.setBounds(406, 402, 157, 42);
         contentPane.add(JBGerarPdf);
@@ -209,7 +229,7 @@ public class JFLaudo extends JFrame {
         jBGravarCodigo.setBounds(228, 402, 166, 42);
         contentPane.add(jBGravarCodigo);
         
-        
+        preencheLaudo(Integer.valueOf(handle_at));
         iniciarClasse();
         //definindo o campos
         txtDataAtendimento.setText(data);
@@ -237,7 +257,6 @@ public class JFLaudo extends JFrame {
         btnAjuda.setBounds(6, 402, 47, 42);
         contentPane.add(btnAjuda);
         buscaDadosPaciente(Integer.valueOf(handle_at));
-        preencheLaudo(Integer.valueOf(handle_at));
     }
     
     private void iniciarClasse(){
@@ -260,8 +279,51 @@ public class JFLaudo extends JFrame {
                 txtLaudo.requestFocus();   
             }   
         }); 
+    
+        if(buscarInformacoesDoBanco()){
+            //se esta assinado
+            if(flagsign == 1){
+                JBSalvar.setEnabled(false);
+                jBGravarCodigo.setEnabled(false);
+                txtLaudo.setEditable(false);
+                txtLaudo.setBackground(new Color(240,223,212));
+                
+                if(!USUARIOS.statusUsuario.equals("R")){
+                    JBAssinar.setEnabled(false);
+                }
+                
+                if(existeStudyDone){
+                    if(!USUARIOS.nomeUsuario.equals(radiologista)){
+                        JBAssinar.setEnabled(false);
+                    }
+                }
+                //se nao esta assinado
+            } else if(flagsign == 0){
+                JBGerarPdf.setEnabled(false);
+                
+                if(!USUARIOS.statusUsuario.equals("R")){
+                    JBAssinar.setEnabled(false);
+                }
+            }
+        }
+        
+        
     }
 
+    private boolean buscarInformacoesDoBanco(){
+        try {
+            flagsign = JLAUDOS.getConsultarFlagSign(handle_at_selecionado);
+            existeStudyDone = JLAUDOS.getConsultarStdAccession(handle_at_selecionado);
+            radiologista = JLAUDOS.getConsultarRadiologista(handle_at_selecionado);
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar informações do Laudo. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            bloquear();
+            return false;
+        }
+    }
+    
     private void buscaDadosPaciente(int handle_at) {
         ResultSet resultSet = null;
         Connection con = Conexao.fazConexao();
@@ -275,7 +337,7 @@ public class JFLaudo extends JFrame {
                 txtNascimentoPaciente.setText(resultSet.getString("nascimento"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar dados do Paciente. Procure o Administrador." + e, "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao consultar dados do Paciente. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
             
         }
@@ -351,6 +413,42 @@ public class JFLaudo extends JFrame {
         
         //centraliza na tela
         gravarCodigo.setLocationRelativeTo(null);
+    }
+    
+    private void botaoGerarPDF(){
+        try {
+            this.setAlwaysOnTop(false);
+            criaPDFdoLaudo pdf = new criaPDFdoLaudo(txtHandle_at.getText(), txtDataAtendimento.getText(), txtPaciente.getText(), txtMedico.getText(), txtLaudo.getText());
+            pdf.criarPDF();
+            pdf.abrindoPDF();
+            this.setAlwaysOnTop(true);
+        } catch (DocumentException | IOException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Criar Laudo. Procure o Administrador" + e, "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            this.setAlwaysOnTop(true);
+        }
+    }
+    
+    private void botaoAssinar(){
+        boolean senhaOK = true;
+        if(senhaOK){
+            boolean registrou = false;
+            if(flagsign == 1){
+                //se ja esta assinado
+                if(existeStudyDone){
+                    
+                }else{
+                    
+                }
+                //se nao estava assinado
+            }else if (flagsign == 0){
+                if(existeStudyDone){
+                    
+                }else{
+                    
+                }
+            }
+        }
     }
     
     private void bloquear(){

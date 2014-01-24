@@ -64,4 +64,80 @@ public class JLAUDOS {
         }
     }
     
+    /**
+     * Consulta o flagsign de um registro
+     * @throws SQLException 
+     */
+    public static int getConsultarFlagSign(int handle_at) throws SQLException {
+        Connection con = Conexao.fazConexaoPAC();
+        ResultSet resultSet = null;
+        PreparedStatement stmtQuery = con.prepareStatement("select FLAGSIGN from jlaudos where handle_at = ?");
+        stmtQuery.setInt(1, handle_at);
+        resultSet = stmtQuery.executeQuery();
+        int flagsign = 0;
+        while (resultSet.next()){
+            flagsign = resultSet.getInt("flagsign");
+        }
+        Conexao.fechaConexao(con);
+        return flagsign;
+    }
+    
+    /**
+     * Consulta se existe o handle at na tabela STUDY_DONE
+     * @throws SQLException 
+     */
+    public static boolean getConsultarStdAccession(int handle_at) throws SQLException {
+        Connection con = Conexao.fazConexaoPAC();
+        ResultSet resultSet = null;
+        PreparedStatement stmtQuery = con.prepareStatement("select STDID from STUDY_DONE where STD_ACCESSION = ?");
+        stmtQuery.setString(1, String.valueOf(handle_at));
+        resultSet = stmtQuery.executeQuery();
+        boolean retorno = false;
+        while (resultSet.next()){
+            retorno = true;
+        }
+        Conexao.fechaConexao(con);
+        return retorno;
+    }
+    
+    /**
+     * Consulta o radiologista
+     * @throws SQLException 
+     */
+    public static String getConsultarRadiologista(int handle_at) throws SQLException {
+        Connection con = Conexao.fazConexaoPAC();
+        ResultSet resultSet = null;
+        PreparedStatement stmtQuery = con.prepareStatement("select radiologista from STUDY_DONE where STD_ACCESSION = ?");
+        stmtQuery.setString(1, String.valueOf(handle_at));
+        resultSet = stmtQuery.executeQuery();
+        String retorno = "";
+        while (resultSet.next()){
+            retorno = resultSet.getString("radiologista");
+        }
+        Conexao.fechaConexao(con);
+        return retorno;
+    }
+    
+    /**
+     * Salva os Flags de assinatura de laudo
+     * @throws SQLException 
+     */
+    public static void setAssinarComStudyDone(int flagSign, int flagRisUpdate, String flag2, String radiologista, int status1) throws SQLException{
+        Connection conPac = Conexao.fazConexaoPAC();
+        Connection conRis = Conexao.fazConexao();
+        
+        conPac.setAutoCommit(false);
+        conRis.setAutoCommit(false);
+        
+        
+    }
+    
+    /**
+     * Salva os Flags de assinatura de laudo
+     * @throws SQLException 
+     */
+    public static void setAssinarSemStudyDone(int flagSign, int flagRisUpdate, int status1) throws SQLException{
+        
+    }
+    
 }
