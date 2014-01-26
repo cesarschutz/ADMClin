@@ -122,22 +122,45 @@ public class JLAUDOS {
      * Salva os Flags de assinatura de laudo
      * @throws SQLException 
      */
-    public static void setAssinarComStudyDone(int flagSign, int flagRisUpdate, String flag2, String radiologista, int status1) throws SQLException{
-        Connection conPac = Conexao.fazConexaoPAC();
-        Connection conRis = Conexao.fazConexao();
-        
-        conPac.setAutoCommit(false);
-        conRis.setAutoCommit(false);
-        
-        
+    public static boolean setAssinarComStudyDone(int flagSign, int flagRisUpdate, String flag2, String radiologista, int status1){
+    	Connection conPac = null;
+        Connection conRis = null;
+    	try {
+        	conPac = Conexao.fazConexaoPAC();
+            conRis = Conexao.fazConexao();
+            
+            conPac.setAutoCommit(false);
+            conRis.setAutoCommit(false);
+            
+            
+            
+            conPac.commit();
+			conRis.commit();
+			Conexao.fechaConexao(conRis);
+            Conexao.fechaConexao(conPac);
+			return true;
+		} catch (Exception e) {
+			try {
+				conPac.rollback();
+				conRis.rollback();
+				Conexao.fechaConexao(conRis);
+	            Conexao.fechaConexao(conPac);
+	            return false;
+			} catch (SQLException e1) {
+				Conexao.fechaConexao(conRis);
+	            Conexao.fechaConexao(conPac);
+	            return false;
+			}
+            
+		}
     }
     
     /**
      * Salva os Flags de assinatura de laudo
      * @throws SQLException 
      */
-    public static void setAssinarSemStudyDone(int flagSign, int flagRisUpdate, int status1) throws SQLException{
-        
+    public static boolean setAssinarSemStudyDone(int flagSign, int flagRisUpdate, int status1){
+        return false;
     }
     
 }

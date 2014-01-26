@@ -80,7 +80,7 @@ public class Conexao {
                 "Erro no drive de conexão. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                "Erro na conexao! Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+                "Erro na conexao! Procure o administrador" + ex, "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             return con;
         }

@@ -17,6 +17,7 @@ import br.bcn.admclin.dao.model.Usuario;
 public class USUARIOS {
     public static String statusUsuario = null;
     public static String nomeUsuario = null;
+    public static String senhaAssinaturaDeLaudo = null;
     public static String impressora_ficha = null;
     public static String impressora_nota_fiscal = null;
     public static String impressora_etiqueta_envelope = null;
@@ -129,6 +130,24 @@ public class USUARIOS {
         atualizo = true;
         return atualizo;
     }
+    //atualiza a senha de assinatura de laudos
+    public static boolean setUpdateAssinaturaLaudo(String novaSenha){
+    	try {
+    		Connection con = Conexao.fazConexao();
+        	String sql = "update USUARIOS set senha_assinatura_laudo=? where USRID=?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, novaSenha);
+            stmt.setInt(2, usrId);
+            stmt.executeUpdate();
+            stmt.close();
+            return true;
+		} catch (Exception e) {
+			return false;
+		}
+    	
+        
+    }
+    
     /**
      * Deleta um Usuário do Banco de Dados.
      * @param Connection
@@ -160,6 +179,7 @@ public class USUARIOS {
         if(resultSet.next()){
             statusUsuario = resultSet.getString("FG_ESTATUS");
             nomeUsuario = resultSet.getString("NM_USUARIO");
+            senhaAssinaturaDeLaudo = resultSet.getString("senha_assinatura_laudo");
             usrId = resultSet.getInt("USRID");
             impressora_ficha = resultSet.getString("IMPRESSORA_FICHA");
             impressora_nota_fiscal = resultSet.getString("IMPRESSORA_NOTA_FISCAL");
