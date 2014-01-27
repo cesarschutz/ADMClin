@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.print.attribute.IntegerSyntax;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,13 +28,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 
 import br.bcn.admclin.ClasseAuxiliares.StringEncrypter;
-
-import com.lowagie.text.DocumentException;
-
 import br.bcn.admclin.dao.db.CODIGOS;
 import br.bcn.admclin.dao.db.JLAUDOS;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+
+import com.lowagie.text.DocumentException;
 
 public class JFLaudo extends JFrame {
 
@@ -382,11 +381,11 @@ public class JFLaudo extends JFrame {
 		String dataAtendimentoSplit[] = txtDataAtendimento.getText().split("/");
 		String dataAtendimento = dataAtendimentoSplit[2]
 				+ dataAtendimentoSplit[1] + dataAtendimentoSplit[0];
-		boolean retorno = JLAUDOS.setCadastrarLaudo(handle_at, laudo,
-				dataAtendimento, USUARIOS.nomeUsuario);
+		boolean retorno = JLAUDOS.setCadastrarLaudo(existeStudyDone, handle_at, laudo, dataAtendimento, USUARIOS.nomeUsuario);
 		if (retorno) {
 			this.dispose();
 		}
+		janelaPrincipal.internalFrameListaAtendimentos.preenchendoTabela();
 	}
 
 	private void alterarCodigosPorTexto() {
@@ -456,48 +455,62 @@ public class JFLaudo extends JFrame {
 	}
 
 	private void botaoAssinar() {
+	    this.setAlwaysOnTop(false);
 		if (verificaSenhaAssinaturaLaudo()) {
 			if (flagsign == 1) {
 				// se ja esta assinado
 				if (existeStudyDone) {
-					if (JLAUDOS.setAssinarComStudyDone(0, 0, "0", USUARIOS.nomeUsuario, 4)){
+					if (JLAUDOS.setAssinarComStudyDone(0, 0, "0", USUARIOS.nomeUsuario, 4, handle_at_selecionado)){
 						JBSalvar.setEnabled(true);
 						jBGravarCodigo.setEnabled(true);
 						JBGerarPdf.setEnabled(false);
 						txtLaudo.setEditable(true);
 						txtLaudo.setBackground(new Color(255,255,255));
+						
+						flagsign = 0;
+						radiologista = USUARIOS.nomeUsuario;
 					}
 				} else {
-					if (JLAUDOS.setAssinarSemStudyDone(0, 0, 4)) {
+					if (JLAUDOS.setAssinarSemStudyDone(0, 0, 4, handle_at_selecionado)) {
 						JBSalvar.setEnabled(true);
 						jBGravarCodigo.setEnabled(true);
 						JBGerarPdf.setEnabled(false);
 						txtLaudo.setEditable(true);
 						txtLaudo.setBackground(new Color(255,255,255));
+						
+						flagsign = 0;
+                        radiologista = USUARIOS.nomeUsuario;
 					}
 				}
 				// se nao estava assinado
 			} else if (flagsign == 0) {
 				if (existeStudyDone) {
-					if (JLAUDOS.setAssinarComStudyDone(1, 1, "1", USUARIOS.nomeUsuario, 5)){
-						txtLaudo.setEditable(true);
-						txtLaudo.setBackground(new Color(240, 223, 212));
-						JBSalvar.setEnabled(false);
-						jBGravarCodigo.setEnabled(false);
-						JBGerarPdf.setEnabled(true);
-					}
-				} else {
-					if (JLAUDOS.setAssinarSemStudyDone(1, 1, 5)) {
+					if (JLAUDOS.setAssinarComStudyDone(1, 1, "1", USUARIOS.nomeUsuario, 5, handle_at_selecionado)){
 						txtLaudo.setEditable(true);
 						txtLaudo.setBackground(new Color(240, 223, 212));
 						JBSalvar.setEnabled(false);
 						jBGravarCodigo.setEnabled(false);
 						JBGerarPdf.setEnabled(true);
 						
+						flagsign = 1;
+                        radiologista = USUARIOS.nomeUsuario;
+					}
+				} else {
+					if (JLAUDOS.setAssinarSemStudyDone(1, 1, 5, handle_at_selecionado)) {
+						txtLaudo.setEditable(true);
+						txtLaudo.setBackground(new Color(240, 223, 212));
+						JBSalvar.setEnabled(false);
+						jBGravarCodigo.setEnabled(false);
+						JBGerarPdf.setEnabled(true);
+						
+						flagsign = 1;
+                        radiologista = USUARIOS.nomeUsuario;	
 					}
 				}
 			}
 		}
+		this.setAlwaysOnTop(true);
+		janelaPrincipal.internalFrameListaAtendimentos.preenchendoTabela();
 	}
 
 	private boolean verificaSenhaAssinaturaLaudo() {
@@ -536,6 +549,7 @@ public class JFLaudo extends JFrame {
 				if (USUARIOS.setUpdateAssinaturaLaudo(senhaCriptografada)) {
 					JOptionPane.showMessageDialog(null, "Sua senha foi salva com Sucesso.");
 					USUARIOS.senhaAssinaturaDeLaudo = senhaCriptografada;
+					USUARIOS.senhaAssinaturaConferida = true;
 					return true;
 				} else {
 					JOptionPane.showMessageDialog(null, "Erro ao salvar senha. Procure o Administrador.");
@@ -549,14 +563,17 @@ public class JFLaudo extends JFrame {
 			// verifica se senha esta correta
 			JLabel jPassword1 = new JLabel("Senha     : ");
 			JTextField password1 = new JPasswordField();
+			if(USUARIOS.senhaAssinaturaConferida) password1.setText(StringEncrypter.decryptor("BcN", USUARIOS.senhaAssinaturaDeLaudo));;
 			Object[] ob = { jPassword1, password1 };
 			int result = JOptionPane.showConfirmDialog(null, ob, "Digite sua senha:", JOptionPane.OK_CANCEL_OPTION);
 			if (result == JOptionPane.OK_OPTION) {
 				String senhaDigitada = password1.getText();
 				String senhaDescriptografada = StringEncrypter.decryptor("BcN", USUARIOS.senhaAssinaturaDeLaudo);
 				if (senhaDescriptografada.equals(senhaDigitada)) {
+				    USUARIOS.senhaAssinaturaConferida = true;
 					return true;
 				} else {
+				    JOptionPane.showMessageDialog(null, "Senha Inválida.");
 					return false;
 				}
 			} else {

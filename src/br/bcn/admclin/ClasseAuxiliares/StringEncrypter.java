@@ -9,27 +9,25 @@ package br.bcn.admclin.ClasseAuxiliares;
  * @author Theodoro
  */
 // CIPHER / GENERATORS
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.KeyGenerator;
-
-// KEY SPECIFICATIONS
-import java.security.spec.KeySpec;
-import java.security.spec.AlgorithmParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEParameterSpec;
-
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 // EXCEPTIONS
 import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
 import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidKeySpecException;
-import javax.crypto.NoSuchPaddingException;
+// KEY SPECIFICATIONS
+import java.security.spec.KeySpec;
+
 import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
-import java.io.UnsupportedEncodingException;
-import java.io.IOException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.PBEParameterSpec;
 
 
 

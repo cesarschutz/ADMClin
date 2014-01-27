@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 public class JLAUDOS {
 
@@ -39,13 +40,19 @@ public class JLAUDOS {
     /**
      * Salva o laudo em um atendimento
      */
-    @SuppressWarnings("finally")
-    public static boolean setCadastrarLaudo(int handle_at, String laudo, String dataExame, String usr) {
-        boolean cadastro = false;
-        Connection con = Conexao.fazConexaoPAC();
-        String sql = "update or insert into jlaudos (handle_at, laudo, flagsign, flagrisupdate, DATESIGN, usr) values(?,?,?,?,?,?) matching (handle_at)";
+    public static boolean setCadastrarLaudo(boolean comStudyDone, int handle_at, String laudo, String dataExame, String usr) {        
+        Connection conPac = null;
+        Connection conRis = null;
         try {
-            PreparedStatement stmt = con.prepareStatement(sql);
+            conPac = Conexao.fazConexaoPAC();
+            conRis = Conexao.fazConexao();
+            
+            conPac.setAutoCommit(false);
+            conRis.setAutoCommit(false);
+            
+            //muda flags na tabela jlaudos do DB pac
+            String sql = "update or insert into jlaudos (handle_at, laudo, flagsign, flagrisupdate, DATESIGN, usr) values(?,?,?,?,?,?) matching (handle_at)";
+            PreparedStatement stmt = conPac.prepareStatement(sql);
             stmt.setInt(1,handle_at);
             stmt.setString(2, laudo);
             stmt.setInt(3, 0);
@@ -53,14 +60,46 @@ public class JLAUDOS {
             stmt.setString(5, dataExame);
             stmt.setString(6, usr);
             stmt.executeUpdate();
-            stmt.close();
-            cadastro = true;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Laudo. Procure o Administrador.",
+            
+            if(comStudyDone){
+                //muda flags na tabela study_done do pac
+                String sql2 = "update study_done set flag2 = ?, radiologista = ? where handle_at = ?";
+                PreparedStatement stmt2 = conPac.prepareStatement(sql2);
+                stmt2.setString(1, "0");
+                stmt2.setString(2, USUARIOS.nomeUsuario);
+                stmt2.setInt(3, handle_at);
+                stmt2.executeUpdate();
+            }
+            
+            
+            
+            //muda flag no atendimento do RIS
+            String sql3 = "update atendimentos set status1=? where handle_at = ?";
+            PreparedStatement stmt3 = conRis.prepareStatement(sql3);
+            stmt3.setInt(1, 4);
+            stmt3.setInt(2, handle_at);
+            stmt3.executeUpdate();
+            
+            
+            conPac.commit();
+            conRis.commit();
+            Conexao.fechaConexao(conRis);
+            Conexao.fechaConexao(conPac);
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Salvar Laudo. Procure o Administrador.",
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-            Conexao.fechaConexao(con);
-        } finally {
-            return cadastro;
+            try {
+                conPac.rollback();
+                conRis.rollback();
+                Conexao.fechaConexao(conRis);
+                Conexao.fechaConexao(conPac);
+                return false;
+            } catch (SQLException e1) {
+                Conexao.fechaConexao(conRis);
+                Conexao.fechaConexao(conPac);
+                return false;
+            }
         }
     }
     
@@ -122,7 +161,7 @@ public class JLAUDOS {
      * Salva os Flags de assinatura de laudo
      * @throws SQLException 
      */
-    public static boolean setAssinarComStudyDone(int flagSign, int flagRisUpdate, String flag2, String radiologista, int status1){
+    public static boolean setAssinarComStudyDone(int flagSign, int flagRisUpdate, String flag2, String radiologista, int status1, int handle_at){
     	Connection conPac = null;
         Connection conRis = null;
     	try {
@@ -132,6 +171,29 @@ public class JLAUDOS {
             conPac.setAutoCommit(false);
             conRis.setAutoCommit(false);
             
+            //muda flags na tabela jlaudos do DB pac
+            String sql = "update jlaudos set flagSign=?, flagRisUpdate = ? where handle_at = ?";
+            PreparedStatement stmt = conPac.prepareStatement(sql);
+            stmt.setInt(1,flagSign);
+            stmt.setInt(2, flagRisUpdate);
+            stmt.setInt(3, handle_at);
+            stmt.executeUpdate();
+            
+            //muda flags na tabela study_done do pac
+            String sql2 = "update study_done set flag2 = ?, radiologista = ? where handle_at = ?";
+            PreparedStatement stmt2 = conPac.prepareStatement(sql2);
+            stmt2.setString(1,flag2);
+            stmt2.setString(2, radiologista);
+            stmt2.setInt(3, handle_at);
+            stmt2.executeUpdate();
+            
+            
+            //muda flag no atendimento do RIS
+            String sql3 = "update atendimentos set status1=? where handle_at = ?";
+            PreparedStatement stmt3 = conRis.prepareStatement(sql3);
+            stmt3.setInt(1,status1);
+            stmt3.setInt(2, handle_at);
+            stmt3.executeUpdate();
             
             
             conPac.commit();
@@ -140,6 +202,8 @@ public class JLAUDOS {
             Conexao.fechaConexao(conPac);
 			return true;
 		} catch (Exception e) {
+		    JOptionPane.showMessageDialog(null, "Erro ao Assinar Laudo. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
 			try {
 				conPac.rollback();
 				conRis.rollback();
@@ -151,7 +215,6 @@ public class JLAUDOS {
 	            Conexao.fechaConexao(conPac);
 	            return false;
 			}
-            
 		}
     }
     
@@ -159,8 +222,52 @@ public class JLAUDOS {
      * Salva os Flags de assinatura de laudo
      * @throws SQLException 
      */
-    public static boolean setAssinarSemStudyDone(int flagSign, int flagRisUpdate, int status1){
-        return false;
+    public static boolean setAssinarSemStudyDone(int flagSign, int flagRisUpdate, int status1, int handle_at){
+        Connection conPac = null;
+        Connection conRis = null;
+        try {
+            conPac = Conexao.fazConexaoPAC();
+            conRis = Conexao.fazConexao();
+            
+            conPac.setAutoCommit(false);
+            conRis.setAutoCommit(false);
+            
+            //muda flags na tabela jlaudos do DB pac
+            String sql = "update jlaudos set flagSign=?, flagRisUpdate = ? where handle_at = ?";
+            PreparedStatement stmt = conPac.prepareStatement(sql);
+            stmt.setInt(1,flagSign);
+            stmt.setInt(2, flagRisUpdate);
+            stmt.setInt(3, handle_at);
+            stmt.executeUpdate();        
+            
+            //muda flag no atendimento do RIS
+            String sql3 = "update atendimentos set status1=? where handle_at = ?";
+            PreparedStatement stmt3 = conRis.prepareStatement(sql3);
+            stmt3.setInt(1,status1);
+            stmt3.setInt(2, handle_at);
+            stmt3.executeUpdate();            
+            
+            conPac.commit();
+            conRis.commit();
+            
+            Conexao.fechaConexao(conRis);
+            Conexao.fechaConexao(conPac);
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Assinar Laudo. Procure o Administrador." + e,
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            try {
+                conPac.rollback();
+                conRis.rollback();
+                Conexao.fechaConexao(conRis);
+                Conexao.fechaConexao(conPac);
+                return false;
+            } catch (SQLException e1) {
+                Conexao.fechaConexao(conRis);
+                Conexao.fechaConexao(conPac);
+                return false;
+            }
+        }
     }
     
 }

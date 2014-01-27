@@ -17,7 +17,8 @@ import br.bcn.admclin.dao.model.Usuario;
 public class USUARIOS {
     public static String statusUsuario = null;
     public static String nomeUsuario = null;
-    public static String senhaAssinaturaDeLaudo = null;
+    public static String senhaAssinaturaDeLaudo = "";
+    public static boolean senhaAssinaturaConferida = false;
     public static String impressora_ficha = null;
     public static String impressora_nota_fiscal = null;
     public static String impressora_etiqueta_envelope = null;
@@ -180,6 +181,7 @@ public class USUARIOS {
             statusUsuario = resultSet.getString("FG_ESTATUS");
             nomeUsuario = resultSet.getString("NM_USUARIO");
             senhaAssinaturaDeLaudo = resultSet.getString("senha_assinatura_laudo");
+            if(senhaAssinaturaDeLaudo == null) senhaAssinaturaDeLaudo = "";
             usrId = resultSet.getInt("USRID");
             impressora_ficha = resultSet.getString("IMPRESSORA_FICHA");
             impressora_nota_fiscal = resultSet.getString("IMPRESSORA_NOTA_FISCAL");

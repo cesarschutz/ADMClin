@@ -188,7 +188,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         jXDatePicker1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                preenchendoTabela(pegandoDataDoDataPicker());
+                preenchendoTabela();
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         jTFPesquisaPaciente.requestFocusInWindow();
@@ -209,7 +209,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         jTable1.setRowHeight(30);
 
         // pegamos a data do dataPicker e atualizamos a tabelas
-        preenchendoTabela(pegandoDataDoDataPicker());
+        preenchendoTabela();
 
         // coluna de status aceitando icones
         TableCellRenderer tcrColuna6 = new ColunaAceitandoIcone();
@@ -260,7 +260,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     /*
      * metodo que preenche a tabela DE ACORDO COM O BANCO DE DADOS E PREENCHENDO O ARRAY COM AS INFORMAÇÕES
      */
-    private void preenchendoTabela(Date data) {
+    public void preenchendoTabela() {
+        Date data = pegandoDataDoDataPicker();
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -340,7 +341,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             // se nao tiver nada na pesquisa
             if ("".equals(jTFPesquisaPaciente.getText())) {
                 // se for todas as modalidades e sem pesquisa ele preenche a tabela com o banco de dados
-                preenchendoTabela(pegandoDataDoDataPicker());
+                preenchendoTabela();
                 colocarIcone = false;
                 jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
                 jTFMensagemParaUsuario.setText("Digite um Código ou um Paciente para Pesquisar");
@@ -503,7 +504,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 // caso nao consiga coloca os icones ele zera a tabela
                 jTFMensagemParaUsuario.setText("");
                 jTFPesquisaPaciente.setText("");
-                preenchendoTabela(pegandoDataDoDataPicker());
+                preenchendoTabela();
             }
         }
 
@@ -1196,7 +1197,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     }// GEN-LAST:event_jTFPesquisaPacienteFocusLost
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
-        preenchendoTabela(pegandoDataDoDataPicker());
+        preenchendoTabela();
     }// GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
@@ -1550,7 +1551,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
             @Override
             protected void done() {
-                preenchendoTabela(pegandoDataDoDataPicker());
+                preenchendoTabela();
                 janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
             }
         };
@@ -1579,7 +1580,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
             @Override
             protected void done() {
-                preenchendoTabela(pegandoDataDoDataPicker());
+                preenchendoTabela();
                 janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
             }
         };
