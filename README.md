@@ -23,6 +23,7 @@ a tabela CONVENIOS precisa ter um convenio com id 0 para quando for reservar um 
 a tabela EXAMES precisa ter um exame com id 0 para quando for reservar um atendimento ou um agendamento
 
 a tabela MEDICOS precisa ter um medico com id 0 para quando for reservar um atendimento
+e o nome do medico deve ser NAO INFORMADO para nao sair o mmedico nos laudos
 
 
 

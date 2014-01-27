@@ -1035,7 +1035,6 @@ jTFEmail.setText(jTFEmail.getText().toUpperCase());
     }//GEN-LAST:event_jTFImpressora_cod_de_barrasFocusLost
 
     private void jTFImpressora_cod_de_barrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFImpressora_cod_de_barrasKeyReleased
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTFImpressora_cod_de_barrasKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -177,8 +177,10 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         if (!"".equals(jTFEmail.getText())) {
             nascimentoOk = MetodosUteis.verificarSeEmailEValido(jTFEmail, jTFMensagemParaUsuario);
         }
+        
+        boolean crmMedicoOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFCRM, 2, jTFMensagemParaUsuario);
 
-        if (emailOk && nascimentoOk && nomeOk) {
+        if (emailOk && nascimentoOk && nomeOk && crmMedicoOk) {
             return true;
         } else {
             return false;

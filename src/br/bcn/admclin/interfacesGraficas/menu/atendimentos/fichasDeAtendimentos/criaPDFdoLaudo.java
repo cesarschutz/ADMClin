@@ -154,17 +154,21 @@ public class criaPDFdoLaudo {
         cell = new PdfPCell(new Phrase(" "));
         cell.setBorder(Rectangle.NO_BORDER);
         table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Médico", fontHeader));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase(":", fontHeader));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase(nomeMedico, fontBody));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        
+        if(!nomeMedico.equals("NAO INFORMADO")){
+            cell = new PdfPCell(new Phrase("Médico", fontHeader));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+            cell = new PdfPCell(new Phrase(":", fontHeader));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+            cell = new PdfPCell(new Phrase(nomeMedico, fontBody));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        }
+        
         table.addCell(cell);
         document.add(table);
 
