@@ -1010,7 +1010,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     // variavel definida no OS para o caminho do banco de dados no servidor
     public static String RISDB = "";
     public static String PACDB = "";
-    public static String RISPORTAL = "";
+    public static String NOMEPORTAL = "";
     
     public static void main(String args[]) {
         /*
@@ -1055,6 +1055,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 // RISIP = "192.168.25.15";
                 RISDB = System.getenv("RISDB");
                 PACDB = System.getenv("PACDB");
+                NOMEPORTAL = System.getenv("NOMEPORTAL");
 
                 internalFrameJanelaPrincipal = new janelaPrincipal();
 

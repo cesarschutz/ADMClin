@@ -71,7 +71,7 @@ public class criaPDFdoLaudo {
         
         // logotipo
         try {
-            String url = "http://" + janelaPrincipal.RISIP + "/" + janelaPrincipal.RISPORTAL + "/img/logo.png";
+            String url = "http://" + janelaPrincipal.RISIP + "/" + janelaPrincipal.NOMEPORTAL + "/img/logo.png";
             Image img0 = Image.getInstance(url);
             img0.scalePercent(65f);
             img0.setAlignment(Element.ALIGN_CENTER);
@@ -228,7 +228,7 @@ public class criaPDFdoLaudo {
 
         
         try {
-            String url = "http://" + janelaPrincipal.RISIP + "/" + janelaPrincipal.RISPORTAL + "/pags/jassinaturaadmclin.asp?handle_at=" + numero;
+            String url = "http://" + janelaPrincipal.RISIP + "/" + janelaPrincipal.NOMEPORTAL + "/pags/jassinaturaadmclin.asp?handle_at=" + numero;
             Image img = Image.getInstance(url);
             img.scalePercent(70f);
             img.setAlignment(Element.ALIGN_CENTER);

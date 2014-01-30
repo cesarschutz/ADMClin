@@ -1,3 +1,49 @@
+/*
+ * Regras!
+ * 
+ * Quando abre a janela:
+ *      Busca as informações necessarias flagsign, existeStudyDone e radiologista (se ocorrer erro, a janela fica desabilitada!).
+ *          Se flagSign = 1
+ *              bloqueia botão salvar, botão gravarCodigo e o texto do laudo.
+ *                  Se tipo de usuario não for R, bloqueia botão assinar.
+ *                  Se existe registro na tabela Study_Done com o handle_at, verifica se o radiologista é o mesmo que esta logado, se não for bloqueia o botão assinar.
+ *          
+ *          Se flagSign = 0
+ *              Bloqueia botão gera PDF.
+ *                  Se usuario não for tipo R (medico radiologista) bloqueia o botão Assinar.
+ *      
+ * ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * Quando clica no botão Assinar:
+ *     Se flagSign = 1
+ *         Se existe Study_done 
+ *             Marca flagsign = 0, flagRisUpdate = 0, flag2 = 0, radiologista = nomeDoUsuario, status1 = 4
+ *             Habilita botão salvar, botão gravarCodigo e o texto do Laudo.
+ *             Desabilita botão gerarPDF
+ *         Se não existe studyDone
+ *             Marca flagsign = 0, flagRisUpdate = 0, status1 = 4
+ *             Habilita botão salvar, botão gravarCodigo e o texto do Laudo.
+ *             Desabilita botão gerarPDF
+ *             
+ *             
+ *     Se flagSign = 0
+ *         Se existe Study_done 
+ *             Marca flagsign = 1, flagRisUpdate = 1, flag2 = 1, radiologista = nomeDoUsuario, status1 = 5
+ *             Habilita botão salvar, botão gravarCodigo e o texto do Laudo.
+ *             Desabilita botão gerarPDF
+ *         Se não existe studyDone
+ *             Marca flagsign = 1, flagRisUpdate = 1, status1 = 5
+ *             Habilita botão salvar, botão gravarCodigo e o texto do Laudo.
+ *             Desabilita botão gerarPDF
+ * 
+ * ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * Quando clica no botão salvar:
+ *     Salva o laudo
+ *     Se existe studyDone
+ *         Marca flagsign = 0, flagRisUpdate = 0, flag2 = 0, radiologista = nomeDoUsuario, status1 = 4
+ *     Se não existe studyDone
+ *             Marca flagsign = 0, flagRisUpdate = 0, status1 = 4
+ */
+
 package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos;
 
 import java.awt.Color;
