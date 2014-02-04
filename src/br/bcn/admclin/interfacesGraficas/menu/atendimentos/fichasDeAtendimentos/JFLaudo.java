@@ -285,7 +285,7 @@ public class JFLaudo extends JFrame {
 		jBGravarCodigo.setBounds(228, 402, 166, 42);
 		contentPane.add(jBGravarCodigo);
 
-		preencheLaudo(Integer.valueOf(handle_at));
+		
 		iniciarClasse();
 		// definindo o campos
 		txtDataAtendimento.setText(data);
@@ -313,7 +313,6 @@ public class JFLaudo extends JFrame {
 				.getResource("/br/bcn/admclin/imagens/help.png")));
 		btnAjuda.setBounds(6, 402, 47, 42);
 		contentPane.add(btnAjuda);
-		buscaDadosPaciente(Integer.valueOf(handle_at));
 	}
 
 	private void iniciarClasse() {
@@ -339,7 +338,7 @@ public class JFLaudo extends JFrame {
 			}
 		});
 
-		if (buscarInformacoesDoBanco()) {
+		if (buscarInformacoesDoBanco() && buscaDadosPaciente(handle_at_selecionado) && preencheLaudo(handle_at_selecionado)) {
 			// se esta assinado
 			if (flagsign == 1) {
 				JBSalvar.setEnabled(false);
@@ -387,7 +386,7 @@ public class JFLaudo extends JFrame {
 		}
 	}
 
-	private void buscaDadosPaciente(int handle_at) {
+	private boolean buscaDadosPaciente(int handle_at) {
 		ResultSet resultSet = null;
 		Connection con = Conexao.fazConexao();
 		try {
@@ -400,24 +399,29 @@ public class JFLaudo extends JFrame {
 				txtNascimentoPaciente
 						.setText(resultSet.getString("nascimento"));
 			}
+			return true;
 		} catch (SQLException e) {
 			JOptionPane
 					.showMessageDialog(
 							null,
 							"Erro ao consultar dados do Paciente. Procure o Administrador.",
 							"ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+			bloquear();
+			return false;
 
 		}
 	}
 
-	private void preencheLaudo(int handle_at) {
+	private boolean preencheLaudo(int handle_at) {
 		String retorno = JLAUDOS.getConsultarLaudo(handle_at);
 		if (retorno == "erro") {
 			bloquear();
+			return false;
 		} else if (retorno == "vazio") {
-
+			return true;
 		} else {
 			txtLaudo.setText(retorno.replaceAll("\\[\\]", "\n"));
+			return true;
 		}
 	}
 
