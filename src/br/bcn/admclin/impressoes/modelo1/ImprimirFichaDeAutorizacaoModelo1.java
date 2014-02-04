@@ -26,6 +26,7 @@ import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
 import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -183,6 +184,12 @@ public class ImprimirFichaDeAutorizacaoModelo1 {
         cell = new PdfPCell(new Phrase("Código: " + handle_at, fontNormal));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setColspan(3);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        table.addCell(cell);
+        
+        cell = new PdfPCell(new Phrase("Atendente: " + USUARIOS.usrId + " - " + USUARIOS.nomeUsuario, fontNormal));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setColspan(4);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         table.addCell(cell);
 
