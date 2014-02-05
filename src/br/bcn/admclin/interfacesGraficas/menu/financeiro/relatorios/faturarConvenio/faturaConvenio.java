@@ -57,7 +57,7 @@ public class faturaConvenio {
         List<atendimentoModel> listaAtendimentos) {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
-        this.nome = nome;
+        this.nome = nome.replace(" ", "_");
         this.handle_convenio = handle_convenio;
         this.tipo = tp;
         this.listaDeAtendimentos = listaAtendimentos;
@@ -68,7 +68,7 @@ public class faturaConvenio {
         List<atendimentoModel> listaAtendimentos) {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
-        this.nome = "Grupo" + nome;
+        this.nome = "Grupo" + nome.replace(" ", "_");
         this.grupo_id = grupo_id;
         this.tipo = tp;
         this.listaDeAtendimentos = listaAtendimentos;
@@ -720,7 +720,7 @@ public class faturaConvenio {
     private void abrirFichaPDF() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         if (OSvalidator.isWindows()) {
-            runtime.exec("cmd /c \"" + caminho + "Fatura" + nome + ".pdf\"");
+            runtime.exec("cmd /c " + caminho + "Fatura" + nome + ".pdf");
         } else if (OSvalidator.isMac()) {
             runtime.exec("open " + caminho + "Fatura" + nome + ".pdf");
         } else {
