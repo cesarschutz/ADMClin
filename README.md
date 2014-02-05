@@ -29,3 +29,16 @@ e o nome do medico deve ser NAO INFORMADO para nao sair o mmedico nos laudos
 
 NO BANCO DO PAC - o campo LAUDO na tabela JLAUDOS deve ser NONE ao inves de ASCII para aparecer os ascentos!!!!!!
 NO BANCO PAC - o campo CODIGO e CODTXT na tabela CODIGOS deve ser NONE ao inves de ASCII!!
+
+
+
+
+
+VARIAVEIS DE AMBIENTE
+
+PACDB      - caminho do banco DB
+RISDB      - caminho do banco DBRIS.FDB
+RISIP      - ip do servidor
+NOMEPORTAL - nome do portal (geralmente com nome de PORTAL)
+
+
