@@ -2,6 +2,7 @@ package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConv
 
 import static br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameFinanceiroRelatorioFaturarConvenios;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -92,6 +93,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
 
     private void iniciarClasse() {
         ativandoSelecaoDeLinhaComBotaoDireitoDoMouse();
+        jTable1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         tirandoBarraDeTitulo();
         jTable1.setRowHeight(30);
 
