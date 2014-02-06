@@ -125,12 +125,13 @@ public class atendimentoDAO {
      * Altera o flag_faturado para 1 (que foi faturado)
      */
     @SuppressWarnings("finally")
-    public static boolean setAtualizarFlagFaturado(Connection con, int handle_at) {
+    public static boolean setAtualizarFlagFaturado(Connection con, int handle_at, int flag_faturado) {
         boolean cadastro = false;
-        String sql = "update ATENDIMENTOS set flag_faturado=1 where handle_at=?";
+        String sql = "update ATENDIMENTOS set flag_faturado=? where handle_at=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, handle_at);
+            stmt.setInt(1, flag_faturado);
+            stmt.setInt(2, handle_at);
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;

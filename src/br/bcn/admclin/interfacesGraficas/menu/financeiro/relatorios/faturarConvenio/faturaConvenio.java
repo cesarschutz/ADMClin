@@ -138,7 +138,7 @@ public class faturaConvenio {
             // aqui marcamos o flag faturado dos atendimentos
             for (atendimentoModel atendimento : listaDeAtendimentos) {
                 con = Conexao.fazConexao();
-                atendimentoDAO.setAtualizarFlagFaturado(con, atendimento.getHandle_at());
+                atendimentoDAO.setAtualizarFlagFaturado(con, atendimento.getHandle_at(), 1);
             }
 
         }

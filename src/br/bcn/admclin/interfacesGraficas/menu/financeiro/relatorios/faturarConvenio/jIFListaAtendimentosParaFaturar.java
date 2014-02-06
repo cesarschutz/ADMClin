@@ -4,14 +4,20 @@ import static br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -22,6 +28,7 @@ import javax.swing.table.TableColumn;
 
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.financeiro.faturarConvenio.arquivoTxtDoIpe.GerarArquivoTxtDaFatura;
 
 /**
@@ -47,6 +54,9 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
 
     /*
      * metodo construtor por convenio
+     */
+    /**
+     * @wbp.parser.constructor
      */
     public jIFListaAtendimentosParaFaturar(String tp, Date dataInicial, Date dataFinal, String nome,
         int handle_convenio, ArrayList<atendimentoModel> listaAtendimentos) {
@@ -81,6 +91,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
     }
 
     private void iniciarClasse() {
+        ativandoSelecaoDeLinhaComBotaoDireitoDoMouse();
         tirandoBarraDeTitulo();
         jTable1.setRowHeight(30);
 
@@ -123,6 +134,35 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
 
     }
 
+    public void ativandoSelecaoDeLinhaComBotaoDireitoDoMouse() {
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    int col = jTable1.columnAtPoint(e.getPoint());
+                    int row = jTable1.rowAtPoint(e.getPoint());
+                    if (col != -1 && row != -1) {
+                        jTable1.setColumnSelectionInterval(col, col);
+                        jTable1.setRowSelectionInterval(row, row);
+                    }
+                }
+
+                // colocando a seleção na celula clicada
+                int linhaSelecionada = jTable1.getSelectedRow();
+                int colunaSelecionada = jTable1.getSelectedColumn();
+
+                jTable1.editCellAt(linhaSelecionada, colunaSelecionada);
+                
+                int linhaClicada = jTable1.rowAtPoint(e.getPoint());
+                if (MouseEvent.BUTTON3 == e.getButton() && linhaClicada == linhaSelecionada) {
+                    //abrirPopUpDoAtendimento(arg0);
+                    abrirPopUp(e, linhaSelecionada);
+                }
+            }
+        });
+    }
+    
     public void tirandoBarraDeTitulo() {
         ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
         this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
@@ -168,13 +208,13 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
             // colocando icone laudo
             if (jTable1.getValueAt(i, 4).equals("1")) {
                 jTable1.setValueAt(iconeSimPretoBranco, i, 4);
-            } else {
+            } else if(jTable1.getValueAt(i, 4).equals("0")) {
                 jTable1.setValueAt("", i, 4);
             }
             // colocando icone ja faturado
             if (jTable1.getValueAt(i, 5).equals("1")) {
                 jTable1.setValueAt(iconeSimPretoBranco, i, 5);
-            } else {
+            } else if (jTable1.getValueAt(i, 5).equals("0")){
                 jTable1.setValueAt("", i, 5);
             }
         }
@@ -443,6 +483,31 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
 
     }// GEN-LAST:event_jTable1KeyReleased
 
+    private void abrirPopUp(MouseEvent evt, int linhaSelecionada){
+        ImageIcon iconeLaudoEExameEntregue = new javax.swing.ImageIcon(getClass().getResource(
+                        "/br/bcn/admclin/imagens/popUpCancelar.png"));
+     // Paciente recebeu o exame
+        JMenuItem definirNaoFaturado = new JMenuItem("Definir como não Faturado", iconeLaudoEExameEntregue);
+        definirNaoFaturado.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //aqui muda o flag_faturado para 0 e tira a imagem
+                con = Conexao.fazConexao();
+                int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+                atendimentoDAO.setAtualizarFlagFaturado(con, handle_at, 0);
+                jTable1.setValueAt("0", jTable1.getSelectedRow(), 5);
+                colocarIcones();
+            }
+        });
+        
+        JPopupMenu popup = new JPopupMenu();
+        popup.add(definirNaoFaturado);
+
+        // mostra na tela
+        int x = evt.getX();
+        int y = evt.getY();
+        popup.show(jTable1, x, y);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGerarFatura;
     private javax.swing.JCheckBox jCheckBox1;
