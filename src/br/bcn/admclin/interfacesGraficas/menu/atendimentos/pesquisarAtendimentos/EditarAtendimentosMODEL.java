@@ -10,7 +10,15 @@ package br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimento
  */
 public class EditarAtendimentosMODEL {
     private String data_atendimento, hora, mod, paciente, medico_solicitante, crm, statusA;
-    private int handle_at;
+    private int handle_at, flagFaturado;
+
+    public int getFlagFaturado() {
+        return flagFaturado;
+    }
+
+    public void setFlagFaturado(int flagFaturado) {
+        this.flagFaturado = flagFaturado;
+    }
 
     public String getData_atendimento() {
         return data_atendimento;

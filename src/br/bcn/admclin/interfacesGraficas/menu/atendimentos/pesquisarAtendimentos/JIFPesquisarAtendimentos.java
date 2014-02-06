@@ -152,6 +152,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                     modelo.setMedico_solicitante(resultSet.getString("nomeMedico"));
                     modelo.setCrm(resultSet.getString("crmMedico"));
                     modelo.setStatusA(resultSet.getString("status1"));
+                    modelo.setFlagFaturado(resultSet.getInt("flag_faturado"));
                     listaAtendimentos.add(modelo);
                 }
 
@@ -200,7 +201,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                         modelo.setMedico_solicitante(resultSet.getString("nomeMedico"));
                         modelo.setCrm(resultSet.getString("crmMedico"));
                         modelo.setStatusA(resultSet.getString("status1"));
-
+                        modelo.setFlagFaturado(resultSet.getInt("flag_faturado"));
                         listaAtendimentos.add(modelo);
                     }
 
@@ -467,9 +468,14 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
 
         // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
-        // se for financeiro ou administrador libera o menu editar atendimento
+        // se for financeiro ou administrador  E  flag_faturado for igual a 0 libera o menu editar atendimento
+        int flagFaturado = listaAtendimentos.get(jTable1.getSelectedRow()).getFlagFaturado();
         if ("A".equals(USUARIOS.statusUsuario) || "F".equals(USUARIOS.statusUsuario)) {
             popup.add(editarAtendimento);
+            if(flagFaturado != 1){
+                editarAtendimento.setEnabled(false);
+                editarAtendimento.setText("Editar Atendimento (já faturado)");
+            }
         }
         popup.add(visualizarAtendimento);
 
