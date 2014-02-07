@@ -9,6 +9,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
@@ -29,7 +32,7 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select m.crm as crmMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
+                con.prepareStatement("select distinct m.crm as crmMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join atendimento_exames e on a.handle_at = e.handle_at "
@@ -54,7 +57,7 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select m.crm as crmMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.handle_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
+                con.prepareStatement("select distinct m.crm as crmMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.handle_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join convenio c on a.handle_convenio = c.handle_convenio "
@@ -128,12 +131,21 @@ public class atendimentoDAO {
      */
     @SuppressWarnings("finally")
     public static boolean setAtualizarFlagFaturado(Connection con, int handle_at, int flag_faturado) {
+
         boolean cadastro = false;
-        String sql = "update ATENDIMENTOS set flag_faturado=? where handle_at=?";
+        
+        // pegando data do sistema
+        Calendar hoje = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String dataDeHoje = format.format(hoje.getTime());
         try {
+            Date dataAtual = new java.sql.Date(format.parse(dataDeHoje).getTime());
+               
+            String sql = "update ATENDIMENTOS set flag_faturado=?, data_fatura=? where handle_at=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, flag_faturado);
-            stmt.setInt(2, handle_at);
+            stmt.setDate(2, dataAtual);
+            stmt.setInt(3, handle_at);
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
