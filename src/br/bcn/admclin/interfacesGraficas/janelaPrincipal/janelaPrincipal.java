@@ -67,12 +67,17 @@ import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCResponsaveis
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCResponsaveisTecnicosVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuarios;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuariosVisualizar;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.recebimentoConvenio.jIFRecebimentoDeConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.jIFFinanceiroAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.demed.jIFDemed;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFFaturarConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFListaAtendimentosParaFaturar;
+
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -138,6 +143,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFAgendamento internalFrameAgendamento;
     public static JIFUmaAgenda internalFrameUmaTabela;
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
+    public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -599,6 +605,21 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMFinanceiro);
         
         JMenuItem jMIRecebimentoDeConvenios = new JMenuItem("Recebimento de Convênios");
+        jMIRecebimentoDeConvenios.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                fechandoTodosOsInternalFrames();
+
+                internalFrameRecebimentoDeConvenios = new jIFRecebimentoDeConvenios();
+                jDesktopPane1.add(internalFrameRecebimentoDeConvenios);
+                internalFrameRecebimentoDeConvenios.setVisible(true);
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFrameRecebimentoDeConvenios.getWidth();
+                int aIFrame = internalFrameRecebimentoDeConvenios.getHeight();
+
+                internalFrameRecebimentoDeConvenios.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+            }
+        });
         jMIRecebimentoDeConvenios.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/menuRecebimentoDeConvenios.png")));
         jMFinanceiro.add(jMIRecebimentoDeConvenios);
 
