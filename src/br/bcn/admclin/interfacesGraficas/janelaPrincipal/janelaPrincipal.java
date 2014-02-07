@@ -71,6 +71,8 @@ import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.demed.jIFDemed;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFFaturarConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFListaAtendimentosParaFaturar;
+import javax.swing.JMenuItem;
+import javax.swing.ImageIcon;
 
 /**
  * 
@@ -595,6 +597,10 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMFinanceiro.add(jMRelatorios);
 
         jMenuBar1.add(jMFinanceiro);
+        
+        JMenuItem jMIRecebimentoDeConvenios = new JMenuItem("Recebimento de Convênios");
+        jMIRecebimentoDeConvenios.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/menuRecebimentoDeConvenios.png")));
+        jMFinanceiro.add(jMIRecebimentoDeConvenios);
 
         setJMenuBar(jMenuBar1);
 
@@ -1101,5 +1107,4 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    // End of variables declaration//GEN-END:variables
 }
