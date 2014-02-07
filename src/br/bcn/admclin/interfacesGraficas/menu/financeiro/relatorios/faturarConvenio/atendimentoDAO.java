@@ -32,7 +32,8 @@ public class atendimentoDAO {
                 con.prepareStatement("select m.crm as crmMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
-                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and handle_convenio = ? order by data_atendimento, a.handle_at");
+                    + "inner join atendimento_exames e on a.handle_at = e.handle_at "
+                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and (e.flag_conciliado is null or e.flag_conciliado = 0) and handle_convenio = ? order by data_atendimento, a.handle_at");
             stmtQuery.setDate(1, diaInicial);
             stmtQuery.setDate(2, diaInicial);
             stmtQuery.setDate(3, diaFinal);
@@ -57,7 +58,8 @@ public class atendimentoDAO {
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join convenio c on a.handle_convenio = c.handle_convenio "
-                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and c.grupoid = ? order by data_atendimento, a.handle_at");
+                    + "inner join atendimento_exames e on a.handle_at = e.handle_at "
+                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and (e.flag_conciliado is null or e.flag_conciliado = 0) and c.grupoid = ? order by data_atendimento, a.handle_at");
             stmtQuery.setDate(1, diaInicial);
             stmtQuery.setDate(2, diaInicial);
             stmtQuery.setDate(3, diaFinal);
