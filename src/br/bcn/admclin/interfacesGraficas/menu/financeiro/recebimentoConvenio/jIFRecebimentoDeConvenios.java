@@ -164,10 +164,59 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
 
     // public evento disparado ao apaertar o botao gerar fatura
     private void botaoGerarFaturaConvenio() {
+        if (verificarDatas()) {
+            Date dataSelecionada1 = jXDatePicker1.getDate();
+            Date dataSelecionada2 = jXDatePicker3.getDate();
+
+            Integer handle_convenio = listaHandleConvenio.get(jCBConvenios.getSelectedIndex());
+            String nomeConvenio = String.valueOf(jCBConvenios.getSelectedItem());
+
+            jIFListaDeExamesParaRecebimento jIFListaDeExamesParaRecebimento =
+                new jIFListaDeExamesParaRecebimento("convenio", dataSelecionada1, dataSelecionada2, handle_convenio, nomeConvenio);
+            
+            janelaPrincipal.internalFrameJanelaPrincipal.fechandoTodosOsInternalFrames();
+            janelaPrincipal.jDesktopPane1.add(jIFListaDeExamesParaRecebimento);
+            jIFListaDeExamesParaRecebimento.setVisible(true);
+            
+            System.out.println("CHEGOOOOOU");
+
+            int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
+            int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
+            int lIFrame = jIFListaDeExamesParaRecebimento.getWidth();
+            int aIFrame = jIFListaDeExamesParaRecebimento.getHeight();
+
+            jIFListaDeExamesParaRecebimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+
+        } else{
+            JOptionPane.showMessageDialog(null, "Selecione as data corretamente.");
+        }
     }
 
     public void botaoGerarFaturaGrupo() {
+        if (verificarDatas()) {
+            Date dataSelecionada1 = jXDatePicker1.getDate();
+            Date dataSelecionada2 = jXDatePicker3.getDate();
 
+            Integer handle_grupo = listaGrupoId.get(jCBGrupos.getSelectedIndex());
+            String nomeGrupo = String.valueOf(jCBGrupos.getSelectedItem());
+
+            jIFListaDeExamesParaRecebimento jIFListaDeExamesParaRecebimento =
+                new jIFListaDeExamesParaRecebimento("grupo", dataSelecionada1, dataSelecionada2, handle_grupo, nomeGrupo);
+
+            janelaPrincipal.internalFrameJanelaPrincipal.fechandoTodosOsInternalFrames();
+            janelaPrincipal.jDesktopPane1.add(jIFListaDeExamesParaRecebimento);
+            jIFListaDeExamesParaRecebimento.setVisible(true);
+
+            int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
+            int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
+            int lIFrame = jIFListaDeExamesParaRecebimento.getWidth();
+            int aIFrame = jIFListaDeExamesParaRecebimento.getHeight();
+
+            jIFListaDeExamesParaRecebimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+
+        } else{
+            JOptionPane.showMessageDialog(null, "Selecione as data corretamente.");
+        }
     }
 
     public void abrirJanelaListaDeAtendimentosParaFaturar(final JInternalFrame internalFrame) {
@@ -198,7 +247,8 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
         jRBGrupo = new javax.swing.JRadioButton();
         jRBConvenio = new javax.swing.JRadioButton();
 
-        jPanel1.setBorder(new TitledBorder(null, "Recebimento de Conv\u00EAnios", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, null));
+        jPanel1.setBorder(new TitledBorder(null, "Recebimento de Conv\u00EAnios", TitledBorder.CENTER,
+            TitledBorder.ABOVE_TOP, null, null));
 
         jLabel1.setText("Data");
 
@@ -208,7 +258,8 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
 
         jCBConvenios.setEnabled(false);
 
-        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemBotaoOk.png"))); // NOI18N
+        jBGerarFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/imagemBotaoOk.png"))); // NOI18N
         jBGerarFatura.setText("Preencher Lista");
         jBGerarFatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,75 +289,73 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
         });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(
+            jPanel1Layout.createSequentialGroup().addGroup(
+                jPanel1Layout
+                    .createParallelGroup(Alignment.LEADING)
+                    .addGroup(
+                        jPanel1Layout.createSequentialGroup().addComponent(jLabel1)
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addComponent(jLabel2)
+                            .addPreferredGap(ComponentPlacement.RELATED).addComponent(jLabel2)
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addComponent(jXDatePicker3, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
                             .addContainerGap())
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addComponent(jRBGrupo)
-                            .addGap(18)
-                            .addComponent(jRBConvenio)
-                            .addContainerGap())
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(248))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(
+                        jPanel1Layout.createSequentialGroup().addComponent(jLabel5)
+                            .addPreferredGap(ComponentPlacement.RELATED).addComponent(jRBGrupo).addGap(18)
+                            .addComponent(jRBConvenio).addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup().addComponent(jLabel4).addGap(248))
+                    .addGroup(
+                        jPanel1Layout
+                            .createSequentialGroup()
                             .addComponent(jLabel3)
                             .addPreferredGap(ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(jCBConvenios, 0, 410, Short.MAX_VALUE)
-                                .addComponent(jCBGrupos, 0, 410, Short.MAX_VALUE)))
-                        .addComponent(jBGerarFatura, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+                            .addGroup(
+                                jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                                    .addComponent(jCBConvenios, 0, 410, Short.MAX_VALUE)
+                                    .addComponent(jCBGrupos, 0, 410, Short.MAX_VALUE)))
+                    .addComponent(jBGerarFatura, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(
+            jPanel1Layout
+                .createSequentialGroup()
+                .addGroup(
+                    jPanel1Layout
+                        .createParallelGroup(Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addComponent(jXDatePicker3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jRBGrupo)
+                        .addComponent(jXDatePicker3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(ComponentPlacement.UNRELATED)
+                .addGroup(
+                    jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(jLabel5).addComponent(jRBGrupo)
                         .addComponent(jRBConvenio))
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+                .addPreferredGap(ComponentPlacement.UNRELATED)
+                .addGroup(
+                    jPanel1Layout
+                        .createParallelGroup(Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jCBGrupos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jCBGrupos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addGroup(
+                    jPanel1Layout
+                        .createParallelGroup(Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(jCBConvenios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jBGerarFatura)
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                        .addComponent(jCBConvenios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.PREFERRED_SIZE)).addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(jBGerarFatura).addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         jPanel1.setLayout(jPanel1Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-                .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(28, Short.MAX_VALUE))
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addComponent(jPanel1,
+            GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
+            layout.createSequentialGroup()
+                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE)));
         getContentPane().setLayout(layout);
 
         pack();
