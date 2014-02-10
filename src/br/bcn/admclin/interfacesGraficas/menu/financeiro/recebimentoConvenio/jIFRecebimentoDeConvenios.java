@@ -9,27 +9,24 @@ import java.awt.Insets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.TitledBorder;
 
 /**
  * 
@@ -177,8 +174,6 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
             janelaPrincipal.internalFrameJanelaPrincipal.fechandoTodosOsInternalFrames();
             janelaPrincipal.jDesktopPane1.add(jIFListaDeExamesParaRecebimento);
             jIFListaDeExamesParaRecebimento.setVisible(true);
-            
-            System.out.println("CHEGOOOOOU");
 
             int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
             int aDesk = janelaPrincipal.jDesktopPane1.getHeight();

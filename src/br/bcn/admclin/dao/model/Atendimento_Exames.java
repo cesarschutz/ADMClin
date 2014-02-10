@@ -4,6 +4,8 @@
  */
 package br.bcn.admclin.dao.model;
 
+import java.util.Date;
+
 /**
  *
  * @author CeSaR
@@ -11,9 +13,10 @@ package br.bcn.admclin.dao.model;
 public class Atendimento_Exames {
 
     private int HANDLE_AT, HANDLE_EXAME, DURACAO;
-    private String LADO, MATERIAL, LISTA_MATERIAIS, NUMERO_SEQUENCIA;
+    private String LADO, MATERIAL, LISTA_MATERIAIS, NUMERO_SEQUENCIA, paciente, nomeExame;
     private double VALOR_EXAME, VALOR_PACIENTE, VALOR_CONVENIO, FILME_CONVENIO, CH_CONVENIO, CH1_EXAME, CH2_EXAME, FILME_EXAME, REDUTOR, DESCONTO_PACIENTE, PORCENTAGEM_CONVENIO, PORCENTAGEM_PACIENTE;
     private double VALOR_CORRETO_EXAME, VALOR_CORRETO_CONVENIO, VALOR_CORRETO_PACIENTE, VALOR_DESCONTO;
+    private Date data;
 
     public int getDURACAO() {
         return DURACAO;
@@ -198,4 +201,29 @@ public class Atendimento_Exames {
     public void setNUMERO_SEQUENCIA(String NUMERO_SEQUENCIA) {
         this.NUMERO_SEQUENCIA = NUMERO_SEQUENCIA;
     }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(String paciente) {
+        this.paciente = paciente;
+    }
+
+    public String getNomeExame() {
+        return nomeExame;
+    }
+
+    public void setNomeExame(String nomeExame) {
+        this.nomeExame = nomeExame;
+    }
+    
 }

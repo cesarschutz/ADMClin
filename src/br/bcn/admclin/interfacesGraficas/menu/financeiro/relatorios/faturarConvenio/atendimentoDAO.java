@@ -9,11 +9,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
+
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.model.Atendimento_Exames;
 
 /**
  * 
@@ -155,5 +158,63 @@ public class atendimentoDAO {
         } finally {
             return cadastro;
         }
+    }
+
+    public static ArrayList<Atendimento_Exames> buscaExamesParaConciliarPagamentoConvenio(String tipo, java.util.Date data1, java.util.Date data2, int handle_convenio_grupo) throws SQLException{
+        String sql;
+        if(tipo.equals("convenio")){
+           sql = "SELECT\n" +
+                           "     ATENDIMENTO_EXAMES.\"HANDLE_AT\" AS ATENDIMENTO_EXAMES_HANDLE_AT,\n" +
+                           "     ATENDIMENTOS.\"FLAG_FATURADO\" AS ATENDIMENTOS_FLAG_FATURADO,\n" +
+                           "     ATENDIMENTOS.\"DATA_ATENDIMENTO\" AS ATENDIMENTOS_DATA_ATENDIMENTO,\n" +
+                           "     PACIENTES.\"NOME\" AS PACIENTES_NOME,\n" +
+                           "     EXAMES.\"NOME\" AS EXAMES_NOME,\n" +
+                           "     ATENDIMENTO_EXAMES.\"VALOR_CORRETO_CONVENIO\" AS ATENDIMENTO_EXAMES_VALOR_CORRET,\n" +
+                           "     CONVENIO.\"GRUPOID\" AS CONVENIO_GRUPOID,\n" +
+                           "     CONVENIO.\"HANDLE_CONVENIO\" AS CONVENIO_HANDLE_CONVENIO\n" +
+                           "FROM\n" +
+                           "     \"ATENDIMENTOS\" ATENDIMENTOS INNER JOIN \"ATENDIMENTO_EXAMES\" ATENDIMENTO_EXAMES ON ATENDIMENTOS.\"HANDLE_AT\" = ATENDIMENTO_EXAMES.\"HANDLE_AT\"\n" +
+                           "     INNER JOIN \"PACIENTES\" PACIENTES ON ATENDIMENTOS.\"HANDLE_PACIENTE\" = PACIENTES.\"PACIENTEID\"\n" +
+                           "     INNER JOIN \"CONVENIO\" CONVENIO ON ATENDIMENTOS.\"HANDLE_CONVENIO\" = CONVENIO.\"CONVENIOID\"\n" +
+                           "     INNER JOIN \"EXAMES\" EXAMES ON ATENDIMENTO_EXAMES.\"HANDLE_EXAME\" = EXAMES.\"EXMID\"" +
+                           "where (ATENDIMENTOS.\"DATA_ATENDIMENTO\" > ?  or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) and (ATENDIMENTOS.\"DATA_ATENDIMENTO\" < ?  or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) and (ATENDIMENTOS.\"FLAG_FATURADO\" = 1) and CONVENIO.\"HANDLE_CONVENIO\" = ? order by ATENDIMENTO_EXAMES.\"HANDLE_AT\", ATENDIMENTOS_DATA_ATENDIMENTO";
+        }else{
+            sql = "SELECT\n" +
+                            "     ATENDIMENTO_EXAMES.\"HANDLE_AT\" AS ATENDIMENTO_EXAMES_HANDLE_AT,\n" +
+                            "     ATENDIMENTOS.\"FLAG_FATURADO\" AS ATENDIMENTOS_FLAG_FATURADO,\n" +
+                            "     ATENDIMENTOS.\"DATA_ATENDIMENTO\" AS ATENDIMENTOS_DATA_ATENDIMENTO,\n" +
+                            "     PACIENTES.\"NOME\" AS PACIENTES_NOME,\n" +
+                            "     EXAMES.\"NOME\" AS EXAMES_NOME,\n" +
+                            "     ATENDIMENTO_EXAMES.\"VALOR_CORRETO_CONVENIO\" AS ATENDIMENTO_EXAMES_VALOR_CORRET,\n" +
+                            "     CONVENIO.\"GRUPOID\" AS CONVENIO_GRUPOID,\n" +
+                            "     CONVENIO.\"HANDLE_CONVENIO\" AS CONVENIO_HANDLE_CONVENIO\n" +
+                            "FROM\n" +
+                            "     \"ATENDIMENTOS\" ATENDIMENTOS INNER JOIN \"ATENDIMENTO_EXAMES\" ATENDIMENTO_EXAMES ON ATENDIMENTOS.\"HANDLE_AT\" = ATENDIMENTO_EXAMES.\"HANDLE_AT\"\n" +
+                            "     INNER JOIN \"PACIENTES\" PACIENTES ON ATENDIMENTOS.\"HANDLE_PACIENTE\" = PACIENTES.\"PACIENTEID\"\n" +
+                            "     INNER JOIN \"CONVENIO\" CONVENIO ON ATENDIMENTOS.\"HANDLE_CONVENIO\" = CONVENIO.\"CONVENIOID\"\n" +
+                            "     INNER JOIN \"EXAMES\" EXAMES ON ATENDIMENTO_EXAMES.\"HANDLE_EXAME\" = EXAMES.\"EXMID\"" +
+                            "where (ATENDIMENTOS.\"DATA_ATENDIMENTO\" > ?  or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) and (ATENDIMENTOS.\"DATA_ATENDIMENTO\" < ?  or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) and (ATENDIMENTOS.\"FLAG_FATURADO\" = 1) and CONVENIO.\"GRUPOID\" = ? order by ATENDIMENTO_EXAMES.\"HANDLE_AT\", ATENDIMENTOS_DATA_ATENDIMENTO";
+        }
+        
+        Connection con = Conexao.fazConexao();
+        PreparedStatement stmtQuery = con.prepareStatement(sql);
+        stmtQuery.setDate(1, new java.sql.Date(data1.getTime()));
+        stmtQuery.setDate(2, new java.sql.Date(data1.getTime()));
+        stmtQuery.setDate(3, new java.sql.Date(data2.getTime()));
+        stmtQuery.setDate(4, new java.sql.Date(data2.getTime()));
+        stmtQuery.setInt(5, handle_convenio_grupo);
+        ResultSet rs = stmtQuery.executeQuery();
+        ArrayList<Atendimento_Exames> listaExames = new ArrayList<Atendimento_Exames>();
+        while(rs.next()){
+            Atendimento_Exames exame = new Atendimento_Exames();
+            exame.setHANDLE_AT(rs.getInt("ATENDIMENTO_EXAMES_HANDLE_AT"));
+            exame.setData(rs.getDate("ATENDIMENTOS_DATA_ATENDIMENTO"));
+            exame.setPaciente(rs.getString("PACIENTES_NOME"));
+            exame.setNomeExame(rs.getString("EXAMES_NOME"));
+            exame.setVALOR_CORRETO_CONVENIO(rs.getDouble("ATENDIMENTO_EXAMES_VALOR_CORRET"));
+            listaExames.add(exame);
+        }
+        Conexao.fechaConexao(con);
+        return listaExames;
     }
 }
