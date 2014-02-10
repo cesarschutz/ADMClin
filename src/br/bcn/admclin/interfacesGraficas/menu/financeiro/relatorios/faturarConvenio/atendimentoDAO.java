@@ -36,7 +36,7 @@ public class atendimentoDAO {
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join atendimento_exames e on a.handle_at = e.handle_at "
-                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and (e.flag_conciliado is null or e.flag_conciliado = 0) and handle_convenio = ? order by data_atendimento, a.handle_at");
+                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and (a.flag_conciliado is null or a.flag_conciliado = 0) and handle_convenio = ? order by data_atendimento, a.handle_at");
             stmtQuery.setDate(1, diaInicial);
             stmtQuery.setDate(2, diaInicial);
             stmtQuery.setDate(3, diaFinal);
@@ -62,7 +62,7 @@ public class atendimentoDAO {
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join convenio c on a.handle_convenio = c.handle_convenio "
                     + "inner join atendimento_exames e on a.handle_at = e.handle_at "
-                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and (e.flag_conciliado is null or e.flag_conciliado = 0) and c.grupoid = ? order by data_atendimento, a.handle_at");
+                    + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and (a.flag_conciliado is null or a.flag_conciliado = 0) and c.grupoid = ? order by data_atendimento, a.handle_at");
             stmtQuery.setDate(1, diaInicial);
             stmtQuery.setDate(2, diaInicial);
             stmtQuery.setDate(3, diaFinal);
