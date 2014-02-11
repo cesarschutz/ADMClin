@@ -7,21 +7,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.atendimentoDAO;
 
 import com.lowagie.text.List;
 
 import javax.swing.JTable;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
 
@@ -33,6 +43,7 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
     private Date data2;
     private int handle_convenio;
     private int handle_grupo;
+    public static String ultimaDataDigitada = "";
     private ArrayList<Atendimento_Exames> listaExames = new ArrayList<Atendimento_Exames>();
 
     /**
@@ -72,7 +83,26 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
         tirandoBarraDeTitulo();
         buscarExames();
         preencheTabela();
-
+        
+        jTable1.setRowHeight(30);
+        
+        // definindo o tamanho das colunas
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(4).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(4).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(5).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(5).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(6).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(6).setMaxWidth(100);
+        
+        // alinhando conteudo da coluna de uma tabela
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(direita);
+        jTable1.getColumnModel().getColumn(4).setCellRenderer(direita);
+        
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
     }
 
     private void buscarExames() {
@@ -94,6 +124,7 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
 
     private void preencheTabela() {
         if (listaExames != null) {
+            
             // limpa a tabela
             ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
             jTable1.updateUI();
@@ -103,26 +134,47 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
             for (Atendimento_Exames exame : listaExames) {
                 modelo.addRow(new Object[] { exame.getHANDLE_AT(),
                     MetodosUteis.converterDataParaMostrarAoUsuario(exame.getData().toString()), exame.getPaciente(),
-                    exame.getNomeExame(), exame.getVALOR_CORRETO_CONVENIO() });
+                    exame.getNomeExame(), MetodosUteis.colocarZeroEmCampoReais(exame.getVALOR_CORRETO_CONVENIO()).replace(".", ","), "", "", exame.getATENDIMENTO_EXAME_ID() });
             }
 
         }
     }
-
+    
+    private void clicarNaTabela(){
+        janelaPrincipal.internalFrameJanelaPrincipal.setEnabled(false);
+        
+        Object dataExame = jTable1.getValueAt(jTable1.getSelectedRow(), 1);
+        Object nomePaciente = jTable1.getValueAt(jTable1.getSelectedRow(), 2);
+        Object nomeExame = jTable1.getValueAt(jTable1.getSelectedRow(), 3);
+        Object valorAReceber= jTable1.getValueAt(jTable1.getSelectedRow(), 4);
+        Object atendimento_exame_id = jTable1.getValueAt(jTable1.getSelectedRow(), 7);
+        jFDefinirValorRecebido jFDefinirValorRecebido = new jFDefinirValorRecebido(dataExame.toString(), nomePaciente.toString(), nomeExame.toString(), valorAReceber.toString(), ultimaDataDigitada, (int) atendimento_exame_id);
+        jFDefinirValorRecebido.setVisible(true);
+    }
+        
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTable1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    clicarNaTabela();
+                }
+                
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "xxx",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-        }, new String[] { "Código", "Data", "Paciente", "Exame", "Valor", "Valor Recebido", "Data Recebido" }) {
+        }, new String[] { "Código", "Data", "Paciente", "Exame", "Valor", "Valor Recebido", "Data Recebido", "Atendimento_Exame_Id" }) {
             private static final long serialVersionUID = 1L;
-            boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false };
+            boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
@@ -149,5 +201,5 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
 }

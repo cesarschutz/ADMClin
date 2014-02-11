@@ -164,6 +164,7 @@ public class atendimentoDAO {
         String sql;
         if(tipo.equals("convenio")){
            sql = "SELECT\n" +
+                           "     ATENDIMENTO_EXAMES.\"ATENDIMENTO_EXAME_ID\" AS ATENDIMENTO_EXAME_ID,\n" +
                            "     ATENDIMENTO_EXAMES.\"HANDLE_AT\" AS ATENDIMENTO_EXAMES_HANDLE_AT,\n" +
                            "     ATENDIMENTOS.\"FLAG_FATURADO\" AS ATENDIMENTOS_FLAG_FATURADO,\n" +
                            "     ATENDIMENTOS.\"DATA_ATENDIMENTO\" AS ATENDIMENTOS_DATA_ATENDIMENTO,\n" +
@@ -180,6 +181,7 @@ public class atendimentoDAO {
                            "where (ATENDIMENTOS.\"DATA_ATENDIMENTO\" > ?  or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) and (ATENDIMENTOS.\"DATA_ATENDIMENTO\" < ?  or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) and (ATENDIMENTOS.\"FLAG_FATURADO\" = 1) and CONVENIO.\"HANDLE_CONVENIO\" = ? order by ATENDIMENTO_EXAMES.\"HANDLE_AT\", ATENDIMENTOS_DATA_ATENDIMENTO";
         }else{
             sql = "SELECT\n" +
+                            "     ATENDIMENTO_EXAMES.\"ATENDIMENTO_EXAME_ID\" AS ATENDIMENTO_EXAME_ID,\n" +
                             "     ATENDIMENTO_EXAMES.\"HANDLE_AT\" AS ATENDIMENTO_EXAMES_HANDLE_AT,\n" +
                             "     ATENDIMENTOS.\"FLAG_FATURADO\" AS ATENDIMENTOS_FLAG_FATURADO,\n" +
                             "     ATENDIMENTOS.\"DATA_ATENDIMENTO\" AS ATENDIMENTOS_DATA_ATENDIMENTO,\n" +
@@ -212,6 +214,7 @@ public class atendimentoDAO {
             exame.setPaciente(rs.getString("PACIENTES_NOME"));
             exame.setNomeExame(rs.getString("EXAMES_NOME"));
             exame.setVALOR_CORRETO_CONVENIO(rs.getDouble("ATENDIMENTO_EXAMES_VALOR_CORRET"));
+            exame.setATENDIMENTO_EXAME_ID(rs.getInt("ATENDIMENTO_EXAME_ID"));
             listaExames.add(exame);
         }
         Conexao.fechaConexao(con);

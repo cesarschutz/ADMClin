@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class Atendimento_Exames {
 
-    private int HANDLE_AT, HANDLE_EXAME, DURACAO;
+    private int HANDLE_AT, HANDLE_EXAME, DURACAO, ATENDIMENTO_EXAME_ID;
     private String LADO, MATERIAL, LISTA_MATERIAIS, NUMERO_SEQUENCIA, paciente, nomeExame;
     private double VALOR_EXAME, VALOR_PACIENTE, VALOR_CONVENIO, FILME_CONVENIO, CH_CONVENIO, CH1_EXAME, CH2_EXAME, FILME_EXAME, REDUTOR, DESCONTO_PACIENTE, PORCENTAGEM_CONVENIO, PORCENTAGEM_PACIENTE;
     private double VALOR_CORRETO_EXAME, VALOR_CORRETO_CONVENIO, VALOR_CORRETO_PACIENTE, VALOR_DESCONTO;
@@ -224,6 +224,14 @@ public class Atendimento_Exames {
 
     public void setNomeExame(String nomeExame) {
         this.nomeExame = nomeExame;
+    }
+
+    public int getATENDIMENTO_EXAME_ID() {
+        return ATENDIMENTO_EXAME_ID;
+    }
+
+    public void setATENDIMENTO_EXAME_ID(int aTENDIMENTO_EXAME_ID) {
+        ATENDIMENTO_EXAME_ID = aTENDIMENTO_EXAME_ID;
     }
     
 }
