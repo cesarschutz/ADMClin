@@ -132,12 +132,9 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
 
             // preenche a tabela com os atendimentos
             for (Atendimento_Exames exame : listaExames) {
-                String valor_recebido_convenio = MetodosUteis.colocarZeroEmCampoReais(exame.getVALOR_RECEBIDO_CONVENIO()).replace(".", ",");
-                String data_recebido_convenio = MetodosUteis.converterDataParaMostrarAoUsuario(exame.getDATA_RECEBIDO_CONVENIO().toString());
-                int flag_conciliado = exame.getFLAG_CONCILIADO();
-                //modelo.addRow(new Object[] { exame.getHANDLE_AT(),
-                    //MetodosUteis.converterDataParaMostrarAoUsuario(exame.getData().toString()), exame.getPaciente(),
-                    //exame.getNomeExame(), MetodosUteis.colocarZeroEmCampoReais(exame.getVALOR_CORRETO_CONVENIO()).replace(".", ","), "", "", "",exame.getATENDIMENTO_EXAME_ID() });
+                modelo.addRow(new Object[] { exame.getHANDLE_AT(),
+                    MetodosUteis.converterDataParaMostrarAoUsuario(exame.getData().toString()), exame.getPaciente(),
+                    exame.getNomeExame(), MetodosUteis.colocarZeroEmCampoReais(exame.getVALOR_CORRETO_CONVENIO()).replace(".", ","), "", "", exame.getATENDIMENTO_EXAME_ID() });
             }
 
         }
