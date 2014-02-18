@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Locale;
+import java.awt.Color;
 
 public class jFDefinirValorRecebido extends JFrame {
 
@@ -118,6 +119,7 @@ public class jFDefinirValorRecebido extends JFrame {
         contentPane.add(jBCancelar);
         
         jTFData = new JTextField();
+        jTFData.setBackground(new Color(204, 204, 204));
         jTFData.setEditable(false);
         jTFData.setText("15/09/1987");
         jTFData.setColumns(10);
@@ -133,6 +135,7 @@ public class jFDefinirValorRecebido extends JFrame {
         contentPane.add(lblPaciente);
         
         jTFPaciente = new JTextField();
+        jTFPaciente.setBackground(new Color(204, 204, 204));
         jTFPaciente.setEditable(false);
         jTFPaciente.setText("15/09/1987");
         jTFPaciente.setColumns(10);
@@ -140,6 +143,7 @@ public class jFDefinirValorRecebido extends JFrame {
         contentPane.add(jTFPaciente);
         
         jTFExame = new JTextField();
+        jTFExame.setBackground(new Color(204, 204, 204));
         jTFExame.setEditable(false);
         jTFExame.setText("15/09/1987");
         jTFExame.setColumns(10);
@@ -181,6 +185,9 @@ public class jFDefinirValorRecebido extends JFrame {
             }
         });
         
+        setIconImage(getToolkit().createImage(getClass().getResource("/br/bcn/admclin/imagens/imagemIconePrograma.png")));
+
+        this.setTitle("ADMClin - Defina o valor e a data do Recebimento");
     }
     
     private void fechar(){
