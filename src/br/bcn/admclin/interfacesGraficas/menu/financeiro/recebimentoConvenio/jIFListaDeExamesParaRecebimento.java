@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
@@ -42,13 +44,13 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
 
     private static final long serialVersionUID = 1L;
 
+    public static String ultimaDataDigitada = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
     JPanel panel;
     private String tipo;
     private Date data1;
     private Date data2;
     private int handle_convenio;
     private int handle_grupo;
-    public static String ultimaDataDigitada = "";
     private ArrayList<Atendimento_Exames> listaExames = new ArrayList<Atendimento_Exames>();
     ImageIcon iconeSim = new javax.swing.ImageIcon(getClass().getResource(
                     "/br/bcn/admclin/imagens/sim.png"));
@@ -58,7 +60,6 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
      */
     public jIFListaDeExamesParaRecebimento(String tipo, Date data1, Date data2, int hanle_convenio_grupo,
         String nomeGrupoConvenio) {
-
         initComponents();
 
         this.tipo = tipo;
@@ -118,10 +119,12 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
         
         // sumindo coluna
+        
         jTable1.getColumnModel().getColumn(8).setMaxWidth(0);
         jTable1.getColumnModel().getColumn(8).setMinWidth(0);
         jTable1.getTableHeader().getColumnModel().getColumn(8).setMaxWidth(0);
         jTable1.getTableHeader().getColumnModel().getColumn(8).setMinWidth(0);
+        
         
         //coluna aceitando icone
         TableCellRenderer tcrColuna7 = new ColunaAceitandoIcone();
@@ -191,7 +194,8 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
             Object nomeExame = jTable1.getValueAt(jTable1.getSelectedRow(), 3);
             Object valorAReceber= jTable1.getValueAt(jTable1.getSelectedRow(), 4);
             Object atendimento_exame_id = jTable1.getValueAt(jTable1.getSelectedRow(), 8);
-            jFDefinirValorRecebido jFDefinirValorRecebido = new jFDefinirValorRecebido(dataExame.toString(), nomePaciente.toString(), nomeExame.toString(), valorAReceber.toString(), ultimaDataDigitada, (int) atendimento_exame_id);
+            Object handle_at = jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+            jFDefinirValorRecebido jFDefinirValorRecebido = new jFDefinirValorRecebido(dataExame.toString(), nomePaciente.toString(), nomeExame.toString(), valorAReceber.toString(), ultimaDataDigitada, (int) atendimento_exame_id, (int) handle_at);
             jFDefinirValorRecebido.setVisible(true);
         } else{
             int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente alterar este valor?", "ATENÇÃO", 0);
@@ -200,9 +204,11 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
                 Object dataExame = jTable1.getValueAt(jTable1.getSelectedRow(), 1);
                 Object nomePaciente = jTable1.getValueAt(jTable1.getSelectedRow(), 2);
                 Object nomeExame = jTable1.getValueAt(jTable1.getSelectedRow(), 3);
-                Object valorAReceber= jTable1.getValueAt(jTable1.getSelectedRow(), 4);
+                Object valorAReceber = jTable1.getValueAt(jTable1.getSelectedRow(), 5);
+                Object dataRecebido = jTable1.getValueAt(jTable1.getSelectedRow(), 6);
                 Object atendimento_exame_id = jTable1.getValueAt(jTable1.getSelectedRow(), 8);
-                jFDefinirValorRecebido jFDefinirValorRecebido = new jFDefinirValorRecebido(dataExame.toString(), nomePaciente.toString(), nomeExame.toString(), valorAReceber.toString(), ultimaDataDigitada, (int) atendimento_exame_id);
+                Object handle_at = jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                jFDefinirValorRecebido jFDefinirValorRecebido = new jFDefinirValorRecebido(dataExame.toString(), nomePaciente.toString(), nomeExame.toString(), valorAReceber.toString(), dataRecebido.toString(), (int) atendimento_exame_id, (int) handle_at);
                 jFDefinirValorRecebido.setVisible(true);
             }
         }
@@ -256,7 +262,7 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
         pack();
     }
 
-    private void colocarIconeDeConciliado(){
+    public void colocarIconeDeConciliado(){
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             if (jTable1.getValueAt(i, 7).toString().equals("1")) {
                 jTable1.setValueAt(iconeSim, i, 7);

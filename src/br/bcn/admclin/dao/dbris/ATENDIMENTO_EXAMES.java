@@ -5,6 +5,7 @@
 package br.bcn.admclin.dao.dbris;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -118,5 +119,33 @@ public class ATENDIMENTO_EXAMES {
         } finally {
             return resultSet;
         }
+    }
+    
+    /*
+     * Marca o flag e os valores de um recebimento de convenios
+     */
+    public static void registrarRecebimentoDeConvenio(Double valorRecebido, Date dataRecebido, int atendimento_exame_id, int handle_at) throws SQLException{
+        Connection con = Conexao.fazConexao();
+        con.setAutoCommit(false);
+        
+        //salvando na tabela atendimentos_exames
+        String sqlAtendimentosExames = "update ATENDIMENTO_EXAMES set valor_recebido_convenio=?, data_recebido_convenio=?, flag_conciliado=? where ATENDIMENTO_EXAME_ID = ?";
+        PreparedStatement stmt = con.prepareStatement(sqlAtendimentosExames);
+        stmt.setDouble(1, valorRecebido);
+        stmt.setDate(2, dataRecebido);
+        stmt.setInt(3, 1);
+        stmt.setInt(4, atendimento_exame_id);
+        stmt.executeUpdate();
+        
+        //salvando na tabela atendimentos
+        String sqlAtendimento = "update ATENDIMENTOS set flag_conciliado=? where handle_at = ?";
+        PreparedStatement st = con.prepareStatement(sqlAtendimento);
+        st.setInt(1, 1);
+        st.setInt(2, handle_at);
+        st.executeUpdate();
+        
+        con.commit();
+        stmt.close();
+        st.close();
     }
 }

@@ -226,6 +226,7 @@ public class atendimentoDAO {
             exame.setFLAG_CONCILIADO(rs.getInt("FLAG_CONCILIADO"));
             exame.setDATA_RECEBIDO_CONVENIO(rs.getDate("DATA_RECEBIDO_CONVENIO"));
             exame.setFLAG_CONCILIADO(rs.getInt("FLAG_CONCILIADO"));
+            exame.setVALOR_RECEBIDO_CONVENIO(rs.getDouble("VALOR_RECEBIDO_CONVENIO"));
             listaExames.add(exame);
         }
         Conexao.fechaConexao(con);

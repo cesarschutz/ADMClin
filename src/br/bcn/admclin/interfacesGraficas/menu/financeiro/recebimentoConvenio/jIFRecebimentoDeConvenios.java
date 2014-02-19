@@ -159,6 +159,7 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
         }
     }
 
+    public static jIFListaDeExamesParaRecebimento jIFListaDeExamesParaRecebimento;
     // public evento disparado ao apaertar o botao gerar fatura
     private void botaoGerarFaturaConvenio() {
         if (verificarDatas()) {
@@ -168,7 +169,7 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
             Integer handle_convenio = listaHandleConvenio.get(jCBConvenios.getSelectedIndex());
             String nomeConvenio = String.valueOf(jCBConvenios.getSelectedItem());
 
-            jIFListaDeExamesParaRecebimento jIFListaDeExamesParaRecebimento =
+            jIFListaDeExamesParaRecebimento =
                 new jIFListaDeExamesParaRecebimento("convenio", dataSelecionada1, dataSelecionada2, handle_convenio, nomeConvenio);
             
             janelaPrincipal.internalFrameJanelaPrincipal.fechandoTodosOsInternalFrames();
@@ -195,7 +196,7 @@ public class jIFRecebimentoDeConvenios extends javax.swing.JInternalFrame {
             Integer handle_grupo = listaGrupoId.get(jCBGrupos.getSelectedIndex());
             String nomeGrupo = String.valueOf(jCBGrupos.getSelectedItem());
 
-            jIFListaDeExamesParaRecebimento jIFListaDeExamesParaRecebimento =
+            jIFListaDeExamesParaRecebimento =
                 new jIFListaDeExamesParaRecebimento("grupo", dataSelecionada1, dataSelecionada2, handle_grupo, nomeGrupo);
 
             janelaPrincipal.internalFrameJanelaPrincipal.fechandoTodosOsInternalFrames();

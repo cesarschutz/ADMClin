@@ -1,27 +1,35 @@
 package br.bcn.admclin.interfacesGraficas.menu.financeiro.recebimentoConvenio;
 
-import java.awt.Point;
-import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
+import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
+import br.bcn.admclin.dao.model.Atendimento_Exames;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Locale;
-import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class jFDefinirValorRecebido extends JFrame {
 
@@ -33,12 +41,15 @@ public class jFDefinirValorRecebido extends JFrame {
     private JTextField jTFPaciente;
     private JTextField jTFExame;
     private int atendimento_exame_id;
-
+    private int handle_at;
+    
+    
     /**
      * Create the frame.
      */
-    public jFDefinirValorRecebido(String dataExame, String nomePaciente, String nomeExame, String valorRecebimento, String dataRecebimento, int atendimento_exame_id) {
+    public jFDefinirValorRecebido(String dataExame, String nomePaciente, String nomeExame, String valorRecebimento, String dataRecebimento, int atendimento_exame_id, int handle_at) {
         this.atendimento_exame_id = atendimento_exame_id;
+        this.handle_at = handle_at;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1020, 151);
         contentPane = new JPanel();
@@ -50,7 +61,22 @@ public class jFDefinirValorRecebido extends JFrame {
         lblValorRecebido.setBounds(754, 6, 87, 14);
         contentPane.add(lblValorRecebido);
         
-        jTFValorRecebido = new JTextField();
+        jTFValorRecebido = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+            private static final long serialVersionUID = 1L;
+
+            {// limita a 8
+             // caracteres
+                setLimit(8);
+            }
+        };
+        jTFValorRecebido.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                jTFValorRecebido.setSelectionStart(0);
+                // setar a posição final na string, neste caso até o tamanho do texto  
+                jTFValorRecebido.setSelectionEnd(jTFValorRecebido.getText().length());
+            }
+        });
         jTFValorRecebido.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -63,7 +89,15 @@ public class jFDefinirValorRecebido extends JFrame {
         contentPane.add(jTFValorRecebido);
         jTFValorRecebido.setColumns(10);
         
-        jTFDataRecebido = new JTextField();
+        jTFDataRecebido = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##/##/####"));
+        jTFDataRecebido.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                jTFDataRecebido.setSelectionStart(0);
+                // setar a posição final na string, neste caso até o tamanho do texto  
+                jTFDataRecebido.setSelectionEnd(jTFDataRecebido.getText().length());
+            }
+        });
         jTFDataRecebido.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -164,6 +198,8 @@ public class jFDefinirValorRecebido extends JFrame {
         jTFValorRecebido.setText(valorRecebimento);
         jTFDataRecebido.setText(dataRecebimento);
         
+        jTFValorRecebido.setHorizontalAlignment(javax.swing.JTextField.CENTER);        
+        jTFDataRecebido.setHorizontalAlignment(javax.swing.JTextField.CENTER);        
         
         setAlwaysOnTop(true);
         setResizable(false);
@@ -199,13 +235,32 @@ public class jFDefinirValorRecebido extends JFrame {
     
     private void botaoSalvar(){
         //faz o que tem que fazer
-        int selectedRow = jIFListaDeExamesParaRecebimento.jTable1.getSelectedRow();
-        try {
-            jIFListaDeExamesParaRecebimento.jTable1.addRowSelectionInterval(selectedRow+1,selectedRow+1);
-        } catch (Exception e) {
-            //cai aqui se estiver na ultima linha, ae continua a ultima selecionada
+        try{
+            if(MetodosUteis.verificarSeDataDeNascimentoEValidaSemMensagem(jTFDataRecebido)){
+                Double valorRecebido = Double.valueOf(jTFValorRecebido.getText().replaceAll(",", "." )); 
+                java.sql.Date dataRecebido = new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(jTFDataRecebido.getText()).getTime());
+                
+                ATENDIMENTO_EXAMES.registrarRecebimentoDeConvenio(valorRecebido, dataRecebido, atendimento_exame_id, handle_at);
+                
+                jIFListaDeExamesParaRecebimento.jTable1.setValueAt(jTFValorRecebido.getText(), jIFListaDeExamesParaRecebimento.jTable1.getSelectedRow(), 5);
+                jIFListaDeExamesParaRecebimento.jTable1.setValueAt(jTFDataRecebido.getText(), jIFListaDeExamesParaRecebimento.jTable1.getSelectedRow(), 6);
+                jIFListaDeExamesParaRecebimento.jTable1.setValueAt("1", jIFListaDeExamesParaRecebimento.jTable1.getSelectedRow(), 7);
+                janelaPrincipal.internalFrameJanelaPrincipal.internalFrameRecebimentoDeConvenios.jIFListaDeExamesParaRecebimento.colocarIconeDeConciliado();
+                jIFListaDeExamesParaRecebimento.ultimaDataDigitada = jTFDataRecebido.getText();
+                
+                // troca a seleção para proxima linha
+                int selectedRow = jIFListaDeExamesParaRecebimento.jTable1.getSelectedRow();
+                try {
+                    jIFListaDeExamesParaRecebimento.jTable1.addRowSelectionInterval(selectedRow+1,selectedRow+1);
+                } catch (Exception e) {
+                    //cai aqui se estiver na ultima linha, ae continua a ultima selecionada
+                }
+                fechar();
+            } else{
+                JOptionPane.showMessageDialog(null, "Data Inválida!");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao salvar valores.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        fechar();
-        
     }
 }

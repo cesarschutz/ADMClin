@@ -214,6 +214,116 @@ public class MetodosUteis {
         }
     }
 
+    public static boolean verificarSeDataDeNascimentoEValidaSemMensagem(JTextField textfield) {
+
+        String[] dataDividida = textfield.getText().split("/");
+
+        // verificando ano
+        boolean ano = false;
+        Calendar hoje = Calendar.getInstance();
+        SimpleDateFormat formataData = new SimpleDateFormat("yyyy");
+        String anoAtual = formataData.format(hoje.getTime());
+        int minimo = (Integer.parseInt(anoAtual)) - (150);
+        if ((Integer.parseInt(dataDividida[2])) <= (Integer.parseInt(anoAtual))
+            && (Integer.parseInt(dataDividida[2])) > minimo) {
+            ano = true;
+        }
+
+        // verificando mes
+        boolean mes = false;
+        if ((Integer.parseInt(dataDividida[1])) <= 12 && (Integer.parseInt(dataDividida[1])) > 0) {
+            mes = true;
+        }
+
+        // verificando dia
+        boolean dia = false;
+        if ((Integer.parseInt(dataDividida[1])) == 1) {
+            if ((Integer.parseInt(dataDividida[0])) <= 31 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 2) {
+
+            if (Integer.parseInt(dataDividida[2]) % 4 == 0) {
+                if ((Integer.parseInt(dataDividida[0])) <= 29 && (Integer.parseInt(dataDividida[0])) > 0) {
+                    dia = true;
+                }
+            } else {
+                if ((Integer.parseInt(dataDividida[0])) <= 28 && (Integer.parseInt(dataDividida[0])) > 0) {
+                    dia = true;
+                }
+            }
+
+        } else if ((Integer.parseInt(dataDividida[1])) == 3) {
+            if ((Integer.parseInt(dataDividida[0])) <= 31 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 4) {
+            if ((Integer.parseInt(dataDividida[0])) <= 30 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 5) {
+            if ((Integer.parseInt(dataDividida[0])) <= 31 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 6) {
+            if ((Integer.parseInt(dataDividida[0])) <= 30 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 7) {
+            if ((Integer.parseInt(dataDividida[0])) <= 31 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 8) {
+            if ((Integer.parseInt(dataDividida[0])) <= 31 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 9) {
+            if ((Integer.parseInt(dataDividida[0])) <= 30 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 10) {
+            if ((Integer.parseInt(dataDividida[0])) <= 31 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 11) {
+            if ((Integer.parseInt(dataDividida[0])) <= 30 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        } else if ((Integer.parseInt(dataDividida[1])) == 12) {
+            if ((Integer.parseInt(dataDividida[0])) <= 31 && (Integer.parseInt(dataDividida[0])) > 0) {
+                dia = true;
+            }
+        }
+
+        // verificando se data é menor que hoje
+        boolean menorQueDataAtual = false;
+        try {
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            format.setLenient(false);
+            java.util.Date dataDigitada = format.parse(textfield.getText());
+            String dataAtualString = format.format(hoje.getTime());
+            java.util.Date dataAtual = format.parse(dataAtualString);
+
+            int x = dataDigitada.compareTo(dataAtual);
+
+            if (x > 0) {
+
+            } else {
+                menorQueDataAtual = true;
+            }
+
+        } catch (ParseException ex) {
+
+        }
+
+        // ok
+        if (dia && mes && ano && menorQueDataAtual) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     /**
      * Verifica se e-mail é válido. para ser valido é necessario ser no minimo ssim #@#.# onde # = conjunto de
      * caracteres. Se nao foi preenchido, pinta de vermelho o JTextField verificado e imprimi o erro: "E-mail invalido".
