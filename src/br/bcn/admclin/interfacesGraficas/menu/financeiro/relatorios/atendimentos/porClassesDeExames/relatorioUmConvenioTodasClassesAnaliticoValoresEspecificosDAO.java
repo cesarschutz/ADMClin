@@ -36,7 +36,7 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificosDAO {
                     + "inner join pacientes p on a.handle_paciente = p.pacienteid "
                     + "inner join convenio j on a.handle_convenio = j.handle_convenio "
                     + "where(a.data_atendimento > ? or a.data_atendimento = ?)  and  (a.data_atendimento < ? or a.data_atendimento = ?) and j.handle_convenio = ?"
-                    + "order by c.cod asc,a.data_atendimento asc");
+                    + "order by c.cod asc,a.data_atendimento asc, e.handle_at asc");
             stmtQuery.setDate(1, diaInicial);
             stmtQuery.setDate(2, diaInicial);
             stmtQuery.setDate(3, diaFinal);
