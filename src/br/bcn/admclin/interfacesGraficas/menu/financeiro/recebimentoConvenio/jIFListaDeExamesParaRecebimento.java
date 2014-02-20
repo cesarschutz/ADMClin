@@ -264,7 +264,7 @@ public class jIFListaDeExamesParaRecebimento extends JInternalFrame {
 
     public void colocarIconeDeConciliado(){
         for (int i = 0; i < jTable1.getRowCount(); i++) {
-            if (jTable1.getValueAt(i, 7).toString().equals("1")) {
+            if (!jTable1.getValueAt(i, 7).toString().equals("s")) {
                 jTable1.setValueAt(iconeSim, i, 7);
             } else {
                 jTable1.setValueAt("", i, 7);

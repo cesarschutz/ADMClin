@@ -79,7 +79,7 @@ public class jFDefinirValorRecebido extends JFrame {
         });
         jTFValorRecebido.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     botaoSalvar();
                 }
@@ -100,7 +100,7 @@ public class jFDefinirValorRecebido extends JFrame {
         });
         jTFDataRecebido.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     botaoSalvar();
                 }
@@ -117,11 +117,10 @@ public class jFDefinirValorRecebido extends JFrame {
         JButton jBSalvar = new JButton("Salvar");
         jBSalvar.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     botaoSalvar();
                 }
-                
             }
         });
         jBSalvar.addActionListener(new ActionListener() {
@@ -136,11 +135,10 @@ public class jFDefinirValorRecebido extends JFrame {
         JButton jBCancelar = new JButton("Cancelar");
         jBCancelar.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    fechar();
+                    botaoSalvar();
                 }
-                
             }
         });
         jBCancelar.addActionListener(new ActionListener() {
