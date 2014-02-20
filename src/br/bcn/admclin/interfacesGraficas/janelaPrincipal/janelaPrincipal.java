@@ -72,6 +72,7 @@ import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.demed.jIFDemed;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFFaturarConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFListaAtendimentosParaFaturar;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.valoresrecebidos.jIFValoresRecebidos;
 
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
@@ -144,6 +145,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFUmaAgenda internalFrameUmaTabela;
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
+    public static jIFValoresRecebidos internalFrameValoresRecebidos;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -601,6 +603,25 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMRelatorios.add(jMenuItem2);
 
         jMFinanceiro.add(jMRelatorios);
+        
+        JMenuItem mntmValoresRecebidos = new JMenuItem("Valores Recebidos");
+        mntmValoresRecebidos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                fechandoTodosOsInternalFrames();
+
+                internalFrameValoresRecebidos = new jIFValoresRecebidos();
+                jDesktopPane1.add(internalFrameValoresRecebidos);
+                internalFrameValoresRecebidos.setVisible(true);
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFrameValoresRecebidos.getWidth();
+                int aIFrame = internalFrameValoresRecebidos.getHeight();
+
+                internalFrameValoresRecebidos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+            }
+        });
+        mntmValoresRecebidos.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/menuValoresRecebidos.png")));
+        jMRelatorios.add(mntmValoresRecebidos);
 
         jMenuBar1.add(jMFinanceiro);
         
