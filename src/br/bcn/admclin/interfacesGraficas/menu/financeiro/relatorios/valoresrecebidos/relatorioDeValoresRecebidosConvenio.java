@@ -35,7 +35,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
  * 
  * @author Cesar Schutz
  */
-public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JInternalFrame {
+public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = 1L;
     private Connection con = null;
@@ -44,7 +44,7 @@ public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JIntern
     /**
      * Creates new form jIFFinanceiroAtendimentos
      */
-    public relatorioDeValoresRecebidosDeUmConvenio() {
+    public relatorioDeValoresRecebidosConvenio() {
         initComponents();
         tirandoBarraDeTitulo();
 
@@ -52,39 +52,11 @@ public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JIntern
         jXDatePicker2.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Ir para data atual");
         jXDatePicker2.setLinkDate(System.currentTimeMillis(), "Ir para data atual");
-
-        preencherComboBoxComConvenios();
     }
 
     public void tirandoBarraDeTitulo() {
         ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
         this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
-    }
-
-    @SuppressWarnings("unchecked")
-    private void preencherComboBoxComConvenios() {
-        con = Conexao.fazConexao();
-        ResultSet resultSet = CONVENIO.getConsultar(con);
-        listaHandleConvenio.removeAll(listaHandleConvenio);
-        jCBConvenio.removeAllItems();
-
-        jCBConvenio.addItem("Todos os Convênios");
-        listaHandleConvenio.add(0);
-        try {
-            while (resultSet.next()) {
-                if (resultSet.getInt("handle_convenio") > 0) {
-                    jCBConvenio.addItem(resultSet.getString("nome"));
-                    int handle_convenio = resultSet.getInt("handle_convenio");
-                    listaHandleConvenio.add(handle_convenio);
-                }
-
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível preencher os Convênios. Procure o administrador.",
-                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-
-        Conexao.fechaConexao(con);
     }
 
     int dataInicial, dataFinal;
@@ -153,62 +125,7 @@ public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JIntern
                         JOptionPane.showMessageDialog(null, "Erro com a data Final. Procure o Administrador.");
                     }
 
-                    relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos relatorio =
-                        new relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos(diaInicialSql, diaFinalSql);
-                    relatorio.gerarRelatorio();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Verifique as datas e tente novamente.");
-                }
-                return null;
-            }
-
-            @Override
-            protected void done() {
-                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
-            }
-        };
-        worker.execute();
-    }
-
-    // Um convenio - relatorio por classe de exame - analitico - valores especidicos
-    @SuppressWarnings("rawtypes")
-    private void relatorioAnaliticoPorClasseDeExamesValoresEspecificosDeUmConvenio() {
-        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
-        SwingWorker worker = new SwingWorker() {
-            @Override
-            protected Object doInBackground() throws Exception {
-                java.sql.Date diaInicialSql = null, diaFinalSql = null;
-                if (verificarDatas()) {
-                    // pegando data inicial
-                    Date dataSelecionada = jXDatePicker1.getDate();
-                    // criando um formato de data
-                    SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-                    // colocando data selecionado no formato criado acima
-                    String diaDoIntervalo = dataFormatada.format(dataSelecionada);
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                        diaInicialSql = new java.sql.Date(format.parse(diaDoIntervalo).getTime());
-                    } catch (ParseException e) {
-                        JOptionPane.showMessageDialog(null, "Erro com a data inicial. Procure o Administrador.");
-                    }
-
-                    // pegando data Final
-                    Date dataSelecionada2 = jXDatePicker2.getDate();
-                    // criando um formato de data
-                    SimpleDateFormat dataFormatada2 = new SimpleDateFormat("dd/MM/yyyy");
-                    // colocando data selecionado no formato criado acima
-                    String diaDoIntervalo2 = dataFormatada2.format(dataSelecionada2);
-                    SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                        diaFinalSql = new java.sql.Date(format2.parse(diaDoIntervalo2).getTime());
-                    } catch (ParseException e) {
-                        JOptionPane.showMessageDialog(null, "Erro com a data Final. Procure o Administrador.");
-                    }
-
-                    int handle_convenio = listaHandleConvenio.get(jCBConvenio.getSelectedIndex());
-                    relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos relatorio =
-                        new relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos(diaInicialSql, diaFinalSql,
-                            handle_convenio);
+                    relatorioValoresRecebidos relatorio = new relatorioValoresRecebidos(diaInicialSql, diaFinalSql);
                     relatorio.gerarRelatorio();
                 } else {
                     JOptionPane.showMessageDialog(null, "Verifique as datas e tente novamente.");
@@ -238,8 +155,6 @@ public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JIntern
         jLabel2 = new javax.swing.JLabel();
         jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         jBGerarRelatorio = new javax.swing.JButton();
-        jCBConvenio = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
 
         jPanel1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Relat\u00F3rio Financeiro dos Valores Recebidos", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, null));
 
@@ -255,47 +170,34 @@ public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JIntern
             }
         });
 
-        jCBConvenio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Convênios", "Modalidades",
-            "Classes de Exames", "Médicos" }));
-
-        jLabel4.setText("Convênio:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(jBGerarRelatorio, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING, false)
+                        .addComponent(jBGerarRelatorio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addComponent(jLabel2)
                             .addPreferredGap(ComponentPlacement.RELATED)
-                            .addComponent(jXDatePicker2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addComponent(jCBConvenio, GroupLayout.PREFERRED_SIZE, 316, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap())
+                            .addComponent(jXDatePicker2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(5)
+                    .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
+                        .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
                         .addComponent(jXDatePicker2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jCBConvenio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addComponent(jBGerarRelatorio)
-                    .addGap(73))
+                    .addGap(42))
         );
         jPanel1.setLayout(jPanel1Layout);
 
@@ -303,14 +205,14 @@ public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JIntern
         layout.setHorizontalGroup(
             layout.createParallelGroup(Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 380, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 145, Short.MAX_VALUE)
-                    .addContainerGap())
+                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(76, Short.MAX_VALUE))
         );
         getContentPane().setLayout(layout);
 
@@ -318,20 +220,13 @@ public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JIntern
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBGerarRelatorioActionPerformed
-        if (jCBConvenio.getSelectedIndex() == 0) {
-
-        } else {
-            
-        }
+        relatorioDeValoresRecebidosDeTodosOsConvenios();
     }// GEN-LAST:event_jBGerarRelatorioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGerarRelatorio;
-    @SuppressWarnings("rawtypes")
-    private javax.swing.JComboBox jCBConvenio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
