@@ -72,7 +72,7 @@ import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.demed.jIFDemed;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFFaturarConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFListaAtendimentosParaFaturar;
-import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.valoresrecebidos.jIFValoresRecebidos;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.valoresrecebidos.relatorioDeValoresRecebidosDeUmConvenio;
 
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
@@ -145,7 +145,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFUmaAgenda internalFrameUmaTabela;
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
-    public static jIFValoresRecebidos internalFrameValoresRecebidos;
+    public static relatorioDeValoresRecebidosDeUmConvenio internalFrameValoresRecebidos;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -609,7 +609,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent arg0) {
                 fechandoTodosOsInternalFrames();
 
-                internalFrameValoresRecebidos = new jIFValoresRecebidos();
+                internalFrameValoresRecebidos = new relatorioDeValoresRecebidosDeUmConvenio();
                 jDesktopPane1.add(internalFrameValoresRecebidos);
                 internalFrameValoresRecebidos.setVisible(true);
                 int lDesk = jDesktopPane1.getWidth();

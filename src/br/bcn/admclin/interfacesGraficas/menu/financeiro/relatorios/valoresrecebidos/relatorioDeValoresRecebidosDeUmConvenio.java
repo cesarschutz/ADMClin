@@ -35,7 +35,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
  * 
  * @author Cesar Schutz
  */
-public class jIFValoresRecebidos extends javax.swing.JInternalFrame {
+public class relatorioDeValoresRecebidosDeUmConvenio extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = 1L;
     private Connection con = null;
@@ -44,7 +44,7 @@ public class jIFValoresRecebidos extends javax.swing.JInternalFrame {
     /**
      * Creates new form jIFFinanceiroAtendimentos
      */
-    public jIFValoresRecebidos() {
+    public relatorioDeValoresRecebidosDeUmConvenio() {
         initComponents();
         tirandoBarraDeTitulo();
 
@@ -120,7 +120,7 @@ public class jIFValoresRecebidos extends javax.swing.JInternalFrame {
 
     // todos os convenios - relatorio por classe de exame - analitico - valores especidicos
     @SuppressWarnings("rawtypes")
-    private void relatorioAnaliticoPorClasseDeExamesValoresEspecificosDeTodosOsConvenios() {
+    private void relatorioDeValoresRecebidosDeTodosOsConvenios() {
         janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
         SwingWorker worker = new SwingWorker() {
             @Override
