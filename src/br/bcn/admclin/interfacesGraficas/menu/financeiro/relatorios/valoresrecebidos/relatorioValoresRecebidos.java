@@ -75,12 +75,12 @@ public class relatorioValoresRecebidos {
             con = Conexao.fazConexao();
             criandoAPastaParaSalvarOArquivo();
             consultarAtendimentos();
-            //criandoFatura();
-            //abrirFichaPDF();
+            criandoFatura();
+            abrirFichaPDF();
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
-                "Erro ao elaborar Relatório. Procure o Administrador.");
+                "Erro ao elaborar Relatório. Procure o Administrador." + e);
             return false;
         } finally {
             Conexao.fechaConexao(con);
@@ -97,7 +97,7 @@ public class relatorioValoresRecebidos {
     public void criandoFatura() throws FileNotFoundException, DocumentException {
         Rectangle rect = new Rectangle(PageSize.A4.rotate());
         Document document = new Document(rect, 20, 20, 20, 20); // colocar as margens
-        PdfWriter.getInstance(document, new FileOutputStream(caminho + "relatórioDeValoresRecebidos.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(caminho + "relatorioDeValoresRecebidos.pdf"));
         document.open();
 
         Font fontNegrito11 = FontFactory.getFont("Calibri", 11, Font.BOLD);
@@ -146,8 +146,8 @@ public class relatorioValoresRecebidos {
 
         // adicionando tabela com o cabeçalho (informações das colunas)
         // tabela de cabeçalho
-        PdfPTable tabelaCabecalho = new PdfPTable(11);
-        tabelaCabecalho.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
+        PdfPTable tabelaCabecalho = new PdfPTable(9);
+        tabelaCabecalho.setWidths(new int[] { 7, 6, 24, 23, 8, 8, 8, 8, 8 });
         tabelaCabecalho.setWidthPercentage(100);
 
         cell = new PdfPCell(new Phrase("DATA", fontNegrito8));
@@ -165,37 +165,27 @@ public class relatorioValoresRecebidos {
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tabelaCabecalho.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("CONVÊNIO", fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-        tabelaCabecalho.addCell(cell);
-
         cell = new PdfPCell(new Phrase("EXAME", fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tabelaCabecalho.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("VALOR CH", fontNegrito8));
+        cell = new PdfPCell(new Phrase("VALOR PAC", fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         tabelaCabecalho.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("VALOR FILME", fontNegrito8));
+        cell = new PdfPCell(new Phrase("VALOR FAT", fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         tabelaCabecalho.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("VALOR MATERIAL", fontNegrito8));
+        cell = new PdfPCell(new Phrase("VALOR CONV", fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         tabelaCabecalho.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("REDUTOR", fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaCabecalho.addCell(cell);
-
-        cell = new PdfPCell(new Phrase("DESC.", fontNegrito8));
+        cell = new PdfPCell(new Phrase("DIFERENÇA", fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         tabelaCabecalho.addCell(cell);
@@ -213,415 +203,7 @@ public class relatorioValoresRecebidos {
 
         // adicionando tabela ao documento
         document.add(tabelaCabecalho);
-
-        String classeDeExameAtual = "";
-        Double chTotalDaClasse = 0.0, filmeTotalDaClasse = 0.0, materialTotalDaClasse = 0.0, descontoTotalDaClasse =
-            0.0, valorTotalDaClasse = 0.0;
-        Double chTotalDoRelatorio = 0.0, filmeTotalDoRelatorio = 0.0, materialTotalDoRelatorio = 0.0, descontoTotalDoRelatorio =
-            0.0, valorTotalDoRelatorio = 0.0;
-        int qtdDeExamesDaClasse = 0, qtdDeExamesNoRelatorio = 0;
-        for (int i = 0; i < listaDeAtendimentos.size(); i++) {
-            // aqui se a classe de exame mudar colocamos o nome da classe
-            if (!classeDeExameAtual.equals(listaDeAtendimentos.get(i).getClasseDeExame())) {
-                // se a qtd total de exames for maior que 1
-                // isso para que a primeira classe nao va os resultados totais
-                // nao pode te os totais antes de aprensentar a primeira classe
-                if (qtdDeExamesDaClasse > 0) {
-                    // colocando os valores totais da classe
-                    PdfPTable tabelaTotaisDaClasse = new PdfPTable(11);
-                    tabelaTotaisDaClasse.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
-                    tabelaTotaisDaClasse.setWidthPercentage(100);
-
-                    // classe e total de exames
-                    cell =
-                        new PdfPCell(new Phrase(classeDeExameAtual + " - " + qtdDeExamesDaClasse + " Exames",
-                            fontNegrito8));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                    cell.setColspan(5);
-                    tabelaTotaisDaClasse.addCell(cell);
-
-                    // total ch
-                    cell =
-                        new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(chTotalDaClasse))
-                            .replace(".", ","), fontNegrito8));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-                    tabelaTotaisDaClasse.addCell(cell);
-
-                    // total filme
-                    cell =
-                        new PdfPCell(new Phrase(MetodosUteis
-                            .colocarZeroEmCampoReais(String.valueOf(filmeTotalDaClasse)).replace(".", ","),
-                            fontNegrito8));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-                    tabelaTotaisDaClasse.addCell(cell);
-
-                    // total material
-                    cell =
-                        new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(
-                            String.valueOf(materialTotalDaClasse)).replace(".", ","), fontNegrito8));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-                    tabelaTotaisDaClasse.addCell(cell);
-
-                    // coluna do redutor vazia
-                    cell = new PdfPCell(new Phrase("", fontNegrito8));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-                    tabelaTotaisDaClasse.addCell(cell);
-
-                    // total desconto
-                    cell =
-                        new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(
-                            String.valueOf(descontoTotalDaClasse)).replace(".", ","), fontNegrito8));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-                    tabelaTotaisDaClasse.addCell(cell);
-
-                    // total total total
-                    cell =
-                        new PdfPCell(new Phrase(MetodosUteis
-                            .colocarZeroEmCampoReais(String.valueOf(valorTotalDaClasse)).replace(".", ","),
-                            fontNegrito8));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-                    tabelaTotaisDaClasse.addCell(cell);
-
-                    // adicionando linhas em branco
-                    // classe e total de exames
-                    for (int j = 0; j < 5; j++) {
-                        cell = new PdfPCell(new Phrase("", fontNegrito8));
-                        cell.setBorder(Rectangle.NO_BORDER);
-                        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                        cell.setColspan(11);
-                        tabelaTotaisDaClasse.addCell(cell);
-                    }
-
-                    document.add(tabelaTotaisDaClasse);
-                }
-
-                // zerando os totais da classe
-                chTotalDaClasse = 0.0;
-                filmeTotalDaClasse = 0.0;
-                materialTotalDaClasse = 0.0;
-                descontoTotalDaClasse = 0.0;
-                valorTotalDaClasse = 0.0;
-                qtdDeExamesDaClasse = 0;
-
-                // colocando a nova classe que sera apartir de agora
-                classeDeExameAtual = listaDeAtendimentos.get(i).getClasseDeExame();
-
-                PdfPTable tabelaClasseDeExame = new PdfPTable(1);
-                tabelaClasseDeExame.setWidths(new int[] { 100 });
-                tabelaClasseDeExame.setWidthPercentage(100);
-
-                cell =
-                    new PdfPCell(new Phrase("Classe de Exame: " + listaDeAtendimentos.get(i).getClasseDeExame(),
-                        fontNegrito8));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                tabelaClasseDeExame.addCell(cell);
-
-                document.add(tabelaClasseDeExame);
-            }
-
-            // adicionar os atendimentos
-            PdfPTable tabelaDosExames = new PdfPTable(11);
-            tabelaDosExames.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
-            tabelaDosExames.setWidthPercentage(100);
-
-            // colocando a data do atendimento
-            DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-            String dataCerta = fmt.format(listaDeAtendimentos.get(i).getData());
-
-            cell = new PdfPCell(new Phrase(dataCerta, font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando o handle_at do atendimento (codigo)
-            cell = new PdfPCell(new Phrase(String.valueOf(listaDeAtendimentos.get(i).getHandle_at()), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando o nome do paciente
-            cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getPaciente(), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando o convenio
-            cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getConvenio(), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando o exame
-            cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getExame(), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabelaDosExames.addCell(cell);
-
-            // colocar valor ch
-
-            Double total_ch =
-                calcularValorDeCh(listaDeAtendimentos.get(i).getCh_convenio(), listaDeAtendimentos.get(i)
-                    .getCh1_exame(), listaDeAtendimentos.get(i).getCh2_exame());
-            chTotalDaClasse =
-                new BigDecimal(chTotalDaClasse + total_ch).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-            chTotalDoRelatorio =
-                new BigDecimal(chTotalDoRelatorio + total_ch).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-
-            cell =
-                new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(total_ch))
-                    .replace(".", ","), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando valor filme
-
-            Double total_filme =
-                calcularValorDeFilme(listaDeAtendimentos.get(i).getFilme_convenio(), listaDeAtendimentos.get(i)
-                    .getFilme_exame());
-            filmeTotalDaClasse =
-                new BigDecimal(filmeTotalDaClasse + total_filme).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-            filmeTotalDoRelatorio =
-                new BigDecimal(filmeTotalDoRelatorio + total_filme).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-
-            cell =
-                new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(total_filme)).replace(".",
-                    ","), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando valor materiais
-
-            Double total_materiais = calcularValorDosMateriais(listaDeAtendimentos.get(i).getLista_material());
-            materialTotalDaClasse =
-                new BigDecimal(materialTotalDaClasse + total_materiais).setScale(2, RoundingMode.HALF_EVEN)
-                    .doubleValue();
-            materialTotalDoRelatorio =
-                new BigDecimal(materialTotalDoRelatorio + total_materiais).setScale(2, RoundingMode.HALF_EVEN)
-                    .doubleValue();
-
-            cell =
-                new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(total_materiais)).replace(
-                    ".", ","), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando o redutor
-            // como pode dar erro se estiver vazio, trato isso, se tiver vazio o redutor é 0.00
-            String redutor;
-            try {
-                redutor = MetodosUteis.colocarZeroEmCampoReais(listaDeAtendimentos.get(i).getRedutor());
-            } catch (Exception e) {
-                redutor = "0.00";
-            }
-            cell = new PdfPCell(new Phrase(redutor, font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando o desconto
-            Double desconto = 0.0;
-            try {
-                desconto = Double.valueOf(listaDeAtendimentos.get(i).getDesconto_paciente());
-            } catch (Exception e) {
-                desconto = 0.00;
-            }
-
-            descontoTotalDaClasse =
-                new BigDecimal(descontoTotalDaClasse + desconto).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-            descontoTotalDoRelatorio =
-                new BigDecimal(descontoTotalDoRelatorio + desconto).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-
-            cell =
-                new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(desconto))
-                    .replace(".", ","), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando o total
-
-            Double valorTotalDoExame =
-                new BigDecimal(total_ch + total_filme + total_materiais).setScale(2, RoundingMode.HALF_EVEN)
-                    .doubleValue();
-            Double desconto_paciente = 0.0;
-            try {
-                desconto_paciente = Double.valueOf(listaDeAtendimentos.get(i).getDesconto_paciente());
-            } catch (Exception e) {
-                desconto_paciente = 0.0;
-            }
-            Double valorTotalDoExameComRedutorEDescontoPaciente =
-                new BigDecimal((valorTotalDoExame - (valorTotalDoExame * (Double.valueOf(redutor) / 100)))
-                    - desconto_paciente).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-
-            // se o total for menor ou igual a 0 entao pegamos o valor_correto_exame
-            // pq foi alterado o valor pelo usuario!!!
-            if (valorTotalDoExameComRedutorEDescontoPaciente <= 0) {
-                valorTotalDoExameComRedutorEDescontoPaciente =
-                    Double.valueOf(listaDeAtendimentos.get(i).getValor_correto_exame());
-            }
-
-            valorTotalDaClasse =
-                new BigDecimal(valorTotalDaClasse + valorTotalDoExameComRedutorEDescontoPaciente).setScale(2,
-                    RoundingMode.HALF_EVEN).doubleValue();
-            valorTotalDoRelatorio =
-                new BigDecimal(valorTotalDoRelatorio + valorTotalDoExameComRedutorEDescontoPaciente).setScale(2,
-                    RoundingMode.HALF_EVEN).doubleValue();
-
-            cell =
-                new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(
-                    String.valueOf(valorTotalDoExameComRedutorEDescontoPaciente)).replace(".", ","), font9));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tabelaDosExames.addCell(cell);
-
-            // colocando a qtd
-            qtdDeExamesDaClasse += 1;
-            qtdDeExamesNoRelatorio += 1;
-
-            // adicionando tabela ao documento
-            document.add(tabelaDosExames);
-        }
-
-        // colocando os valores totais da ultima classe
-        PdfPTable tabelaTotaisDaClasse = new PdfPTable(11);
-        tabelaTotaisDaClasse.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
-        tabelaTotaisDaClasse.setWidthPercentage(100);
-
-        // classe e total de exames
-        cell = new PdfPCell(new Phrase(classeDeExameAtual + " - " + qtdDeExamesDaClasse + " Exames", fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-        cell.setColspan(5);
-        tabelaTotaisDaClasse.addCell(cell);
-
-        // total ch
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(chTotalDaClasse)).replace(".",
-                ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaTotaisDaClasse.addCell(cell);
-
-        // total filme
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(filmeTotalDaClasse)).replace(
-                ".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaTotaisDaClasse.addCell(cell);
-
-        // total material
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(materialTotalDaClasse))
-                .replace(".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaTotaisDaClasse.addCell(cell);
-
-        // coluna do redutor vazia
-        cell = new PdfPCell(new Phrase("", fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaTotaisDaClasse.addCell(cell);
-
-        // total desconto
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(descontoTotalDaClasse))
-                .replace(".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaTotaisDaClasse.addCell(cell);
-
-        // total total total
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(valorTotalDaClasse)).replace(
-                ".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaTotaisDaClasse.addCell(cell);
-
-        document.add(tabelaTotaisDaClasse);
-
-        // colocando o valor total de todas as classe
-        // colocando os valores totais da classe
-        PdfPTable tabelaValoresTotaisDeTodasAsClasses = new PdfPTable(11);
-        tabelaValoresTotaisDeTodasAsClasses.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
-        tabelaValoresTotaisDeTodasAsClasses.setWidthPercentage(100);
-
-        // colocando linhas em branco
-        for (int i = 0; i < 5; i++) {
-            cell = new PdfPCell(new Phrase("", fontNegrito8));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            cell.setColspan(11);
-            tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-        }
-
-        // classe e total de exames
-        cell = new PdfPCell(new Phrase("Total de Exame: " + qtdDeExamesNoRelatorio, fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-        cell.setColspan(5);
-        tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-
-        // total ch
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(chTotalDoRelatorio)).replace(
-                ".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-
-        // total filme
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(filmeTotalDoRelatorio))
-                .replace(".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-
-        // total material
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(materialTotalDoRelatorio))
-                .replace(".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-
-        // coluna do redutor vazia
-        cell = new PdfPCell(new Phrase("", fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-
-        // total desconto
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(descontoTotalDoRelatorio))
-                .replace(".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-
-        // total total total
-        cell =
-            new PdfPCell(new Phrase(MetodosUteis.colocarZeroEmCampoReais(String.valueOf(valorTotalDoRelatorio))
-                .replace(".", ","), fontNegrito8));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-        tabelaValoresTotaisDeTodasAsClasses.addCell(cell);
-
-        document.add(tabelaValoresTotaisDeTodasAsClasses);
+        
 
         // fechando o documento
         document.close();
@@ -635,13 +217,14 @@ public class relatorioValoresRecebidos {
         Runtime runtime = Runtime.getRuntime();
         if (OSvalidator.isWindows()) {
             runtime.exec("cmd /c \"" + caminho
-                + "relatórioDeValoresRecebidos.pdf");
+                + "relatorioDeValoresRecebidos.pdf");
+            System.out.println(caminho + "relatorioDeValoresRecebidos.pdf");
         } else if (OSvalidator.isMac()) {
             runtime.exec("open " + caminho
-                + "relatórioDeValoresRecebidos.pdf");
+                + "relatorioDeValoresRecebidos.pdf");
         } else {
             runtime.exec("gnome-open " + caminho
-                + "relatórioDeValoresRecebidos.pdf");
+                + "relatorioDeValoresRecebidos.pdf");
         }
     }
 }
