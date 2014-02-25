@@ -33,7 +33,7 @@ public class relatorioValoresRecebidosDAO {
      */
     @SuppressWarnings("finally")
     public static ArrayList<relatorioValoresRecebidossMODEL> getConsultarAtendimentosTodosOsConvenios(Date diaInicial,
-        Date diaFinal) throws SQLException {
+        Date diaFinal, int handle_convenio) throws SQLException {
         ResultSet resultSet = null;
         listaDosAtendimentos = new ArrayList<relatorioValoresRecebidossMODEL>();
         Connection con = Conexao.fazConexao();
@@ -42,20 +42,22 @@ public class relatorioValoresRecebidosDAO {
             "SELECT ATENDIMENTOS.\"HANDLE_AT\" AS ATENDIMENTOS_HANDLE_AT, ATENDIMENTOS.\"DATA_ATENDIMENTO\" AS ATENDIMENTOS_DATA_ATENDIMENTO, PACIENTES.\"NOME\" AS PACIENTES_NOME, EXAMES.\"NOME\" AS EXAMES_NOME, "
                 + "ATENDIMENTO_EXAMES.\"VALOR_CORRETO_PACIENTE\" AS ATENDIMENTO_EXAMES_VALOR_PACIENTE, ATENDIMENTO_EXAMES.\"VALOR_CORRETO_CONVENIO\" AS ATENDIMENTO_EXAMES_VALOR_CORRETO_CONVENIO, "
                 + "ATENDIMENTO_EXAMES.\"VALOR_RECEBIDO_CONVENIO\" AS ATENDIMENTO_EXAMES_VALOR_RECEBI, "
-                + "CONVENIO.\"NOME\" AS CONVENIO_NOME "
+                + "CONVENIO.\"NOME\" AS CONVENIO_NOME, "
+                + "CONVENIO.\"HANDLE_CONVENIO\" AS CONVENIO_HANDLE_CONVENIO "
                 + "FROM \"PACIENTES\" PACIENTES "
                 + "INNER JOIN \"ATENDIMENTOS\" ATENDIMENTOS ON PACIENTES.\"PACIENTEID\" = ATENDIMENTOS.\"HANDLE_PACIENTE\" "
                 + "INNER JOIN \"ATENDIMENTO_EXAMES\" ATENDIMENTO_EXAMES ON ATENDIMENTOS.\"HANDLE_AT\" = ATENDIMENTO_EXAMES.\"HANDLE_AT\" "
                 + "INNER JOIN \"CONVENIO\" CONVENIO ON ATENDIMENTOS.\"HANDLE_CONVENIO\" = CONVENIO.\"CONVENIOID\" "
                 + "INNER JOIN \"EXAMES\" EXAMES ON ATENDIMENTO_EXAMES.\"HANDLE_EXAME\" = EXAMES.\"EXMID\" "
-                + "where (ATENDIMENTOS.\"DATA_ATENDIMENTO\" > ? or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?)  and  (ATENDIMENTOS.\"DATA_ATENDIMENTO\" < ? or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) "
-                + "order by CONVENIO.\"NOME\" asc, ATENDIMENTOS.\"HANDLE_AT\" ";
+                + "where (ATENDIMENTOS.\"DATA_ATENDIMENTO\" > ? or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?)  and  (ATENDIMENTOS.\"DATA_ATENDIMENTO\" < ? or ATENDIMENTOS.\"DATA_ATENDIMENTO\" = ?) and  CONVENIO.\"HANDLE_CONVENIO\" = ? "
+                + "order by ATENDIMENTOS.\"HANDLE_AT\" ";
 
         PreparedStatement stmtQuery = con.prepareStatement(sql);
         stmtQuery.setDate(1, diaInicial);
         stmtQuery.setDate(2, diaInicial);
         stmtQuery.setDate(3, diaFinal);
         stmtQuery.setDate(4, diaFinal);
+        stmtQuery.setInt(5, handle_convenio);
         resultSet = stmtQuery.executeQuery();
 
         while (resultSet.next()) {

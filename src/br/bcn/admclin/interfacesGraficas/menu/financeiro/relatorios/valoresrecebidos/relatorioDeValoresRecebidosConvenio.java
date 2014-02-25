@@ -30,6 +30,8 @@ import javax.swing.UIManager;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
 
 /**
  * 
@@ -52,6 +54,8 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
         jXDatePicker2.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Ir para data atual");
         jXDatePicker2.setLinkDate(System.currentTimeMillis(), "Ir para data atual");
+        
+        preencherComboBoxComConvenios();
     }
 
     public void tirandoBarraDeTitulo() {
@@ -59,6 +63,32 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
         this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
     }
 
+    @SuppressWarnings("unchecked")
+    private void preencherComboBoxComConvenios() {
+        con = Conexao.fazConexao();
+        ResultSet resultSet = CONVENIO.getConsultar(con);
+        listaHandleConvenio.removeAll(listaHandleConvenio);
+        jCBConvenio.removeAllItems();
+
+        jCBConvenio.addItem("Selecione o Convênio");
+        listaHandleConvenio.add(0);
+        try {
+            while (resultSet.next()) {
+                if (resultSet.getInt("handle_convenio") > 0) {
+                    jCBConvenio.addItem(resultSet.getString("nome"));
+                    int handle_convenio = resultSet.getInt("handle_convenio");
+                    listaHandleConvenio.add(handle_convenio);
+                }
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível preencher os Convênios. Procure o administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        Conexao.fechaConexao(con);
+    }
+    
     int dataInicial, dataFinal;
 
     // metodo que verfiica se as datas estão corretas
@@ -125,7 +155,7 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
                         JOptionPane.showMessageDialog(null, "Erro com a data Final. Procure o Administrador.");
                     }
 
-                    relatorioValoresRecebidos relatorio = new relatorioValoresRecebidos(diaInicialSql, diaFinalSql);
+                    relatorioValoresRecebidos relatorio = new relatorioValoresRecebidos(diaInicialSql, diaFinalSql, jCBConvenio.getSelectedItem().toString(), listaHandleConvenio.get(jCBConvenio.getSelectedIndex()));
                     relatorio.gerarRelatorio();
                 } else {
                     JOptionPane.showMessageDialog(null, "Verifique as datas e tente novamente.");
@@ -169,13 +199,22 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
                 jBGerarRelatorioActionPerformed(evt);
             }
         });
+        
+        JLabel lblConvnio = new JLabel();
+        lblConvnio.setText("Convênio:");
+        
+        jCBConvenio = new JComboBox();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-                .addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING, false)
                         .addComponent(jBGerarRelatorio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(lblConvnio)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jCBConvenio, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(ComponentPlacement.RELATED)
@@ -184,7 +223,7 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
                             .addComponent(jLabel2)
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addComponent(jXDatePicker2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(48, Short.MAX_VALUE))
+                    .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(Alignment.LEADING)
@@ -196,8 +235,12 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
                         .addComponent(jLabel2)
                         .addComponent(jXDatePicker2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(lblConvnio)
+                        .addComponent(jCBConvenio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
                     .addComponent(jBGerarRelatorio)
-                    .addGap(42))
+                    .addGap(48))
         );
         jPanel1.setLayout(jPanel1Layout);
 
@@ -205,14 +248,14 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
         layout.setHorizontalGroup(
             layout.createParallelGroup(Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 380, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(76, Short.MAX_VALUE))
+                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(26, Short.MAX_VALUE))
         );
         getContentPane().setLayout(layout);
 
@@ -220,7 +263,11 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBGerarRelatorioActionPerformed
-        relatorioDeValoresRecebidosDeTodosOsConvenios();
+        if(jCBConvenio.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Selecione um Convênio.");
+        }else{
+            relatorioDeValoresRecebidosDeTodosOsConvenios();
+        }
     }// GEN-LAST:event_jBGerarRelatorioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,5 +277,5 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
     private javax.swing.JPanel jPanel1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
-    // End of variables declaration//GEN-END:variables
+    private JComboBox jCBConvenio;
 }

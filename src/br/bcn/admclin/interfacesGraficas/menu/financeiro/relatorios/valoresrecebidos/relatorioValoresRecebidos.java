@@ -47,8 +47,12 @@ public class relatorioValoresRecebidos {
     private Date dataInicial = null, dataFinal = null;
     private String dataInicialString, dataFinalString;
     private Connection con = null;
+    private int handle_convenio;
+    private String nomeConvenio;
 
-    public relatorioValoresRecebidos(Date dataInicial, Date dataFinal) {
+    public relatorioValoresRecebidos(Date dataInicial, Date dataFinal, String nomeConvenio, int handle_convenio) {
+        this.nomeConvenio = nomeConvenio;
+        this.handle_convenio = handle_convenio;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
 
@@ -79,7 +83,8 @@ public class relatorioValoresRecebidos {
             abrirFichaPDF();
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
+            JOptionPane.showMessageDialog(
+                br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
                 "Erro ao elaborar Relatório. Procure o Administrador." + e);
             return false;
         } finally {
@@ -91,7 +96,9 @@ public class relatorioValoresRecebidos {
     public List<relatorioValoresRecebidossMODEL> listaDeAtendimentos;
 
     private void consultarAtendimentos() throws SQLException {
-        listaDeAtendimentos = relatorioValoresRecebidosDAO.getConsultarAtendimentosTodosOsConvenios(dataInicial, dataFinal);
+        listaDeAtendimentos =
+            relatorioValoresRecebidosDAO.getConsultarAtendimentosTodosOsConvenios(dataInicial, dataFinal,
+                handle_convenio);
     }
 
     public void criandoFatura() throws FileNotFoundException, DocumentException {
@@ -101,8 +108,9 @@ public class relatorioValoresRecebidos {
         document.open();
 
         Font fontNegrito11 = FontFactory.getFont("Calibri", 11, Font.BOLD);
-        Font font9 = FontFactory.getFont("Calibri", 9, Font.NORMAL);
+        Font fontNegrito9 = FontFactory.getFont("Calibri", 9, Font.BOLD);
         Font fontNegrito8 = FontFactory.getFont("Calibri", 8, Font.BOLD);
+        Font font8 = FontFactory.getFont("Calibri", 8, Font.NORMAL);
 
         PdfPCell cell;
 
@@ -112,9 +120,12 @@ public class relatorioValoresRecebidos {
         tablePrincipal.setWidthPercentage(100);
 
         // colocando o
-        cell =
-            new PdfPCell(new Phrase(
-                "Relatório de Valores Recebidos", fontNegrito11));
+        cell = new PdfPCell(new Phrase("Relatório de Valores Recebidos", fontNegrito11));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tablePrincipal.addCell(cell);
+        
+        cell = new PdfPCell(new Phrase("Convênio: " + nomeConvenio, fontNegrito11));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tablePrincipal.addCell(cell);
@@ -203,7 +214,170 @@ public class relatorioValoresRecebidos {
 
         // adicionando tabela ao documento
         document.add(tabelaCabecalho);
+
+        // colocando os exames
+        // varre a lista
+        double totalValorPac = 0;
+        double totalValorFat = 0;
+        double totalValorConv = 0;
+        double totalValorDif = 0;
+        double totalValorTotal = 0;
+        for (int i = 0; i < listaDeAtendimentos.size(); i++) {
+            PdfPTable tabelaExames = new PdfPTable(9);
+            tabelaExames.setWidths(new int[] { 7, 6, 24, 23, 8, 8, 8, 8, 8 });
+            tabelaExames.setWidthPercentage(100);
+
+            //data
+            cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getData(), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tabelaExames.addCell(cell);
+
+            //handle_at
+            cell = new PdfPCell(new Phrase(String.valueOf(listaDeAtendimentos.get(i).getCodigo()), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tabelaExames.addCell(cell);
+
+            //paciente
+            cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getPaciente(), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tabelaExames.addCell(cell);
+
+            //exame
+            cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getExame(), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tabelaExames.addCell(cell);
+
+            //valor paciente
+            double valorPacienteDouble = Double.valueOf(listaDeAtendimentos.get(i).getValorPaciente());
+            totalValorPac += valorPacienteDouble;
+            String valorPacienteString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorPacienteDouble)).replace(".", ",");
+            
+            cell = new PdfPCell(new Phrase(valorPacienteString, font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tabelaExames.addCell(cell);
+
+            //valor faturado
+            double valorFaturadoDouble = Double.valueOf(listaDeAtendimentos.get(i).getValorFaturado());
+            totalValorFat += valorFaturadoDouble;
+            String valorFaturadoString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorFaturadoDouble)).replace(".", ",");
+            
+            cell = new PdfPCell(new Phrase(valorFaturadoString, font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tabelaExames.addCell(cell);
+
+            //valor convenio pagou
+            double valorConvenioPagoDouble = Double.valueOf(listaDeAtendimentos.get(i).getValorPagoConvenio());
+            totalValorConv += valorConvenioPagoDouble;
+            String valorConvenioString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorConvenioPagoDouble)).replace(".", ",");
+            //se for 0 retira o valor
+            if(valorConvenioPagoDouble == 0){
+                valorConvenioString = "-";
+            }
+            
+            cell = new PdfPCell(new Phrase(valorConvenioString, font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tabelaExames.addCell(cell);
+
+            //diferença            
+            double valorDiferencaDouble = valorFaturadoDouble - valorConvenioPagoDouble;
+            
+            String valorDiferencaString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorDiferencaDouble)).replace(".", ",");
+            //se convenio ainda nao pagou, a diferença fica vazia
+            if(valorConvenioPagoDouble == 0){
+                valorDiferencaString = "-";
+            } else{
+                //só soma a diferena se o convenio tiver pago algo
+                //se nao diminui 0,00 e o total da diferença fica errado
+                totalValorDif = totalValorDif + (valorDiferencaDouble);
+            }
+                        
+            cell = new PdfPCell(new Phrase(valorDiferencaString, font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tabelaExames.addCell(cell);
+            
+            //total
+            double valorTotalDouble = valorPacienteDouble + valorConvenioPagoDouble;
+            totalValorTotal += valorTotalDouble;
+            String valorTotalString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorTotalDouble)).replace(".", ",");
+            
+            cell = new PdfPCell(new Phrase(valorTotalString, font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tabelaExames.addCell(cell);
+            
+            document.add(tabelaExames);
+        }
         
+        
+        //agora colocando os totais
+        PdfPTable tabelaTotais = new PdfPTable(9);
+        tabelaTotais.setWidths(new int[] { 7, 6, 24, 23, 8, 8, 8, 8, 8 });
+        tabelaTotais.setWidthPercentage(100);
+
+        cell = new PdfPCell(new Phrase("", fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tabelaTotais.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("", fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tabelaTotais.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("", fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tabelaTotais.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("", fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tabelaTotais.addCell(cell);
+
+        //total pac
+        String valorTotalPacienteString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(totalValorPac)).replace(".", ",");
+        cell = new PdfPCell(new Phrase(valorTotalPacienteString, fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+        tabelaTotais.addCell(cell);
+
+        //total pac
+        String valorTotalFaturadoString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(totalValorFat)).replace(".", ",");
+        cell = new PdfPCell(new Phrase(valorTotalFaturadoString, fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+        tabelaTotais.addCell(cell);
+
+        //total convenio
+        String valorTotalConvenioString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(totalValorConv)).replace(".", ",");
+        cell = new PdfPCell(new Phrase(valorTotalConvenioString, fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+        tabelaTotais.addCell(cell);
+
+        //total diferença
+        String valorTotalDiferencaString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(totalValorDif)).replace(".", ",");
+        cell = new PdfPCell(new Phrase(valorTotalDiferencaString, fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+        tabelaTotais.addCell(cell);
+
+        //total total
+        String valorTotalTotalString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(totalValorTotal)).replace(".", ",");
+        cell = new PdfPCell(new Phrase(valorTotalTotalString, fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+        tabelaTotais.addCell(cell);
+        
+        document.add(tabelaTotais);
 
         // fechando o documento
         document.close();
@@ -216,15 +390,11 @@ public class relatorioValoresRecebidos {
     private void abrirFichaPDF() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         if (OSvalidator.isWindows()) {
-            runtime.exec("cmd /c \"" + caminho
-                + "relatorioDeValoresRecebidos.pdf");
-            System.out.println(caminho + "relatorioDeValoresRecebidos.pdf");
+            runtime.exec("cmd /c \"" + caminho + "relatorioDeValoresRecebidos.pdf");
         } else if (OSvalidator.isMac()) {
-            runtime.exec("open " + caminho
-                + "relatorioDeValoresRecebidos.pdf");
+            runtime.exec("open " + caminho + "relatorioDeValoresRecebidos.pdf");
         } else {
-            runtime.exec("gnome-open " + caminho
-                + "relatorioDeValoresRecebidos.pdf");
+            runtime.exec("gnome-open " + caminho + "relatorioDeValoresRecebidos.pdf");
         }
     }
 }
