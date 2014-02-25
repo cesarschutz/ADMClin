@@ -37,7 +37,7 @@ import javax.swing.JComboBox;
  * 
  * @author Cesar Schutz
  */
-public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFrame {
+public class JIFrelatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = 1L;
     private Connection con = null;
@@ -46,7 +46,7 @@ public class relatorioDeValoresRecebidosConvenio extends javax.swing.JInternalFr
     /**
      * Creates new form jIFFinanceiroAtendimentos
      */
-    public relatorioDeValoresRecebidosConvenio() {
+    public JIFrelatorioDeValoresRecebidosConvenio() {
         initComponents();
         tirandoBarraDeTitulo();
 

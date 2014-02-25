@@ -316,6 +316,18 @@ public class relatorioValoresRecebidos {
             document.add(tabelaExames);
         }
         
+        //colocando linha em branco
+        PdfPTable tabelaLinhaEmBranco = new PdfPTable(1);
+        tabelaLinhaEmBranco.setWidths(new int[] { 100 });
+        tabelaLinhaEmBranco.setWidthPercentage(100);
+
+        cell = new PdfPCell(new Phrase("", fontNegrito8));
+        cell.setBorder(Rectangle.ALIGN_BOTTOM);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tabelaLinhaEmBranco.addCell(cell);
+        
+        document.add(tabelaLinhaEmBranco);
+        
         
         //agora colocando os totais
         PdfPTable tabelaTotais = new PdfPTable(9);
@@ -337,9 +349,9 @@ public class relatorioValoresRecebidos {
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tabelaTotais.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("", fontNegrito8));
+        cell = new PdfPCell(new Phrase("Totais:", fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         tabelaTotais.addCell(cell);
 
         //total pac
@@ -349,7 +361,7 @@ public class relatorioValoresRecebidos {
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         tabelaTotais.addCell(cell);
 
-        //total pac
+        //total FAT
         String valorTotalFaturadoString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(totalValorFat)).replace(".", ",");
         cell = new PdfPCell(new Phrase(valorTotalFaturadoString, fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
