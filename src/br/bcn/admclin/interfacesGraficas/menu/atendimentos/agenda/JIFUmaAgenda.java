@@ -1594,10 +1594,11 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                 agendamento.setLado(resultSet.getString("lado"));
                 agendamento.setMaterial(resultSet.getString("material"));
                 listaAgendamentosDaAgenda.add(agendamento);
-
+                
                 marcandoNomeNaLinhaDoAgendamento(tabelaSelecionada, resultSet.getString("nomePaciente"),
                     resultSet.getInt("handle_ap"), resultSet.getInt("hora"), iconeAgendamento, iconeAgendamentoExt,
                     resultSet.getInt("duracaoDoAgendamento"));
+                    
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel preencher os Agendamentos. Procure o administrador.",
@@ -1665,7 +1666,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                     }
                 }
                 // if horario da linha for maior que o horario final do agendamento && nao é um atendimento
-                if (horarioDaLinhaEmminutos >= finalDoAgendamento && tabelaSelecionada.getValueAt(i, 3) != "4") {
+                if (horarioDaLinhaEmminutos >= finalDoAgendamento && tabelaSelecionada.getValueAt(i, 3) != "4" && tabelaSelecionada.getValueAt(i, 3) != "1") {
                     tabelaSelecionada.setValueAt("", i, 3);
                 }
             } catch (Exception e) {
