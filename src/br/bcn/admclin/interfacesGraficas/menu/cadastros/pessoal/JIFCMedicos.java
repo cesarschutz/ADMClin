@@ -130,8 +130,8 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         con = Conexao.fazConexao();
         ResultSet resultSet = ESPECIALIDADES_MEDICAS.getConsultar(con);
         listaCodEspecialidadesMedicas.removeAll(listaCodEspecialidadesMedicas);
-        jCBEspecialidadeMedica.addItem("");
-        listaCodEspecialidadesMedicas.add(0);
+        //jCBEspecialidadeMedica.addItem("");
+        //listaCodEspecialidadesMedicas.add(0);
         try {
             while (resultSet.next()) {
                 jCBEspecialidadeMedica.addItem(resultSet.getString("descricao"));
