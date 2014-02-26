@@ -2553,7 +2553,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         ImageIcon iconeDesbloquear =
                         new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/desbloquear.png"));
         if (evt.getButton() == MouseEvent.BUTTON3 && liberarPopUp) {
-            JMenuItem menuDesbloquearHorario = new JMenuItem("Desbloquear", iconeDesbloquear);
+            JMenuItem menuDesbloquearHorario = new JMenuItem("Desbloquear Horário", iconeDesbloquear);
             menuDesbloquearHorario.addActionListener(new ActionListener() {
 
                 @SuppressWarnings("rawtypes")
@@ -2608,17 +2608,28 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png"));
         ImageIcon iconeBloquear =
                         new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/bloquear.png"));
+        ImageIcon iconeImprimirAgenda =
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imprimir.png"));
 
         if (evt.getButton() == MouseEvent.BUTTON3 && liberarPopUp) {
             boolean temAgendamentoOuAtendimento = false;
             //menu desbloquear
-            JMenuItem menuBloquearHorario = new JMenuItem("Bloquear", iconeBloquear);
+            JMenuItem menuBloquearHorario = new JMenuItem("Bloquear Horário", iconeBloquear);
             menuBloquearHorario.addActionListener(new ActionListener() {
-
                 @SuppressWarnings("rawtypes")
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     bloqueioDeUmHorarioNaAgenda(tabelaSelecionada);
+                }
+            });
+            
+            //menu imprimir agenda
+            JMenuItem menuImprimirAgenda = new JMenuItem("Imprimir Agenda", iconeImprimirAgenda);
+            menuImprimirAgenda.addActionListener(new ActionListener() {
+                @SuppressWarnings("rawtypes")
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null, "aqui imprime a agenda");
                 }
             });
 
@@ -2752,7 +2763,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             JPopupMenu popupMenuBotaoDireito = new JPopupMenu();
             popupMenuBotaoDireito.add(menuAgendar);
             popupMenuBotaoDireito.add(menuRegistrarEntrada);
+            popupMenuBotaoDireito.addSeparator();
             popupMenuBotaoDireito.add(menuBloquearHorario);
+            popupMenuBotaoDireito.add(menuImprimirAgenda);
 
             // if's para bloquear alum menu de acordo com o flag
 
@@ -2819,7 +2832,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             }
 
             if(temAgendamentoOuAtendimento){
-                menuBloquearHorario.setVisible(false);
+                menuBloquearHorario.setEnabled(false);
             }
             
             // mostra na tela
