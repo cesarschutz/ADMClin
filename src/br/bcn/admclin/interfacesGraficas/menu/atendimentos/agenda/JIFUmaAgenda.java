@@ -2703,6 +2703,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                 menuAgendar.setEnabled(false);
                 menuAgendar.setText("Agendamento Reservado");
                 menuRegistrarEntrada.setVisible(false);
+                temAgendamentoOuAtendimento = true;
             }
 
             // if for horario reservado um atendimento
@@ -2710,6 +2711,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                 menuRegistrarEntrada.setEnabled(false);
                 menuRegistrarEntrada.setText("Atendimento Reservado");
                 menuAgendar.setVisible(false);
+                temAgendamentoOuAtendimento = true;
             }
 
             try {
