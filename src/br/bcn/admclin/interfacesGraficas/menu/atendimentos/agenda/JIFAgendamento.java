@@ -811,7 +811,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
         // sumindo legenda da agenda
         JIFAgendaPrincipal.sumirLegenda(true);
 
-        atualizarTabelasDaAgenda();
+        JIFAgendaPrincipal.selecionarUmaAgenda();
     }
 
     public void guardarInformacoesDoAgendamentoCancelado() {

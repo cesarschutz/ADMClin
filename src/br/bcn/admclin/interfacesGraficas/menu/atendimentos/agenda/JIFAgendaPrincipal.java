@@ -39,7 +39,7 @@ public class JIFAgendaPrincipal extends javax.swing.JInternalFrame {
     private Connection con = null;
 
     // public static JIFUmaAgenda internalFrameUmaTabela = null;
-    private JIFDuasAgendas internalFrameDuasTabela = null;
+    private static JIFDuasAgendas internalFrameDuasTabela = null;
     private JIFTresAgendas internalFrameTresTabela = null;
     private JIFQuatroAgendas internalFrameQuatroTabela = null;
 
@@ -178,7 +178,7 @@ public class JIFAgendaPrincipal extends javax.swing.JInternalFrame {
     }
 
     // metodo caso seja selecionado uma unica agenda
-    public void selecionarUmaAgenda() {
+    public static void selecionarUmaAgenda() {
         if (internalFrameDuasTabela != null) {
             internalFrameDuasTabela.dispose();
             internalFrameDuasTabela = null;

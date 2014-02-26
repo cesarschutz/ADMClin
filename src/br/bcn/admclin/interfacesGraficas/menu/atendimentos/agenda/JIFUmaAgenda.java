@@ -2464,8 +2464,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             @Override
             protected Object doInBackground() throws Exception {
                 // atualizando a tabela
-                preenchendoOsAtendimentosDeTodasAsTabelas();
-                preenchendoOsAgendamentosDeTodasAsTabelas();
+                JIFAgendaPrincipal.selecionarUmaAgenda();
                 return null;
             }
 
@@ -2488,7 +2487,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         
         try {
             A_intervalosDiariosN intervaloDiarioNModel = new A_intervalosDiariosN();
-            String nomeDoIntervalo = data + " " + hora + "" + handle_agenda;
+            String nomeDoIntervalo = data + " " + hora + "" + " " + handle_agenda;
             intervaloDiarioNModel.setNome(nomeDoIntervalo);
             intervaloDiarioNModel.setDescricao("ESSE INTERVALO FOI CRIADO APARTIR DA AGENDA, E NAO DO CADASTRO DE INTERVALOS");
             intervaloDiarioNModel.setDat(dataDeHojeEmVariavelDate);
@@ -2519,6 +2518,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
                 Conexao.fechaConexao(con);
             }
+            JIFAgendaPrincipal.selecionarUmaAgenda();
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Erro ao gravar intervalo. Procure o Administrador.");
         }  
