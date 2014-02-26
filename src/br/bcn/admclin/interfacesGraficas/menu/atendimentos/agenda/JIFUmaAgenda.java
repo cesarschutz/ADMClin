@@ -61,10 +61,14 @@ import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.A_AGENDAMENTOS;
 import br.bcn.admclin.dao.dbris.A_FERIADOS;
 import br.bcn.admclin.dao.dbris.A_INTERVALOSDIARIOS;
+import br.bcn.admclin.dao.dbris.A_INTERVALOSDIARIOSN;
 import br.bcn.admclin.dao.dbris.A_INTERVALOSPORHORARIO;
 import br.bcn.admclin.dao.dbris.A_INTERVALOSPORPERIODO;
 import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.A_Agendamentos;
+import br.bcn.admclin.dao.model.A_intervalosDiarios;
+import br.bcn.admclin.dao.model.A_intervalosDiariosN;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
@@ -159,6 +163,19 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
         preenchendoOsAtendimentosDeTodasAsTabelas();
         preenchendoOsAgendamentosDeTodasAsTabelas();
+        pegandoDataDoSistema();
+    }
+    java.sql.Date dataDeHojeEmVariavelDate = null;
+    public void pegandoDataDoSistema() {
+        // pegando data do sistema
+        Calendar hoje = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String dataDeHoje = format.format(hoje.getTime());
+        try {
+            dataDeHojeEmVariavelDate = new java.sql.Date(format.parse(dataDeHoje).getTime());
+        } catch (ParseException ex) {
+
+        }
     }
 
     public void ativandoSelecaoDeLinhaComBotaoDireitoDoMouse(final JTable tabela) {
@@ -1604,7 +1621,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                     tabelaSelecionada.setValueAt("1", i, 2);
                     tabelaSelecionada.setValueAt(handle_ap, i, 4);
                     tabelaSelecionada.setValueAt(iconeAgendamento, i, 1);
-
+                    
                     // se nao for reservado pinta as proximas linhas de acordo com a necessidade E Pinta a linha de azul
                     if (!"*".equals(nomePaciente.toUpperCase())) {
                         marcandoFlagDePinturaNasProximasLinhas(tabelaSelecionada, duracaoDoAgendamento,
@@ -2462,12 +2479,60 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         worker.execute();
     }// GEN-LAST:event_jButton1ActionPerformed
 
+    private void bloqueioDeUmHorarioNaAgenda(JTable tabelaSelecionada){
+        String data = String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(4, 14);
+        String hora = (String) JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0);
+        
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
+        java.sql.Date dataDate;
+        
+        try {
+            A_intervalosDiariosN intervaloDiarioNModel = new A_intervalosDiariosN();
+            String nomeDoIntervalo = data + " " + hora + "" + handle_agenda;
+            intervaloDiarioNModel.setNome(nomeDoIntervalo);
+            intervaloDiarioNModel.setDescricao("ESSE INTERVALO FOI CRIADO APARTIR DA AGENDA, E NAO DO CADASTRO DE INTERVALOS");
+            intervaloDiarioNModel.setDat(dataDeHojeEmVariavelDate);
+            intervaloDiarioNModel.setUsuarioId(USUARIOS.usrId);
+            
+            int horaInicial = MetodosUteis.transformarHorarioEmMinutos(hora);
+            intervaloDiarioNModel.setHorarioInicial(horaInicial);
+            intervaloDiarioNModel.setHorarioFinal(horaInicial + 1);
+            
+            dataDate = new java.sql.Date(format.parse(data).getTime());
+            intervaloDiarioNModel.setDiadoIntervalo(dataDate);
+            
+            //salando o intervalo
+            con = Conexao.fazConexao();
+            if (A_INTERVALOSDIARIOSN.setCadastrar(con, intervaloDiarioNModel)) {
+                // pegando id do intervalo cadastrado
+                con = Conexao.fazConexao();
+                A_intervalosDiariosN intervaloDiarioNMODEL = new A_intervalosDiariosN();
+                intervaloDiarioNMODEL.setNome(nomeDoIntervalo);
+                int idIntervalo = A_INTERVALOSDIARIOSN.getConsultarIdDeUmNomeCadastrado(con, intervaloDiarioNMODEL);
+
+                // salvando as agendas
+                A_intervalosDiarios intervaloDiarioModel = new A_intervalosDiarios();
+                intervaloDiarioModel.setA_intervaloDiarioNId(idIntervalo);
+
+                    intervaloDiarioModel.setAgendaId(handle_agenda);
+                    A_INTERVALOSDIARIOS.setCadastrar(con, intervaloDiarioModel);
+
+                Conexao.fechaConexao(con);
+            }
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao gravar intervalo. Procure o Administrador.");
+        }  
+        
+        
+    }
+    
     // variavel para liberar o popup
     // pq isso?
     // se ele nao clicou na linha nao devo abrir o popup
     // isso para que se o pop up estiver aberto e o usuario clicar como botao direito em outra linha ele nao abre
     // soh abre dps queo ultimo aberto for fechado
     boolean liberarPopUp = false;
+    
 
     public void abrirPopUp(final JTable tabelaSelecionada, final java.awt.event.MouseEvent evt) {
 
@@ -2478,6 +2543,17 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png"));
 
         if (evt.getButton() == MouseEvent.BUTTON3 && liberarPopUp) {
+            boolean temAgendamentoOuAtendimento = false;
+            //menu desbloquear
+            JMenuItem menuBloquearHorario = new JMenuItem("Bloqueio", null);
+            menuBloquearHorario.addActionListener(new ActionListener() {
+
+                @SuppressWarnings("rawtypes")
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    bloqueioDeUmHorarioNaAgenda(tabelaSelecionada);
+                }
+            });
 
             // cria o primeiro item do menu e atribui uma ação pra ele
             JMenuItem menuAgendar = new JMenuItem("Agendar", iconeAgendar);
@@ -2488,6 +2564,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                     .valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 4))) > 0
                     && tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 0) != "*") {
                     menuAgendar.setText("Editar Agendamento");
+                    temAgendamentoOuAtendimento = true;
                 }
             } catch (Exception e) {
             }
@@ -2551,6 +2628,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                     .valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 5))) > 0
                     && tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 0) != "") {
                     menuRegistrarEntrada.setText("Editar Atendimento");
+                    temAgendamentoOuAtendimento = true;
                 }
             } catch (Exception e) {
             }
@@ -2607,6 +2685,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             JPopupMenu popupMenuBotaoDireito = new JPopupMenu();
             popupMenuBotaoDireito.add(menuAgendar);
             popupMenuBotaoDireito.add(menuRegistrarEntrada);
+            popupMenuBotaoDireito.add(menuBloquearHorario);
 
             // if's para bloquear alum menu de acordo com o flag
 
@@ -2670,6 +2749,10 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
             }
 
+            if(temAgendamentoOuAtendimento){
+                menuBloquearHorario.setVisible(false);
+            }
+            
             // mostra na tela
             int x = evt.getX();
             int y = evt.getY();
