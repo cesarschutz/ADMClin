@@ -2771,6 +2771,7 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
             // if bloquear o menu 1 (agendar) se nao for nulo, vazio ou 1 o flag do status (pq significada q ja foi
             // feita entrada de ficha)
+            
             String flagDaLinhaSelecionada =
                 (String) tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 2);
             if (!"".equals(flagDaLinhaSelecionada) && flagDaLinhaSelecionada != null
