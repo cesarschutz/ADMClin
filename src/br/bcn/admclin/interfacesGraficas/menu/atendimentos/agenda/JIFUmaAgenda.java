@@ -2806,9 +2806,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                 Date dataDeHoje = formatador.parse(dataDeHojeString);
 
                 // se nao for hoje desativa menu registrar entrada
-                if (dataDeHoje.compareTo(diaDaTabelaSelecionada) != 0) {
-                    menuRegistrarEntrada.setEnabled(false);
-                }
+                //if (dataDeHoje.compareTo(diaDaTabelaSelecionada) != 0) {
+                //    menuRegistrarEntrada.setEnabled(false);
+                //}
 
                 // se for ontem ou antes desativa menu agendar
                 if (dataDeHoje.compareTo(diaDaTabelaSelecionada) == 1) {
