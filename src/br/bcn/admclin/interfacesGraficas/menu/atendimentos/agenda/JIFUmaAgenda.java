@@ -2279,6 +2279,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             if (!"1".equals(flagPintura) && !"2".equals(flagPintura) && linhaClicada == linhaSelecionada) {
                 abrirPopUp(jTable2, evt);
             }
+            if("1".equals(flagPintura) && linhaClicada == linhaSelecionada){
+                abrirPopUpParaDesbloqueioDeHorario(jTable2, evt);
+            }
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
 
         }
@@ -2324,6 +2327,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             if (!"1".equals(flagPintura) && !"2".equals(flagPintura)) {
                 abrirPopUp(jTable6, evt);
             }
+            if("1".equals(flagPintura) && linhaClicada == linhaSelecionada){
+                abrirPopUpParaDesbloqueioDeHorario(jTable6, evt);
+            }
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
         }
     }// GEN-LAST:event_jTable6MouseClicked
@@ -2366,6 +2372,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
             if (!"1".equals(flagPintura) && !"2".equals(flagPintura)) {
                 abrirPopUp(jTable5, evt);
+            }
+            if("1".equals(flagPintura) && linhaClicada == linhaSelecionada){
+                abrirPopUpParaDesbloqueioDeHorario(jTable5, evt);
             }
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
         }
@@ -2410,6 +2419,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             if (!"1".equals(flagPintura) && !"2".equals(flagPintura)) {
                 abrirPopUp(jTable4, evt);
             }
+            if("1".equals(flagPintura) && linhaClicada == linhaSelecionada){
+                abrirPopUpParaDesbloqueioDeHorario(jTable4, evt);
+            }
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
         }
     }// GEN-LAST:event_jTable4MouseClicked
@@ -2452,6 +2464,9 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
 
             if (!"1".equals(flagPintura) && !"2".equals(flagPintura)) {
                 abrirPopUp(jTable3, evt);
+            }
+            if("1".equals(flagPintura) && linhaClicada == linhaSelecionada){
+                abrirPopUpParaDesbloqueioDeHorario(jTable3, evt);
             }
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
         }
@@ -2533,6 +2548,55 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
     // soh abre dps queo ultimo aberto for fechado
     boolean liberarPopUp = false;
     
+    private void  abrirPopUpParaDesbloqueioDeHorario(final JTable tabelaSelecionada, final java.awt.event.MouseEvent evt){
+        ImageIcon iconeDesbloquear =
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/desbloquear.png"));
+        if (evt.getButton() == MouseEvent.BUTTON3 && liberarPopUp) {
+            JMenuItem menuDesbloquearHorario = new JMenuItem("Desbloquear", iconeDesbloquear);
+            menuDesbloquearHorario.addActionListener(new ActionListener() {
+
+                @SuppressWarnings("rawtypes")
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //fazer aqui o metodo
+                    try {
+                        String hora = (String) JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0);
+                        String data = String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(4, 14);
+                        
+                        //buscando o id para desbloquear
+                        String nomeDoIntervalo = data + " " + hora + "" + " " + handle_agenda;
+                        con = Conexao.fazConexao();
+                        A_intervalosDiariosN intervaloDiarioNMODEL = new A_intervalosDiariosN();
+                        intervaloDiarioNMODEL.setNome(nomeDoIntervalo);
+                        int idIntervalo = A_INTERVALOSDIARIOSN.getConsultarIdDeUmNomeCadastrado(con, intervaloDiarioNMODEL);
+                        
+                        con = Conexao.fazConexao();
+                        if(A_INTERVALOSDIARIOS.setDeletar(con, idIntervalo)){
+                            A_INTERVALOSDIARIOSN.setDeletar(con, idIntervalo);
+                        }
+                        Conexao.fechaConexao(con);
+                        
+                        JIFAgendaPrincipal.selecionarUmaAgenda();
+                    }catch(Exception ex){
+                    }   
+                }
+            });
+            
+            JPopupMenu popupMenuBotaoDireito = new JPopupMenu();
+            popupMenuBotaoDireito.add(menuDesbloquearHorario);
+            
+            // mostra na tela
+            int x = evt.getX();
+            int y = evt.getY();
+            popupMenuBotaoDireito.show(tabelaSelecionada, x, y);
+            
+            // tranca abrir o pop up
+            // para q nao posso abrir outro enquanto nao houver o evento pressed
+            // no pressed liberamos o pop up para ser aberto
+            liberarPopUp = false;
+        }
+        
+    }
 
     public void abrirPopUp(final JTable tabelaSelecionada, final java.awt.event.MouseEvent evt) {
 
@@ -2541,11 +2605,13 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
             new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAgendar.png"));
         ImageIcon iconeRegistrarEntrada =
             new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png"));
+        ImageIcon iconeBloquear =
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/bloquear.png"));
 
         if (evt.getButton() == MouseEvent.BUTTON3 && liberarPopUp) {
             boolean temAgendamentoOuAtendimento = false;
             //menu desbloquear
-            JMenuItem menuBloquearHorario = new JMenuItem("Bloqueio", null);
+            JMenuItem menuBloquearHorario = new JMenuItem("Bloquear", iconeBloquear);
             menuBloquearHorario.addActionListener(new ActionListener() {
 
                 @SuppressWarnings("rawtypes")
