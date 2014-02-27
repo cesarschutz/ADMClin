@@ -141,7 +141,7 @@ public class ImprimirAgendamentosDeUmDia {
         
         //adicionando os titulos das colunas
         PdfPTable tabelaCabecalho = new PdfPTable(4);
-        tabelaCabecalho.setWidths(new int[] { 9, 9, 41, 41 });
+        tabelaCabecalho.setWidths(new int[] { 8, 9, 40, 43 });
         tabelaCabecalho.setWidthPercentage(100);
 
         cell = new PdfPCell(new Phrase("NÚMERO", fontNegrito9));
@@ -164,23 +164,25 @@ public class ImprimirAgendamentosDeUmDia {
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tabelaCabecalho.addCell(cell);
         
+        //adicona uma linha pois vai trocar de paciente
+        cell = new PdfPCell(new Phrase("", font9));
+        cell.setBorder(Rectangle.ALIGN_BOTTOM);
+        cell.setColspan(4);
+        tabelaCabecalho.addCell(cell);
+        
         document.add(tabelaCabecalho);
         
         int handle_ap = 0;
         //adicionando os exames
         for (int i = 0; i < listaAgendamentos.size(); i++) {
             PdfPTable tabelaAgendamentos = new PdfPTable(4);
-            tabelaAgendamentos.setWidths(new int[] { 9, 9, 41, 41 });
+            tabelaAgendamentos.setWidths(new int[] { 8, 9, 40, 43 });
             tabelaAgendamentos.setWidthPercentage(100);
             
             String nomePaciente;
             String hora;
             if(handle_ap != listaAgendamentos.get(i).getHANDLE_AP()){
-                //adicona uma linha pois vai trocar de paciente
-                cell = new PdfPCell(new Phrase("", font9));
-                cell.setBorder(Rectangle.ALIGN_BOTTOM);
-                cell.setColspan(4);
-                tabelaAgendamentos.addCell(cell);
+
                 
                 handle_ap = listaAgendamentos.get(i).getHANDLE_AP();
                 nomePaciente = listaAgendamentos.get(i).getNomePaciente();
