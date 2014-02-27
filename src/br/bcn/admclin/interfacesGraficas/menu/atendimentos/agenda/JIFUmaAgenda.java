@@ -2629,7 +2629,13 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
                 @SuppressWarnings("rawtypes")
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null, "aqui imprime a agenda");
+                    try {
+                        String data = String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(4, 14);
+                        ImprimirAgendamentosDeUmDia imprimirAgendamentos = new ImprimirAgendamentosDeUmDia(data, handle_agenda, jTextField1.getText());
+                        imprimirAgendamentos.gerarRelatorio();
+                    } catch (ParseException e1) {
+                        JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro com a data. Procure o Administrador");
+                    }
                 }
             });
 
