@@ -31,6 +31,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.awt.SystemColor;
 
 /**
  *
@@ -442,7 +443,8 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jTFImpressoraEtiquetaEnvelope = new javax.swing.JTextField();
         jTFPastaRaiz = new javax.swing.JTextField();
-        jTFPastaRaiz.setEnabled(false);
+        jTFPastaRaiz.setBackground(SystemColor.controlHighlight);
+        jTFPastaRaiz.setEditable(false);
         jLabel10 = new javax.swing.JLabel();
         jTFImpressora_cod_de_barras = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
