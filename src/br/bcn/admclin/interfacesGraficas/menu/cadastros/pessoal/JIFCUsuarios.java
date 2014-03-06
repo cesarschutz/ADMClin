@@ -21,6 +21,16 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.JButton;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 /**
  *
@@ -153,9 +163,10 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         boolean usuarioOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFUsuario, 3, jTFMensagemParaUsuario);
         boolean senhaOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFSenha, 4, jTFMensagemParaUsuario);
         boolean descricaoOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFDescricao, 2, jTFMensagemParaUsuario);
+        boolean pastaOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFPastaRaiz, 2, jTFMensagemParaUsuario);
         boolean estatusOk = MetodosUteis.VerificarSeComboBoxFoiSelecionado(jCBEstatus, jTFMensagemParaUsuario);
                        
-        if(senhaOk && usuarioOk && descricaoOk && emailOk && enviaEmail){
+        if(senhaOk && usuarioOk && descricaoOk && emailOk && enviaEmail && pastaOk){
             if(estatusOk){
                 //variavel do jcombox estatus
                 String estatus = null;
@@ -260,9 +271,10 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         boolean usuarioOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFUsuario, 3, jTFMensagemParaUsuario);
         boolean senhaOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFSenha, 4, jTFMensagemParaUsuario);
         boolean descricaoOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFDescricao, 2, jTFMensagemParaUsuario);
+        boolean pastaOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFPastaRaiz, 2, jTFMensagemParaUsuario);
         boolean estatusOk = MetodosUteis.VerificarSeComboBoxFoiSelecionado(jCBEstatus, jTFMensagemParaUsuario);
                        
-        if(senhaOk && usuarioOk && descricaoOk && emailOk && enviaEmail){
+        if(senhaOk && usuarioOk && descricaoOk && emailOk && enviaEmail && pastaOk){
             if(estatusOk){
                 //fazendo um if para verificar se descricao ou referencia ja existem
                 Usuario usuarioModel = new Usuario();
@@ -374,6 +386,25 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
             }
         } 
     }
+    
+    public void definirPastaRaiz(){
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setApproveButtonText("Salvar");
+        fc.setDialogTitle("Selecione a Pasta");
+        //fc.setCurrentDirectory(new File(rootdirectory));
+        JFrame frameDoFileChooser = new JFrame();
+        frameDoFileChooser.setIconImage(getToolkit().createImage(getClass().getResource("/br/bcn/admclin/imagens/imagemIconePrograma.png")));
+        int res = fc.showOpenDialog(frameDoFileChooser);
+        
+        if (res == JFileChooser.APPROVE_OPTION) {
+            File diretorio = fc.getSelectedFile();
+            if (diretorio.toString().length() > 4) {
+                jTFPastaRaiz.setText(diretorio.toString());
+            }
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -411,6 +442,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jTFImpressoraEtiquetaEnvelope = new javax.swing.JTextField();
         jTFPastaRaiz = new javax.swing.JTextField();
+        jTFPastaRaiz.setEnabled(false);
         jLabel10 = new javax.swing.JLabel();
         jTFImpressora_cod_de_barras = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -744,92 +776,100 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         });
 
         jLabel11.setText("Impressora para Código de Barras");
+        
+        btnDefinirPastaRaiz = new JButton("Definir Pasta Raiz");
+        btnDefinirPastaRaiz.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                definirPastaRaiz();
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTFImpressoraFicha)
-            .addComponent(jTFImpressoraNotaFiscal)
-            .addComponent(jTFImpressoraEtiquetaEnvelope)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFPastaRaiz)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10))
-                        .addGap(0, 241, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addComponent(jTFImpressora_cod_de_barras)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addGap(0, 321, Short.MAX_VALUE))
+            jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(jTFImpressoraFicha, 501, 501, 501)
+                        .addComponent(jTFImpressoraNotaFiscal, 501, 501, 501)
+                        .addComponent(jTFImpressoraEtiquetaEnvelope, 501, 501, 501)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel10)
+                        .addComponent(jTFImpressora_cod_de_barras, 501, 501, 501)
+                        .addComponent(jLabel11)
+                        .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
+                            .addComponent(btnDefinirPastaRaiz)
+                            .addComponent(jTFPastaRaiz, 491, 491, 491)))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFImpressoraFicha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFImpressoraNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFImpressoraEtiquetaEnvelope, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFImpressora_cod_de_barras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFPastaRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addComponent(jLabel7)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFImpressoraFicha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jLabel8)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFImpressoraNotaFiscal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jLabel9)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFImpressoraEtiquetaEnvelope, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jLabel11)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFImpressora_cod_de_barras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jLabel10)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFPastaRaiz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(btnDefinirPastaRaiz)
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jPanel2.setLayout(jPanel2Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jBAtualizarRegistro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBApagarRegistro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBSalvarRegistro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBCancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jTFMensagemParaUsuario)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBAtualizarRegistro)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jBApagarRegistro)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jBSalvarRegistro)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jBCancelar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTFMensagemParaUsuario))
+                    .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBAtualizarRegistro)
-                    .addComponent(jBApagarRegistro)
-                    .addComponent(jBSalvarRegistro)
-                    .addComponent(jBCancelar))
-                .addContainerGap(40, Short.MAX_VALUE))
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                        .addComponent(jPanel2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFMensagemParaUsuario, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(jBAtualizarRegistro)
+                        .addComponent(jBApagarRegistro)
+                        .addComponent(jBSalvarRegistro)
+                        .addComponent(jBCancelar))
+                    .addGap(42))
         );
+        getContentPane().setLayout(layout);
 
-        setBounds(0, 0, 948, 466);
+        setBounds(0, 0, 979, 480);
     }// </editor-fold>//GEN-END:initComponents
 
 private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
@@ -1070,5 +1110,6 @@ jTFEmail.setText(jTFEmail.getText().toUpperCase());
     private javax.swing.JTextField jTFPastaRaiz;
     private javax.swing.JTextField jTFSenha;
     private javax.swing.JTextField jTFUsuario;
+    private JButton btnDefinirPastaRaiz;
     // End of variables declaration//GEN-END:variables
 }
