@@ -553,8 +553,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         "/br/bcn/admclin/imagens/imprimirFicha.png"));
     Icon iconeLaudoDigitado = new javax.swing.ImageIcon(getClass().getResource(
         "/br/bcn/admclin/imagens/laudoDigitado.png"));
-    Icon iconeLaudoAssinado = new javax.swing.ImageIcon(getClass().getResource(
-        "/br/bcn/admclin/imagens/laudoAssinado.png"));
+    Icon iconeLaudoAssinado = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/laudoAssinado.png"));
+    Icon iconeLaudoAssinadoE = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/laudoAssinadoE.png"));
     Icon iconeJaFezOExame =
         new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/jaFezOExame.png"));
 
@@ -578,6 +578,10 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 // laudo assinado
                 if (status1 == 5) {
                     jTable1.setValueAt(iconeLaudoAssinado, i, 6);
+                }
+                // laudo assinado e nao enviado ao HIS
+                if (status1 == 9) {
+                    jTable1.setValueAt(iconeLaudoAssinadoE, i, 6);
                 }
 
             } catch (Exception e) {
