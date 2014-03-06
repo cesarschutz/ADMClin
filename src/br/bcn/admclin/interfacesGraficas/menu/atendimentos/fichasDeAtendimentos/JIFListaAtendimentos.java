@@ -555,8 +555,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         "/br/bcn/admclin/imagens/laudoDigitado.png"));
     Icon iconeLaudoAssinado = new javax.swing.ImageIcon(getClass().getResource(
         "/br/bcn/admclin/imagens/laudoAssinado.png"));
-    Icon iconeJaFezOExame = new javax.swing.ImageIcon(getClass().getResource(
-        "/br/bcn/admclin/imagens/jaFezOExame.png"));
+    Icon iconeJaFezOExame =
+        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/jaFezOExame.png"));
 
     private void colocarIconesNoStatusA() throws Exception {
         // icone atendimento
@@ -791,9 +791,11 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Código / Paciente");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemPesquisar.png"))); // NOI18N
+        jLabel3
+            .setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemPesquisar.png"))); // NOI18N
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizarTabela.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass()
+            .getResource("/br/bcn/admclin/imagens/atualizarTabela.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -1348,8 +1350,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     /*
      * metodo para abrir o popUp de menu do Atendimento
      */
-    ImageIcon iconeImprimir = new javax.swing.ImageIcon(getClass().getResource(
-        "/br/bcn/admclin/imagens/imprimir.png"));
+    ImageIcon iconeImprimir = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imprimir.png"));
     ImageIcon iconeImprimirFicha = new javax.swing.ImageIcon(getClass().getResource(
         "/br/bcn/admclin/imagens/imprimirFicha.png"));
     ImageIcon iconeImprimirLaudo = new javax.swing.ImageIcon(getClass().getResource(
@@ -1361,10 +1362,10 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     ImageIcon iconeImprimirCodigoDeBarras = new javax.swing.ImageIcon(getClass().getResource(
         "/br/bcn/admclin/imagens/Barcode.png"));
     ImageIcon iconeHistoriaClinica = new javax.swing.ImageIcon(getClass().getResource(
-                    "/br/bcn/admclin/imagens/Historia.png"));
+        "/br/bcn/admclin/imagens/Historia.png"));
     ImageIcon iconeEscreverLaudo = new javax.swing.ImageIcon(getClass().getResource(
-                    "/br/bcn/admclin/imagens/EscreverLaudo.png"));
-    
+        "/br/bcn/admclin/imagens/EscreverLaudo.png"));
+
     private void abrirPopUpMenu(MouseEvent evt) {
 
         // menu imprimir
@@ -1418,7 +1419,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 historiaClincia();
             }
         });
-        
+
         // Laudo
         JMenuItem laudo = new JMenuItem("Laudo", iconeEscreverLaudo);
         laudo.addActionListener(new ActionListener() {
@@ -1426,7 +1427,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 laudo();
             }
         });
-        
+
         // adicionando os submenus no impimir
 
         // imprimir.add(imprimirLaudo);
@@ -1445,58 +1446,58 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         popup.add(imprimir);
         popup.add(historiaClinica);
         popup.add(laudo);
-        
+
         // mostra na tela
         // mostra na tela
         int x = evt.getX();
         int y = evt.getY();
         popup.show(jTable1, x, y);
     }
-    
-    private void historiaClincia(){
-        //pegando o handle_at
+
+    private void historiaClincia() {
+        // pegando o handle_at
         int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        //pegando o nome do paciente
+        // pegando o nome do paciente
         String paciente = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 3));
-        //pegando a data
+        // pegando a data
         java.util.Date dataSelecionada = jXDatePicker1.getDate();
         // criando um formato de data
         SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
         // colocando data selecionado no formato criado acima
         String data2 = dataFormatada.format(dataSelecionada);
-        
+
         JFHistoriaClinica his = new JFHistoriaClinica(handle_at, data2, paciente);
         his.setVisible(true);
     }
 
-    private void laudo(){
-        //pegando a data
+    private void laudo() {
+        // pegando a data
         java.util.Date dataSelecionada = jXDatePicker1.getDate();
         // criando um formato de data
         SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
         // colocando data selecionado no formato criado acima
         String data2 = dataFormatada.format(dataSelecionada);
-        
-        //pegando o nome do paciente
+
+        // pegando o nome do paciente
         String paciente = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 3));
-        
-        //pegando o handle_at
+
+        // pegando o handle_at
         String handle_at = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-        
-        //pegando o medico
+
+        // pegando o medico
         String medicoSolicitante = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 4));
-        
-        //pegando o crm
+
+        // pegando o crm
         String crmMedico = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 5));
-        
-        //pegando a modalidade
+
+        // pegando a modalidade
         String mod = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
-        
-        //abrindo a janela de laudo
+
+        // abrindo a janela de laudo
         JFLaudo laudo = new JFLaudo(data2, paciente, handle_at, medicoSolicitante, crmMedico, mod);
         laudo.setVisible(true);
     }
-    
+
     @SuppressWarnings("rawtypes")
     private void imprimirFicha() {
         // pegando o handle_at
@@ -1516,21 +1517,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                         new ImprimirFichaEBoletoDeRetiradaModelo2(handle_at);
                     abriuFicha = imprimirFicha.imprimir();
                 } else if (janelaPrincipal.modeloDeImpressao == 3) {
-                    if (USUARIOS.impressora_ficha.contains("http")) {
-                        String retorno =
-                            MetodosUteis.imprimir(USUARIOS.impressora_ficha, "3", String.valueOf(handle_at));
-                        if (retorno.equals("NOT") || retorno.length() > 5) {
-                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                                "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        } else {
-                            abriuFicha = true;
-                        }
-                    } else {
-                        ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha =
-                            new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
-                        abriuFicha = imprimirFicha.imprimir();
-                    }
-
+                    ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha =
+                        new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
+                    abriuFicha = imprimirFicha.imprimir();
                 }
 
                 // se deu tudo certo na impressao entra nesse if
@@ -1600,23 +1589,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                     ImprimirEtiquetaEnvelopeModelo1 imprimirEtiqueta = new ImprimirEtiquetaEnvelopeModelo1(handle_at);
                     abriuEtiqueta = imprimirEtiqueta.salvarEIMprimirEtiqueta();
                 } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
-                    if (USUARIOS.impressora_etiqueta_envelope.contains("http")) {
-
-                        String retorno =
-                            MetodosUteis
-                                .imprimir(USUARIOS.impressora_etiqueta_envelope, "1", String.valueOf(handle_at));
-
-                        if (retorno.equals("NOT") || retorno.length() > 5) {
-                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                                "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        } else {
-                            abriuEtiqueta = true;
-                        }
-
-                    } else {
-                        ImprimirEtiquetaEnvelopeModelo2 imprimir = new ImprimirEtiquetaEnvelopeModelo2(handle_at);
-                        abriuEtiqueta = imprimir.imprimir();
-                    }
+                    ImprimirEtiquetaEnvelopeModelo2 imprimir = new ImprimirEtiquetaEnvelopeModelo2(handle_at);
+                    abriuEtiqueta = imprimir.imprimir();
                 }
 
                 if (abriuEtiqueta) {
@@ -1645,21 +1619,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             @Override
             protected Object doInBackground() throws Exception {
                 boolean abriuEtiqueta = false;
-
-                if (USUARIOS.impressora_codigo_de_barras.contains("http")) {
-                    String retorno =
-                        MetodosUteis.imprimir(USUARIOS.impressora_codigo_de_barras, "0", String.valueOf(handle_at));
-                    if (retorno.equals("NOT") || retorno.length() > 5) {
-                        JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                            "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        abriuEtiqueta = true;
-                    }
-                } else {
-                    ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir =
-                        new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at, USUARIOS.impressora_codigo_de_barras);
-                    abriuEtiqueta = imprimir.writeFile();
-                }
+                ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at, USUARIOS.impressora_codigo_de_barras);
+                abriuEtiqueta = imprimir.writeFile();
 
                 if (abriuEtiqueta) {
                     // aqui colocar o flag_imprimiu como "S"

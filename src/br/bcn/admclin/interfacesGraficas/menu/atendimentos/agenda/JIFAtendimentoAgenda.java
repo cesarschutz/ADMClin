@@ -108,6 +108,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form JIFagendamento
+     * 
      * @wbp.parser.constructor
      */
     public JIFAtendimentoAgenda(String horarioLivreOuOcupado, int handle_at, int handle_agenda,
@@ -1209,8 +1210,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
     public void atualizarTabelasDaAgenda() {
         // atualizando a janela de uma agenda
         Icon iconeAgendado =
-            new ImageIcon(getToolkit().createImage(
-                getClass().getResource("/br/bcn/admclin/imagens/menuAgendar.png")));
+            new ImageIcon(getToolkit().createImage(getClass().getResource("/br/bcn/admclin/imagens/menuAgendar.png")));
         Icon iconeAgendadoExt =
             new ImageIcon(getToolkit().createImage(
                 getClass().getResource("/br/bcn/admclin/imagens/menuAgendarExtendido.png")));
@@ -1484,7 +1484,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         jTBDesconto = new javax.swing.JToggleButton();
 
         jBCancelar.setBackground(new java.awt.Color(113, 144, 224));
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/imagemSetaParaEsquerda.png"))); // NOI18N
         jBCancelar.setText("Voltar");
         jBCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -1681,8 +1682,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Paciente",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBPesquisaPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
+        jBPesquisaPaciente
+            .setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaPacienteActionPerformed(evt);
@@ -1728,8 +1729,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             }
         });
 
-        jBPesquisaMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
+        jBPesquisaMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/Lupa.png"))); // NOI18N
         jBPesquisaMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisaMedicoActionPerformed(evt);
@@ -1882,7 +1882,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             }
         });
 
-        jBIncluirExame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaBaixo.png"))); // NOI18N
+        jBIncluirExame.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/imagemSetaParaBaixo.png"))); // NOI18N
         jBIncluirExame.setText("Incluir Exame");
         jBIncluirExame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2352,23 +2353,18 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
 
                     // abrindo o popUp
                     ImageIcon iconeCancelarLado =
-                        new javax.swing.ImageIcon(getClass().getResource(
-                            "/br/bcn/admclin/imagens/popUpCancelar.png"));
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/popUpCancelar.png"));
                     ImageIcon iconDireito =
-                        new javax.swing.ImageIcon(getClass().getResource(
-                            "/br/bcn/admclin/imagens/popUpDireito.png"));
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/popUpDireito.png"));
                     ImageIcon iconEsquerdo =
-                        new javax.swing.ImageIcon(getClass().getResource(
-                            "/br/bcn/admclin/imagens/popUpEsquerdo.png"));
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/popUpEsquerdo.png"));
                     ImageIcon iconCancelarContraste =
                         new javax.swing.ImageIcon(getClass().getResource(
                             "/br/bcn/admclin/imagens/popUpCancelarContraste.png"));
                     ImageIcon iconComContraste =
-                        new javax.swing.ImageIcon(getClass().getResource(
-                            "/br/bcn/admclin/imagens/contrast.png"));
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/contrast.png"));
                     ImageIcon iconComMaterial =
-                        new javax.swing.ImageIcon(getClass().getResource(
-                            "/br/bcn/admclin/imagens/materiais.png"));
+                        new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/materiais.png"));
                     ImageIcon iconAlterarValorExame =
                         new javax.swing.ImageIcon(getClass().getResource(
                             "/br/bcn/admclin/imagens/popUpAlterarValorDeExame.png"));
@@ -2806,19 +2802,8 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
 
             @Override
             protected Object doInBackground() throws Exception {
-                if (USUARIOS.impressora_nota_fiscal.contains("http")) {
-                    String retorno =
-                        MetodosUteis.imprimir(USUARIOS.impressora_nota_fiscal, "2", String.valueOf(handle_at));
-                    if (retorno.equals("NOT") || retorno.length() > 5) {
-                        JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                            "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        imprimiu = true;
-                    }
-                } else {
-                    ImprimirNotaFiscalDoPacienteModelo2 imprimir = new ImprimirNotaFiscalDoPacienteModelo2(handle_at);
-                    imprimiu = imprimir.imprimir();
-                }
+                ImprimirNotaFiscalDoPacienteModelo2 imprimir = new ImprimirNotaFiscalDoPacienteModelo2(handle_at);
+                imprimiu = imprimir.imprimir();
 
                 if (imprimiu) {
                     // aqui colocar o flag_imprimiu como "S"
@@ -3018,20 +3003,9 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                         new ImprimirFichaEBoletoDeRetiradaModelo2(handle_at);
                     abriuFicha = imprimirFicha.imprimir();
                 } else if (janelaPrincipal.modeloDeImpressao == 3) {
-                    if (USUARIOS.impressora_ficha.contains("http")) {
-                        String retorno =
-                            MetodosUteis.imprimir(USUARIOS.impressora_ficha, "3", String.valueOf(handle_at));
-                        if (retorno.equals("NOT") || retorno.length() > 5) {
-                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                                "Erro ao imprimir. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        } else {
-                            abriuFicha = true;
-                        }
-                    } else {
-                        ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha =
-                            new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
-                        abriuFicha = imprimirFicha.imprimir();
-                    }
+                    ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha =
+                        new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
+                    abriuFicha = imprimirFicha.imprimir();
                 }
 
                 // se deu tudo certo na impressao entra nesse if
