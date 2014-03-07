@@ -29,8 +29,11 @@ e o nome do medico deve ser NAO INFORMADO para nao sair o mmedico nos laudos
 
 
 
-NO BANCO DO PAC - o campo LAUDO na tabela JLAUDOS deve ser NONE ao inves de ASCII para aparecer os ascentos!!!!!!
-NO BANCO PAC - o campo CODIGO e CODTXT na tabela CODIGOS deve ser NONE ao inves de ASCII!!
+NO BANCO DO PAC:
+- o campo LAUDO na tabela JLAUDOS deve ser NONE ao inves de ASCII para aparecer os ascentos!!!!!!
+- o campo CODIGO e CODTXT na tabela CODIGOS deve ser NONE ao inves de ASCII!!
+
+- deve ser criado o campo HANLDE_AT na tabela jlaudos
 
 
 

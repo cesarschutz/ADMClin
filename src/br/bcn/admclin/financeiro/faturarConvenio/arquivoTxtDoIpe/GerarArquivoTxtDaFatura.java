@@ -511,7 +511,6 @@ public class GerarArquivoTxtDaFatura {
                 buscaExames();
                 colocarNumeroDaNotaNaLista();
                 criaHeader();
-                System.out.println(listaDeExames.size());
                 escrever();
                 validarNumeroNota();
                 Conexao.fechaConexao(con);

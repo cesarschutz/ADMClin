@@ -432,7 +432,7 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
     private void jBGerarFaturaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBGerarFaturaActionPerformed
 
         apagarAtendimentosDaLista();
-
+        
         if (listaDeAtendimentos.size() > 0) {
             // gera a fatura PDF
             if (tipo.equals("grupo")) {
