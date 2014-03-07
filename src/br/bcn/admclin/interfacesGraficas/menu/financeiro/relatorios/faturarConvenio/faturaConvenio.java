@@ -79,16 +79,16 @@ public class faturaConvenio {
     private void criandoAPastaParaSalvarOArquivo() {
         if (OSvalidator.isWindows()) {
             if (tipo.equals("grupo")) {
-                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\" + nome + "\\";
             } else {
-                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConvenios\\";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConvenios\\" + nome + "\\";
             }
 
         } else {
             if (tipo.equals("grupo")) {
-                caminho = USUARIOS.pasta_raiz + "/FaturasDeConveniosPorGrupo/";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConveniosPorGrupo/" + nome + "/";
             } else {
-                caminho = USUARIOS.pasta_raiz + "/FaturasDeConvenios/";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConvenios/" + nome + "/";
             }
         }
         File dir = new File(caminho);

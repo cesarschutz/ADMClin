@@ -36,6 +36,7 @@ public class GerarArquivoTxtDaFatura {
     private int handle_convenio = 0;
     private String tipo;
     private int grupo_id;
+    private String nome = null;
     private Date dataInicial = null, dataFinal = null;
     private List<atendimentoModel> listaDeAtendimentos = new ArrayList<atendimentoModel>();
 
@@ -45,6 +46,7 @@ public class GerarArquivoTxtDaFatura {
         this.dataFinal = dataFinal;
         this.handle_convenio = handle_convenio;
         this.tipo = tp;
+        this.nome = nome.replace(" ", "_");
         this.listaDeAtendimentos = listaAtendimentos;
     }
 
@@ -54,6 +56,7 @@ public class GerarArquivoTxtDaFatura {
         this.dataFinal = dataFinal;
         this.grupo_id = grupo_id;
         this.tipo = tp;
+        this.nome = "Grupo" + nome.replace(" ", "_");
         this.listaDeAtendimentos = listaAtendimentos;
     }
 
@@ -62,16 +65,16 @@ public class GerarArquivoTxtDaFatura {
     private void criandoAPastaParaSalvarOArquivo() {
         if (OSvalidator.isWindows()) {
             if (tipo.equals("grupo")) {
-                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConveniosPorGrupo\\" + nome + "\\ArquivoTexto";
             } else {
-                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConvenios\\ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "\\FaturasDeConvenios\\" + nome + "\\ArquivoTexto";
             }
 
         } else {
             if (tipo.equals("grupo")) {
-                caminho = USUARIOS.pasta_raiz + "/FaturasDeConveniosPorGrupo/ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConveniosPorGrupo/" + nome + "/ArquivoTexto";
             } else {
-                caminho = USUARIOS.pasta_raiz + "/FaturasDeConvenios/ArquivoTexto";
+                caminho = USUARIOS.pasta_raiz + "/FaturasDeConvenios/" + nome + "/ArquivoTexto";
             }
         }
         File dir = new File(caminho);
