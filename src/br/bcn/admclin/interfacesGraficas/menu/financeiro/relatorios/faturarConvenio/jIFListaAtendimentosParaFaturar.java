@@ -31,6 +31,10 @@ import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.financeiro.faturarConvenio.arquivoTxtDoIpe.GerarArquivoTxtDaFatura;
+import javax.swing.JCheckBox;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * 
@@ -392,32 +396,36 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
         });
 
         jLabel1.setText("jLabel1");
+        
+        jCBGeraLaudos = new JCheckBox();
+        jCBGeraLaudos.setText("Gerar Laudos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
-            .addComponent(jBGerarFatura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                jPanel1Layout
-                    .createSequentialGroup()
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
+                .addComponent(jBGerarFatura, GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jLabel1)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(jCheckBox1)
-                    .addContainerGap()));
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                jPanel1Layout
-                    .createSequentialGroup()
-                    .addGroup(
-                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox1).addComponent(jLabel1))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBGerarFatura)));
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jCBGeraLaudos, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED, 637, Short.MAX_VALUE)
+                    .addComponent(jCheckBox1)
+                    .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jCheckBox1)
+                        .addComponent(jLabel1)
+                        .addComponent(jCBGeraLaudos))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jBGerarFatura))
+        );
+        jPanel1.setLayout(jPanel1Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -434,28 +442,34 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
         apagarAtendimentosDaLista();
         
         if (listaDeAtendimentos.size() > 0) {
+            boolean geraLaudos = false;
+            if(jCBGeraLaudos.isSelected()){
+                geraLaudos = true;
+            }
+            
             // gera a fatura PDF
             if (tipo.equals("grupo")) {
                 faturaConvenio faturaConvenio =
-                    new faturaConvenio("grupo", dataInicial, dataFinal, nome, grupo_id, 0, listaDeAtendimentos);
+                    new faturaConvenio("grupo", dataInicial, dataFinal, nome, grupo_id, 0, listaDeAtendimentos, geraLaudos);
                 if (faturaConvenio.gerarFatura()) {
                     gerarArquivoTextoGrupo();
                 }
             } else {
                 faturaConvenio faturaConvenio =
-                    new faturaConvenio("convenio", dataInicial, dataFinal, nome, handle_convenio, listaDeAtendimentos);
+                    new faturaConvenio("convenio", dataInicial, dataFinal, nome, handle_convenio, listaDeAtendimentos, geraLaudos);
                 if (faturaConvenio.gerarFatura()) {
                     geraArquivoTextoConvenio();
                 }
             }
 
             abrirFinanceiroRelatorioFaturarConvenios();
+            
         } else {
             JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
                 "Selecione um Atendimento.");
         }
     }// GEN-LAST:event_jBGerarFaturaActionPerformed
-
+    
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCheckBox1ActionPerformed
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             if (jCheckBox1.isSelected()) {
@@ -517,5 +531,6 @@ public class jIFListaAtendimentosParaFaturar extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private JCheckBox jCBGeraLaudos;
     // End of variables declaration//GEN-END:variables
 }

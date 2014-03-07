@@ -32,7 +32,8 @@ public class criaPDFdoLaudo {
     String laudo;
     String urlAssinaturaDigital;
     String caminhoPDF;
-    
+
+    //metodo construtor utilizado da janela de laudo
     public criaPDFdoLaudo(String numero, String dataDoExame, String nomePaciente, String nomeMedico, String laudo) {
         this.numero = numero;
         this.dataDoExame = dataDoExame;
@@ -42,12 +43,36 @@ public class criaPDFdoLaudo {
         this.caminhoPDF = criandoAPastaParaSalvarOArquivo();
     }
     
+    //metodo contrutor utilizado na fatura, para definir o caminho correto
+    public criaPDFdoLaudo(String numero, String dataDoExame, String nomePaciente, String nomeMedico, String laudo, String caminho) {
+        this.numero = numero;
+        this.dataDoExame = dataDoExame;
+        this.nomePaciente = nomePaciente;
+        this.nomeMedico = nomeMedico;
+        this.laudo = laudo;
+        this.caminhoPDF = criandoAPastaParaSalvarOArquivo(caminho);
+    }
+    
     private String criandoAPastaParaSalvarOArquivo() {
         String caminhoParaSalvarPDF;
         if (OSvalidator.isWindows()) {
             caminhoParaSalvarPDF = USUARIOS.pasta_raiz + "\\Laudos\\";
         } else {
             caminhoParaSalvarPDF = USUARIOS.pasta_raiz + "/Laudos/";
+        }
+        File dir = new File(caminhoParaSalvarPDF);
+        dir.mkdirs();
+        
+        return caminhoParaSalvarPDF;
+    }
+    
+    //metodo utilizado apra a fatura
+    private String criandoAPastaParaSalvarOArquivo(String caminho) {
+        String caminhoParaSalvarPDF;
+        if (OSvalidator.isWindows()) {
+            caminhoParaSalvarPDF = caminho;
+        } else {
+            caminhoParaSalvarPDF = caminho;
         }
         File dir = new File(caminhoParaSalvarPDF);
         dir.mkdirs();

@@ -51,27 +51,30 @@ public class faturaConvenio {
     private String nome = null, tipo = null;
     private Date dataInicial = null, dataFinal = null;
     public List<atendimentoModel> listaDeAtendimentos = new ArrayList<atendimentoModel>();
+    boolean geraLaudos;
 
     // convenio
     public faturaConvenio(String tp, Date dataInicial, Date dataFinal, String nome, int handle_convenio,
-        List<atendimentoModel> listaAtendimentos) {
+        List<atendimentoModel> listaAtendimentos, boolean GeraLaudos) {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.nome = nome.replace(" ", "_");
         this.handle_convenio = handle_convenio;
         this.tipo = tp;
         this.listaDeAtendimentos = listaAtendimentos;
+        this.geraLaudos = GeraLaudos;
     }
 
     // grupo
     public faturaConvenio(String tp, Date dataInicial, Date dataFinal, String nome, int grupo_id, int x,
-        List<atendimentoModel> listaAtendimentos) {
+        List<atendimentoModel> listaAtendimentos, boolean GeraLaudos) {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.nome = "Grupo" + nome.replace(" ", "_");
         this.grupo_id = grupo_id;
         this.tipo = tp;
         this.listaDeAtendimentos = listaAtendimentos;
+        this.geraLaudos = GeraLaudos;
     }
 
     String caminho = "";
@@ -152,6 +155,9 @@ public class faturaConvenio {
             criandoAFatura();
             validarNumeroFatura();
             abrirFichaPDF();
+            if(geraLaudos){
+                gerarLaudos();
+            }
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
@@ -786,5 +792,13 @@ public class faturaConvenio {
         valor = new BigDecimal(valor).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
 
         return String.valueOf(valor);
+    }
+    
+    private void gerarLaudos(){
+        System.out.println("vai gerar laudos");
+        System.out.println(listaDeAtendimentos.get(0).getHandle_at());
+        System.out.println(listaDeAtendimentos.get(0).getData_atendimento());
+        System.out.println(listaDeAtendimentos.get(0).getNomePaciente());
+        //falta o nome do medico e o laudo ;)
     }
 }
