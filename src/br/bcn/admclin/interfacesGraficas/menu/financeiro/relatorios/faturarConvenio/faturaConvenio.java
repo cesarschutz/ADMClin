@@ -9,6 +9,7 @@ import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.criaPDFdoLaudo;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -795,10 +796,16 @@ public class faturaConvenio {
     }
     
     private void gerarLaudos(){
+        
         System.out.println("vai gerar laudos");
         System.out.println(listaDeAtendimentos.get(0).getHandle_at());
         System.out.println(listaDeAtendimentos.get(0).getData_atendimento());
         System.out.println(listaDeAtendimentos.get(0).getNomePaciente());
         //falta o nome do medico e o laudo ;)
+        criaPDFdoLaudo criaLaudo = new criaPDFdoLaudo("8", "24/02/2013", "cesar", "cesarmedicos", "bla bla bla", caminho + "Laudos\\");
+        try {
+            criaLaudo.criarPDF();
+        } catch (DocumentException | IOException e) {
+        } 
     }
 }
