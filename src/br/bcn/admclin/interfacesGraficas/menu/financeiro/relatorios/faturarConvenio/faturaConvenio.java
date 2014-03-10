@@ -6,6 +6,7 @@ package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConv
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.db.JLAUDOS;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
@@ -796,16 +797,27 @@ public class faturaConvenio {
     }
     
     private void gerarLaudos(){
-        
-        System.out.println("vai gerar laudos");
-        System.out.println(listaDeAtendimentos.get(0).getHandle_at());
-        System.out.println(listaDeAtendimentos.get(0).getData_atendimento());
-        System.out.println(listaDeAtendimentos.get(0).getNomePaciente());
-        //falta o nome do medico e o laudo ;)
-        criaPDFdoLaudo criaLaudo = new criaPDFdoLaudo("8", "24/02/2013", "cesar", "cesarmedicos", "bla bla bla", caminho + "Laudos\\");
-        try {
-            criaLaudo.criarPDF();
-        } catch (DocumentException | IOException e) {
-        } 
+        for (int i = 0; i < listaDeAtendimentos.size(); i++) {
+            try {
+                String handle_at = String.valueOf(listaDeAtendimentos.get(i).getHandle_at());
+                
+                Date data_atendimento = listaDeAtendimentos.get(0).getData_atendimento();
+                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy"); 
+                String dataString = f.format(data_atendimento);
+                
+                String nomePaciente = listaDeAtendimentos.get(0).getNomePaciente();
+                String nomeMedico = listaDeAtendimentos.get(0).getNomeMedico();
+                
+                String laudo = JLAUDOS.getConsultarLaudo(Integer.valueOf(handle_at));
+                if (laudo.equals("vazio")) {
+                    laudo = "";
+                }
+                
+                criaPDFdoLaudo criaLaudo = new criaPDFdoLaudo(handle_at, dataString, nomePaciente, nomeMedico, laudo, caminho + "Laudos\\");
+                criaLaudo.criarPDF();
+            } catch (Exception e) {
+                System.out.println("erro: " + e);
+            }
+        }
     }
 }

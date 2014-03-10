@@ -35,7 +35,7 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct m.crm as crmMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
+                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join atendimento_exames e on a.handle_at = e.handle_at "
@@ -60,7 +60,7 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct m.crm as crmMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.handle_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
+                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.handle_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join convenio c on a.handle_convenio = c.handle_convenio "

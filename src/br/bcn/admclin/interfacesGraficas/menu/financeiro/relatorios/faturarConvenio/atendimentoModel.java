@@ -13,7 +13,7 @@ import java.sql.Date;
 public class atendimentoModel {
 
     private int handle_at, handle_convenio, flag_laudo, flag_faturado;
-    private String nomePaciente, matricula_convenio, modalidade, nascimentoPaciente, crmMedico, hora;
+    private String nomePaciente, matricula_convenio, modalidade, nascimentoPaciente, crmMedico, hora, nomeMedico;
     private Date data_atendimento;
 
     public int getHandle_at() {
@@ -104,4 +104,11 @@ public class atendimentoModel {
         this.hora = hora;
     }
 
+    public String getNomeMedico() {
+        return nomeMedico;
+    }
+
+    public void setNomeMedico(String nomeMedico) {
+        this.nomeMedico = nomeMedico;
+    }
 }

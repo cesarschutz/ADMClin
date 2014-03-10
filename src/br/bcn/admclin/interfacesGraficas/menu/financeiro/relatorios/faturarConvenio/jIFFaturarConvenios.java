@@ -119,6 +119,7 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
             atendimento.setHora(MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento")));
             atendimento.setFlag_laudo(resultSet.getInt("flag_laudo"));
             atendimento.setFlag_faturado(resultSet.getInt("flag_faturado"));
+            atendimento.setNomeMedico(resultSet.getString("nomeMedico"));
 
             listaDeAtendimentos.add(atendimento);
         }
