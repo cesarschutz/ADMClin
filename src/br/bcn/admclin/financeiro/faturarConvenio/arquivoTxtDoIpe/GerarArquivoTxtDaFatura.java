@@ -6,6 +6,7 @@ package br.bcn.admclin.financeiro.faturarConvenio.arquivoTxtDoIpe;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.calculoValorDeUmExame.DAO;
 import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
@@ -118,6 +119,17 @@ public class GerarArquivoTxtDaFatura {
         }
 
         while (resultSet.next()) {
+            //buscando o ch do convenio
+            //para que nao tenha problema caso o CH seja null
+            Double chConvenio = 1.0;
+            Connection con = Conexao.fazConexao();
+            ResultSet rsCH = DAO.getConsultarValorDoCHDoConvenio(con, resultSet.getInt("handle_convenio"), resultSet.getDate("data_atendimento"));
+            while (rsCH.next()) {
+                // colocando dados nos objetos
+                chConvenio = Double.valueOf(rsCH.getString("valor"));
+            }
+            
+            
             ExameModel exame = new ExameModel();
             exame.setHandle_at(resultSet.getString("handle_at"));
             exame.setMatricula(resultSet.getString("matricula_convenio"));
@@ -153,7 +165,7 @@ public class GerarArquivoTxtDaFatura {
 
                 // aqui vamos arrumar a quantidade caso seja exame 32200005
                 if ((exame.getValor_correto_convenio() - exame.getValor_materiais()) < 1) {
-                    double qtd = exame.getValor_materiais() / Double.valueOf(resultSet.getString("valor"));
+                    double qtd = exame.getValor_materiais() / chConvenio;
                     double qtdArrumada = new BigDecimal(qtd).setScale(0, RoundingMode.HALF_EVEN).doubleValue();
                     int qtdInteira = (int) qtdArrumada;
                     String qtdString = String.valueOf(qtdInteira);
@@ -169,7 +181,7 @@ public class GerarArquivoTxtDaFatura {
                     // primeiro adicionamos este exame e dps vamos adicionar igual porem com o codigo de material e
                     // quantidade de material
                     // precisamos zere o valor corrteo convenio para nao duplicar, pegar somente o valor dos materiais
-                    double qtd = exame.getValor_materiais() / Double.valueOf(resultSet.getString("valor"));
+                    double qtd = exame.getValor_materiais() / chConvenio;
                     double qtdArrumada = new BigDecimal(qtd).setScale(0, RoundingMode.HALF_EVEN).doubleValue();
                     int qtdInteira = (int) qtdArrumada;
                     String qtdString = String.valueOf(qtdInteira);
