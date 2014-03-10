@@ -813,6 +813,7 @@ public class faturaConvenio {
                     laudo = "";
                 }
                 
+                laudo = laudo.replaceAll("\\[\\]", "\n");
                 criaPDFdoLaudo criaLaudo = new criaPDFdoLaudo(handle_at, dataString, nomePaciente, nomeMedico, laudo, caminho + "Laudos\\");
                 criaLaudo.criarPDF();
             } catch (Exception e) {
