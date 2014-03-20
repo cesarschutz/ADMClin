@@ -59,6 +59,7 @@ import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
+import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /*
@@ -194,11 +195,16 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
             preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimento();
 
             // aqui vamos sumir o botao imprimir nota fiscal do modelo de impressao 1 (pois nao imprime nota)
-            if (janelaPrincipal.modeloDeImpressao == 1) {
+            if (janelaPrincipal.modeloDeImpressao == 1 ) {
                 jBImprimirNotaFiscal.setVisible(false);
             }
             // agora sumir o botao imprimir boleto de retirada do modelo 2 (sai junto com a ficha)
             if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
+                jBImprimirBoletoDeRetirada.setVisible(false);
+            }
+            // aqui vamos sumir o botao imprimir nota fiscal e o boleto de retirada que sai junto com a ficha
+            if(janelaPrincipal.modeloDeImpressao == 4){
+                jBImprimirNotaFiscal.setVisible(false);
                 jBImprimirBoletoDeRetirada.setVisible(false);
             }
         }
@@ -287,6 +293,11 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
         }
         // agora sumir o botao imprimir boleto de retirada do modelo 2 (sai junto com a ficha)
         if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
+            jBImprimirBoletoDeRetirada.setVisible(false);
+        }
+     // aqui vamos sumir o botao imprimir nota fiscal e o boleto de retirada que sai junto com a ficha 
+        if(janelaPrincipal.modeloDeImpressao == 4){
+            jBImprimirNotaFiscal.setVisible(false);
             jBImprimirBoletoDeRetirada.setVisible(false);
         }
 
@@ -1076,6 +1087,11 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
                         jBImprimirFicha.setVisible(true);
                         jBImprimirNotaFiscal.setVisible(true);
+                    }
+                    // aqui vamos sumir o botao imprimir nota fiscal e o boleto de retirada que sai junto com a ficha
+                    if(janelaPrincipal.modeloDeImpressao == 4){
+                        jBImprimirNotaFiscal.setVisible(false);
+                        jBImprimirBoletoDeRetirada.setVisible(false);
                     }
 
                     // desabilitando os campos do atendimento para nao poder editar
@@ -3006,6 +3022,9 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha =
                         new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
                     abriuFicha = imprimirFicha.imprimir();
+                } else if (janelaPrincipal.modeloDeImpressao == 4){
+                    ImprimirFichaDeAutorizacaoModelo4 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo4(handle_at);
+                    abriuFicha = imprimirFicha.salvarEImprimirFicha();
                 }
 
                 // se deu tudo certo na impressao entra nesse if

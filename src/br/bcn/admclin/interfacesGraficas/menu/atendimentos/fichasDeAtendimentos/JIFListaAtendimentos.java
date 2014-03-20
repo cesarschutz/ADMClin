@@ -49,6 +49,7 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaCodigoDeBarrasModelo2
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
+import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import java.awt.Dimension;
@@ -1443,6 +1444,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirEtiqueta);
             imprimir.add(imprimirCodigoDeBarras);
+        } else if (janelaPrincipal.modeloDeImpressao == 4){
+            imprimir.add(imprimirFicha);
+            imprimir.add(imprimirEtiqueta);
         }
 
         // cria o menu popup e adiciona os itens
@@ -1524,6 +1528,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                     ImprimirFichaEBoletoDeRetiradaModelo3 imprimirFicha =
                         new ImprimirFichaEBoletoDeRetiradaModelo3(handle_at);
                     abriuFicha = imprimirFicha.imprimir();
+                } else if (janelaPrincipal.modeloDeImpressao == 4){
+                    ImprimirFichaDeAutorizacaoModelo4 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo4(handle_at);
+                    abriuFicha = imprimirFicha.salvarEImprimirFicha();
                 }
 
                 // se deu tudo certo na impressao entra nesse if
@@ -1589,7 +1596,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             @Override
             protected Object doInBackground() throws Exception {
                 boolean abriuEtiqueta = false;
-                if (janelaPrincipal.modeloDeImpressao == 1) {
+                if (janelaPrincipal.modeloDeImpressao == 1 || janelaPrincipal.modeloDeImpressao == 4) {
                     ImprimirEtiquetaEnvelopeModelo1 imprimirEtiqueta = new ImprimirEtiquetaEnvelopeModelo1(handle_at);
                     abriuEtiqueta = imprimirEtiqueta.salvarEIMprimirEtiqueta();
                 } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {

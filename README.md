@@ -49,6 +49,6 @@ MODELOS DE IMPRESSÃO!
 MODELO 1 - unirad e digimax
 MODELO 2 - conrad
 MODELO 3 - de carli
-MODELO 4 - CIDI
+MODELO 4 - CIDI - tem somente a ficha pois é diferente, nela sai junto o boleto de retirada! Para a etiqueta é utilizada a mesma classe do modelo 1.
 
 
