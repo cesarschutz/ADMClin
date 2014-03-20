@@ -5,9 +5,6 @@ Projeto ADMClin - BCN MEDICAL SYSTEM
 
 =================================================
 
-Versão 2.0 para a versão 2.1
-Alterados os tipos de campos no banco de dados.
-
 Cuidados:
 Agenda deve ser cadastrada uma com ID = 0, isso para que quando forem todas as agendas a participar ed um feriado/intervalo marcar essa de ID 0.
 Todos os generators devem estar como 1 quando o banco estiver zerado.
@@ -45,5 +42,13 @@ PACDB      - caminho do banco DB
 RISDB      - caminho do banco DBRIS.FDB
 RISIP      - ip do servidor
 NOMEPORTAL - nome do portal (geralmente com nome de PORTAL)
+
+
+MODELOS DE IMPRESSÃO!
+
+MODELO 1 - unirad e digimax
+MODELO 2 - conrad
+MODELO 3 - de carli
+MODELO 4 - CIDI
 
 

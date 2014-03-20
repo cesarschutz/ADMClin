@@ -1097,7 +1097,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
+                
                 RISIP = System.getenv("RISIP");
                 // RISIP = "10.2.2.249";
                 // RISIP = "192.168.25.15";
