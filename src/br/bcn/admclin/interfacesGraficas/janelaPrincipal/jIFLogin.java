@@ -113,7 +113,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
                 janelaPrincipal.modeloDeImpressao = resultSet.getInt("modelo_impressao");
             }
             //se nao for um modelo existente, o programa nao abre!
-            if (janelaPrincipal.modeloDeImpressao != 1 && janelaPrincipal.modeloDeImpressao != 2 && janelaPrincipal.modeloDeImpressao != 3) {
+            if (janelaPrincipal.modeloDeImpressao != 1 && janelaPrincipal.modeloDeImpressao != 2 && janelaPrincipal.modeloDeImpressao != 3 && janelaPrincipal.modeloDeImpressao != 4) {
                 JOptionPane.showMessageDialog(null, "Modelo de Impressão incorreto. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }

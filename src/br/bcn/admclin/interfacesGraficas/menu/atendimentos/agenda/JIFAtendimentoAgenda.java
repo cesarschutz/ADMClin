@@ -1090,8 +1090,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     }
                     // aqui vamos sumir o botao imprimir nota fiscal e o boleto de retirada que sai junto com a ficha
                     if(janelaPrincipal.modeloDeImpressao == 4){
-                        jBImprimirNotaFiscal.setVisible(false);
-                        jBImprimirBoletoDeRetirada.setVisible(false);
+                        jBImprimirFicha.setVisible(true);
                     }
 
                     // desabilitando os campos do atendimento para nao poder editar
