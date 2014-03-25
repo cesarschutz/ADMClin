@@ -72,15 +72,21 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
                 numExamesImpressos = 0;
             }
         }
-
+        
         imprimir.close();
     }
 
     private void imprimirCabec() {
 
+    	imprimir.lineFeed();
+    	imprimir.lineFeed();
+    	imprimir.lineFeed();
+    	imprimir.lineFeed();
+    	imprimir.lineFeed();
+    	imprimir.lineFeed();
         // imprimindo a ficha
         // ficha da casa 1 ateh a 50
-        imprimir.print("FICHA: " + arrumarTamanhoDaString(String.valueOf(handle_at), 47));
+        imprimir.print("    FICHA: " + arrumarTamanhoDaString(String.valueOf(handle_at), 47));
 
         // colocando o espaçamento para ir o nome do paciente
         imprimir.lineFeed(); // linha 7 (começa a imprimir na 6)
@@ -90,33 +96,33 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String dataDeHoje = format.format(hoje.getTime());
         // data da casa 62 por isso os espaços e no maximo 15 casas
-        imprimir.print("                                                              "
-            + arrumarTamanhoDaString(dataDeHoje, 15));
+        imprimir.print("                                                                "
+            + arrumarTamanhoDaString(dataDeHoje, 13));
 
         imprimir.lineFeed(); // linha 8
         imprimir.lineFeed(); // linha 9
 
         // colocando o dados do paciente
         // nome colocamos 8 espaços em branco e dps o nome poe ter no maximo 45 casas (acaba na casa 53)
-        imprimir.print("        " + arrumarTamanhoDaString(paciente.getNome(), 45));
+        imprimir.print("          " + arrumarTamanhoDaString(paciente.getNome(), 43));
         imprimir.lineFeed();
         // o endereço tem 8 espaços em branco e no maximo 45 casas (acaba na casa 53)
         // o bairro tem 4 casas em branco e pode ter 20 casas ( acaba na 78 )
-        imprimir.print("        " + arrumarTamanhoDaString(paciente.getEndereco(), 45) + "    "
-            + arrumarTamanhoDaString(paciente.getBairro(), 20));
+        imprimir.print("          " + arrumarTamanhoDaString(paciente.getEndereco(), 43) + "      "
+            + arrumarTamanhoDaString(paciente.getBairro(), 18));
         imprimir.lineFeed();
         // cidade tem 8 casas em branco e no maximo 25 casas (acaba na 33)
         // estado tem 5 casas em branco e no maximo 15 (acaba na 53)
         // cep tem 3 espaços em branco e no maximo 22 casas ( acaba na 78)
-        imprimir.print("        " + arrumarTamanhoDaString(paciente.getCidade(), 25) + "     "
-            + arrumarTamanhoDaString(paciente.getEstado(), 15) + "  " + arrumarTamanhoDaString(paciente.getCep(), 22));
+        imprimir.print("          " + arrumarTamanhoDaString(paciente.getCidade(), 23) + "       "
+            + arrumarTamanhoDaString(paciente.getEstado(), 13) + "     " + arrumarTamanhoDaString(paciente.getCep(), 19));
         imprimir.lineFeed();
         // cpf ou cnpj tem 8 casas em branco mais 25 casas (acaba na 33)
         // inscricao estadual tem 8 espaços e no maximo 12 casas (acaba na 53)
         // cond. pagamento tem 9 espaços en no maximo 15 (acaba na 78)
-        imprimir.print("        " + arrumarTamanhoDaString(paciente.getCpf_cnpj(), 25) + "        "
+        imprimir.print("          " + arrumarTamanhoDaString(paciente.getCpf_cnpj(), 23) + "          "
             + arrumarTamanhoDaString(paciente.getInscricao_estadual(), 12) + "         "
-            + arrumarTamanhoDaString("À VISTA", 15));
+            + arrumarTamanhoDaString("À VISTA", 13));
         imprimir.lineFeed();
         imprimir.lineFeed();
 
@@ -131,7 +137,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         String nome_e_codigo =
             listaDeExames.get(i - 1).getCod_exame() + " - " + listaDeExames.get(i - 1).getModalidade() + " - "
                 + listaDeExames.get(i - 1).getNome();
-        imprimir.print(arrumarTamanhoDaString(nome_e_codigo, 48));
+        imprimir.print("   " + arrumarTamanhoDaString(nome_e_codigo, 45));
 
         // imprimindo a quantidade
         imprimir.print(arrumarStringAlinhadaADireita(String.valueOf("01"), 6));
@@ -171,7 +177,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
             + arrumarStringAlinhadaADireita(valorTotalDaNota, 16));
         valor_total_da_nota = 0.0;
 
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < 4; j++) {
             imprimir.lineFeed();
         }
     }
