@@ -54,14 +54,22 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
     }
 
     private void imprimirCanhotoDeRetirada() {
+    	
+        imprimir.lineFeed(); // linha 1
+        imprimir.lineFeed(); // linha 2
+        imprimir.lineFeed(); // linha 3
+        imprimir.lineFeed(); // linha 4
+        imprimir.lineFeed(); // linha 5
+        imprimir.lineFeed(); // linha 6
+        imprimir.lineFeed(); // linha 7
         // imprimindo o nome do paciente
-        imprimir.print("   " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 67));
+        imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 67));
 
         imprimir.lineFeed(); // linha 2
         imprimir.lineFeed(); // linha 3
 
         // imprimindo exame data e nº
-        imprimir.print("   " + arrumarTamanhoDaString(nomeModalidade(listaDeExames.get(0).getModalidade()), 27)
+        imprimir.print("    " + arrumarTamanhoDaString(nomeModalidade(listaDeExames.get(0).getModalidade()), 27)
             + "     " + arrumarTamanhoDaString(listaDeExames.get(0).getDataEntregaExame(), 20) + "   "
             + arrumarTamanhoDaString(String.valueOf(handle_at), 13));
 
@@ -72,6 +80,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         imprimir.lineFeed(); // linha 8
         imprimir.lineFeed(); // linha 9
         imprimir.lineFeed(); // linha 10
+        imprimir.lineFeed(); // linha 11
 
     }
 
@@ -80,28 +89,33 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         // imprimir a hora do atendimento linha 10 (campo: hora de chegada)
         // 69 espaços em branco
         imprimir.print("                                                                     "
-            + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 11));
+            + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 10));
 
         imprimir.lineFeed(); // linha 11
-        imprimir.lineFeed(); // linha 12
+        
         // imprimi na linha 12 a data do atendimento (campo: data)
         // 62 espaços
         imprimir.print("                                                              "
-            + arrumarTamanhoDaString(listaDeExames.get(0).getDataAtendimento(), 19));
+            + arrumarTamanhoDaString(listaDeExames.get(0).getDataAtendimento(), 12));
 
         imprimir.lineFeed(); // linha 13
         // imprimir o handle at na linha 13 (campo: nº)
         // 37 espaços em branco
         imprimir.print("                                     " + arrumarTamanhoDaString(String.valueOf(handle_at), 19));
 
-        imprimir.lineFeed(); // linha 14
-        imprimir.lineFeed(); // linha 15
-        // imprimi nome paciente, nome convenio e hora marcada linha 15
-        imprimir.print("   " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 31) + "       "
-            + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getNomeConvenio()), 16) + "           "
-            + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 6));
+        imprimir.lineFeed();
 
-        imprimir.lineFeed(); // linha 16
+        // imprimi a hora marca
+        imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 54) 
+        		+ "           " + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 6));
+        
+        imprimir.lineFeed();
+        
+        imprimir.print("                                          " + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getNomeConvenio()), 16));
+
+        imprimir.lineFeed();
+        imprimir.lineFeed();
+        
         // imprimi hora do atendimento na linha 16
         Calendar hoje = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("hh:mm");
@@ -110,12 +124,14 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         imprimir.print("                                                                      "
             + arrumarTamanhoDaString(String.valueOf(horaAtual), 6));
 
-        imprimir.lineFeed(); // linha 17
+        imprimir.lineFeed(); 
+        
         // imprimi endereço do paciente, telefone do paciente na linha 17
         imprimir.print("      " + arrumarTamanhoDaString(listaDeExames.get(0).getEnderecoPaciente(), 28) + "    "
             + arrumarTamanhoDaString(listaDeExames.get(0).getTelefonePaciente(), 19));
 
-        imprimir.lineFeed(); // linha 18
+        imprimir.lineFeed();
+        
         // aqui imprimimos o exame cidade uf, peso altura e idade
         for (int i = 0; i <= 4; i++) {
             String nomeDoExame = " ";
@@ -125,32 +141,33 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
                 nomeDoExame = " ";
             }
 
-            if (i == 1) {
+            if (i == 2) {
                 imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getCidadePaciente(), 26) + "   "
-                    + arrumarTamanhoDaString(listaDeExames.get(0).getUfPaciente(), 24) + " "
-                    + arrumarTamanhoDaString(nomeDoExame, 24));
+                    + arrumarTamanhoDaString(listaDeExames.get(0).getUfPaciente(), 24) + "  "
+                    + arrumarTamanhoDaString(nomeDoExame, 20));
                 imprimir.lineFeed();
             } else if (i == 3) {
                 imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getAlturaPaciente(), 8) + "    "
                     + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getPesoPaciente()), 10) + "    "
-                    + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getPesoPaciente()), 27) + " "
-                    + arrumarTamanhoDaString(nomeDoExame, 24));
+                    + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getIdadePaciente()), 27) + "  "
+                    + arrumarTamanhoDaString(nomeDoExame, 20));
                 imprimir.lineFeed();
             } else {
-                // 58 espaços
-                imprimir.print("                                                          "
-                    + arrumarTamanhoDaString(nomeDoExame, 24));
+                // 59 espaços
+                imprimir.print("                                                           "
+                    + arrumarTamanhoDaString(nomeDoExame, 20));
                 imprimir.lineFeed();
             }
         }
 
-        imprimir.print("                                                                          "
-            + arrumarTamanhoDaString(listaDeExames.get(0).getDuracaoAtendimento(), 5));
+        //imprimir.print("                                                                          "
+            //+ arrumarTamanhoDaString(listaDeExames.get(0).getDuracaoAtendimento(), 5));
 
         // acabou, agora vamo dar os linefeed para posicionar a proxima impressão
-        for (int i = 0; i < 27; i++) {
+        for (int i = 0; i < 21; i++) {
             imprimir.lineFeed();
         }
+        imprimir.close();
 
     }
 
@@ -179,7 +196,6 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
             exame.setNomeConvenio(resultSet.getString("nomeConvenio"));
             exame.setNomeMedicoSolicitante(resultSet.getString("nomeMedico"));
             exame.setNomeExame(resultSet.getString("nomeExame"));
-
             exame.setCidadePaciente(resultSet.getString("cidade"));
             exame.setUfPaciente(resultSet.getString("uf"));
             exame.setAlturaPaciente(resultSet.getString("altura"));
