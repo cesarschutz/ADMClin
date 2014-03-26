@@ -49,6 +49,8 @@ MODELOS DE IMPRESSÃO!
 MODELO 1 - unirad e digimax
 MODELO 2 - conrad
 MODELO 3 - de carli - COMO RODA EM LINUX, DEVE TER O ARQUIVO tahoma.ttf na mesma pasta do .jar
+					  As definições ocorrem no metodo MAIN e no metodo contrutor da janela principal!
+					  No caso da DeCarli como não temos variaveis de ambiente (linux), o ip é definido manualmente na hora da compilação
 MODELO 4 - CIDI - tem somente a ficha pois é diferente, nela sai junto o boleto de retirada! Para a etiqueta é utilizada a mesma classe do modelo 1.
 
 

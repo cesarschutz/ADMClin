@@ -246,6 +246,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
         login.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
 
         setResizable(false);
+        
+      //definindo fonte correta caso seja linux
+        if(!OSvalidator.isWindows() && !OSvalidator.isMac()){ 
+            UIManager.put("Table.font", janelaPrincipal.getFonte(12));  
+        }
     }
 
     public void desativandoOMenu() {
@@ -1124,15 +1129,12 @@ public class janelaPrincipal extends javax.swing.JFrame {
                     UIManager.put("TextField.font", janelaPrincipal.getFonte(12));  
                     UIManager.put("TextArea.font", janelaPrincipal.getFonte(12));  
                     UIManager.put("Button.font", janelaPrincipal.getFonte(12));  
-                    UIManager.put("Table.font", janelaPrincipal.getFonte(12));  
                     UIManager.put("ComboBox.font", janelaPrincipal.getFonte(12));  
                 }
                 
                 
                 
                 RISIP = System.getenv("RISIP");
-                // RISIP = "10.2.2.249";
-                // RISIP = "192.168.25.15";
                 RISDB = System.getenv("RISDB");
                 PACDB = System.getenv("PACDB");
                 NOMEPORTAL = System.getenv("NOMEPORTAL");
