@@ -1118,7 +1118,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
             public void run() {
                 
                 //definindo fonte correta caso seja linux
-                if(!OSvalidator.isWindows() || !OSvalidator.isMac()){
+                if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
                     UIManager.put("Label.font", janelaPrincipal.getFonte(12)); 
                     UIManager.put("TextField.font", janelaPrincipal.getFonte(12));  
                     UIManager.put("TextArea.font", janelaPrincipal.getFonte(12));  
