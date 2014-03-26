@@ -4,11 +4,13 @@
  */
 package br.bcn.admclin.interfacesGraficas.janelaPrincipal;
 
+import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 
 import javax.swing.JFrame;
@@ -166,6 +168,21 @@ public class janelaPrincipal extends javax.swing.JFrame {
         }
         // The directory is now empty so delete it
         return dir.delete();
+    }
+    
+    //metodo para pegar a fonte que sera utilizada no linux
+    //se nao definirmos o linux nao tem a fonte tahoma e ae fica distorcida as janelas!
+    public static Font getFonte( int tamanho ){  
+        Font font = null;  
+        try{  
+            File file = new File( "tahoma.ttf" );  
+            FileInputStream fis = new FileInputStream( file );  
+            font = Font.createFont( Font.TRUETYPE_FONT , fis );  
+        }catch( Exception e ){  
+            System.out.println( e.getMessage() );  
+        }  
+        font = font.deriveFont( Font.PLAIN , tamanho );  
+        return font;  
     }
 
     /*
