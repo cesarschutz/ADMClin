@@ -55,6 +55,7 @@ import br.bcn.admclin.ClasseAuxiliares.ColorirHorariosIndisponiveisNaAgendaELibe
 import br.bcn.admclin.ClasseAuxiliares.ColorirLinhaJTableInicial;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.ColorirIntervalosNaTabelaDeHorario;
+import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.AGENDAS;
 import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
 import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
@@ -164,6 +165,15 @@ public final class JIFUmaAgenda extends javax.swing.JInternalFrame {
         preenchendoOsAtendimentosDeTodasAsTabelas();
         preenchendoOsAgendamentosDeTodasAsTabelas();
         pegandoDataDoSistema();
+        
+        if(!OSvalidator.isMac() || !OSvalidator.isWindows()){
+            jTable1.setFont(janelaPrincipal.getFonte(12));
+            jTable2.setFont(janelaPrincipal.getFonte(12));
+            jTable3.setFont(janelaPrincipal.getFonte(12));
+            jTable4.setFont(janelaPrincipal.getFonte(12));
+            jTable5.setFont(janelaPrincipal.getFonte(12));
+            jTable6.setFont(janelaPrincipal.getFonte(12));
+        }
     }
     java.sql.Date dataDeHojeEmVariavelDate = null;
     public void pegandoDataDoSistema() {
