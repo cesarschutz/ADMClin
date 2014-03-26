@@ -17,8 +17,10 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
+import javax.swing.UIManager;
 
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
+import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamento;
@@ -1114,6 +1116,18 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
+                //definindo fonte correta caso seja linux
+                if(!OSvalidator.isWindows() || !OSvalidator.isMac()){
+                    UIManager.put("Label.font", janelaPrincipal.getFonte(12)); 
+                    UIManager.put("TextField.font", janelaPrincipal.getFonte(12));  
+                    UIManager.put("TextArea.font", janelaPrincipal.getFonte(12));  
+                    UIManager.put("Button.font", janelaPrincipal.getFonte(12));  
+                    UIManager.put("Table.font", janelaPrincipal.getFonte(12));  
+                    UIManager.put("ComboBox.font", janelaPrincipal.getFonte(12));  
+                }
+                
+                
                 
                 RISIP = System.getenv("RISIP");
                 // RISIP = "10.2.2.249";
