@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 
 import javax.swing.JFrame;
@@ -177,12 +178,12 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static Font getFonte( int tamanho ){  
         Font font = null;  
         try{  
-            File file = new File( "tahoma.ttf" );  
-            FileInputStream fis = new FileInputStream( file );  
+            File file = new File("tahoma.ttf");  
+            FileInputStream fis = new FileInputStream(file);  
             font = Font.createFont( Font.TRUETYPE_FONT , fis );  
         }catch( Exception e ){  
             System.out.println( e.getMessage() );  
-        }  
+        }
         font = font.deriveFont( Font.PLAIN , tamanho );  
         return font;  
     }
