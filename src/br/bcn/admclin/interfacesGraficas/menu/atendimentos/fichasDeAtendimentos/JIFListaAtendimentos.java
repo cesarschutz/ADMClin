@@ -1630,7 +1630,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             @Override
             protected Object doInBackground() throws Exception {
                 boolean abriuEtiqueta = false;
-                ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at, USUARIOS.impressora_codigo_de_barras);
+                ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at);
                 abriuEtiqueta = imprimir.writeFile();
 
                 if (abriuEtiqueta) {

@@ -6,7 +6,13 @@ package br.bcn.admclin.impressoes.modelo2e3;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
+
+import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
+import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 
 /**
@@ -17,10 +23,24 @@ public class ImprimirEtiquetaCodigoDeBarrasModelo2 {
 
     private String handle_at;
     private String caminhoImpressora;
+    private String nomeDoArquivo = janelaPrincipal.internalFrameJanelaPrincipal.codigoParaImpressoesLinux + "CODIGOBARRAS";
     
-    public ImprimirEtiquetaCodigoDeBarrasModelo2(int handle_at, String caminhoImpressora) {
+    public ImprimirEtiquetaCodigoDeBarrasModelo2(int handle_at) {
         this.handle_at = arrumaHandle(handle_at);
-        this.caminhoImpressora = caminhoImpressora;
+    }
+    
+    private void instanciarImpressora(){
+        if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
+            caminhoImpressora = nomeDoArquivo;
+        }else{
+            caminhoImpressora = USUARIOS.impressora_codigo_de_barras;
+        }
+    }
+    
+    private void imprimirNotaCasoSejaLinux() throws IOException{
+        if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
+            Runtime.getRuntime().exec("lpr -P " + USUARIOS.impressora_codigo_de_barras + " " + nomeDoArquivo);  
+        }
     }
     
     private String arrumaHandle(int handle_at){
@@ -33,6 +53,7 @@ public class ImprimirEtiquetaCodigoDeBarrasModelo2 {
     
     public boolean writeFile(){
         try{ 
+            instanciarImpressora();
             PrintWriter fo = new PrintWriter(new FileOutputStream(new File(caminhoImpressora)));
             fo.print((char) 2);
             fo.print("n");
@@ -95,7 +116,7 @@ public class ImprimirEtiquetaCodigoDeBarrasModelo2 {
             fo.print((char) 10);
             fo.close();
             
-            
+            imprimirNotaCasoSejaLinux();
             return true;
         }catch(Exception e){
             System.out.println("Erro: " + e);
