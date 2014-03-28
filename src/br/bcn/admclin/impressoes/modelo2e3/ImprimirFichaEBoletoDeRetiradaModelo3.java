@@ -4,6 +4,7 @@
  */
 package br.bcn.admclin.impressoes.modelo2e3;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,26 +17,44 @@ import javax.swing.JOptionPane;
 
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
  * @author Cesar Schutz
  */
 public class ImprimirFichaEBoletoDeRetiradaModelo3 {
     private Connection con = null;
-    private ESCPrinter imprimir = new ESCPrinter(USUARIOS.impressora_ficha, true);
+    private ESCPrinter imprimir;
     private int handle_at;
     private List<ImprimirFichaEBoletoDeRetiradaModelo2MODEL> listaDeExames =
         new ArrayList<ImprimirFichaEBoletoDeRetiradaModelo2MODEL>();
+    private String nomeDoArquivo = janelaPrincipal.internalFrameJanelaPrincipal.codigoParaImpressoesLinux + "FICHA";
 
     public ImprimirFichaEBoletoDeRetiradaModelo3(int handle_at) {
         this.handle_at = handle_at;
+    }
+    
+    private void instanciarImpressora(){
+        if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
+            imprimir = new ESCPrinter(nomeDoArquivo, true);
+        }else{
+            imprimir = new ESCPrinter(USUARIOS.impressora_ficha, true);
+        }
+    }
+    
+    private void imprimirNotaCasoSejaLinux() throws IOException{
+        if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
+            Runtime.getRuntime().exec("lpr -P " + USUARIOS.impressora_ficha + " " + nomeDoArquivo);  
+        }
     }
 
     public boolean imprimir() {
         boolean imprimiu = false;
         con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
         try {
+            instanciarImpressora();
             getDadosParaAFicha();
             // inicializando a impressora
             imprimir.initialize();
@@ -43,6 +62,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
             imprimirCanhotoDeRetirada();
             // imprimindo a ficha em si
             imprimirFicha();
+            imprimirNotaCasoSejaLinux();
             imprimiu = true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao imprimir Ficha. Procure o Administrador.", "Erro",

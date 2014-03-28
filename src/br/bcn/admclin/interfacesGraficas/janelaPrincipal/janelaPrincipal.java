@@ -12,7 +12,13 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -187,6 +193,33 @@ public class janelaPrincipal extends javax.swing.JFrame {
         font = font.deriveFont( Font.PLAIN , tamanho );  
         return font;  
     }
+    
+    public String codigoParaImpressoesLinux = "LINUX" + pegandoDataDoSistema();
+    private void apagarArquivosDeImpressaoLinux(){
+        String caminho;
+        try {
+            caminho = System.getProperty("user.dir");
+            caminho = caminho + "/";
+            File path = new File(caminho);
+              
+            File[] files = path.listFiles();  
+            for (File file : files) {
+                if(file.getName().toLowerCase().contains(codigoParaImpressoesLinux.toLowerCase())){
+                    file.delete();
+                }
+            } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao deletar Arquivo. Procure o Administrador!");
+        }  
+    }
+    
+    public String pegandoDataDoSistema() {
+        // pegando data do sistema
+        Calendar hoje = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        String dataDeHoje = format.format(hoje.getTime());
+        return dataDeHoje;
+    }
 
     /*
      * TESTANDO PARA MOSTRAR AO THEO ESSE METODO FAZ ISSO ISSO E ISSO
@@ -203,7 +236,9 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 // se for pra fechar ele apaga as pastas, se tiver pra nao fazer nada ele nao apaga
                 File dir = new File(USUARIOS.pasta_raiz);
                 apagarPasta(dir);
-
+                if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
+                    apagarArquivosDeImpressaoLinux();
+                }
             }
         });
 

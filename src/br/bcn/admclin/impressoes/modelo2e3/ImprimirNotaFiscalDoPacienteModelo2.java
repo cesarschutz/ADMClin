@@ -4,6 +4,7 @@
  */
 package br.bcn.admclin.impressoes.modelo2e3;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -18,7 +19,9 @@ import javax.swing.JOptionPane;
 
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
  * 
@@ -27,23 +30,39 @@ import br.bcn.admclin.dao.dbris.USUARIOS;
 public class ImprimirNotaFiscalDoPacienteModelo2 {
     // instancia da classe
     private Connection con = null;
-    private ESCPrinter imprimir = new ESCPrinter(USUARIOS.impressora_nota_fiscal, true);
+    private ESCPrinter imprimir;    
     private PacienteModel paciente = new PacienteModel();
     private int handle_at;
     public List<ExameModel> listaDeExames = new ArrayList<ExameModel>();
+    private String nomeDoArquivo = janelaPrincipal.internalFrameJanelaPrincipal.codigoParaImpressoesLinux + "NOTAFISCAL";
 
     public ImprimirNotaFiscalDoPacienteModelo2(int handle_at) {
         this.handle_at = handle_at;
-
+    }
+    
+    private void instanciarImpressora(){
+        if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
+            imprimir = new ESCPrinter(nomeDoArquivo, true);
+        }else{
+            imprimir = new ESCPrinter(USUARIOS.impressora_nota_fiscal, true);
+        }
+    }
+    
+    private void imprimirNotaCasoSejaLinux() throws IOException{
+        if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
+            Runtime.getRuntime().exec("lpr -P " + USUARIOS.impressora_nota_fiscal + " " + nomeDoArquivo);  
+        }
     }
 
     public boolean imprimir() {
         boolean imprimiu = false;
         con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
         try {
+            instanciarImpressora();
             getDadosPaciente();
             getExamesRealizados();
             imprimirNotaNew();
+            imprimirNotaCasoSejaLinux();
             imprimiu = true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao imprimir Nota Fiscal. Procure o Administrador.", "Erro",
