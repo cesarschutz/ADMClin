@@ -683,6 +683,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBtr.setSelected(true);
         jCBtr.setText("TR");
+        jCBtr.setVisible(false);
         jCBtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBtrActionPerformed(evt);
@@ -691,6 +692,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBot.setSelected(true);
         jCBot.setText("OT");
+        jCBot.setVisible(false);
         jCBot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBotActionPerformed(evt);
@@ -699,6 +701,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBrf.setSelected(true);
         jCBrf.setText("RF");
+        jCBrf.setVisible(false);
         jCBrf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBrfActionPerformed(evt);
@@ -707,6 +710,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBnm.setSelected(true);
         jCBnm.setText("NM");
+        jCBnm.setVisible(false);
         jCBnm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBnmActionPerformed(evt);
@@ -715,6 +719,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBdr.setSelected(true);
         jCBdr.setText("DR");
+        jCBdr.setVisible(false);
         jCBdr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBdrActionPerformed(evt);
@@ -723,6 +728,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBct.setSelected(true);
         jCBct.setText("CT");
+        jCBct.setVisible(false);
         jCBct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBctActionPerformed(evt);
@@ -731,6 +737,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBmg.setSelected(true);
         jCBmg.setText("MG");
+        jCBmg.setVisible(false);
         jCBmg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBmgActionPerformed(evt);
@@ -739,6 +746,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBdx.setSelected(true);
         jCBdx.setText("DX");
+        jCBdx.setVisible(false);
         jCBdx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBdxActionPerformed(evt);
@@ -747,6 +755,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBcr.setSelected(true);
         jCBcr.setText("CR");
+        jCBcr.setVisible(false);
         jCBcr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBcrActionPerformed(evt);
@@ -755,6 +764,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBmr.setSelected(true);
         jCBmr.setText("MR");
+        jCBmr.setVisible(false);
         jCBmr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBmrActionPerformed(evt);
@@ -763,6 +773,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBTodas.setSelected(true);
         jCBTodas.setText("Todas");
+        jCBTodas.setVisible(false);
         jCBTodas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBTodasActionPerformed(evt);
@@ -771,6 +782,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBus.setSelected(true);
         jCBus.setText("US");
+        jCBus.setVisible(false);
         jCBus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBusActionPerformed(evt);
@@ -816,6 +828,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBdo.setSelected(true);
         jCBdo.setText("DO");
+        jCBdo.setVisible(false);
         jCBdo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBdoActionPerformed(evt);
@@ -824,6 +837,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jCBod.setSelected(true);
         jCBod.setText("OD");
+        jCBod.setVisible(false);
         jCBod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBodActionPerformed(evt);
@@ -920,6 +934,11 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
             jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(1).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+        
         pack();
     }// </editor-fold>//GEN-END:initComponents
 

@@ -156,7 +156,7 @@ public class ATENDIMENTOS {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select P.nome as nomepac, p.handle_paciente as handle_paciente, p.peso as peso, p.cidade as cidade, p.endereco as endereco_paciente, p.altura as altura, p.nascimento as nascimento_paciente, p.sexo as sexo_paciente, p.telefone as telefone_paciente, p.celular as celular_paciente, p.cpf as cpf_paciente, M.nome as nomemed, m.crm as crmMedico, c.nome as nomeconv,A.data_atendimento,a.hora_atendimento, a.duracao_atendimento, a.handle_paciente, a.handle_medico_sol, a.observacao,a.matricula_convenio, a.complemento, a.handle_convenio, a.flag_imprimiu, a.data_exame_pronto, a.modalidade, a.hora_exame_pronto, a.observacao, a.hora_exame_pronto, a.EXAME_ENTREGUE_AO_PACIENTE, a.LAUDO_ENTREGUE_AO_PACIENTE, a.FLAG_LAUDO "
+                con.prepareStatement("select P.nome as nomepac, p.handle_paciente as handle_paciente, p.peso as peso, p.cidade as cidade, p.endereco as endereco_paciente, p.altura as altura, p.nascimento as nascimento_paciente, p.sexo as sexo_paciente, p.telefone as telefone_paciente, p.celular as celular_paciente, p.cpf as cpf_paciente, M.nome as nomemed, m.crm as crmMedico, c.nome as nomeconv,A.data_atendimento,a.hora_atendimento, a.duracao_atendimento, a.handle_paciente, a.handle_medico_sol, a.observacao,a.matricula_convenio, a.complemento, a.handle_convenio, a.flag_imprimiu, a.data_exame_pronto, a.hora_exame_pronto, a.observacao, a.hora_exame_pronto, a.EXAME_ENTREGUE_AO_PACIENTE, a.LAUDO_ENTREGUE_AO_PACIENTE, a.FLAG_LAUDO "
                     + "from atendimentos as A "
                     + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos M on a.handle_medico_sol = m.medicoid "
@@ -234,7 +234,7 @@ public class ATENDIMENTOS {
         String sql =
             "update atendimentos set data_atendimento=?, dat=?, data_exame_pronto=?, "
                 + "handle_at=?, handle_paciente=?, handle_medico_sol=?, handle_agenda=?, handle_convenio=?, hora_atendimento=?, duracao_atendimento=?, usuarioid=?, "
-                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, modalidade=? where handle_at=?";
+                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=? where handle_at=?";
         try {
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -255,15 +255,14 @@ public class ATENDIMENTOS {
             stmt.setString(13, atendimento.getMATRICULA_CONVENIO());
             stmt.setString(14, atendimento.getCOMPLEMENTO());
             stmt.setInt(15, atendimento.getHORA_EXAME_PRONTO());
-            stmt.setString(16, atendimento.getMODALIDADE());
 
-            stmt.setInt(17, atendimento.getHANDLE_AT());
+            stmt.setInt(16, atendimento.getHANDLE_AT());
 
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao registrar Atendimento. Procure o Administrador." + e, "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao registrar Atendimento. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return cadastro;

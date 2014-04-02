@@ -491,7 +491,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     if (listaHandleConvenio.get(x) == resultSet.getInt("handle_convenio")) {
                         jCBConvenio.setSelectedIndex(x);
                         resultSet.getInt("handle_convenio");
-                        jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
+                        //jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
                     }
                 }
 
@@ -608,7 +608,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                     if (listaHandleConvenio.get(x) == resultSet.getInt("handle_convenio")) {
                         jCBConvenio.setSelectedIndex(x);
                         resultSet.getInt("handle_convenio");
-                        jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
+                        //jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
                     }
                 }
 
@@ -711,7 +711,7 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel preencher os Convênios. Procure o administrador.",
+            JOptionPane.showMessageDialog(null, "Não foi possivel preencher os Convênios. Procure o administrador." + e,
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -2637,16 +2637,18 @@ public class JIFAtendimentoAgenda extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     private void jCBModalidadeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBModalidadeActionPerformed
 
+        //AQUI FOI COMENTADO PARA QUE AO MUDAR A MODALIDADE, NÃO ZERE OS EXAMES NA TABELA!
+        //ISSO PARA ACEITAR EXAMES DE MODALIDADES DIFERENTES.
         // zerando a tabela
-        ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
-        jTable1.updateUI();
-        duracaoDoAtendimento = 0;
-        jtfDuracaoAtendimento.setText("00:00");
-        jTFValorTotal.setText("");
-        jTFValorConvenio.setText("");
-        jTFValorPaciente.setText("");
-        jCBExame.setEnabled(false);
-        jCBExame.removeAllItems();
+        //((DefaultTableModel) jTable1.getModel()).setNumRows(0);
+        //jTable1.updateUI();
+        //duracaoDoAtendimento = 0;
+        //jtfDuracaoAtendimento.setText("00:00");
+        //jTFValorTotal.setText("");
+        //jTFValorConvenio.setText("");
+        //jTFValorPaciente.setText("");
+        //jCBExame.setEnabled(false);
+        //jCBExame.removeAllItems();
 
         int indexDoConvenio = jCBConvenio.getSelectedIndex();
         int handle_convenio = listaHandleConvenio.get(indexDoConvenio);
