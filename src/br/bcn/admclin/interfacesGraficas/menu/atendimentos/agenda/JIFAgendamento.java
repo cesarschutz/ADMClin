@@ -272,7 +272,7 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
                     for (int x = 0; x < listaHandleConvenio.size(); x++) {
                         if (listaHandleConvenio.get(x) == resultSet.getInt("handle_convenio")) {
                             jCBConvenio.setSelectedIndex(x);
-                            jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
+                            //jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
                         }
                     }
                     primeiraVezNoFor = false;
@@ -2190,16 +2190,16 @@ public class JIFAgendamento extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     private void jCBModalidadeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBModalidadeActionPerformed
         // zerando a tabela
-        ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
-        jTable1.updateUI();
-        duracaoDoAgendamento = 0;
-        jtfDuracaoAgendamento.setText("00:00");
-        jTFValorTotal.setText("");
-        valorTotal = 0;
-        jTFValorConvenio.setText("");
-        jTFValorPaciente.setText("");
-        jCBExame.setEnabled(false);
-        jCBExame.removeAllItems();
+        //((DefaultTableModel) jTable1.getModel()).setNumRows(0);
+        //jTable1.updateUI();
+        //duracaoDoAgendamento = 0;
+        //jtfDuracaoAgendamento.setText("00:00");
+        //jTFValorTotal.setText("");
+        //valorTotal = 0;
+        //jTFValorConvenio.setText("");
+        //jTFValorPaciente.setText("");
+        //jCBExame.setEnabled(false);
+        //jCBExame.removeAllItems();
 
         int indexDoConvenio = jCBConvenio.getSelectedIndex();
         int handle_convenio = listaHandleConvenio.get(indexDoConvenio);
