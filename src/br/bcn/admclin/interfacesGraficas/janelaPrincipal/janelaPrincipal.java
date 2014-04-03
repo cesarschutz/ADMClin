@@ -39,6 +39,7 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFCMedicosAte
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFCPacientesAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFUmaAgenda;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.jIFAlterarValorDeExame;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSemAgenda;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ConsultaValorExames;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ListaConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
@@ -157,6 +158,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
     public static JIFrelatorioDeValoresRecebidosConvenio internalFrameValoresRecebidos;
+    public static JIFAtendimentoSemAgenda internalFrameAtendimentoSemAgenda;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -621,6 +623,14 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
+        
+        JMenuItem jMERegistrarAtendimento = new JMenuItem("Registrar Atendimento");
+        jMERegistrarAtendimento.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                jMEAtendimentoSemAgendaActionPerformed(arg0);
+            }
+        });
+        jMEntradaESaida.add(jMERegistrarAtendimento);
         jMEntradaESaida.add(jMenuItem1);
 
         jMenuBar1.add(jMEntradaESaida);
@@ -730,6 +740,38 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 iframe = null;
             }
         }
+    }
+    
+    private void  jMEAtendimentoSemAgendaActionPerformed(java.awt.event.ActionEvent evt){
+        fechandoTodosOsInternalFrames();
+        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
+
+        SwingWorker<?, ?> worker = new SwingWorker<Object, Object>() {
+            @Override
+            protected Object doInBackground() throws Exception {
+
+                internalFrameAtendimentoSemAgenda = new JIFAtendimentoSemAgenda("livre", 0, 0);
+                jDesktopPane1.add(internalFrameAtendimentoSemAgenda);
+                internalFrameAtendimentoSemAgenda.setVisible(true);
+                // essa parte esta no fim do processo
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFrameAtendimentoSemAgenda.getWidth();
+                int aIFrame = internalFrameAtendimentoSemAgenda.getHeight();
+
+                internalFrameAtendimentoSemAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+
+                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
+                internalFrameAtendimentoSemAgenda.setVisible(true);
+            }
+        };
+
+        worker.execute();
     }
 
     private void jMEAgendaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMEAgendaActionPerformed
