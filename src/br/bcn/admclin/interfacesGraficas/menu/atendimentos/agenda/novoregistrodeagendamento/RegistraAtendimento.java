@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 public class RegistraAtendimento extends JFrame {
 
@@ -39,11 +40,11 @@ public class RegistraAtendimento extends JFrame {
         contentPane.setLayout(null);
         
         JLabel lblConvnio = new JLabel("Convênio:");
-        lblConvnio.setBounds(10, 11, 49, 14);
+        lblConvnio.setBounds(10, 11, 55, 14);
         contentPane.add(lblConvnio);
         
         jCBConvenio = new JComboBox<String>();
-        jCBConvenio.setBounds(69, 8, 261, 20);
+        jCBConvenio.setBounds(77, 8, 261, 20);
         contentPane.add(jCBConvenio);
         
         
@@ -93,6 +94,28 @@ public class RegistraAtendimento extends JFrame {
      * Launch the application.
      */
     public static void main(String[] args) {
+        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(janelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
+                null, ex);
+        }
+        
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

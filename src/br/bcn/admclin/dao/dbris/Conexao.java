@@ -39,8 +39,10 @@ public class Conexao {
             props.put("lc_ctype", "ISO8859_1");
 
             con =
-                DriverManager.getConnection("jdbc:firebirdsql:" + janelaPrincipal.RISIP + "/3050:"
-                    + janelaPrincipal.RISDB, props);
+            //    DriverManager.getConnection("jdbc:firebirdsql:" + janelaPrincipal.RISIP + "/3050:"
+            //        + janelaPrincipal.RISDB, props);
+            DriverManager.getConnection("jdbc:firebirdsql:" + "localhost" + "/3050:"
+                            + "C:\\DBRIS.FDB", props);
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
                 "Erro no drive de conexão. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
