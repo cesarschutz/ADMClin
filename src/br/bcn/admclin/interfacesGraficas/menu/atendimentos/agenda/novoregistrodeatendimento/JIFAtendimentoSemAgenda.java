@@ -58,6 +58,8 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoSelecionarUmMedicoSolicitante;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoSelecionarUmPaciente;
 
 /*
  * To change this template, choose Tools | Templates
@@ -162,15 +164,14 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
             // preencher agenda, data e hora
 //            jTFAgenda.setText(JIFUmaAgenda.jTextField1.getText());
-            jTFDia.setText(String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(
-                4, 14));
+//            jTFDia.setText(String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(4, 14));
 //            jTFHora.setText((String) JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0));
 
             con = Conexao.fazConexao();
             reservandoHorarioCasoSejaUmHorarioLivre();
 
             // caso venha de um agendamento, ele preenche os campos com as informações do agendamento
-            preenchendoOsDadosApartirDoAgendamento();
+            //preenchendoOsDadosApartirDoAgendamento();
 
             // bloquando o menu (pq fizemos uma reserva nos agendamentos e soh vai deletar a reservar ao salvar o
             // agendamento ou cancelar
@@ -180,7 +181,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             jBImprimirFicha.setVisible(false);
             jBImprimirNotaFiscal.setVisible(false);
 
-        } else if ("ocupado".equals(horarioLivreOuOcupado)) {
+            
+        } /*else if ("ocupado".equals(horarioLivreOuOcupado)) {
             jBSalvar.setVisible(false);
             // preenchendo os campos daquele convenio
             con = Conexao.fazConexao();
@@ -200,6 +202,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 jBImprimirBoletoDeRetirada.setVisible(false);
             }
         }
+        */
 
         // focus no paciente
         jTFPaciente.requestFocusInWindow();
@@ -299,11 +302,11 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         Conexao.fechaConexao(con);
     }
 
+    /*
     public void preenchendoOsDadosApartirDoAgendamento() {
         int handle_ap = 0;
         try {
-            handle_ap =
-                Integer.valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 4)));
+            handle_ap = Integer.valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 4)));
         } catch (Exception e) {
         }
 
@@ -405,6 +408,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             }
         }
     }
+    */
 
     public void reservandoHorarioCasoSejaUmHorarioLivre() {
         pegandoUmHandle_atDoBanco();
@@ -418,8 +422,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         atendimentoMODEL.setHANDLE_PACIENTE(0);
         atendimentoMODEL.setHANDLE_MEDICO_SOL(0);
         atendimentoMODEL.setHANDLE_CONVENIO(0);
-        atendimentoMODEL.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(String
-            .valueOf(JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0))));
+        //atendimentoMODEL.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(String.valueOf(JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0))));
         atendimentoMODEL.setHANDLE_AT(handle_at);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -454,7 +457,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         }
 
     }
-
+/*
     public void preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimento() {
         // buscando as informações do atendimento
 
@@ -549,7 +552,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         calcularValoresApartirDaTabela();
     }
-
+    */
     /*
      * Este metodo bloqueia as opções de edição de um exame, isso ocorre quando o atendente ja imprimiu algo ou algum
      * dos exames ja possui laudo.
@@ -560,7 +563,6 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         jCBExame.setEnabled(false);
         jBIncluirExame.setEnabled(false);
         jTable1.setEnabled(false);
-        ;
         jTBDesconto.setEnabled(false);
         jCheckBoxOT.setEnabled(false);
     }
@@ -572,6 +574,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     // variavel para que se flag imprimiu vem marcado, quando salvar salva S
     boolean flag_imprimu = false;
 
+    /*
     public void preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimentoQuandoVemDaPesquisaDeAtendimentos(
         int handle_at, String hora, String data) {
         // buscando as informações do atendimento
@@ -667,6 +670,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         calcularValoresApartirDaTabela();
     }
+    */
 
     // ok
     public void tirandoBarraDeTitulo() {
@@ -780,9 +784,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         if (jTFPaciente.getText().length() >= 3) {
 
-            janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente =
-                new JIFAtendimentoSelecionarUmPaciente(jTFPaciente.getText().toUpperCase());
-            if (veioDaPesquisa) {
+            janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente = new JIFAtendimentoSelecionarUmPaciente(jTFPaciente.getText().toUpperCase());
+            //if (veioDaPesquisa) {
                 janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente);
 
                 int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
@@ -793,7 +796,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setLocation(lDesk / 2 - lIFrame / 2, aDesk
                     / 2 - aIFrame / 2);
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(true);
-            } else {
+            /*} else {
                 JIFAgendaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente);
 
                 int lDesk = JIFAgendaPrincipal.jDesktopPane1.getWidth();
@@ -804,7 +807,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setLocation(lDesk / 2 - lIFrame / 2, aDesk
                     / 2 - aIFrame / 2);
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(true);
-            }
+            }*/
 
             this.setVisible(false);
         } else {
@@ -817,9 +820,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     public void botaoPesquisarMedicoSolicitante() {
 
         if (jTFMedicoSol.getText().length() >= 3) {
-            janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante =
-                new JIFAtendimentoSelecionarUmMedicoSolicitante(jTFMedicoSol.getText());
-            if (veioDaPesquisa) {
+            janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = new JIFAtendimentoSelecionarUmMedicoSolicitante(jTFMedicoSol.getText());
+            //if (veioDaPesquisa) {
                 janelaPrincipal.jDesktopPane1
                     .add(janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante);
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(true);
@@ -831,7 +833,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setLocation(lDesk / 2 - lIFrame
                     / 2, aDesk / 2 - aIFrame / 2);
-            } else {
+            /*} else {
                 JIFAgendaPrincipal.jDesktopPane1
                     .add(janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante);
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(true);
@@ -843,7 +845,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
                 janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setLocation(lDesk / 2 - lIFrame
                     / 2, aDesk / 2 - aIFrame / 2);
-            }
+            }*/
 
             this.setVisible(false);
         } else {
@@ -890,6 +892,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             jTFMensagemParaUsuario.setText("Selecione o Médico Solicitante");
         }
 
+        /*
         boolean matriculaOk = false;
         if (jTFMatricula.getText().length() > 0) {
             matriculaOk = true;
@@ -897,6 +900,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
             jTFMensagemParaUsuario.setText("Preencha a Matrícula");
         }
+        */
 
         boolean hora_exame_prontoOk = false;
 
@@ -910,7 +914,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             }
         }
 
-        if (handle_medico_solOk && handle_pacienteOk && convenioOK && exameOK && matriculaOk && hora_exame_prontoOk) {
+        if (handle_medico_solOk && handle_pacienteOk && convenioOK && exameOK && hora_exame_prontoOk) {
             return true;
         } else {
             return false;
@@ -991,7 +995,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 atendimento.setOBSERVACAO(jTAObservacao.getText());
 
                 atendimento.setDURACAO_ATENDIMENTO(duracaoDoAtendimento);
-                atendimento.setMATRICULA_CONVENIO(jTFMatricula.getText());
+                //atendimento.setMATRICULA_CONVENIO(jTFMatricula.getText());
                 atendimento.setCOMPLEMENTO(jTFComplemento.getText());
 
                 Date dataSelecionada = jXDatePicker1.getDate();
@@ -1117,6 +1121,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     // meodo utilizado no evento do botao salvar!!!!!
 
     // ok
+    /*
     public boolean verificarSeHaTempoParaRealizarOAtendimento() {
         try {
             // pegando duração do exame
@@ -1180,9 +1185,11 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             return false;
         }
     }
+    */
 
     // meodo utilizado no evento do botao salvar!!!!!
     // ok
+    /*
     public String verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada() {
 
         boolean existeAtendimentoNesteHorario = false;
@@ -1213,7 +1220,9 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         }
 
     }
+    */
 
+    /*
     public void atualizarTabelasDaAgenda() {
         // atualizando a janela de uma agenda
         Icon iconeAgendado =
@@ -1248,18 +1257,20 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         Conexao.fechaConexao(con);
     }
+    */
 
     public void botaoAtualizar() {
         if (veioDaPesquisa) {
             botaoSalvar();
         } else {
             // atualizando a tabela
-            atualizarTabelasDaAgenda();
+            //atualizarTabelasDaAgenda();
 
             // String de retorno quando verificou se nao ha tempo para o agendamento ou se ja existe um agendamento
             // naquele horario
-            String retorno = verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada();
-
+            //String retorno = verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada();
+            String retorno = "";
+            
             if (!"".equals(retorno)) {
                 int resposta =
                     JOptionPane.showConfirmDialog(null, retorno, "Atenção", JOptionPane.YES_NO_OPTION,
@@ -1287,6 +1298,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         return deletou;
     }
 
+    /*
     public void botaoCancelar() {
 
         if (veioDaPesquisa) {
@@ -1315,8 +1327,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             // atualiza tabela
             atualizarTabelasDaAgenda();
         }
-
     }
+    */
 
     public static int duracaoDoAtendimento = 0;
 
@@ -2232,7 +2244,9 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             deletarOAtendimento();
             janelaPrincipal.internalFrameJanelaPrincipal.ativandoOMenu();
         }
-        botaoCancelar();
+        //botaoCancelar();
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.dispose();
+        janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
     }// GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBSalvarActionPerformed
