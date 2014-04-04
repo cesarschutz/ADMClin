@@ -85,8 +85,6 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     public static int handle_medico_sol;
     int handle_at;
     int handle_agenda = 0;
-    JInternalFrame internalFrame;
-    JTable tabelaSelecionada;
 
     java.sql.Date dataDeHojeEmVariavelDate = null;
 
@@ -126,8 +124,6 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         this.handle_agenda = handle_agenda;
         this.handle_at = handle_at;
-        this.internalFrame = internalFrame;
-        this.tabelaSelecionada = tabelaSelecionada;
         this.horarioLivreOuOcupado = horarioLivreOuOcupado;
 
         jTFHANDLE_PACIENTE.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -165,10 +161,10 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             jBAtualizar.setVisible(false);
 
             // preencher agenda, data e hora
-            jTFAgenda.setText(JIFUmaAgenda.jTextField1.getText());
+//            jTFAgenda.setText(JIFUmaAgenda.jTextField1.getText());
             jTFDia.setText(String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(
                 4, 14));
-            jTFHora.setText((String) JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0));
+//            jTFHora.setText((String) JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0));
 
             con = Conexao.fazConexao();
             reservandoHorarioCasoSejaUmHorarioLivre();
