@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -120,15 +120,15 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
         String handle_medico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
         String nomeMedico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
 
-        JIFAtendimentoAgenda.jTFHANDLE_MEDICO_SOL.setText(handle_medico);
-        JIFAtendimentoAgenda.jTFMedicoSol.setText(nomeMedico);
+        JIFAtendimentoSemAgenda.jTFHANDLE_MEDICO_SOL.setText(handle_medico);
+        JIFAtendimentoSemAgenda.jTFMedicoSol.setText(nomeMedico);
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFAtendimentoAgenda.handle_medico_sol = Integer.valueOf(handle_medico);
+        JIFAtendimentoSemAgenda.handle_medico_sol = Integer.valueOf(handle_medico);
 
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
-        janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
 
     }
 
@@ -137,11 +137,11 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
      */
     public void botaoEditarMedico() {
 
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //    janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
+        //} else {
             janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(false);
-        }
+        //}
 
         int handle_medico = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
         janelaPrincipal.internalFrameAtendimentoCadastroMedicos = new JIFCMedicosAtendimentos("editar", handle_medico);
@@ -161,11 +161,11 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
      * metodo que abre o o cadastro de paciente para cadastrar um paciente e seleciona-lo
      */
     public void botaoNovoMedico() {
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
+      //if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //    janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
+        //} else {
             janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(false);
-        }
+        //}
 
         janelaPrincipal.internalFrameAtendimentoCadastroMedicos = new JIFCMedicosAtendimentos("novo", 0);
 
@@ -386,8 +386,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCancelarActionPerformed
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
-
-        janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
     }// GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBPesquisaMedicoKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBPesquisaMedicoKeyReleased

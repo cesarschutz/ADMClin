@@ -8,7 +8,7 @@
  *
  * Created on 07/05/2012, 13:52:58
  */
-package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -158,11 +158,11 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoCadastroMedicos = null;
 
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //    janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(true);
+        //} else {
             janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(true);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
-        }
+        //}
     }
 
     public boolean verificarSetudoFoiPreenchidoCorretamente() {
@@ -265,18 +265,18 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
 
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
-            janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
-            janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
-        }
+        //if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //    janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+        //} else {
+        //    janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
+            janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        //}
 
-        JIFAtendimentoAgenda.jTFMedicoSol.setText(jTFNome.getText());
-        JIFAtendimentoAgenda.jTFHANDLE_MEDICO_SOL.setText(String.valueOf(medicoId));
+        JIFAtendimentoSemAgenda.jTFMedicoSol.setText(jTFNome.getText());
+        JIFAtendimentoSemAgenda.jTFHANDLE_MEDICO_SOL.setText(String.valueOf(medicoId));
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFAtendimentoAgenda.handle_medico_sol = Integer.valueOf(medicoId);
+        JIFAtendimentoSemAgenda.handle_medico_sol = Integer.valueOf(medicoId);
     }
 
     /**

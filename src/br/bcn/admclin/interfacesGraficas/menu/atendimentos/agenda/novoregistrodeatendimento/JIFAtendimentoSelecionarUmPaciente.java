@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -117,15 +117,15 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
         String handle_paciente = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
         String nomePaciente = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
 
-        JIFAtendimentoAgenda.jTFHANDLE_PACIENTE.setText(handle_paciente);
-        JIFAtendimentoAgenda.jTFPaciente.setText(nomePaciente);
+        JIFAtendimentoSemAgenda.jTFHANDLE_PACIENTE.setText(handle_paciente);
+        JIFAtendimentoSemAgenda.jTFPaciente.setText(nomePaciente);
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFAtendimentoAgenda.handle_paciente = Integer.valueOf(handle_paciente);
+        JIFAtendimentoSemAgenda.handle_paciente = Integer.valueOf(handle_paciente);
 
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente = null;
-        janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
     }
 
     /*
@@ -133,24 +133,25 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
      */
     public void botaoEditarPaciente() {
 
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
-            janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(false);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(false);
-        }
+        //if (JIFAtendimentoSemAgenda.veioDaPesquisa) {
+        //    janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(false);
+        //} else {
+        //    janelaPrincipal.internalFrameAgendaPrincipal.setVisible(false);
+                janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(false);
+        //}
 
         int handle_paciente = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        janelaPrincipal.internalFrameCadastroPacientetendimento =
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento =
             new JIFCPacientesAtendimentos("editar", handle_paciente);
 
-        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameCadastroPacientetendimento);
-        janelaPrincipal.internalFrameCadastroPacientetendimento.setVisible(true);
+        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameCadastroPacienteAtendimento);
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento.setVisible(true);
         int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
         int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
-        int lIFrame = janelaPrincipal.internalFrameCadastroPacientetendimento.getWidth();
-        int aIFrame = janelaPrincipal.internalFrameCadastroPacientetendimento.getHeight();
+        int lIFrame = janelaPrincipal.internalFrameCadastroPacienteAtendimento.getWidth();
+        int aIFrame = janelaPrincipal.internalFrameCadastroPacienteAtendimento.getHeight();
 
-        janelaPrincipal.internalFrameCadastroPacientetendimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
             - aIFrame / 2);
     }
 
@@ -158,22 +159,23 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
      * metodo que abre o o cadastro de paciente para cadastrar um paciente e seleciona-lo
      */
     public void botaoNovoPaciente() {
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //if (JIFAtendimentoAgenda.veioDaPesquisa) {
+            //janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(false);
+        //} else {
+            //janelaPrincipal.internalFrameAgendaPrincipal.setVisible(false);
             janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(false);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(false);
-        }
+        //}
 
-        janelaPrincipal.internalFrameCadastroPacientetendimento = new JIFCPacientesAtendimentos("novo", 0);
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento = new JIFCPacientesAtendimentos("novo", 0);
 
-        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameCadastroPacientetendimento);
-        janelaPrincipal.internalFrameCadastroPacientetendimento.setVisible(true);
+        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameCadastroPacienteAtendimento);
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento.setVisible(true);
         int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
         int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
-        int lIFrame = janelaPrincipal.internalFrameCadastroPacientetendimento.getWidth();
-        int aIFrame = janelaPrincipal.internalFrameCadastroPacientetendimento.getHeight();
+        int lIFrame = janelaPrincipal.internalFrameCadastroPacienteAtendimento.getWidth();
+        int aIFrame = janelaPrincipal.internalFrameCadastroPacienteAtendimento.getHeight();
 
-        janelaPrincipal.internalFrameCadastroPacientetendimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
             - aIFrame / 2);
     }
 
@@ -387,8 +389,7 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCancelarActionPerformed
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente = null;
-
-        janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
     }// GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBPesquisaPacienteKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBPesquisaPacienteKeyReleased

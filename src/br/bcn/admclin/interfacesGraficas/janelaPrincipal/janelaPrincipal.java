@@ -5,23 +5,22 @@
 package br.bcn.admclin.interfacesGraficas.janelaPrincipal;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
@@ -33,13 +32,13 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendaPrinc
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamento;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamentoSelecionarUmPaciente;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoAgenda;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoSelecionarUmMedicoSolicitante;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoSelecionarUmPaciente;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFCMedicosAtendimentos;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFCPacientesAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFUmaAgenda;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.jIFAlterarValorDeExame;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSelecionarUmMedicoSolicitante;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSelecionarUmPaciente;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSemAgenda;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFCMedicosAtendimentos;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFCPacientesAtendimentos;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.jIFAlterarValorDeExame;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ConsultaValorExames;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ListaConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
@@ -86,12 +85,6 @@ import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConve
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.jIFListaAtendimentosParaFaturar;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.valoresrecebidos.JIFrelatorioDeValoresRecebidosConvenio;
 
-import javax.swing.JMenuItem;
-import javax.swing.ImageIcon;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 /**
  * 
  * @author CeSaR
@@ -125,7 +118,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFIntervaloDiario internalFrameIntervalosDiarios;
     public static JIFCMedicosVisualizar internalFrameMedicosVisualizar;
     public static JIFCMedicos internalFrameMedicos;
-    public static JIFCPacientesAtendimentos internalFrameCadastroPacientetendimento;
+    public static JIFCPacientesAtendimentos internalFrameCadastroPacienteAtendimento;
     public static JIFListaAtendimentos internalFrameListaAtendimentos;
     public static JIFCClassesDeExames internalFrameClasseDeExames;
     public static JIFCClassesDeExamesVisualizar internalFrameClasseDeExamesVisualizar;

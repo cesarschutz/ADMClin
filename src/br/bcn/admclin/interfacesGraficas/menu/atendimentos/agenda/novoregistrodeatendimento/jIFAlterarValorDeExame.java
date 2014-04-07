@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -70,8 +70,9 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
     public void botaoCancelar() {
         // se ocorrer erro aqui, é pq esta editando um atendimento apartir da janela de pesquisa, entao vai dar erro
         // no JIFAgendaPrincipal, por isso fechamos o outro ;D
-        janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
 
+        janelaPrincipal.internalFrameAlterarValorDeExamesNoAtendimento.dispose();
         janelaPrincipal.internalFrameAlterarValorDeExamesNoAtendimento = null;
     }
 
@@ -94,28 +95,28 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
         valorConvenio =
             new BigDecimal(valorExame * (porcentagem_convenio / 100)).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
 
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
-        JIFAtendimentoAgenda.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
 
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
 
         botaoCancelar();
 
-        JIFAtendimentoAgenda.calcularValoresApartirDaTabela();
+        JIFAtendimentoSemAgenda.calcularValoresApartirDaTabela();
 
     }
 
@@ -131,28 +132,28 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
 
         valorExame = new BigDecimal(valorConvenio + valorPaciente).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
 
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
-        JIFAtendimentoAgenda.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
 
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
-        JIFAtendimentoAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
-        JIFAtendimentoAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
+        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
 
         botaoCancelar();
 
-        JIFAtendimentoAgenda.calcularValoresApartirDaTabela();
+        JIFAtendimentoSemAgenda.calcularValoresApartirDaTabela();
 
     }
 

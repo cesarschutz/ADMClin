@@ -1,4 +1,4 @@
-package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -151,13 +151,13 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
      */
     public void botaoCancelar() {
         this.dispose();
-        janelaPrincipal.internalFrameCadastroPacientetendimento = null;
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento = null;
 
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
+        //if (JIFAtendimentoSemAgenda.veioDaPesquisa) {
             janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.setVisible(true);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
-        }
+        //} else {
+        //    janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        //}
     }
 
     /*
@@ -288,23 +288,23 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
 
     public void voltarATelaDeAtendimento() {
         this.dispose();
-        janelaPrincipal.internalFrameCadastroPacientetendimento = null;
+        janelaPrincipal.internalFrameCadastroPacienteAtendimento = null;
 
         janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente = null;
 
-        if (JIFAtendimentoAgenda.veioDaPesquisa) {
-            janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
-        } else {
-            janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
-            janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
-        }
+        //if (JIFAtendimentoSemAgenda.veioDaPesquisa) {
+        //    janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+        //} else {
+        //    janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
+            janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        //}
 
-        JIFAtendimentoAgenda.jTFPaciente.setText(jTFNome.getText());
-        JIFAtendimentoAgenda.jTFHANDLE_PACIENTE.setText(String.valueOf(handle_paciente));
+        JIFAtendimentoSemAgenda.jTFPaciente.setText(jTFNome.getText());
+        JIFAtendimentoSemAgenda.jTFHANDLE_PACIENTE.setText(String.valueOf(handle_paciente));
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFAtendimentoAgenda.handle_paciente = Integer.valueOf(handle_paciente);
+        JIFAtendimentoSemAgenda.handle_paciente = Integer.valueOf(handle_paciente);
     }
 
     /**
