@@ -58,8 +58,10 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoSelecionarUmMedicoSolicitante;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoSelecionarUmPaciente;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.jIFAlterarValorDeExame;
 
 /*
  * To change this template, choose Tools | Templates
@@ -280,8 +282,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         jBSalvar.setVisible(false);
         // preenchendo os campos daquele convenio
         con = Conexao.fazConexao();
-        preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimentoQuandoVemDaPesquisaDeAtendimentos(handle_at, hora,
-            data);
+        //preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimentoQuandoVemDaPesquisaDeAtendimentos(handle_at, hora,
+        //    data);
         // aqui vamos sumir o botao imprimir nota fiscal do modelo de impressao 1 (pois nao imprime nota)
         if (janelaPrincipal.modeloDeImpressao == 1) {
             jBImprimirNotaFiscal.setVisible(false);
@@ -2252,22 +2254,22 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBSalvarActionPerformed
 
         // atualizando a tabela
-        atualizarTabelasDaAgenda();
+        //atualizarTabelasDaAgenda();
 
         // String de retorno quando verificou se nao ha tempo para o agendamento ou se ja existe um agendamento naquele
         // horario
-        String retorno = verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada();
+        //String retorno = verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada();
 
-        if (!"".equals(retorno)) {
-            int resposta =
-                JOptionPane.showConfirmDialog(null, retorno, "Atenção", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE);
-            if (resposta == JOptionPane.YES_OPTION) {
+        //if (!"".equals(retorno)) {
+        //    int resposta =
+        //        JOptionPane.showConfirmDialog(null, retorno, "Atenção", JOptionPane.YES_NO_OPTION,
+        //            JOptionPane.WARNING_MESSAGE);
+        //    if (resposta == JOptionPane.YES_OPTION) {
                 botaoSalvar();
-            }
-        } else {
-            botaoSalvar();
-        }
+        //    }
+        //} else {
+        //    botaoSalvar();
+        //}
 
     }// GEN-LAST:event_jBSalvarActionPerformed
 
@@ -2281,7 +2283,6 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     }// GEN-LAST:event_jBPesquisaPacienteFocusLost
 
     private void jCBConvenioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBConvenioActionPerformed
-
         preenchendoOsExames();
         Dimension x = new Dimension(18, 27);
         jCBExame.setPreferredSize(x);
@@ -2615,18 +2616,18 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             // String de retorno quando verificou se nao ha tempo para o agendamento ou se ja existe um agendamento
             // naquele horario
-            String retorno = verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada();
+            //String retorno = verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada();
 
-            if (!"".equals(retorno)) {
-                int resposta =
-                    JOptionPane.showConfirmDialog(null, retorno, "Atenção", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    botaoSalvar();
-                }
-            } else {
-                botaoSalvar();
-            }
+            //if (!"".equals(retorno)) {
+            //    int resposta =
+            //        JOptionPane.showConfirmDialog(null, retorno, "Atenção", JOptionPane.YES_NO_OPTION,
+            //            JOptionPane.WARNING_MESSAGE);
+            //    if (resposta == JOptionPane.YES_OPTION) {
+            //        botaoSalvar();
+            //    }
+            //} else {
+            //    botaoSalvar();
+            //}
         }
     }// GEN-LAST:event_jBSalvarKeyPressed
 
@@ -2769,7 +2770,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 deletarOAtendimento();
                 janelaPrincipal.internalFrameJanelaPrincipal.ativandoOMenu();
             }
-            botaoCancelar();
+            //botaoCancelar();
         }
     }// GEN-LAST:event_jBCancelarKeyPressed
 
