@@ -518,9 +518,18 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         atendimentos = new Object[jTable1.getRowCount()][9];
 
         for (int i = 0; i < jTable1.getRowCount(); i++) {
+            //como foi tirada a hora e a modalidade do atendimento, pode ser que esteja nulo, ae trata o erro.
             atendimentos[i][0] = jTable1.getValueAt(i, 0).toString();
-            atendimentos[i][1] = jTable1.getValueAt(i, 1).toString();
-            atendimentos[i][2] = jTable1.getValueAt(i, 2).toString();
+            try {
+                atendimentos[i][1] = jTable1.getValueAt(i, 1).toString();
+            } catch (NullPointerException e) {
+                atendimentos[i][1] = "";
+            }
+            try {
+                atendimentos[i][2] = jTable1.getValueAt(i, 1).toString();
+            } catch (NullPointerException e) {
+                atendimentos[i][2] = "";
+            }
             atendimentos[i][3] = jTable1.getValueAt(i, 3).toString();
             atendimentos[i][4] = jTable1.getValueAt(i, 4).toString();
             atendimentos[i][5] = jTable1.getValueAt(i, 5).toString();
