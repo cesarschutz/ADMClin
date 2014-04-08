@@ -462,7 +462,7 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
     private void jBCancelarKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBCancelarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.dispose();
-            janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+            janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
         } // TODO add your handling code here:
     }// GEN-LAST:event_jBCancelarKeyPressed
 
