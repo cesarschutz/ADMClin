@@ -10,7 +10,7 @@ import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoAgenda;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSemAgenda;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
 import static br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1;
 
@@ -532,17 +532,17 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
 
                 // abrindo o editar atendimento
                 // abrindo a agenda
-                janelaPrincipal.internalFrameAtendimentoAgenda = new JIFAtendimentoAgenda(handle_at, hora, data);
-                janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoAgenda);
+                janelaPrincipal.internalFrameAtendimentoSemAgenda = new JIFAtendimentoSemAgenda(handle_at, hora, data);
+                janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoSemAgenda);
                 int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
                 int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
-                int lIFrame = janelaPrincipal.internalFrameAtendimentoAgenda.getWidth();
-                int aIFrame = janelaPrincipal.internalFrameAtendimentoAgenda.getHeight();
+                int lIFrame = janelaPrincipal.internalFrameAtendimentoSemAgenda.getWidth();
+                int aIFrame = janelaPrincipal.internalFrameAtendimentoSemAgenda.getHeight();
 
-                janelaPrincipal.internalFrameAtendimentoAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame
+                janelaPrincipal.internalFrameAtendimentoSemAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame
                     / 2);
 
-                janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
+                janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
                 return null;
             }
 

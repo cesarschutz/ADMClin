@@ -28,11 +28,6 @@ import javax.swing.UIManager;
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.USUARIOS;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendaPrincipal;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamento;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAgendamentoSelecionarUmPaciente;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFAtendimentoAgenda;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.JIFUmaAgenda;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSelecionarUmMedicoSolicitante;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSelecionarUmPaciente;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSemAgenda;
@@ -94,7 +89,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
     public static JjIFAguarde internalFrameAguarde;
     public static janelaPrincipal internalFrameJanelaPrincipal;
-    public static JIFAgendaPrincipal internalFrameAgendaPrincipal;
     public static jIFCAgendas internalFrameCadastroAgendas;
     public static JIFFeriadoVisualizar internalFrameFeriadoVisualizar;
     public static JIFFeriado internalFrameFeriado;
@@ -139,15 +133,11 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static jIFAlterarValorDeExame internalFrameAlterarValorDeExamesNoAtendimento;
     public static jIFDemed internalFrameDmed;
     public static JIFPesquisarAtendimentos internalFramePesquisarAtendimentos;
-    public static JIFAtendimentoAgenda internalFrameAtendimentoAgenda;
     public static JIFGruposConveniosVisualizar internalFrameGruposConveniosVisualizar;
     public static JIFGruposConvenios internalFrameGruposDeConvenios;
     public static JIFAtendimentoSelecionarUmPaciente internalFrameAtendimentoSelecionarUmPaciente;
     public static JIFAtendimentoSelecionarUmMedicoSolicitante internalFrameAtendimentoSelecionarUmMedicoSolicitante;
     public static JIFCMedicosAtendimentos internalFrameAtendimentoCadastroMedicos;
-    public static JIFAgendamentoSelecionarUmPaciente internalFrameAgendamentoSelecionarUmPaciente;
-    public static JIFAgendamento internalFrameAgendamento;
-    public static JIFUmaAgenda internalFrameUmaTabela;
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
     public static JIFrelatorioDeValoresRecebidosConvenio internalFrameValoresRecebidos;
@@ -360,7 +350,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMEFichasDeAtendimento = new javax.swing.JMenuItem();
         jMIEditarAtendimentos = new javax.swing.JMenuItem();
-        jMEAgenda = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMFinanceiro = new javax.swing.JMenu();
         jMRelatorios = new javax.swing.JMenu();
@@ -599,15 +588,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMEntradaESaida.add(jMenu1);
 
-        jMEAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/agenda1.png"))); // NOI18N
-        jMEAgenda.setText("Agenda");
-        jMEAgenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMEAgendaActionPerformed(evt);
-            }
-        });
-        jMEntradaESaida.add(jMEAgenda);
-
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
             "/br/bcn/admclin/imagens/menuAtendimentosConsultaValoresDeExames.png"))); // NOI18N
         jMenuItem1.setText("Consultar Valores dos Exames");
@@ -766,40 +746,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         worker.execute();
     }
-
-    private void jMEAgendaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMEAgendaActionPerformed
-
-        fechandoTodosOsInternalFrames();
-        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
-
-        SwingWorker<?, ?> worker = new SwingWorker<Object, Object>() {
-            @Override
-            protected Object doInBackground() throws Exception {
-
-                internalFrameAgendaPrincipal = new JIFAgendaPrincipal();
-                jDesktopPane1.add(internalFrameAgendaPrincipal);
-                internalFrameAgendaPrincipal.setVisible(true);
-                // essa parte esta no fim do processo
-                int lDesk = jDesktopPane1.getWidth();
-                int aDesk = jDesktopPane1.getHeight();
-                int lIFrame = internalFrameAgendaPrincipal.getWidth();
-                int aIFrame = internalFrameAgendaPrincipal.getHeight();
-
-                internalFrameAgendaPrincipal.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-                return null;
-            }
-
-            @Override
-            protected void done() {
-
-                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
-                internalFrameAgendaPrincipal.setVisible(true);
-            }
-        };
-
-        worker.execute();
-
-    }// GEN-LAST:event_jMEAgendaActionPerformed
 
     private void jMCAAgendasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAAgendasActionPerformed
         fechandoTodosOsInternalFrames();
@@ -1234,7 +1180,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMCExames;
     private javax.swing.JMenu jMCPessoal;
     public static javax.swing.JMenu jMCadastros;
-    private javax.swing.JMenuItem jMEAgenda;
     private javax.swing.JMenuItem jMEFichasDeAtendimento;
     public static javax.swing.JMenu jMEntradaESaida;
     public static javax.swing.JMenu jMFinanceiro;
