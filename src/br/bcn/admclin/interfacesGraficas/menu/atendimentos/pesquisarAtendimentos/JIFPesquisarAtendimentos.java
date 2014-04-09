@@ -532,7 +532,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
 
                 // abrindo o editar atendimento
                 // abrindo a agenda
-                janelaPrincipal.internalFrameAtendimentoSemAgenda = new JIFAtendimentoSemAgenda(handle_at, hora, data);
+                janelaPrincipal.internalFrameAtendimentoSemAgenda = new JIFAtendimentoSemAgenda(handle_at, data, hora);
                 janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoSemAgenda);
                 int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
                 int aDesk = janelaPrincipal.jDesktopPane1.getHeight();

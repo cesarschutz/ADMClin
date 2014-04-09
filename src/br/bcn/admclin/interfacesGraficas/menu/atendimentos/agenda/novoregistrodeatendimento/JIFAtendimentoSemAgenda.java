@@ -12,6 +12,7 @@ import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,7 +98,6 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         try {
             dataDeHojeEmVariavelDate = new java.sql.Date(format.parse(dataDeHoje).getTime());
         } catch (ParseException ex) {
-
         }
     }
 
@@ -116,6 +116,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Hoje");
+        datePicker.setFormats(new String[] { "E dd/MM/yyyy" });
+        datePicker.setLinkDate(System.currentTimeMillis(), "Hoje");
         pegandoDataDoSistema();
 
         Dimension tamanhoBotaoDesconto = new Dimension(121, 30);
@@ -165,6 +167,9 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 //            jTFAgenda.setText(JIFUmaAgenda.jTextField1.getText());
 //            jTFDia.setText(String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(4, 14));
               //jTFHora.setText("00:00");
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss"); 
+            Date date = new Date(); 
+            horaAtendimento.setText(dateFormat.format(date));
 
             con = Conexao.fazConexao();
             reservandoHorarioCasoSejaUmHorarioLivre();
@@ -215,14 +220,14 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     public static boolean veioDaPesquisa = false;
 
     // esse metodo contrutor serve para abrir a classe apartir da edição de atendimentos
-    public JIFAtendimentoSemAgenda(int handle_at, String hora, String data) {
+    public JIFAtendimentoSemAgenda(int handle_at, String data, String hora) {
         initComponents();
         con = Conexao.fazConexao();
 
         veioDaPesquisa = true;
         this.handle_at = handle_at;
         // buscando o handle_agenda do atendimento
-
+        /*
         ResultSet resultSet = ATENDIMENTOS.getConsultarAgendaDeUmAtendimento(con, handle_at);
         try {
             while (resultSet.next()) {
@@ -235,9 +240,12 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 "Não foi possivel preencher os dados deste Atendimento. Procure o administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+        */
 
         jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Hoje");
+        datePicker.setFormats(new String[] { "E dd/MM/yyyy" });
+        datePicker.setLinkDate(System.currentTimeMillis(), "Hoje");
         pegandoDataDoSistema();
 
         Dimension tamanhoBotaoDesconto = new Dimension(121, 30);
@@ -279,8 +287,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         jBSalvar.setVisible(false);
         // preenchendo os campos daquele convenio
         con = Conexao.fazConexao();
-        //preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimentoQuandoVemDaPesquisaDeAtendimentos(handle_at, hora,
-        //    data);
+        preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimentoQuandoVemDaPesquisaDeAtendimentos(handle_at, hora, data);
         // aqui vamos sumir o botao imprimir nota fiscal do modelo de impressao 1 (pois nao imprime nota)
         if (janelaPrincipal.modeloDeImpressao == 1) {
             jBImprimirNotaFiscal.setVisible(false);
@@ -573,7 +580,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     // variavel para que se flag imprimiu vem marcado, quando salvar salva S
     boolean flag_imprimu = false;
 
-    /*
+    
     public void preenchendoOsCamposDoAtendimentoCasoForEditarUmAtendimentoQuandoVemDaPesquisaDeAtendimentos(
         int handle_at, String hora, String data) {
         // buscando as informações do atendimento
@@ -625,9 +632,14 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
         // fechando a conexao
-
-        jTFDia.setText(data);
-        jTFHora.setText(hora);
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");  
+        Date date = null;
+        try {
+           date = (Date)formatter.parse(data);
+        } catch (ParseException e1) {
+        } 
+        datePicker.setDate(date);
+        horaAtendimento.setText(hora);
 
         // preenchendo os exames do atendimento
         // exames
@@ -669,7 +681,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         calcularValoresApartirDaTabela();
     }
-    */
+    
 
     // ok
     public void tirandoBarraDeTitulo() {
@@ -991,7 +1003,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                 }
 
                 atendimento.setHANDLE_AGENDA(handle_agenda);
-                atendimento.setHORA_ATENDIMENTO(0);
+                atendimento.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(horaAtendimento.getText()));
                 atendimento.setHANDLE_PACIENTE(handle_paciente);
                 atendimento.setHANDLE_MEDICO_SOL(handle_medico_sol);
                 atendimento.setHANDLE_CONVENIO(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()));
@@ -1265,27 +1277,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     */
 
     public void botaoAtualizar() {
-        if (veioDaPesquisa) {
             botaoSalvar();
-        } else {
-            // atualizando a tabela
-            //atualizarTabelasDaAgenda();
-
-            // String de retorno quando verificou se nao ha tempo para o agendamento ou se ja existe um agendamento
-            // naquele horario
-            //String retorno = verificandoSeHaAlgumAgendamentoOuAtendimentoNaLinhaSelecionada();
-            
-            //if (!"".equals(retorno)) {
-            //    int resposta =
-            //        JOptionPane.showConfirmDialog(null, retorno, "Atenção", JOptionPane.YES_NO_OPTION,
-            //            JOptionPane.WARNING_MESSAGE);
-            //    if (resposta == JOptionPane.YES_OPTION) {
-            //        botaoSalvar();
-            //    }
-            //} else {
-                botaoSalvar();
-            //}
-        }
+            botaoCancelar();
     }
 
     private boolean deletarOAtendimento() {
@@ -1302,37 +1295,22 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         return deletou;
     }
 
-    /*
+    
     public void botaoCancelar() {
 
         if (veioDaPesquisa) {
-
             // fechando esta janela
             this.dispose();
-            janelaPrincipal.internalFrameAtendimentoAgenda = null;
+            janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
             // abrindo a janela pesquisa
             janelaPrincipal.internalFramePesquisarAtendimentos.setVisible(true);
 
         } else {
             this.dispose();
-            janelaPrincipal.internalFrameAtendimentoAgenda = null;
-
-            internalFrame.setVisible(true);
-
-            JIFAgendaPrincipal.jComboBox1.setEnabled(true);
-            JIFAgendaPrincipal.jComboBox2.setEnabled(true);
-            JIFAgendaPrincipal.jComboBox3.setEnabled(true);
-            JIFAgendaPrincipal.jComboBox4.setEnabled(true);
-            JIFAgendaPrincipal.jXDatePicker1.setEnabled(true);
-
-            // sumindo legenda da agenda
-            JIFAgendaPrincipal.sumirLegenda(true);
-
-            // atualiza tabela
-            atualizarTabelasDaAgenda();
+            janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
         }
     }
-    */
+    
 
     public static int duracaoDoAtendimento = 0;
 
@@ -1582,6 +1560,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         
         datePicker = new JXDatePicker();
         datePicker.setFormats(new String[] {"E dd/MM/yyyy"});
+        
+        horaAtendimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##:##"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
@@ -1592,22 +1572,25 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel11)
                             .addGap(18)
-                            .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addGap(18)
                             .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 108, Short.MAX_VALUE))
+                            .addGap(0, 124, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
                                 .addComponent(jLabel10)
                                 .addComponent(lblDataAtendimento, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(jtfDuracaoAtendimento, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                                .addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jtfDuracaoAtendimento, GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(horaAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
                     .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1621,7 +1604,8 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(lblDataAtendimento)
-                        .addComponent(datePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(datePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(horaAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(jLabel10)
@@ -2204,9 +2188,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
             deletarOAtendimento();
             janelaPrincipal.internalFrameJanelaPrincipal.ativandoOMenu();
         }
-        //botaoCancelar();
-        janelaPrincipal.internalFrameAtendimentoSemAgenda.dispose();
-        janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
+        botaoCancelar();
     }// GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBSalvarActionPerformed
@@ -3114,4 +3096,5 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jtfDuracaoAtendimento;
     public static javax.swing.JTextField jtfHoraEntregaExame;
     public JXDatePicker datePicker;
+    private JFormattedTextField horaAtendimento;
 }
