@@ -573,6 +573,15 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 jMEFichasDeAtendimentoActionPerformed(evt);
             }
         });
+        
+        JMenuItem jMERegistrarAtendimento = new JMenuItem("Registrar Atendimento");
+        jMenu1.add(jMERegistrarAtendimento);
+        jMERegistrarAtendimento.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png")));
+        jMERegistrarAtendimento.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                jMEAtendimentoSemAgendaActionPerformed(arg0);
+            }
+        });
         jMenu1.add(jMEFichasDeAtendimento);
 
         jMIEditarAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
@@ -596,14 +605,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        
-        JMenuItem jMERegistrarAtendimento = new JMenuItem("Registrar Atendimento");
-        jMERegistrarAtendimento.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                jMEAtendimentoSemAgendaActionPerformed(arg0);
-            }
-        });
-        jMEntradaESaida.add(jMERegistrarAtendimento);
         jMEntradaESaida.add(jMenuItem1);
 
         jMenuBar1.add(jMEntradaESaida);
