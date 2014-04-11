@@ -38,6 +38,8 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.C
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ListaConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimentos.JIFPesquisarAtendimentos;
+import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimento;
+import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimentoVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriado;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriadoVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloDiario;
@@ -142,6 +144,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
     public static JIFrelatorioDeValoresRecebidosConvenio internalFrameValoresRecebidos;
     public static JIFAtendimentoSemAgenda internalFrameAtendimentoSemAgenda;
+    public static JIFAreasAtendimentoVisualizar internalFrameAreasDeAtendimentoVisualizar;
+    public static JIFAreasAtendimento internalFrameAreasDeAtendimento;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -395,6 +399,24 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 jMCAFeriadosActionPerformed(evt);
             }
         });
+        
+        JMenuItem mntmAreasDeAtendimento = new JMenuItem("Areas de Atendimento");
+        mntmAreasDeAtendimento.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                fechandoTodosOsInternalFrames();
+
+                internalFrameAreasDeAtendimentoVisualizar = new JIFAreasAtendimentoVisualizar();
+                jDesktopPane1.add(internalFrameAreasDeAtendimentoVisualizar);
+                internalFrameAreasDeAtendimentoVisualizar.setVisible(true);
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFrameAreasDeAtendimentoVisualizar.getWidth();
+                int aIFrame = internalFrameAreasDeAtendimentoVisualizar.getHeight();
+
+                internalFrameAreasDeAtendimentoVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+            }
+        });
+        jMCAgenda.add(mntmAreasDeAtendimento);
         jMCAgenda.add(jMCAFeriados);
 
         jMCAIntervalosDiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource(
