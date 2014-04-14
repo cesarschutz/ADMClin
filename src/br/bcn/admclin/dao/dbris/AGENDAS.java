@@ -110,7 +110,7 @@ public class AGENDAS {
         String sql =
             "insert into agendas (dat,usuarioid,nome,descricao,horarioinicialTurno1,horariofinalTurno1,horarioinicialTurno2,horariofinalTurno2,horarioinicialTurno3,horariofinalTurno3,horarioinicialTurno4,horariofinalTurno4,"
                 + "duracaoturno1,duracaoturno2,duracaoturno3,duracaoturno4,seg,ter,qua,qui,sex,sab,dom,modalidade_cr,modalidade_ct,modalidade_dr,modalidade_dx,modalidade_mg,modalidade_mr,modalidade_nm,"
-                + "modalidade_ot,modalidade_rf,modalidade_do,modalidade_us,modalidade_od, modalidade_tr, ativa) "
+                + "modalidade_ot,modalidade_rf,modalidade_do,modalidade_us,modalidade_od, modalidade_tr, ativa, ID_AREAS_ATENDIMENTO) "
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -151,6 +151,7 @@ public class AGENDAS {
             stmt.setInt(35, model.getMODALIDADE_OD());
             stmt.setInt(36, model.getMODALIDADE_TR());
             stmt.setInt(37, model.getAtiva());
+            stmt.setInt(38, model.getID_AREAS_ATENDIMENTO());
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
@@ -170,7 +171,7 @@ public class AGENDAS {
         String sql =
             "update agendas set dat=?, usuarioid=?, nome=?, descricao=?, horarioinicialturno1=?, horariofinalturno1=?, horarioinicialturno2=?, horariofinalturno2=?, horarioinicialturno3=?, horariofinalturno3=?, horarioinicialturno4=?, horariofinalturno4=?, duracaoturno1=?, duracaoturno2=?, duracaoturno3=?, duracaoturno4=?,  seg=?, ter=?, qua=?, qui=?, sex=?, sab=?, dom=?,"
                 + " modalidade_cr=?, modalidade_ct=?, modalidade_dr=?, modalidade_dx=?, modalidade_mg=?, modalidade_mr=?, modalidade_nm=?, modalidade_ot=?, modalidade_rf=?, modalidade_do=?,"
-                + " modalidade_us=?, modalidade_od=?, modalidade_tr=?, ativa=? where handle_agenda=?";
+                + " modalidade_us=?, modalidade_od=?, modalidade_tr=?, ativa=?, ID_AREAS_ATENDIMENTO=? where handle_agenda=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setDate(1, model.getData());
@@ -210,7 +211,8 @@ public class AGENDAS {
             stmt.setInt(35, model.getMODALIDADE_OD());
             stmt.setInt(36, model.getMODALIDADE_TR());
             stmt.setInt(37, model.getAtiva());
-            stmt.setInt(38, model.getHandle_agenda());
+            stmt.setInt(38, model.getID_AREAS_ATENDIMENTO());
+            stmt.setInt(39, model.getHandle_agenda());
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;

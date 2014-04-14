@@ -23,7 +23,7 @@ public class AREAS_ATENDIMENTO {
         ResultSet resultSet = null;
         con = Conexao.fazConexao();
         try {
-            PreparedStatement stmtQuery = con.prepareStatement("select * from areas_atendimento order by nome");
+            PreparedStatement stmtQuery = con.prepareStatement("select * from areas_atendimento where id_areas_atendimento != 0 order by nome");
             resultSet = stmtQuery.executeQuery();
             while (resultSet.next()) {
                 Areas_atendimento area = new Areas_atendimento();

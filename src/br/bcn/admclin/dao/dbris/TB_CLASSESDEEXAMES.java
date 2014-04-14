@@ -182,12 +182,12 @@ public class TB_CLASSESDEEXAMES {
      * @return Boolean
      */
     @SuppressWarnings("finally")
-    public static boolean setDeletar(Connection con, Areas_atendimento model) {
+    public static boolean setDeletar(Connection con, Tb_ClassesDeExames model) {
         boolean deleto = false;
         String sql = "delete from areas_atendimento where id_areas_atendimento=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, model.getId_areas_atendimento());
+            stmt.setInt(1, model.getCod());
             stmt.executeUpdate();
             stmt.close();
             deleto = true;
