@@ -63,3 +63,4 @@ APOS A VERSÃO 6, NAS ALTERAÇÕES DA AGENDA.
 -> criada tabela AREAS_ATENDIMENTO 
     nessa tabela temos o handle 0 que significa sem area de atendimento valor do campo SEM ÁREA
 -> colocado o campo ID_AREAS_ATENDIMENTO na tabela AGENDAS com chave estrangeira apontando para PK da tabela AREAS_ATENDIMENTO
+-> colocado o campo ID_AREAS_ATENDIMENTO na tabela EXAMES com chave estrangeira apontando para PK da tabela AREAS_ATENDIMENTO

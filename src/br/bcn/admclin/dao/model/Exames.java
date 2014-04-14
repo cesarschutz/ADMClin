@@ -7,7 +7,7 @@ import java.sql.Date;
  * @author BCN
  */
 public class Exames {
-    private int HANDLE_EXAME, HANDLE_CLASSEDEEXAME, usuarioId, duracao;
+    private int HANDLE_EXAME, HANDLE_CLASSEDEEXAME, usuarioId, duracao, id_areas_atendimento;
     private String NOME, qtdHoras, laudo, modalidade;
     Date data;
 
@@ -82,6 +82,14 @@ public class Exames {
 
     public void setModalidade(String modalidade) {
         this.modalidade = modalidade;
+    }
+
+    public int getId_areas_atendimento() {
+        return id_areas_atendimento;
+    }
+
+    public void setId_areas_atendimento(int id_areas_atendimento) {
+        this.id_areas_atendimento = id_areas_atendimento;
     }
     
 }
