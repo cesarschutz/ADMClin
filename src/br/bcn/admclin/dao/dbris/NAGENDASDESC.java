@@ -61,7 +61,7 @@ public class NAGENDASDESC {
             stmtAgenda.setInt(4, agenda.getId_areas_atendimento());
             stmtAgenda.execute();
             stmtAgenda.close();
-            /*
+            
             //buscando a chave primaria gerada
             String sqlBuscaChavePrimaria = "select max(nagdid) from nagendasdesc";
             PreparedStatement stmtBuscaChave = con.prepareStatement(sqlBuscaChavePrimaria);
@@ -70,8 +70,10 @@ public class NAGENDASDESC {
             while (rsBuscaChave.next()) {
                 chavePrimariaAgenda = rsBuscaChave.getInt("MAX");
             }
-            System.out.println("chave: " + chavePrimariaAgenda);
-            */
+
+            //cadastrando os turnos
+            
+            
             
             
             
