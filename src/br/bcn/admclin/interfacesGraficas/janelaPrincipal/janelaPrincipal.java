@@ -40,6 +40,8 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimentos.JIFPesquisarAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimento;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimentoVisualizar;
+import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaDesc;
+import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriado;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriadoVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloDiario;
@@ -48,7 +50,6 @@ import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorHo
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorHorarioVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorPeriodo;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorPeriodoVisualizar;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.jIFCAgendas;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio.JIFCConvenioCH;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio.JIFCConvenioFILME;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio.JIFCConvenios;
@@ -91,7 +92,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
     public static JjIFAguarde internalFrameAguarde;
     public static janelaPrincipal internalFrameJanelaPrincipal;
-    public static jIFCAgendas internalFrameCadastroAgendas;
     public static JIFFeriadoVisualizar internalFrameFeriadoVisualizar;
     public static JIFFeriado internalFrameFeriado;
     public static jIFCExames internalFrameCadastroExames;
@@ -146,6 +146,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFAtendimentoSemAgenda internalFrameAtendimentoSemAgenda;
     public static JIFAreasAtendimentoVisualizar internalFrameAreasDeAtendimentoVisualizar;
     public static JIFAreasAtendimento internalFrameAreasDeAtendimento;
+    public static JIFCadastroAgendaVisualizar internalFrameCadastroAgendasVisualizar;
+    public static JIFCadastroAgendaDesc internalFrameCadastroAgendasDesc;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -773,15 +775,15 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private void jMCAAgendasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAAgendasActionPerformed
         fechandoTodosOsInternalFrames();
 
-        internalFrameCadastroAgendas = new jIFCAgendas();
-        jDesktopPane1.add(internalFrameCadastroAgendas);
-        internalFrameCadastroAgendas.setVisible(true);
+        internalFrameCadastroAgendasVisualizar = new JIFCadastroAgendaVisualizar();
+        jDesktopPane1.add(internalFrameCadastroAgendasVisualizar);
+        internalFrameCadastroAgendasVisualizar.setVisible(true);
         int lDesk = jDesktopPane1.getWidth();
         int aDesk = jDesktopPane1.getHeight();
-        int lIFrame = internalFrameCadastroAgendas.getWidth();
-        int aIFrame = internalFrameCadastroAgendas.getHeight();
+        int lIFrame = internalFrameCadastroAgendasVisualizar.getWidth();
+        int aIFrame = internalFrameCadastroAgendasVisualizar.getHeight();
 
-        internalFrameCadastroAgendas.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        internalFrameCadastroAgendasVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }// GEN-LAST:event_jMCAAgendasActionPerformed
 
     private void jMSairMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jMSairMouseClicked

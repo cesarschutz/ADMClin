@@ -133,8 +133,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
             jCBAreasDeAtendimento.addItem(areas_atendimento.getNome());
             int id_area_atendimento = areas_atendimento.getId_areas_atendimento();
             listaIdAreaDeAtendimento.add(id_area_atendimento);
-        }
-        
+        } 
     }
 
     public void atualizarTabela() {

@@ -1,34 +1,22 @@
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
 
-import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
-import br.bcn.admclin.dao.dbris.Conexao;
-import br.bcn.admclin.dao.dbris.TB_CLASSESDEEXAMES;
-import br.bcn.admclin.dao.dbris.USUARIOS;
-import br.bcn.admclin.dao.model.Areas_atendimento;
-import br.bcn.admclin.dao.model.Tb_ClassesDeExames;
-
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
+import br.bcn.admclin.dao.model.Areas_atendimento;
 
 /**
  * 

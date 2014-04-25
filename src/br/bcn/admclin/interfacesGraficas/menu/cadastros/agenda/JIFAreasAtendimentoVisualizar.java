@@ -14,23 +14,18 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
-import br.bcn.admclin.dao.dbris.A_INTERVALOSDIARIOSN;
-import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.model.Areas_atendimento;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-import javax.swing.UIManager;
 
 /**
  * 
@@ -38,7 +33,6 @@ import javax.swing.UIManager;
  */
 public class JIFAreasAtendimentoVisualizar extends javax.swing.JInternalFrame {
     private static final long serialVersionUID = 1L;
-    private Connection con = null;
 
     /** Creates new form JIFCPacientesVisualizar */
     public JIFAreasAtendimentoVisualizar() {
@@ -68,12 +62,10 @@ public class JIFAreasAtendimentoVisualizar extends javax.swing.JInternalFrame {
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        con = Conexao.fazConexao();
         ArrayList<Areas_atendimento> lista = AREAS_ATENDIMENTO.getConsultar();
         for (int i = 0; i < lista.size() ; i++) {
             modelo.addRow(new String[] { String.valueOf(lista.get(i).getId_areas_atendimento()), lista.get(i).getNome() });
         }
-        Conexao.fechaConexao(con);
     }
 
     public void botaoNovo() {
