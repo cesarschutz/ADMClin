@@ -44,12 +44,6 @@ import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgenda
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriado;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriadoVisualizar;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloDiario;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloDiarioVisualizar;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorHorario;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorHorarioVisualizar;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorPeriodo;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFIntervaloPorPeriodoVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio.JIFCConvenioCH;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio.JIFCConvenioFILME;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio.JIFCConvenios;
@@ -110,8 +104,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFCMaterial internalFrameMateriais;
     public static JIFCPacientesVisualizar internalFramePacienteVisualizar;
     public static JIFCPacientes internalFramePaciente;
-    public static JIFIntervaloDiarioVisualizar internalFrameIntervalosDiariosVisualizar;
-    public static JIFIntervaloDiario internalFrameIntervalosDiarios;
     public static JIFCMedicosVisualizar internalFrameMedicosVisualizar;
     public static JIFCMedicos internalFrameMedicos;
     public static JIFCPacientesAtendimentos internalFrameCadastroPacienteAtendimento;
@@ -120,10 +112,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFCClassesDeExamesVisualizar internalFrameClasseDeExamesVisualizar;
     public static JIFCUsuariosVisualizar internalFrameUsuariosVisualizar;
     public static JIFCUsuarios internalFrameUsuarios;
-    public static JIFIntervaloPorHorarioVisualizar internalFrameIntervaloPorHorarioVisualizar;
-    public static JIFIntervaloPorHorario internalFrameIntervaloPorHorario;
-    public static JIFIntervaloPorPeriodo internalFrameIntervaloPorPeriodo;
-    public static JIFIntervaloPorPeriodoVisualizar internalFrameIntervaloPorPeriodoVisualizar;
     public static JIFCEspecialidadesMedicasVisualizar internalFrameEspecialidadeMedicasVisualizar;
     public static JIFCEspecialidadesMedicas internalFrameEspecialidadeMedicas;
     public static JIFCResponsaveisTecnicos internalFrameResponsaveisTecnicos;
@@ -335,9 +323,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMCAgenda = new javax.swing.JMenu();
         jMCAAgendas = new javax.swing.JMenuItem();
         jMCAFeriados = new javax.swing.JMenuItem();
-        jMCAIntervalosDiarios = new javax.swing.JMenuItem();
-        jMCAIntervaloPorHorario = new javax.swing.JMenuItem();
-        jMCAIntervalosPorPeriodo = new javax.swing.JMenuItem();
         jMCConvenios = new javax.swing.JMenu();
         jMCCConvenios = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -420,36 +405,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMCAgenda.add(mntmAreasDeAtendimento);
         jMCAgenda.add(jMCAFeriados);
-
-        jMCAIntervalosDiarios.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/br/bcn/admclin/imagens/menuAgendaIntervaloDiario.png"))); // NOI18N
-        jMCAIntervalosDiarios.setText("Intervalos Diários");
-        jMCAIntervalosDiarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMCAIntervalosDiariosActionPerformed(evt);
-            }
-        });
-        jMCAgenda.add(jMCAIntervalosDiarios);
-
-        jMCAIntervaloPorHorario.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/br/bcn/admclin/imagens/menuAgendaIntervaloPorHorario.png"))); // NOI18N
-        jMCAIntervaloPorHorario.setText("Intervalos por Horário");
-        jMCAIntervaloPorHorario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMCAIntervaloPorHorarioActionPerformed(evt);
-            }
-        });
-        jMCAgenda.add(jMCAIntervaloPorHorario);
-
-        jMCAIntervalosPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/br/bcn/admclin/imagens/menuAgendaIntervaloPeriodo.png"))); // NOI18N
-        jMCAIntervalosPorPeriodo.setText("Intervalos por Período");
-        jMCAIntervalosPorPeriodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMCAIntervalosPorPeriodoActionPerformed(evt);
-            }
-        });
-        jMCAgenda.add(jMCAIntervalosPorPeriodo);
 
         jMCadastros.add(jMCAgenda);
 
@@ -900,20 +855,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         internalFramePacienteVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }// GEN-LAST:event_jMICPPacientesActionPerformed
 
-    private void jMCAIntervalosDiariosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAIntervalosDiariosActionPerformed
-        fechandoTodosOsInternalFrames();
-
-        internalFrameIntervalosDiariosVisualizar = new JIFIntervaloDiarioVisualizar();
-        jDesktopPane1.add(internalFrameIntervalosDiariosVisualizar);
-        internalFrameIntervalosDiariosVisualizar.setVisible(true);
-        int lDesk = jDesktopPane1.getWidth();
-        int aDesk = jDesktopPane1.getHeight();
-        int lIFrame = internalFrameIntervalosDiariosVisualizar.getWidth();
-        int aIFrame = internalFrameIntervalosDiariosVisualizar.getHeight();
-
-        internalFrameIntervalosDiariosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }// GEN-LAST:event_jMCAIntervalosDiariosActionPerformed
-
     private void jMICPMedicosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMICPMedicosActionPerformed
         fechandoTodosOsInternalFrames();
 
@@ -969,34 +910,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         internalFrameUsuariosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }// GEN-LAST:event_jMICPUsuariosActionPerformed
-
-    private void jMCAIntervaloPorHorarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAIntervaloPorHorarioActionPerformed
-        fechandoTodosOsInternalFrames();
-
-        internalFrameIntervaloPorHorarioVisualizar = new JIFIntervaloPorHorarioVisualizar();
-        jDesktopPane1.add(internalFrameIntervaloPorHorarioVisualizar);
-        internalFrameIntervaloPorHorarioVisualizar.setVisible(true);
-        int lDesk = jDesktopPane1.getWidth();
-        int aDesk = jDesktopPane1.getHeight();
-        int lIFrame = internalFrameIntervaloPorHorarioVisualizar.getWidth();
-        int aIFrame = internalFrameIntervaloPorHorarioVisualizar.getHeight();
-
-        internalFrameIntervaloPorHorarioVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }// GEN-LAST:event_jMCAIntervaloPorHorarioActionPerformed
-
-    private void jMCAIntervalosPorPeriodoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAIntervalosPorPeriodoActionPerformed
-        fechandoTodosOsInternalFrames();
-
-        internalFrameIntervaloPorPeriodoVisualizar = new JIFIntervaloPorPeriodoVisualizar();
-        jDesktopPane1.add(internalFrameIntervaloPorPeriodoVisualizar);
-        internalFrameIntervaloPorPeriodoVisualizar.setVisible(true);
-        int lDesk = jDesktopPane1.getWidth();
-        int aDesk = jDesktopPane1.getHeight();
-        int lIFrame = internalFrameIntervaloPorPeriodoVisualizar.getWidth();
-        int aIFrame = internalFrameIntervaloPorPeriodoVisualizar.getHeight();
-
-        internalFrameIntervaloPorPeriodoVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-    }// GEN-LAST:event_jMCAIntervalosPorPeriodoActionPerformed
 
     private void jMICPEspecialidadesMedicasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMICPEspecialidadesMedicasActionPerformed
         fechandoTodosOsInternalFrames();
@@ -1192,9 +1105,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuItem jMCAAgendas;
     private javax.swing.JMenuItem jMCAFeriados;
-    private javax.swing.JMenuItem jMCAIntervaloPorHorario;
-    private javax.swing.JMenuItem jMCAIntervalosDiarios;
-    private javax.swing.JMenuItem jMCAIntervalosPorPeriodo;
     private javax.swing.JMenu jMCAgenda;
     private javax.swing.JMenuItem jMCCConvenios;
     private javax.swing.JMenuItem jMCCTabelas;

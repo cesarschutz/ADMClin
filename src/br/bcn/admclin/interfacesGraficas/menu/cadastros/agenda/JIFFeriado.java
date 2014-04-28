@@ -31,7 +31,6 @@ import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.dao.dbris.AGENDAS;
 import br.bcn.admclin.dao.dbris.A_FERIADOS;
 import br.bcn.admclin.dao.dbris.A_FERIADOSN;
 import br.bcn.admclin.dao.dbris.Conexao;
@@ -39,6 +38,9 @@ import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.A_feriados;
 import br.bcn.admclin.dao.model.A_feriadosN;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * 
@@ -72,13 +74,6 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
     public JIFFeriado(String novoOuEditar, int handleFeriadoN) {
         initComponents();
 
-        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // deixando invisivel a coluna 0 da tabela (onde irá o codigo)
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-
         this.novoOuEditar = novoOuEditar;
         pegandoDataDoSistema();
 
@@ -94,14 +89,10 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
             jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Feriado",
                 javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
             preenchendoDadosDoIntervalo();
-            preenchendoTabela();
         }
-        preenchendoTodasAsAgendasNoComboBox();
 
         jTFDiaDoIntervalo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tirandoBarraDeTitulo();
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setRowHeight(20);
     }
 
     public void tirandoBarraDeTitulo() {
@@ -127,45 +118,10 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         Conexao.fechaConexao(con);
     }
 
-    public void preenchendoTabela() {
-        boolean preencherTodasAgendas = true;
-        ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
-        jTable1.updateUI();
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        con = Conexao.fazConexao();
-        ResultSet resultSet = A_FERIADOS.getConsultarAgendasDeUmFeriado(con, handleFeriadoN);
-        try {
-            while (resultSet.next()) {
-                preencherTodasAgendas = false;
-                // colocando dados na tabela
-                modelo.addRow(new String[] { Integer.toString(resultSet.getInt("handle_agenda")),
-                    resultSet.getString("nome") });
-            }
-
-            if (preencherTodasAgendas) {
-                modelo.addRow(new String[] { "0", "Todas as Agendas" });
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel preencher as Agendas. Procure o administrador",
-                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-        Conexao.fechaConexao(con);
-    }
-
     public boolean verificandoSeTudoFoiPreenchido() {
-        boolean AgendaSelecionada = false;
         boolean nomeOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFNome, 2, jTFMensagemParaUsuario);
         boolean diaDoIntervaloOk =
             MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jTFDiaDoIntervalo, jTFMensagemParaUsuario, "  /  ");
-
-        if (jTable1.getRowCount() == 0) {
-            jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
-            jTFMensagemParaUsuario.setText("Selecione pelo menos uma Agenda");
-            AgendaSelecionada = false;
-        } else {
-            AgendaSelecionada = true;
-        }
 
         // verificar se dia do feriado foi preenchido corretamente
         if (diaDoIntervaloOk) {
@@ -277,33 +233,14 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
 
         }
 
-        if (nomeOk && diaDoIntervaloOk && AgendaSelecionada) {
+        if (nomeOk && diaDoIntervaloOk) {
             return true;
         } else {
             return false;
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public void preenchendoTodasAsAgendasNoComboBox() {
-        con = Conexao.fazConexao();
-        ResultSet resultSet = AGENDAS.getConsultar(con);
-        listaHandleAgendas.removeAll(listaHandleAgendas);
-        jCBAgendas.addItem("Todas as Agendas");
-        listaHandleAgendas.add(0);
-        try {
-            while (resultSet.next()) {
-                jCBAgendas.addItem(resultSet.getString("nome"));
-                listaHandleAgendas.add(resultSet.getInt("HANDLE_AGENDA"));
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível preencher as Agendas. Procure o administrador.",
-                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexao.fechaConexao(con);
-        }
-    }
-
+    
     public void botaoCancelar() {
         this.dispose();
         janelaPrincipal.internalFrameFeriado = null;
@@ -321,7 +258,6 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
 
     public void botaoSalvar() {
         if (verificandoSeTudoFoiPreenchido()) {
-            if (jTable1.getRowCount() > 0) {
                 con = Conexao.fazConexao();
                 A_feriadosN feriadoNModel = new A_feriadosN();
                 feriadoNModel.setNome(jTFNome.getText().toUpperCase());
@@ -342,94 +278,19 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
                         boolean cadastro = A_FERIADOSN.setCadastrar(con, feriadoNModel);
                         Conexao.fechaConexao(con);
                         if (cadastro) {
-                            // pegando id do intervalo cadastrado
-                            con = Conexao.fazConexao();
-                            A_feriadosN feriadoNMODEL = new A_feriadosN();
-                            feriadoNMODEL.setNome(jTFNome.getText().toUpperCase());
-                            handleFeriadoN = A_FERIADOSN.getConsultarIdDeUmNomeCadastrado(con, feriadoNMODEL);
-
-                            // salvando as agendas
-                            A_feriados feriadoModel = new A_feriados();
-                            feriadoModel.setHandleFeriadoN(handleFeriadoN);
-
-                            int i = 0;
-                            int numeroDeLinhasNaTabela = jTable1.getRowCount();
-
-                            while (i < numeroDeLinhasNaTabela) {
-                                feriadoModel.setHandleAgenda(Integer.valueOf((String) jTable1.getValueAt(i, 0)));
-                                A_FERIADOS.setCadastrar(con, feriadoModel);
-                                i++;
-                            }
-
-                            Conexao.fechaConexao(con);
-
                             botaoCancelar();
                         }
                     }
                 }
-            }
         }
-    }
-
-    public void botaoIncluir() {
-        if (jCBAgendas.getSelectedIndex() == 0) {
-            ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
-            jTable1.updateUI();
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            modelo.addRow(new String[] { String.valueOf(listaHandleAgendas.get(jCBAgendas.getSelectedIndex())),
-                String.valueOf(jCBAgendas.getSelectedItem()) });
-        } else {
-
-            if (jTable1.getRowCount() > 0) {
-                if (Integer.valueOf((String) jTable1.getValueAt(0, 0)) == 0) {
-                    ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
-                    jTable1.updateUI();
-                }
-            }
-
-            if (verificandoSeAgendaJaEstaCadastrada(listaHandleAgendas.get(jCBAgendas.getSelectedIndex()))) {
-
-            } else {
-                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-                modelo.addRow(new String[] { String.valueOf(listaHandleAgendas.get(jCBAgendas.getSelectedIndex())),
-                    String.valueOf(jCBAgendas.getSelectedItem()) });
-            }
-
-        }
-
-    }
-
-    public boolean verificandoSeAgendaJaEstaCadastrada(int agendaId) {
-        boolean AgendaJaFoiCadastrada = false;
-
-        if (jTable1.getRowCount() > 0) {
-            int i = 0;
-            int numeroDeLinhasNaTabela = jTable1.getRowCount();
-
-            while (i < numeroDeLinhasNaTabela) {
-
-                int agendaIdDaTabela = Integer.valueOf((String) jTable1.getValueAt(i, 0));
-                int agendaIdSendoCadastrada = listaHandleAgendas.get(jCBAgendas.getSelectedIndex());
-
-                if (agendaIdDaTabela == agendaIdSendoCadastrada) {
-                    AgendaJaFoiCadastrada = true;
-                }
-
-                i++;
-            }
-        }
-        return AgendaJaFoiCadastrada;
-
     }
 
     public void botaoDeletar() {
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar esse Feriado?", "ATENÇÃO", 0);
         if (resposta == JOptionPane.YES_OPTION) {
             con = Conexao.fazConexao();
-            A_FERIADOS.setDeletar(con, handleFeriadoN);
             A_FERIADOSN.setDeletar(con, handleFeriadoN);
             Conexao.fechaConexao(con);
-
             botaoCancelar();
         }
 
@@ -437,7 +298,6 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
 
     public void botaoAtualizar() {
         if (verificandoSeTudoFoiPreenchido()) {
-            if (jTable1.getRowCount() > 0) {
                 con = Conexao.fazConexao();
                 A_feriadosN feriadoNModel = new A_feriadosN();
                 feriadoNModel.setNome(jTFNome.getText().toUpperCase());
@@ -459,30 +319,10 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
                         boolean cadastro = A_FERIADOSN.setAtualizar(con, feriadoNModel);
                         Conexao.fechaConexao(con);
                         if (cadastro) {
-                            // deletando as agendas
-                            con = Conexao.fazConexao();
-                            A_FERIADOS.setDeletar(con, handleFeriadoN);
-
-                            // cadastrando novas agendas
-                            A_feriados feriadosModel = new A_feriados();
-                            feriadosModel.setHandleFeriadoN(handleFeriadoN);
-
-                            int i = 0;
-                            int numeroDeLinhasNaTabela = jTable1.getRowCount();
-
-                            while (i < numeroDeLinhasNaTabela) {
-                                feriadosModel.setHandleAgenda(Integer.valueOf((String) jTable1.getValueAt(i, 0)));
-                                A_FERIADOS.setCadastrar(con, feriadosModel);
-                                i++;
-                            }
-
-                            Conexao.fechaConexao(con);
-
                             botaoCancelar();
                         }
                     }
                 }
-            }
         }
     }
 
@@ -505,11 +345,6 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFDiaDoIntervalo = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##/##"));
         jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jCBAgendas = new javax.swing.JComboBox();
-        jBIncluir = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTADescricao = new javax.swing.JTextArea(new DocumentoSemAspasEPorcento(500));
         jLabel5 = new javax.swing.JLabel();
@@ -613,71 +448,6 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Nome");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agendas que utilizam o Intervalo",
-            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
-        jBIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/imagemSetaParaBaixo.png"))); // NOI18N
-        jBIncluir.setText("Incluir");
-        jBIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jBIncluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBIncluirActionPerformed(evt);
-            }
-        });
-        jBIncluir.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jBIncluirKeyReleased(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-
-        }, new String[] { "handle Agenda", "Agendas Cadastradas" }) {
-            private static final long serialVersionUID = 1L;
-            Class[] types = new Class[] { java.lang.String.class, java.lang.String.class };
-            boolean[] canEdit = new boolean[] { false, false };
-
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTable1FocusGained(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                jPanel1Layout
-                    .createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(
-                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCBAgendas, 0, 349, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-                            .addComponent(jBIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
-                    .addContainerGap()));
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                jPanel1Layout
-                    .createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jCBAgendas, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBIncluir)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addContainerGap()));
-
         jTADescricao.setColumns(20);
         jTADescricao.setRows(5);
         jScrollPane2.setViewportView(jTADescricao);
@@ -685,129 +455,79 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         jLabel5.setText("Descrição");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout
-            .setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(
-                    jPanel2Layout
-                        .createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(
-                            jPanel2Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(
-                                    jPanel2Layout
-                                        .createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTFDiaDoIntervalo, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE).addGap(0, 198, Short.MAX_VALUE))
-                                .addGroup(
-                                    jPanel2Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel2Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel3).addComponent(jLabel5))
-                                        .addGap(41, 41, 41)
-                                        .addGroup(
-                                            jPanel2Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 291,
-                                                    Short.MAX_VALUE)
-                                                .addComponent(jTFNome, javax.swing.GroupLayout.DEFAULT_SIZE, 291,
-                                                    Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap()));
-        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                jPanel2Layout
-                    .createSequentialGroup()
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(
-                        jPanel2Layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(
-                                jPanel2Layout
-                                    .createSequentialGroup()
-                                    .addGroup(
-                                        jPanel2Layout
-                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jTFDiaDoIntervalo, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(
-                                        jPanel2Layout
-                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(jLabel3))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(
-                                        jPanel2Layout
-                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(
-                                                jPanel2Layout.createSequentialGroup().addComponent(jLabel5)
-                                                    .addGap(0, 0, Short.MAX_VALUE)).addComponent(jScrollPane2))))
-                    .addContainerGap()));
+                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18)
+                            .addComponent(jTFDiaDoIntervalo, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel5))
+                            .addGap(41)
+                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTFNome, GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))))
+                    .addGap(170))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jTFDiaDoIntervalo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(18)
+                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jTFNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3))
+                    .addGap(18)
+                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(jLabel5)
+                        .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap())
+        );
+        jPanel2.setLayout(jPanel2Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBCancelar)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jBSalvar)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jBEditar)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jBDeletar))
+                        .addComponent(jTFMensagemParaUsuario)
+                        .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(42, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFMensagemParaUsuario, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE, false)
+                            .addComponent(jBSalvar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBEditar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBDeletar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBCancelar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
+        );
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 797, Short.MAX_VALUE)
-            .addGroup(
-                layout.createSequentialGroup().addComponent(jBCancelar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBSalvar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBEditar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBDeletar)
-                    .addGap(0, 0, Short.MAX_VALUE)));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-            layout
-                .createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(
-                    layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(
-                            layout
-                                .createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                    layout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                                        .addComponent(jBSalvar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jBEditar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jBDeletar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(
-                            javax.swing.GroupLayout.Alignment.TRAILING,
-                            layout
-                                .createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE)))));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBIncluirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBIncluirActionPerformed
-        botaoIncluir();
-    }// GEN-LAST:event_jBIncluirActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCancelarActionPerformed
         botaoCancelar();
@@ -834,20 +554,6 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
         jTFNome.setBackground(new java.awt.Color(255, 255, 255));
         jTFDiaDoIntervalo.setBackground(new java.awt.Color(255, 255, 255)); // TODO add your handling code here:
     }// GEN-LAST:event_jBSalvarFocusLost
-
-    private void jBIncluirKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBIncluirKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            botaoIncluir();
-        }
-    }// GEN-LAST:event_jBIncluirKeyReleased
-
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
-        int linha = jTable1.getSelectedRow();
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.removeRow(linha);
-
-        jBIncluir.requestFocusInWindow();
-    }// GEN-LAST:event_jTable1FocusGained
 
     private void jBDeletarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBDeletarActionPerformed
         botaoDeletar();
@@ -910,21 +616,15 @@ public class JIFFeriado extends javax.swing.JInternalFrame {
     public static javax.swing.JButton jBCancelar;
     public static javax.swing.JButton jBDeletar;
     public static javax.swing.JButton jBEditar;
-    private javax.swing.JButton jBIncluir;
     public static javax.swing.JButton jBSalvar;
-    @SuppressWarnings("rawtypes")
-    public static javax.swing.JComboBox jCBAgendas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTADescricao;
     public static javax.swing.JTextField jTFDiaDoIntervalo;
     private javax.swing.JTextField jTFMensagemParaUsuario;
     public static javax.swing.JTextField jTFNome;
-    public static javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
