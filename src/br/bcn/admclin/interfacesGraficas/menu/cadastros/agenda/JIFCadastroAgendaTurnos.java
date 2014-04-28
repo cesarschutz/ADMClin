@@ -764,7 +764,7 @@ public class JIFCadastroAgendaTurnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBVoltarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBReplicar;
+    public javax.swing.JButton jBReplicar;
     private javax.swing.JButton jBVoltar;
     public javax.swing.JCheckBox jCBAtivaDomingo;
     public javax.swing.JCheckBox jCBAtivaQuarta;

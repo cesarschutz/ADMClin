@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -39,6 +41,8 @@ public class JIFCadastroAgendaDesc extends javax.swing.JInternalFrame {
     private static final long serialVersionUID = 1L;
     ArrayList<Integer> listaIdAreaDeAtendimento= new ArrayList<Integer>();
     JIFCadastroAgendaTurnos internalFrameAgendaTurnos = new JIFCadastroAgendaTurnos();
+    Nagendasdesc agenda;
+    
     /**
      * Creates new form JIFCadastroAgendaDesc
      */
@@ -49,6 +53,78 @@ public class JIFCadastroAgendaDesc extends javax.swing.JInternalFrame {
         jBDeletar.setVisible(false);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar Agenda",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+    }
+    
+    public JIFCadastroAgendaDesc(Nagendasdesc agenda) {
+        initComponents();
+        iniciarClasse();
+        this.agenda = agenda;
+        
+        jBSalvar.setVisible(false);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Agenda",
+            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        
+        //preenche as informações da agenda
+        jCBAtiva.setSelectedIndex(agenda.getAtiva());
+        jTFNome.setText(agenda.getName());
+        jTADescricao.setText(agenda.getDescricao());
+        for (int i = 0; i < listaIdAreaDeAtendimento.size(); i++) {
+          if(listaIdAreaDeAtendimento.get(i) == agenda.getId_areas_atendimento()){
+              jCBAreaDeAtendimento.setSelectedIndex(i);
+          }
+        } 
+        
+        //preenchendo os turnos
+        ArrayList<Nagenda> listaTurno = NAGENDASDESC.getTurnosDaAgenda(agenda.getNagdid());
+        for (Nagenda nagenda : listaTurno) {
+            switch (nagenda.getWeekday()) {
+                case 1:
+                    montaTurnos(internalFrameAgendaTurnos.jCBAtivaDomingo, internalFrameAgendaTurnos.jTableDomingo, internalFrameAgendaTurnos.jTFDuracaoDomingo, nagenda);
+                    break;
+                case 2:
+                    montaTurnos(internalFrameAgendaTurnos.jCBAtivaSegunda, internalFrameAgendaTurnos.jTableSegunda, internalFrameAgendaTurnos.jTFDuracaoSegunda, nagenda);
+                    internalFrameAgendaTurnos.jBReplicar.setEnabled(true);
+                    break;
+                case 3:
+                    montaTurnos(internalFrameAgendaTurnos.jCBAtivaTerca, internalFrameAgendaTurnos.jTableTerca, internalFrameAgendaTurnos.jTFDuracaoTerca, nagenda);
+                    break;
+                case 4:
+                    montaTurnos(internalFrameAgendaTurnos.jCBAtivaQuarta, internalFrameAgendaTurnos.jTableQuarta, internalFrameAgendaTurnos.jTFDuracaoQuarta, nagenda);
+                    break;
+                case 5:
+                    montaTurnos(internalFrameAgendaTurnos.jCBAtivaQuinta, internalFrameAgendaTurnos.jTableQuinta, internalFrameAgendaTurnos.jTFDuracaoQuinta, nagenda);
+                    break;
+                case 6:
+                    montaTurnos(internalFrameAgendaTurnos.jCBAtivaSexta, internalFrameAgendaTurnos.jTableSexta, internalFrameAgendaTurnos.jTFDuracaoSexta, nagenda);
+                    break;
+                case 7:
+                    montaTurnos(internalFrameAgendaTurnos.jCBAtivaSabado, internalFrameAgendaTurnos.jTableSabado, internalFrameAgendaTurnos.jTFDuracaoSabado, nagenda);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    private void montaTurnos(JCheckBox checkBox, JTable tabela, JTextField textFieldDuracao, Nagenda turno){
+        checkBox.setSelected(true);
+        checkBox.setEnabled(true);
+        
+        textFieldDuracao.setEnabled(true);
+        textFieldDuracao.setText(MetodosUteis.transformarMinutosEmHorario(turno.getDuracao()));
+        
+        tabela.setVisible(true);
+        tabela.setValueAt( MetodosUteis.transformarMinutosEmHorario(turno.getStart1()), 0, 1);
+        tabela.setValueAt(MetodosUteis.transformarMinutosEmHorario(turno.getEnd1()), 1, 1);
+        
+        tabela.setValueAt(MetodosUteis.transformarMinutosEmHorario(turno.getStart2()), 0, 2);
+        tabela.setValueAt(MetodosUteis.transformarMinutosEmHorario(turno.getEnd2()), 1, 2);
+        
+        tabela.setValueAt(MetodosUteis.transformarMinutosEmHorario(turno.getStart3()), 0, 3);
+        tabela.setValueAt(MetodosUteis.transformarMinutosEmHorario(turno.getEnd3()), 1, 3);
+        
+        tabela.setValueAt(MetodosUteis.transformarMinutosEmHorario(turno.getStart4()), 0, 4);
+        tabela.setValueAt(MetodosUteis.transformarMinutosEmHorario(turno.getEnd4()), 1, 4);
     }
     
     public void tirandoBarraDeTitulo() {
@@ -124,8 +200,18 @@ public class JIFCadastroAgendaDesc extends javax.swing.JInternalFrame {
         });
         jBSalvar.setIcon(new ImageIcon(JIFCadastroAgendaDesc.class.getResource("/br/bcn/admclin/imagens/salvar.png")));
         jBAtualizar = new javax.swing.JButton();
+        jBAtualizar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                botaoAtualizar();
+            }
+        });
         jBAtualizar.setIcon(new ImageIcon(JIFCadastroAgendaDesc.class.getResource("/br/bcn/admclin/imagens/atualizar.png")));
         jBDeletar = new javax.swing.JButton();
+        jBDeletar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                botaoDeletar();
+            }
+        });
         jBDeletar.setIcon(new ImageIcon(JIFCadastroAgendaDesc.class.getResource("/br/bcn/admclin/imagens/deletar.png")));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agenda", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -240,7 +326,16 @@ public class JIFCadastroAgendaDesc extends javax.swing.JInternalFrame {
     private void botaoVoltar(){
         this.dispose();
         janelaPrincipal.internalFrameCadastroAgendasDesc = null;
+        
+        janelaPrincipal.internalFrameCadastroAgendasVisualizar = new JIFCadastroAgendaVisualizar();
+        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameCadastroAgendasVisualizar);
         janelaPrincipal.internalFrameCadastroAgendasVisualizar.setVisible(true);
+        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
+        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
+        int lIFrame = janelaPrincipal.internalFrameCadastroAgendasVisualizar.getWidth();
+        int aIFrame = janelaPrincipal.internalFrameCadastroAgendasVisualizar.getHeight();
+
+        janelaPrincipal.internalFrameCadastroAgendasVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
     
     private void botaoSalvar(){
@@ -253,7 +348,7 @@ public class JIFCadastroAgendaDesc extends javax.swing.JInternalFrame {
         }
         
         //contruindo os turnos
-        try {
+        try {//
             listaTurnos = criaTurnos();
             if(listaTurnos.size() < 1 || listaTurnos == null){
                 JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Selecione ao menos 1 turno.");
@@ -279,6 +374,48 @@ public class JIFCadastroAgendaDesc extends javax.swing.JInternalFrame {
         
     }
     
+    private void botaoAtualizar(){
+        ArrayList<Nagenda> listaTurnos = null;
+        
+        //verificando o nome
+        if(jTFNome.getText().length() < 3){
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "O nome da agenda deve ter no mínimo 3 dígitos.");
+            return;
+        }
+        
+        //contruindo os turnos
+        try {//
+            listaTurnos = criaTurnos();
+            if(listaTurnos.size() < 1 || listaTurnos == null){
+                JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Selecione ao menos 1 turno.");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro nos turnos da agenda. Verifique e tente novamente.");
+            return;
+        }
+        
+        //montando a agenda
+        agenda.setAtiva(jCBAtiva.getSelectedIndex());
+        agenda.setId_areas_atendimento(listaIdAreaDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()));
+        agenda.setName(jTFNome.getText());
+        agenda.setDescricao(jTADescricao.getText());
+        
+        //atualiza a agenda
+        boolean atualizou = NAGENDASDESC.setAtualizar(agenda, listaTurnos);
+        if(atualizou){
+            botaoVoltar();
+        }
+        
+    }
+    
+    private void botaoDeletar(){
+        //cadastra a agenda
+        boolean deletou = NAGENDASDESC.setDeletar(agenda);
+        if(deletou){
+            botaoVoltar();
+        }
+    }
     //cria turnos
     private ArrayList<Nagenda> criaTurnos(){
         ArrayList<Nagenda> listaTurnosAgenda = new ArrayList<>();

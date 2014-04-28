@@ -4,6 +4,7 @@ import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -48,7 +49,7 @@ public class JIFCadastroAgendaVisualizar extends javax.swing.JInternalFrame {
         buscaAgendasNoBanco();
     }
     
-    private void buscaAgendasNoBanco(){
+    public void buscaAgendasNoBanco(){
         listaAgendas = NAGENDASDESC.getConsultar();
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
@@ -140,11 +141,23 @@ public class JIFCadastroAgendaVisualizar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        this.dispose();
+        janelaPrincipal.internalFrameCadastroAgendasVisualizar = null;
+        janelaPrincipal.internalFrameCadastroAgendasDesc = new JIFCadastroAgendaDesc(listaAgendas.get(jTable1.getSelectedRow()));
         
+        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameCadastroAgendasDesc);
+        janelaPrincipal.internalFrameCadastroAgendasDesc.setVisible(true);
+        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
+        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
+        int lIFrame = janelaPrincipal.internalFrameCadastroAgendasDesc.getWidth();
+        int aIFrame = janelaPrincipal.internalFrameCadastroAgendasDesc.getHeight();
+
+        janelaPrincipal.internalFrameCadastroAgendasDesc.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
+        this.dispose();
+        janelaPrincipal.internalFrameCadastroAgendasVisualizar = null;
         janelaPrincipal.internalFrameCadastroAgendasDesc = new JIFCadastroAgendaDesc();
         
         janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameCadastroAgendasDesc);
