@@ -8,7 +8,7 @@
  *
  * Created on 07/05/2012, 13:52:58
  */
-package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento;
 
 import java.awt.Dimension;
 import java.awt.Insets;

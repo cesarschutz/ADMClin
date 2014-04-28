@@ -10,8 +10,8 @@ import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento.JIFAtendimentoSemAgenda;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFAtendimentoSemAgenda;
 import static br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1;
 
 import java.awt.Dimension;

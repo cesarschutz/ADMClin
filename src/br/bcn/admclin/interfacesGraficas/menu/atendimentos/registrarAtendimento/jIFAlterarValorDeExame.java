@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agenda.novoregistrodeatendimento;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento;
 
 import java.awt.Dimension;
 import java.awt.Insets;
