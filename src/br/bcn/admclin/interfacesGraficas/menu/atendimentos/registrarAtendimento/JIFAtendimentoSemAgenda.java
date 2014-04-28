@@ -44,7 +44,6 @@ import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.VerificacaoDeMatricula;
 import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
-import br.bcn.admclin.dao.dbris.AGENDAS;
 import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
 import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.CONVENIO;
@@ -158,7 +157,6 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         // preencher convenios
         preenchendoOsConvênios();
-        preenchendoAsModalidades();
 
         if ("livre".equals(horarioLivreOuOcupado)) {
             jBAtualizar.setVisible(false);
@@ -282,7 +280,6 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
 
         // preencher convenios
         preenchendoOsConvênios();
-        preenchendoAsModalidades();
 
         jBSalvar.setVisible(false);
         // preenchendo os campos daquele convenio
@@ -723,72 +720,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
         }
     }
 
-    // ok
-    @SuppressWarnings("unchecked")
-    public void preenchendoAsModalidades() {
-
-        ResultSet resultSet = AGENDAS.getConsultarDadosDeUmaAgenda(con, handle_agenda);
-        try {
-            while (resultSet.next()) {
-                // preenchendo as modalidades
-                if (resultSet.getInt("modalidade_cr") == 1) {
-                    jCBModalidade.addItem("CR");
-                }
-
-                if (resultSet.getInt("modalidade_ct") == 1) {
-                    jCBModalidade.addItem("CT");
-                }
-
-                if (resultSet.getInt("modalidade_dr") == 1) {
-                    jCBModalidade.addItem("DR");
-                }
-
-                if (resultSet.getInt("modalidade_dx") == 1) {
-                    jCBModalidade.addItem("DX");
-                }
-
-                if (resultSet.getInt("modalidade_mg") == 1) {
-                    jCBModalidade.addItem("MG");
-                }
-
-                if (resultSet.getInt("modalidade_mr") == 1) {
-                    jCBModalidade.addItem("MR");
-                }
-
-                if (resultSet.getInt("modalidade_nm") == 1) {
-                    jCBModalidade.addItem("NM");
-                }
-
-                if (resultSet.getInt("modalidade_ot") == 1) {
-                    jCBModalidade.addItem("OT");
-                }
-
-                if (resultSet.getInt("modalidade_rf") == 1) {
-                    jCBModalidade.addItem("RF");
-                }
-
-                if (resultSet.getInt("modalidade_od") == 1) {
-                    jCBModalidade.addItem("OD");
-                }
-
-                if (resultSet.getInt("modalidade_us") == 1) {
-                    jCBModalidade.addItem("US");
-                }
-
-                if (resultSet.getInt("modalidade_do") == 1) {
-                    jCBModalidade.addItem("DO");
-                }
-
-                if (resultSet.getInt("modalidade_tr") == 1) {
-                    jCBModalidade.addItem("TR");
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,
-                "Não foi possível preencher as Modalidades da Agenda. Procure o administrador.", "ERRO",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-    }
+   
 
     // ok
     public void botaoPesquisarPaciente() {
