@@ -28,6 +28,7 @@ import javax.swing.UIManager;
 import br.bcn.admclin.ClasseAuxiliares.ImagemNoJDesktopPane;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos.JIFListaAgendamentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ConsultaValorExames;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.consultaValorExames.ListaConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
@@ -136,6 +137,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFAreasAtendimento internalFrameAreasDeAtendimento;
     public static JIFCadastroAgendaVisualizar internalFrameCadastroAgendasVisualizar;
     public static JIFCadastroAgendaDesc internalFrameCadastroAgendasDesc;
+    public static JIFListaAgendamentos internalFrameListaDeAgendamentos;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -1036,7 +1038,18 @@ public class janelaPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMCAAgendamentosctionPerformed(){
-        JOptionPane.showMessageDialog(null, "clicou");
+        fechandoTodosOsInternalFrames();
+
+        internalFrameListaDeAgendamentos = new JIFListaAgendamentos();
+
+        jDesktopPane1.add(internalFrameListaDeAgendamentos);
+        internalFrameListaDeAgendamentos.setVisible(true);
+        int lDesk = jDesktopPane1.getWidth();
+        int aDesk = jDesktopPane1.getHeight();
+        int lIFrame = internalFrameListaDeAgendamentos.getWidth();
+        int aIFrame = internalFrameListaDeAgendamentos.getHeight();
+
+        internalFrameListaDeAgendamentos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
     /**
      * @param args
