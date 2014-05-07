@@ -339,8 +339,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMICPUsuarios = new javax.swing.JMenuItem();
         jMEntradaESaida = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        jMEFichasDeAtendimento = new javax.swing.JMenuItem();
-        jMIEditarAtendimentos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMFinanceiro = new javax.swing.JMenu();
         jMRelatorios = new javax.swing.JMenu();
@@ -543,15 +541,37 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
             "/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
         jMenu1.setText("Atendimentos");
-
-        jMEFichasDeAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"))); // NOI18N
-        jMEFichasDeAtendimento.setText("Fichas de Atendimento");
-        jMEFichasDeAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMEFichasDeAtendimentoActionPerformed(evt);
+        
+        JMenuItem jMEAgendamentos = new JMenuItem("Agendamentos");
+        jMEAgendamentos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                jMCAAgendamentosctionPerformed();
             }
         });
+        jMEAgendamentos.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/laudoDigitado.png")));
+        jMenu1.add(jMEAgendamentos);
+        jMEFichasDeAtendimento = new javax.swing.JMenuItem();
+        
+                jMEFichasDeAtendimento.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/imprimirFicha.png"))); // NOI18N
+                jMEFichasDeAtendimento.setText("Fichas de Atendimento");
+                jMEFichasDeAtendimento.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMEFichasDeAtendimentoActionPerformed(evt);
+                    }
+                });
+                jMenu1.add(jMEFichasDeAtendimento);
+        jMIEditarAtendimentos = new javax.swing.JMenuItem();
+        
+                jMIEditarAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
+                jMIEditarAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+                    "/br/bcn/admclin/imagens/imagemPesquisarInvertida.png"))); // NOI18N
+                jMIEditarAtendimentos.setText("Pesquisar Atendimentos");
+                jMIEditarAtendimentos.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMIEditarAtendimentosActionPerformed(evt);
+                    }
+                });
+                jMenu1.add(jMIEditarAtendimentos);
         
         JMenuItem jMERegistrarAtendimento = new JMenuItem("Registrar Atendimento");
         jMenu1.add(jMERegistrarAtendimento);
@@ -561,18 +581,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 jMEAtendimentoSemAgendaActionPerformed(arg0);
             }
         });
-        jMenu1.add(jMEFichasDeAtendimento);
-
-        jMIEditarAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
-        jMIEditarAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-            "/br/bcn/admclin/imagens/imagemPesquisarInvertida.png"))); // NOI18N
-        jMIEditarAtendimentos.setText("Pesquisar Atendimentos");
-        jMIEditarAtendimentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIEditarAtendimentosActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMIEditarAtendimentos);
 
         jMEntradaESaida.add(jMenu1);
 
@@ -1027,6 +1035,9 @@ public class janelaPrincipal extends javax.swing.JFrame {
         internalFrameGruposConveniosVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }// GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMCAAgendamentosctionPerformed(){
+        JOptionPane.showMessageDialog(null, "clicou");
+    }
     /**
      * @param args
      *            the command line arguments
