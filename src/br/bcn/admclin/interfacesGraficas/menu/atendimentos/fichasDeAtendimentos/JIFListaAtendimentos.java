@@ -75,7 +75,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
- * 
  * @author Cesar Schutz
  */
 public class JIFListaAtendimentos extends javax.swing.JInternalFrame {

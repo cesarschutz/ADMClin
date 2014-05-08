@@ -4,11 +4,17 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -16,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
 import br.bcn.admclin.dao.model.Nagendamentos;
+import br.bcn.admclin.dao.model.NagendamentosExames;
 
 
 /**
@@ -64,23 +71,42 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         }
     }
     
+    private void ativandoSelecaoDeLinhaComBotaoDireitoDoMouse() {
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    int col = jTable1.columnAtPoint(e.getPoint());
+                    int row = jTable1.rowAtPoint(e.getPoint());
+                    if (col != -1 && row != -1) {
+                        jTable1.setColumnSelectionInterval(col, col);
+                        jTable1.setRowSelectionInterval(row, row);
+                    }
+                }
+
+                // colocando a seleção na celula clicada
+                int linhaSelecionada = jTable1.getSelectedRow();
+                int colunaSelecionada = jTable1.getSelectedColumn();
+
+                jTable1.editCellAt(linhaSelecionada, colunaSelecionada);                
+            }
+        });
+    }
+    
     private void tirandoBarraDeTitulo() {
         ((BasicInternalFrameUI) this.getUI()).getNorthPane().setPreferredSize(new Dimension(0, 0));
         this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
     }
     
     private void iniciarClasse(){
+        ativandoSelecaoDeLinhaComBotaoDireitoDoMouse();
         reescreverMetodoActionPerformanceDoDatePicker();
         jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Hoje");
         
         jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-        
-        jTable1.getColumnModel().getColumn(2).setMaxWidth(100);
-        jTable1.getColumnModel().getColumn(2).setMinWidth(100);
-        jTable1.getColumnModel().getColumn(3).setMaxWidth(100);
-        jTable1.getColumnModel().getColumn(3).setMinWidth(100);
         
         jTable1.setRowHeight(30);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -96,8 +122,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         ArrayList<Nagendamentos> listaAgendamentos = NAGENDAMENTOS.getConsultar(pegandoDataDoDataPicker());
         for (Nagendamentos agendamento : listaAgendamentos) {
             modelo.addRow(new Object[] { agendamento, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO() });
-        }
-        
+        }        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,15 +142,32 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new DefaultTableModel(
             new Object[][] {
-                {null, "CESAR AUGUSTO SCHUTZ FAGUNDES", "51 3330 5518", "51 9591 7856", "TESTANDO "},
             },
             new String[] {
                 "nagendamento", "Paciente", "Telefone", "Celular", "Conv\u00EAnio"
             }
-        ));
+        ) {
+            boolean[] columnEditables = new boolean[] {
+                false, false, false, false, false
+            };
+            public boolean isCellEditable(int row, int column) {
+                return columnEditables[column];
+            }
+        });
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(15);
         jTable1.getColumnModel().getColumn(0).setMinWidth(0);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(15);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(100);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -158,7 +200,68 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
+        int colunaClicada = jTable1.columnAtPoint(evt.getPoint());
+        int linhaClicada = jTable1.rowAtPoint(evt.getPoint());
+        int linhaSelecionada = jTable1.getSelectedRow();
+        
+        if (MouseEvent.BUTTON3 == evt.getButton() && linhaClicada == linhaSelecionada){
+            abrirPopUp(evt);
+        }
+        
+    }
+    
+    private void abrirPopUp(java.awt.event.MouseEvent evt){
+        ImageIcon iconeMenuAtendimento = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuAtendimento.png"));
+        Nagendamentos agendamentoClicado = (Nagendamentos) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+        JPopupMenu popup = new JPopupMenu();
+        
+        // menu registrar atendimento
+        JMenuItem registrarAtendimento = new JMenuItem("Registrar Atendimento", iconeMenuAtendimento);
+        registrarAtendimento.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //chama metodo de registrar atendimento
+            }
+        });
+        popup.add(registrarAtendimento);
+        
+        
+        //preenchendo os exames
+        ArrayList<NagendamentosExames> listaDeExamesDoAgendamento = agendamentoClicado.getListaExames();
+        //precorre os exames do agendamento
+        int id_area = 0;
+        for (int i = 0; i < listaDeExamesDoAgendamento.size(); i++) {
+            if(listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO() == id_area){
+                //coloca o nome do exame
+                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame());
+                exame.setForeground(java.awt.Color.blue);  
+                popup.add(exame);
+            }else{
+                //coloca separador
+                popup.addSeparator();
+                //coloca o nome da area de atendimento
+                JMenuItem areaDeAtendimento = new JMenuItem("ÁREA: " + listaDeExamesDoAgendamento.get(i).getNomeAreaAtendimento());
+                areaDeAtendimento.setForeground(java.awt.Color.red); 
+                popup.add(areaDeAtendimento);
+                //coloca o nome do exame
+                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame());
+                exame.setForeground(java.awt.Color.blue); 
+                popup.add(exame);
+                
+                id_area = listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO();
+            }
+        }
+
+        
+
+        // mostra na tela
+        int x = evt.getX();
+        int y = evt.getY();
+        popup.show(jTable1, x, y);
+    }
+    
+    //Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
