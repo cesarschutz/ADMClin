@@ -183,7 +183,7 @@ public class ATENDIMENTOS {
         boolean cadastro = false;
         String sql =
             "insert into atendimentos (data_atendimento,dat,data_exame_pronto,"
-                + "handle_at, handle_paciente, handle_medico_sol, handle_agenda, handle_convenio, duracao_atendimento,usuarioid,"
+                + "handle_at, handle_paciente, handle_medico_sol, handle_convenio, hora_atendimento, duracao_atendimento,usuarioid,"
                 + "observacao, matricula_convenio, COMPLEMENTO, hora_exame_pronto,flag_imprimiu, flag_laudo, flag_faturado) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
@@ -195,9 +195,8 @@ public class ATENDIMENTOS {
             stmt.setInt(4, atendimento.getHANDLE_AT());
             stmt.setInt(5, atendimento.getHANDLE_PACIENTE());
             stmt.setInt(6, atendimento.getHANDLE_MEDICO_SOL());
-            stmt.setInt(7, atendimento.getHANDLE_AGENDA());
-            stmt.setInt(8, atendimento.getHANDLE_CONVENIO());
-            //stmt.setInt(9, atendimento.getHORA_ATENDIMENTO());
+            stmt.setInt(7, atendimento.getHANDLE_CONVENIO());
+            stmt.setInt(8, atendimento.getHORA_ATENDIMENTO());
             stmt.setInt(9, atendimento.getDURACAO_ATENDIMENTO());
             stmt.setInt(10, atendimento.getUSUARIOID());
 
@@ -205,7 +204,6 @@ public class ATENDIMENTOS {
             stmt.setString(12, atendimento.getMATRICULA_CONVENIO());
             stmt.setString(13, atendimento.getCOMPLEMENTO());
             stmt.setInt(14, atendimento.getHORA_EXAME_PRONTO());
-            //stmt.setString(16, atendimento.getMODALIDADE());
             stmt.setString(15, atendimento.getFLAG_IMPRIMIU());
             stmt.setInt(16, 0);
             stmt.setInt(17, 0);

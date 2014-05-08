@@ -252,9 +252,6 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
                 id_area = listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO();
             }
         }
-
-        
-
         // mostra na tela
         int x = evt.getX();
         int y = evt.getY();
