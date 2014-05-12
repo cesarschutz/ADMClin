@@ -707,34 +707,16 @@ public class janelaPrincipal extends javax.swing.JFrame {
     
     private void  jMEAtendimentoSemAgendaActionPerformed(java.awt.event.ActionEvent evt){
         fechandoTodosOsInternalFrames();
-        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
 
-        SwingWorker<?, ?> worker = new SwingWorker<Object, Object>() {
-            @Override
-            protected Object doInBackground() throws Exception {
+        internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0, 0);
+        jDesktopPane1.add(internalFrameAtendimentoSemAgenda);
+        internalFrameAtendimentoSemAgenda.setVisible(true);
+        int lDesk = jDesktopPane1.getWidth();
+        int aDesk = jDesktopPane1.getHeight();
+        int lIFrame = internalFrameAtendimentoSemAgenda.getWidth();
+        int aIFrame = internalFrameAtendimentoSemAgenda.getHeight();
 
-                internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0, 0);
-                jDesktopPane1.add(internalFrameAtendimentoSemAgenda);
-                internalFrameAtendimentoSemAgenda.setVisible(true);
-                // essa parte esta no fim do processo
-                int lDesk = jDesktopPane1.getWidth();
-                int aDesk = jDesktopPane1.getHeight();
-                int lIFrame = internalFrameAtendimentoSemAgenda.getWidth();
-                int aIFrame = internalFrameAtendimentoSemAgenda.getHeight();
-
-                internalFrameAtendimentoSemAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-                return null;
-            }
-
-            @Override
-            protected void done() {
-
-                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
-                internalFrameAtendimentoSemAgenda.setVisible(true);
-            }
-        };
-
-        worker.execute();
+        internalFrameAtendimentoSemAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
 
     private void jMCAAgendasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAAgendasActionPerformed

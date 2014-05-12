@@ -44,12 +44,14 @@ import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.VerificacaoDeMatricula;
 import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
+import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
 import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
 import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.EXAMES;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.dao.model.Areas_atendimento;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
 import br.bcn.admclin.dao.model.Atendimentos;
 import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
@@ -76,6 +78,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     public List<Double> listaPorcentagemConvenio = new ArrayList<Double>();
 
     public List<Integer> listaHandleConvenio = new ArrayList<Integer>();
+
+    public ArrayList<Areas_atendimento> listaAreasDeAtendimento = new ArrayList<Areas_atendimento>();
 
     public List<Integer> listaHandleExames = new ArrayList<Integer>();
     public List<Integer> listaDuracaoExames = new ArrayList<Integer>();
@@ -157,6 +161,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
         // preencher convenios
         preenchendoOsConvênios();
+        preenchendoAreasDeAtendimento();
 
         if ("livre".equals(horarioLivreOuOcupado)) {
             jBAtualizar.setVisible(false);
@@ -280,6 +285,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
         // preencher convenios
         preenchendoOsConvênios();
+        preenchendoAreasDeAtendimento();
 
         jBSalvar.setVisible(false);
         // preenchendo os campos daquele convenio
@@ -445,6 +451,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     }
 
+    private void preenchendoAreasDeAtendimento(){
+        listaAreasDeAtendimento = AREAS_ATENDIMENTO.getConsultar();
+        for (int i = 0; i < listaAreasDeAtendimento.size() ; i++) {
+            jCBAreaDeAtendimento.addItem(listaAreasDeAtendimento.get(i).getNome());
+        }
+    }
+    
     // ok
     public void pegandoUmHandle_atDoBanco() {
         // pegando o handle_ap para salvar no banco
@@ -561,13 +574,12 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
      * dos exames ja possui laudo.
      */
     private void bloquearExames() {
-        jCBModalidade.setEnabled(false);
+        jCBAreaDeAtendimento.setEnabled(false);
         jCBConvenio.setEnabled(false);
         jCBExame.setEnabled(false);
         jBIncluirExame.setEnabled(false);
         jTable1.setEnabled(false);
         jTBDesconto.setEnabled(false);
-        jCheckBoxOT.setEnabled(false);
     }
 
     /*
@@ -1047,7 +1059,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     jtfHoraEntregaExame.setEnabled(false);
                     jTAObservacao.setEnabled(false);
 
-                    jCBModalidade.setEnabled(false);
+                    jCBAreaDeAtendimento.setEnabled(false);
                     jCBConvenio.setEnabled(false);
                     jCBExame.setEnabled(false);
                     jTFMatricula.setEnabled(false);
@@ -1296,11 +1308,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             }
             
             
-            
-            
-            
-            
-            
             CalculoValorDeExame calculoValorExame =
                 new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
                     listaHandleExames.get(jCBExame.getSelectedIndex()), dataDoExame, false, porcentagemDeDesconto);
@@ -1417,14 +1424,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jCBConvenio = new javax.swing.JComboBox();
         jBIncluirExame = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jCBModalidade = new javax.swing.JComboBox();
+        jCBAreaDeAtendimento = new javax.swing.JComboBox();
         jLabel17 = new javax.swing.JLabel();
         jTFMatricula = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(30), null, 0);
         jLabel18 = new javax.swing.JLabel();
         jTFComplemento = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(32), null, 0);
         jLabel8 = new javax.swing.JLabel();
         jCBExame = new javax.swing.JComboBox();
-        jCheckBoxOT = new javax.swing.JCheckBox();
         jBImprimirNotaFiscal = new javax.swing.JButton();
         jBImprimirBoletoDeRetirada = new javax.swing.JButton();
         jBImprimirFicha = new javax.swing.JButton();
@@ -1791,11 +1797,11 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel16.setText("Modalidade");
+        jLabel16.setText("Área de Atendimento");
 
-        jCBModalidade.addActionListener(new java.awt.event.ActionListener() {
+        jCBAreaDeAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBModalidadeActionPerformed(evt);
+                jCBAreaDeAtendimentoActionPerformed(evt);
             }
         });
 
@@ -1807,120 +1813,63 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
         jCBExame.setEnabled(false);
 
-        jCheckBoxOT.setText("OT");
-        jCheckBoxOT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxOTActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout
-            .setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(
-                    jPanel3Layout
-                        .createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(
-                            jPanel3Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-                                .addComponent(jBIncluirExame, javax.swing.GroupLayout.Alignment.TRAILING,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-                                .addGroup(
-                                    jPanel3Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel3Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel18)
-                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 54,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(jLabel17))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel3Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTFMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 349,
-                                                    Short.MAX_VALUE)
-                                                .addComponent(jCBConvenio, 0, 349, Short.MAX_VALUE)
-                                                .addComponent(jTFComplemento, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    349, Short.MAX_VALUE)))
-                                .addGroup(
-                                    jPanel3Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel3Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLabel16)
-                                                .addComponent(jCBModalidade, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel3Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(
-                                                    jPanel3Layout.createSequentialGroup().addComponent(jLabel8)
-                                                        .addGap(0, 0, Short.MAX_VALUE))
-                                                .addGroup(
-                                                    jPanel3Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jCBExame, 0,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jCheckBoxOT))))).addContainerGap()));
-        jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                jPanel3Layout
-                    .createSequentialGroup()
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(
-                        jPanel3Layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jTFMatricula, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(
-                        jPanel3Layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18)
-                            .addComponent(jTFComplemento, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(
-                        jPanel3Layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCBConvenio, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(
-                        jPanel3Layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(
-                                jPanel3Layout
-                                    .createSequentialGroup()
-                                    .addComponent(jLabel16)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jCBModalidade, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(
-                                jPanel3Layout
-                                    .createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(
-                                        jPanel3Layout
-                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jCBExame, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(jCheckBoxOT))))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBIncluirExame)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)));
+                    .addGroup(jPanel3Layout.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(Alignment.LEADING)
+                                .addComponent(jLabel18)
+                                .addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel17))
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(Alignment.LEADING)
+                                .addComponent(jTFMatricula, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                                .addComponent(jCBConvenio, 0, 349, Short.MAX_VALUE)
+                                .addComponent(jTFComplemento, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel16, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jCBExame, 0, 382, Short.MAX_VALUE))
+                        .addComponent(jBIncluirExame, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
+                    .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel3Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jLabel17)
+                        .addComponent(jTFMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jLabel18)
+                        .addComponent(jTFComplemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jCBConvenio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jLabel16)
+                        .addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(jLabel8)
+                        .addComponent(jCBExame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jBIncluirExame)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+        );
+        jPanel3.setLayout(jPanel3Layout);
 
         jBImprimirNotaFiscal.setIcon(new javax.swing.ImageIcon(getClass().getResource(
             "/br/bcn/admclin/imagens/imprimirNotaFiscal.png"))); // NOI18N
@@ -2181,13 +2130,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             // preenchendo os exames
             con = Conexao.fazConexao();
             ResultSet resultSet;
-            if (jCheckBoxOT.isSelected()) {
-                resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, "OT");
-            } else {
-                resultSet =
-                    EXAMES.getConsultarExamesPorConvenio(con, handle_convenio,
-                        String.valueOf(jCBModalidade.getSelectedItem()));
-            }
+                resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
             listaHandleExames.removeAll(listaHandleExames);
             listaDuracaoExames.removeAll(listaDuracaoExames);
             listaVaiMateriaisPorPadrao.removeAll(listaVaiMateriaisPorPadrao);
@@ -2227,12 +2170,21 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     }// GEN-LAST:event_jBAtualizarFocusLost
 
     private void jBIncluirExameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBIncluirExameActionPerformed
-        botaoIncluirExame(); // TODO add your handling code here:
+        try {
+            botaoIncluirExame();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Selecione um exame");
+        }
+         // TODO add your handling code here:
     }// GEN-LAST:event_jBIncluirExameActionPerformed
 
     private void jBIncluirExameKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBIncluirExameKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            botaoIncluirExame();
+            try {
+                botaoIncluirExame();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Selecione um exame");
+            }
         }
     }// GEN-LAST:event_jBIncluirExameKeyPressed
 
@@ -2520,28 +2472,30 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     }// GEN-LAST:event_jBAtualizarKeyPressed
 
     @SuppressWarnings("unchecked")
-    private void jCBModalidadeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBModalidadeActionPerformed
+    private void jCBAreaDeAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCBModalidadeActionPerformed
 
-        //AQUI FOI COMENTADO PARA QUE AO MUDAR A MODALIDADE, NÃO ZERE OS EXAMES NA TABELA!
-        //ISSO PARA ACEITAR EXAMES DE MODALIDADES DIFERENTES.
-        // zerando a tabela
-        //((DefaultTableModel) jTable1.getModel()).setNumRows(0);
-        //jTable1.updateUI();
-        //duracaoDoAtendimento = 0;
-        //jtfDuracaoAtendimento.setText("00:00");
-        //jTFValorTotal.setText("");
-        //jTFValorConvenio.setText("");
-        //jTFValorPaciente.setText("");
-        //jCBExame.setEnabled(false);
-        //jCBExame.removeAllItems();
+        preenchendoOsExames();
+        
+        /*
+        //zerando a tabela
+        ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
+        jTable1.updateUI();
+        duracaoDoAtendimento = 0;
+        jtfDuracaoAtendimento.setText("00:00");
+        jTFValorTotal.setText("");
+        jTFValorConvenio.setText("");
+        jTFValorPaciente.setText("");
+        jCBExame.setEnabled(false);
+        jCBExame.removeAllItems();
 
         int indexDoConvenio = jCBConvenio.getSelectedIndex();
         int handle_convenio = listaHandleConvenio.get(indexDoConvenio);
 
         // preenchendo os exames
         con = Conexao.fazConexao();
-        ResultSet resultSet =
-            EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, String.valueOf(jCBModalidade.getSelectedItem()));
+        System.out.println("convenio " + handle_convenio);
+        System.out.println("area " + listaAreasDeAtendimento.size());
+        ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
         listaHandleExames.removeAll(listaHandleExames);
         listaDuracaoExames.removeAll(listaDuracaoExames);
         listaVaiMateriaisPorPadrao.removeAll(listaVaiMateriaisPorPadrao);
@@ -2567,9 +2521,11 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.fechaConexao(con);
-            jCBExame.setEnabled(true);
+            
         }
+        */
 
+        jCBExame.setEnabled(true);
         Dimension x = new Dimension(18, 27);
         jCBExame.setPreferredSize(x);
 
@@ -2690,7 +2646,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     @SuppressWarnings("rawtypes")
     private void jBImprimirNotaFiscalActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBImprimirNotaFiscalActionPerformed
-        jCBModalidade.setEnabled(false);
+        jCBAreaDeAtendimento.setEnabled(false);
         jCBConvenio.setEnabled(false);
         jCBExame.setEnabled(false);
         jBIncluirExame.setEnabled(false);
@@ -2725,91 +2681,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
         worker.execute();
     }// GEN-LAST:event_jBImprimirNotaFiscalActionPerformed
-
-    @SuppressWarnings("unchecked")
-    private void jCheckBoxOTActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCheckBoxOTActionPerformed
-        if (jCheckBoxOT.isSelected()) {
-            jCBModalidade.setEnabled(false);
-            if (jCBConvenio.getSelectedIndex() != 0) {
-                int indexDoConvenio = jCBConvenio.getSelectedIndex();
-                int handle_convenio = listaHandleConvenio.get(indexDoConvenio);
-
-                // preenchendo os exames
-                con = Conexao.fazConexao();
-
-                ResultSet resultSet = EXAMES.getConsultarExamesPorConvenio(con, handle_convenio, "OT");
-
-                listaHandleExames.removeAll(listaHandleExames);
-                listaDuracaoExames.removeAll(listaDuracaoExames);
-                listaVaiMateriaisPorPadrao.removeAll(listaVaiMateriaisPorPadrao);
-
-                jCBExame.removeAllItems();
-                jCBExame.addItem("Selecione um Exame");
-
-                listaHandleExames.add(0);
-                listaDuracaoExames.add(0);
-                listaVaiMateriaisPorPadrao.add(0);
-                try {
-                    while (resultSet.next()) {
-                        if (resultSet.getInt("vai_materiais_por_padrao") >= 0) {
-                            jCBExame.addItem(resultSet.getString("nome"));
-                            listaHandleExames.add(resultSet.getInt("handle_exame"));
-                            listaDuracaoExames.add(resultSet.getInt("duracao"));
-                            listaVaiMateriaisPorPadrao.add(resultSet.getInt("vai_materiais_por_padrao"));
-                        }
-                    }
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null,
-                        "Não foi possivel preencher os Exames deste Convênio. Procure o administrador.", "ERRO",
-                        javax.swing.JOptionPane.ERROR_MESSAGE);
-                } finally {
-                    Conexao.fechaConexao(con);
-                    jCBExame.setEnabled(true);
-                }
-            }
-        } else {
-            jCBModalidade.setEnabled(true);
-            if (jCBConvenio.getSelectedIndex() != 0) {
-                int indexDoConvenio = jCBConvenio.getSelectedIndex();
-                int handle_convenio = listaHandleConvenio.get(indexDoConvenio);
-
-                // preenchendo os exames
-                con = Conexao.fazConexao();
-
-                ResultSet resultSet =
-                    EXAMES.getConsultarExamesPorConvenio(con, handle_convenio,
-                        String.valueOf(jCBModalidade.getSelectedItem()));
-
-                listaHandleExames.removeAll(listaHandleExames);
-                listaDuracaoExames.removeAll(listaDuracaoExames);
-                listaVaiMateriaisPorPadrao.removeAll(listaVaiMateriaisPorPadrao);
-
-                jCBExame.removeAllItems();
-                jCBExame.addItem("Selecione um Exame");
-
-                listaHandleExames.add(0);
-                listaDuracaoExames.add(0);
-                listaVaiMateriaisPorPadrao.add(0);
-                try {
-                    while (resultSet.next()) {
-                        if (resultSet.getInt("vai_materiais_por_padrao") >= 0) {
-                            jCBExame.addItem(resultSet.getString("nome"));
-                            listaHandleExames.add(resultSet.getInt("handle_exame"));
-                            listaDuracaoExames.add(resultSet.getInt("duracao"));
-                            listaVaiMateriaisPorPadrao.add(resultSet.getInt("vai_materiais_por_padrao"));
-                        }
-                    }
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null,
-                        "Não foi possivel preencher os Exames deste Convênio. Procure o administrador.", "ERRO",
-                        javax.swing.JOptionPane.ERROR_MESSAGE);
-                } finally {
-                    Conexao.fechaConexao(con);
-                    jCBExame.setEnabled(true);
-                }
-            }
-        }
-    }// GEN-LAST:event_jCheckBoxOTActionPerformed
 
     public void retirarDesconto() {
         jTBDesconto.setSelected(false);
@@ -2883,7 +2754,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     // metodo para imprimir a ficha de sala
     @SuppressWarnings("rawtypes")
     private void botaoImprimirFicha() {
-        jCBModalidade.setEnabled(false);
+        jCBAreaDeAtendimento.setEnabled(false);
         jCBConvenio.setEnabled(false);
         jCBExame.setEnabled(false);
         jBIncluirExame.setEnabled(false);
@@ -2945,7 +2816,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     @SuppressWarnings("rawtypes")
     private void botaoImprimirBoletoDeRetirada() {
         // bloqueio apra evitar fraude!!
-        jCBModalidade.setEnabled(false);
+        jCBAreaDeAtendimento.setEnabled(false);
         jCBConvenio.setEnabled(false);
         jCBExame.setEnabled(false);
         jBIncluirExame.setEnabled(false);
@@ -2991,8 +2862,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     @SuppressWarnings("rawtypes")
     private javax.swing.JComboBox jCBExame;
     @SuppressWarnings("rawtypes")
-    private javax.swing.JComboBox jCBModalidade;
-    private javax.swing.JCheckBox jCheckBoxOT;
+    private javax.swing.JComboBox jCBAreaDeAtendimento;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel15;

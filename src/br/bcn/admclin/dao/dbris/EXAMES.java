@@ -43,15 +43,15 @@ public class EXAMES {
      * @return ResultSet
      */
     @SuppressWarnings("finally")
-    public static ResultSet getConsultarExamesPorConvenio(Connection con, int HANDLE_CONVENIO, String modalidade) {
+    public static ResultSet getConsultarExamesPorConvenio(Connection con, int HANDLE_CONVENIO, int id_area_de_atendimento) {
 
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct a.nome, a.duracao, a.handle_exame, b.cofch1, b.cofch2, b.coeffilme, b.vai_materiais_por_padrao from exames a "
-                    + "inner join tabelas b on a.handle_exame = b.handle_exame where b.handle_convenio = ? and modalidade = ?");
+                con.prepareStatement("select distinct a.nome, a.duracao, a.handle_exame, a.ID_AREAS_ATENDIMENTO, b.cofch1, b.cofch2, b.coeffilme, b.vai_materiais_por_padrao from exames a "
+                    + "inner join tabelas b on a.handle_exame = b.handle_exame where b.handle_convenio = ? and ID_AREAS_ATENDIMENTO = ?");
             stmtQuery.setInt(1, HANDLE_CONVENIO);
-            stmtQuery.setString(2, modalidade);
+            stmtQuery.setInt(2, id_area_de_atendimento);
             resultSet = stmtQuery.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Exames deste Convênio. Procure o Administrador.",
