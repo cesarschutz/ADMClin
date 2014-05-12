@@ -12,9 +12,6 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
     public TratamentoParaRegistrarAtendimentoApartirDeAgendamento(Nagendamentos agendamento) {
         this.agendamento = agendamento;
         criandoListaDeIdAreaDeAtendimento();
-        while (listaIdAreasDeAtendimento.size() > 0){
-            montaListaParaRegistrarAtendimento();
-        }
     }
     
     /*
@@ -38,6 +35,7 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
      * Metodo que monta uma lista com os ID das areas de atendimento que o agendamento possue
      */
     private void criandoListaDeIdAreaDeAtendimento(){
+        listaIdAreasDeAtendimento.clear();
         int id = 0;
         for (int i = 0; i < agendamento.getListaExames().size() ; i++) {
             if(id != agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO()){
