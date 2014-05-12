@@ -95,28 +95,28 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
         valorConvenio =
             new BigDecimal(valorExame * (porcentagem_convenio / 100)).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
 
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
 
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
 
         botaoCancelar();
 
-        JIFAtendimentoSemAgenda.calcularValoresApartirDaTabela();
+        JIFCadastroDeAtendimento.calcularValoresApartirDaTabela();
 
     }
 
@@ -132,28 +132,28 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
 
         valorExame = new BigDecimal(valorConvenio + valorPaciente).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
 
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 3);// valor
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 6);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 7);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 8);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 9);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 10);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("", linhaSelecionadaNaTabela, 11);
 
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
-        JIFAtendimentoSemAgenda.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 12);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 13);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 14);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 15);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorExame, linhaSelecionadaNaTabela, 16);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 17);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 18);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorConvenio, linhaSelecionadaNaTabela, 19);
+        JIFCadastroDeAtendimento.jTable1.setValueAt(valorPaciente, linhaSelecionadaNaTabela, 20);
+        JIFCadastroDeAtendimento.jTable1.setValueAt("0", linhaSelecionadaNaTabela, 21);
 
         botaoCancelar();
 
-        JIFAtendimentoSemAgenda.calcularValoresApartirDaTabela();
+        JIFCadastroDeAtendimento.calcularValoresApartirDaTabela();
 
     }
 

@@ -120,11 +120,11 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
         String handle_medico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
         String nomeMedico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
 
-        JIFAtendimentoSemAgenda.jTFHANDLE_MEDICO_SOL.setText(handle_medico);
-        JIFAtendimentoSemAgenda.jTFMedicoSol.setText(nomeMedico);
+        JIFCadastroDeAtendimento.jTFHANDLE_MEDICO_SOL.setText(handle_medico);
+        JIFCadastroDeAtendimento.jTFMedicoSol.setText(nomeMedico);
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFAtendimentoSemAgenda.handle_medico_sol = Integer.valueOf(handle_medico);
+        JIFCadastroDeAtendimento.handle_medico_sol = Integer.valueOf(handle_medico);
 
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;

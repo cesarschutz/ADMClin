@@ -117,11 +117,11 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
         String handle_paciente = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
         String nomePaciente = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
 
-        JIFAtendimentoSemAgenda.jTFHANDLE_PACIENTE.setText(handle_paciente);
-        JIFAtendimentoSemAgenda.jTFPaciente.setText(nomePaciente);
+        JIFCadastroDeAtendimento.jTFHANDLE_PACIENTE.setText(handle_paciente);
+        JIFCadastroDeAtendimento.jTFPaciente.setText(nomePaciente);
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFAtendimentoSemAgenda.handle_paciente = Integer.valueOf(handle_paciente);
+        JIFCadastroDeAtendimento.handle_paciente = Integer.valueOf(handle_paciente);
 
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente = null;

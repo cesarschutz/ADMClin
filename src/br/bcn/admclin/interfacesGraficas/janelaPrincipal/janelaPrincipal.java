@@ -35,7 +35,7 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimentos.JIFPesquisarAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFAtendimentoSelecionarUmMedicoSolicitante;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFAtendimentoSelecionarUmPaciente;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFAtendimentoSemAgenda;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCadastroDeAtendimento;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCMedicosAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCPacientesAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.jIFAlterarValorDeExame;
@@ -132,7 +132,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
     public static JIFrelatorioDeValoresRecebidosConvenio internalFrameValoresRecebidos;
-    public static JIFAtendimentoSemAgenda internalFrameAtendimentoSemAgenda;
+    public static JIFCadastroDeAtendimento internalFrameAtendimentoSemAgenda;
     public static JIFAreasAtendimentoVisualizar internalFrameAreasDeAtendimentoVisualizar;
     public static JIFAreasAtendimento internalFrameAreasDeAtendimento;
     public static JIFCadastroAgendaVisualizar internalFrameCadastroAgendasVisualizar;
@@ -713,7 +713,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
             @Override
             protected Object doInBackground() throws Exception {
 
-                internalFrameAtendimentoSemAgenda = new JIFAtendimentoSemAgenda("livre", 0, 0);
+                internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0, 0);
                 jDesktopPane1.add(internalFrameAtendimentoSemAgenda);
                 internalFrameAtendimentoSemAgenda.setVisible(true);
                 // essa parte esta no fim do processo

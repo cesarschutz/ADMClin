@@ -69,7 +69,7 @@ import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
  * 
  * @author Cesar Schutz
  */
-public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
+public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = 1L;
     public List<Double> listaPorcentagemPaciente = new ArrayList<Double>();
@@ -107,7 +107,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
      * 
      * @wbp.parser.constructor
      */
-    public JIFAtendimentoSemAgenda(String horarioLivreOuOcupado, int handle_at, int handle_agenda) {
+    public JIFCadastroDeAtendimento(String horarioLivreOuOcupado, int handle_at, int handle_agenda) {
 
         initComponents();
         veioDaPesquisa = false;
@@ -218,7 +218,7 @@ public class JIFAtendimentoSemAgenda extends javax.swing.JInternalFrame {
     public static boolean veioDaPesquisa = false;
 
     // esse metodo contrutor serve para abrir a classe apartir da edição de atendimentos
-    public JIFAtendimentoSemAgenda(int handle_at, String data, String hora) {
+    public JIFCadastroDeAtendimento(int handle_at, String data, String hora) {
         initComponents();
         con = Conexao.fazConexao();
 

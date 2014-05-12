@@ -11,7 +11,7 @@ import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.JIFListaAtendimentos;
-import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFAtendimentoSemAgenda;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCadastroDeAtendimento;
 import static br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1;
 
 import java.awt.Dimension;
@@ -532,7 +532,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
 
                 // abrindo o editar atendimento
                 // abrindo a agenda
-                janelaPrincipal.internalFrameAtendimentoSemAgenda = new JIFAtendimentoSemAgenda(handle_at, data, hora);
+                janelaPrincipal.internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento(handle_at, data, hora);
                 janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoSemAgenda);
                 int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
                 int aDesk = janelaPrincipal.jDesktopPane1.getHeight();

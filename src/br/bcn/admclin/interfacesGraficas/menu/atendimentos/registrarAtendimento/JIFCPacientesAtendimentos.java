@@ -300,11 +300,11 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
             janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
         //}
 
-        JIFAtendimentoSemAgenda.jTFPaciente.setText(jTFNome.getText());
-        JIFAtendimentoSemAgenda.jTFHANDLE_PACIENTE.setText(String.valueOf(handle_paciente));
+        JIFCadastroDeAtendimento.jTFPaciente.setText(jTFNome.getText());
+        JIFCadastroDeAtendimento.jTFHANDLE_PACIENTE.setText(String.valueOf(handle_paciente));
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFAtendimentoSemAgenda.handle_paciente = Integer.valueOf(handle_paciente);
+        JIFCadastroDeAtendimento.handle_paciente = Integer.valueOf(handle_paciente);
     }
 
     /**
