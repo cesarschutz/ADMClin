@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
+import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
 
 
 /**
@@ -221,7 +222,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         JMenuItem registrarAtendimento = new JMenuItem("Registrar Atendimento", iconeMenuAtendimento);
         registrarAtendimento.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //chama metodo de registrar atendimento
+                TratamentoParaRegistrarAtendimentoApartirDeAgendamento tratamentoDeAgendamento = new TratamentoParaRegistrarAtendimentoApartirDeAgendamento((Nagendamentos)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
             }
         });
         popup.add(registrarAtendimento);

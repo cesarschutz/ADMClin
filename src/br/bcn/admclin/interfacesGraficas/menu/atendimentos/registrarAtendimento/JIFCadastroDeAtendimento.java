@@ -89,7 +89,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     public static int handle_paciente;
     public static int handle_medico_sol;
     int handle_at;
-    int handle_agenda = 0;
 
     java.sql.Date dataDeHojeEmVariavelDate = null;
 
@@ -111,7 +110,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
      * 
      * @wbp.parser.constructor
      */
-    public JIFCadastroDeAtendimento(String horarioLivreOuOcupado, int handle_at, int handle_agenda) {
+    public JIFCadastroDeAtendimento(String horarioLivreOuOcupado, int handle_at) {
 
         initComponents();
         veioDaPesquisa = false;
@@ -128,7 +127,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jTBDesconto.setMinimumSize(tamanhoBotaoDesconto);
         jTBDesconto.setMaximumSize(tamanhoBotaoDesconto);
 
-        this.handle_agenda = handle_agenda;
         this.handle_at = handle_at;
         this.horarioLivreOuOcupado = horarioLivreOuOcupado;
 
@@ -427,7 +425,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         atendimentoMODEL.setUSUARIOID(USUARIOS.usrId);
         atendimentoMODEL.setDAT(dataDeHojeEmVariavelDate);
 
-        atendimentoMODEL.setHANDLE_AGENDA(handle_agenda);
         atendimentoMODEL.setHANDLE_PACIENTE(0);
         atendimentoMODEL.setHANDLE_MEDICO_SOL(0);
         atendimentoMODEL.setHANDLE_CONVENIO(0);
@@ -945,8 +942,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     atendimento.setDATA_ATENDIMENTO(diaAtendimento);
                 } catch (ParseException ex) {
                 }
-
-                atendimento.setHANDLE_AGENDA(handle_agenda);
                 atendimento.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(horaAtendimento.getText()));
                 atendimento.setHANDLE_PACIENTE(handle_paciente);
                 atendimento.setHANDLE_MEDICO_SOL(handle_medico_sol);

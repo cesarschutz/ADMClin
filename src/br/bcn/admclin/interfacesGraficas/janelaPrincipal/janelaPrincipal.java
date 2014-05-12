@@ -708,7 +708,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private void  jMEAtendimentoSemAgendaActionPerformed(java.awt.event.ActionEvent evt){
         fechandoTodosOsInternalFrames();
 
-        internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0, 0);
+        internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0);
         jDesktopPane1.add(internalFrameAtendimentoSemAgenda);
         internalFrameAtendimentoSemAgenda.setVisible(true);
         int lDesk = jDesktopPane1.getWidth();
