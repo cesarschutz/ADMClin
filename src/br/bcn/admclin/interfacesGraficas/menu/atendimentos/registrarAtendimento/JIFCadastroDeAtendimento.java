@@ -105,14 +105,16 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     String horarioLivreOuOcupado;
 
+    boolean veioDeAgendamento = false;
     /**
      * Creates new form JIFagendamento
      * 
      * @wbp.parser.constructor
      */
-    public JIFCadastroDeAtendimento(String horarioLivreOuOcupado, int handle_at) {
+    public JIFCadastroDeAtendimento(String horarioLivreOuOcupado, int handle_at, boolean veioDeAgendamento) {
 
         initComponents();
+        this.veioDeAgendamento = veioDeAgendamento;
         veioDaPesquisa = false;
         con = Conexao.fazConexao();
 
@@ -164,10 +166,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         if ("livre".equals(horarioLivreOuOcupado)) {
             jBAtualizar.setVisible(false);
 
-            // preencher agenda, data e hora
-//            jTFAgenda.setText(JIFUmaAgenda.jTextField1.getText());
-//            jTFDia.setText(String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(4, 14));
-              //jTFHora.setText("00:00");
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss"); 
             Date date = new Date(); 
             horaAtendimento.setText(dateFormat.format(date));
@@ -176,7 +174,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             reservandoHorarioCasoSejaUmHorarioLivre();
 
             // caso venha de um agendamento, ele preenche os campos com as informações do agendamento
-            //preenchendoOsDadosApartirDoAgendamento();
+            if(veioDeAgendamento){
+                preenchendoOsDadosApartirDoAgendamento();  
+            }
+            
 
             // bloquando o menu (pq fizemos uma reserva nos agendamentos e soh vai deletar a reservar ao salvar o
             // agendamento ou cancelar
@@ -309,7 +310,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         Conexao.fechaConexao(con);
     }
 
-    /*
+    
     public void preenchendoOsDadosApartirDoAgendamento() {
         int handle_ap = 0;
         try {
@@ -415,7 +416,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             }
         }
     }
-    */
+    
 
     public void reservandoHorarioCasoSejaUmHorarioLivre() {
         pegandoUmHandle_atDoBanco();
