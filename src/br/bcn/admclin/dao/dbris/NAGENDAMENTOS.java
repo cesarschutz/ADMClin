@@ -68,7 +68,7 @@ public class NAGENDAMENTOS {
                                  + "\"EXAMES\" EXAMES INNER JOIN \"NAGENDAMENTOSEXAMES\" NAGENDAMENTOSEXAMES ON EXAMES.\"EXMID\" = NAGENDAMENTOSEXAMES.\"HANDLE_EXAME\" "
                                  + "INNER JOIN \"AREAS_ATENDIMENTO\" AREAS_ATENDIMENTO ON EXAMES.\"ID_AREAS_ATENDIMENTO\" = AREAS_ATENDIMENTO.\"ID_AREAS_ATENDIMENTO\" "
                                  + "WHERE NAGENID = ? "
-                                 + "ORDER BY AREAS_ATENDIMENTO_ID");
+                                 + "ORDER BY AREAS_ATENDIMENTO_ID, HORA");
                        stmt.setInt(1, agendamento.getNAGENID());
                        ResultSet resultSet2 = stmt.executeQuery();
                        while (resultSet2.next()) {

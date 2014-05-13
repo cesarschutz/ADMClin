@@ -26,7 +26,7 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
         System.out.println("handle_convenio: " + agendamento.getHANDLE_CONVENIO());
         System.out.println("nomeConvenio: " + agendamento.getNOME_CONVENIO());
         for (int i = 0; i < agendamento.getListaExames().size() ; i++) {
-            System.out.println("exame: " + agendamento.getListaExames().get(i).getNomeExame() + "  - id area de atendimento: " + agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO());
+            System.out.println("exame: " + agendamento.getListaExames().get(i).getNomeExame() + "  hora exame: " + agendamento.getListaExames().get(i).getHORA() + "  - id area de atendimento: " + agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO());
         }
         System.out.println("---------------------------------------------------------------------");
     }

@@ -312,18 +312,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     
     public void preenchendoOsDadosApartirDoAgendamento() {
-        int handle_ap = 0;
-        try {
-            handle_ap = Integer.valueOf(String.valueOf(tabelaSelecionada.getValueAt(tabelaSelecionada.getSelectedRow(), 4)));
-        } catch (Exception e) {
-        }
+        boolean primeiraVezNoFor = true;
 
-        if (handle_ap != 0) {
             // buscando informações do agendamento no banco
-            boolean primeiraVezNoFor = true;
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            
+           // DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
-            ResultSet resultSet = A_AGENDAMENTOS.getConsultarDadosDeUmAgendamento(con, handle_ap);
+            //ResultSet resultSet = A_AGENDAMENTOS.getConsultarDadosDeUmAgendamento(con, handle_ap);
             try {
                 while (resultSet.next()) {
 
@@ -411,10 +406,9 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 this.dispose();
                 JOptionPane.showMessageDialog(null,
-                    "Não foi possivel preencher os dados do Agendamento. Procure o administrador." + e, "ERRO",
+                    "Não foi possivel preencher os dados do Agendamento. Procure o administrador.", "ERRO",
                     javax.swing.JOptionPane.ERROR_MESSAGE);
             }
-        }
     }
     
 
