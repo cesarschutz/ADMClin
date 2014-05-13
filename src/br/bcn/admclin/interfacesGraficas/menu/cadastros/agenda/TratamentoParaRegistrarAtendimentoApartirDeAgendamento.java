@@ -4,14 +4,17 @@ import java.util.ArrayList;
 
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCadastroDeAtendimento;
 
 public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
-    private static Nagendamentos agendamento;
-    private static ArrayList<Integer> listaIdAreasDeAtendimento = new ArrayList<Integer>();
+    public static Nagendamentos agendamento;
+    public static ArrayList<Integer> listaIdAreasDeAtendimento = new ArrayList<Integer>();
 
     public TratamentoParaRegistrarAtendimentoApartirDeAgendamento(Nagendamentos agendamento) {
         this.agendamento = agendamento;
         criandoListaDeIdAreaDeAtendimento();
+        abrirJanelaDeRegistro();
     }
     
     /*
@@ -66,4 +69,15 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
         }
     }
     
+    private void abrirJanelaDeRegistro(){
+        janelaPrincipal.internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0, true);
+        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoSemAgenda);
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
+        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
+        int lIFrame = janelaPrincipal.internalFrameAtendimentoSemAgenda.getWidth();
+        int aIFrame = janelaPrincipal.internalFrameAtendimentoSemAgenda.getHeight();
+
+        janelaPrincipal.internalFrameAtendimentoSemAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+    }
 }

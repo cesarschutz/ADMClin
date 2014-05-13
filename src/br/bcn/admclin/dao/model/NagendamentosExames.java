@@ -7,6 +7,7 @@ public class NagendamentosExames {
     private int HORA;
     private int NAGENID;
     private int HANDLE_EXAME;
+    private int DURACAO;
     private int ID_AREAS_ATENDIMENTO; // essa variavel serve para ver a area de atendimento (para podermos fazer mais de um atendimento separando as areas de atendimento)
     private String nomeExame;
     private String nomeAreaAtendimento;
@@ -59,8 +60,10 @@ public class NagendamentosExames {
     public void setNomeAreaAtendimento(String nomeAreaAtendimento) {
         this.nomeAreaAtendimento = nomeAreaAtendimento;
     }
-    
-    
-    
-    
+    public int getDURACAO() {
+        return DURACAO;
+    }
+    public void setDURACAO(int dURACAO) {
+        DURACAO = dURACAO;
+    }
 }

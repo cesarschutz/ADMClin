@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -54,6 +55,8 @@ import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Areas_atendimento;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
 import br.bcn.admclin.dao.model.Atendimentos;
+import br.bcn.admclin.dao.model.Nagendamentos;
+import br.bcn.admclin.dao.model.NagendamentosExames;
 import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
@@ -61,6 +64,7 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
 
 /*
  * To change this template, choose Tools | Templates
@@ -118,10 +122,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         veioDaPesquisa = false;
         con = Conexao.fazConexao();
 
-        jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
-        jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Hoje");
-        datePicker.setFormats(new String[] { "E dd/MM/yyyy" });
-        datePicker.setLinkDate(System.currentTimeMillis(), "Hoje");
+        jXDPEntregaDoExame.setFormats(new String[] { "E dd/MM/yyyy" });
+        jXDPEntregaDoExame.setLinkDate(System.currentTimeMillis(), "Hoje");
+        JXDPDataAtendimento.setFormats(new String[] { "E dd/MM/yyyy" });
+        JXDPDataAtendimento.setLinkDate(System.currentTimeMillis(), "Hoje");
         pegandoDataDoSistema();
 
         Dimension tamanhoBotaoDesconto = new Dimension(121, 30);
@@ -168,7 +172,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss"); 
             Date date = new Date(); 
-            horaAtendimento.setText(dateFormat.format(date));
+            jTFhoraAtendimento.setText(dateFormat.format(date));
 
             con = Conexao.fazConexao();
             reservandoHorarioCasoSejaUmHorarioLivre();
@@ -244,10 +248,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         }
         */
 
-        jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
-        jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Hoje");
-        datePicker.setFormats(new String[] { "E dd/MM/yyyy" });
-        datePicker.setLinkDate(System.currentTimeMillis(), "Hoje");
+        jXDPEntregaDoExame.setFormats(new String[] { "E dd/MM/yyyy" });
+        jXDPEntregaDoExame.setLinkDate(System.currentTimeMillis(), "Hoje");
+        JXDPDataAtendimento.setFormats(new String[] { "E dd/MM/yyyy" });
+        JXDPDataAtendimento.setLinkDate(System.currentTimeMillis(), "Hoje");
         pegandoDataDoSistema();
 
         Dimension tamanhoBotaoDesconto = new Dimension(121, 30);
@@ -312,103 +316,65 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     
     public void preenchendoOsDadosApartirDoAgendamento() {
-        boolean primeiraVezNoFor = true;
+        //boolean primeiraVezNoFor = true;
+        try {
+            // preencher data e hora
+            JXDPDataAtendimento.setDate(TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getDIA());            
 
-            // buscando informações do agendamento no banco
-            
-           // DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            // paciente
+            jTFPaciente.setText(TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getPACIENTE());
 
-            //ResultSet resultSet = A_AGENDAMENTOS.getConsultarDadosDeUmAgendamento(con, handle_ap);
-            try {
-                while (resultSet.next()) {
-
-                    // preencher agenda, data e hora
-                    jTFAgenda.setText(JIFUmaAgenda.jTextField1.getText());
-                    jTFDia.setText(String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue())
-                        .substring(4, 14));
-                    jTFHora.setText((String) JIFUmaAgenda.jTable1.getValueAt(tabelaSelecionada.getSelectedRow(), 0));
-
-                    // preenchendo o restante
-                    jTAObservacao.setText(resultSet.getString("observacao"));
-
-                    // paciente
-                    jTFPaciente.setText(resultSet.getString("nomePaciente"));
-                    handle_paciente = Integer.valueOf(resultSet.getString("HANDLE_PACIENTE"));
-
-                    if (handle_paciente > 0)
-                        jTFHANDLE_PACIENTE.setText(String.valueOf(handle_paciente));
-
-                    // convenio
-                    // se for primeira vez faz se nao, nao faz para nao limpar a tabela de exame
-                    // pq quando o comboBox tem i itemListener ativado ele limpa a tabela
-                    // isso para se mudar o convenio zerar a tabela e garantir que nao va colocar dois exame de
-                    // convenios diferentes
-                    if (primeiraVezNoFor) {
-                        for (int x = 0; x < listaHandleConvenio.size(); x++) {
-                            if (listaHandleConvenio.get(x) == resultSet.getInt("handle_convenio")) {
-                                jCBConvenio.setSelectedIndex(x);
-                                jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
-                            }
-                        }
-                        primeiraVezNoFor = false;
-                    }
-
-                    duracaoDoAtendimento = resultSet.getInt("duracaoDoAgendamento");
-
-                    jtfDuracaoAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(resultSet
-                        .getInt("duracaoDoAgendamento")));
-
-                    // exames
-
-                    // calculando o valor do exame
-
-                    // pegando a data da tabela que foi clicado para pesquisar os valores dos exames com ela
-                    String dataString =
-                        String.valueOf(tabelaSelecionada.getColumnModel().getColumn(0).getHeaderValue()).substring(4,
-                            14);
-                    SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-                    java.sql.Date dataDoExame = null;
-                    try {
-                        dataDoExame = new java.sql.Date(fmt.parse(dataString).getTime());
-                    } catch (ParseException ex) {
-                        dataDoExame = dataDeHojeEmVariavelDate;
-                        JOptionPane.showMessageDialog(null,
-                            "Não foi possível verificar a data do exame, o mesmo será calculado com a data atual!",
-                            "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-                    }
-                    // calculando valor do exame
-                    CalculoValorDeExame calculoValorExame;
-                    if ("CM".equals(resultSet.getString("material")) || "CC".equals(resultSet.getString("material"))) {
-                        calculoValorExame =
-                            new CalculoValorDeExame(resultSet.getInt("handle_convenio"),
-                                resultSet.getInt("handle_exame"), dataDoExame, true, porcentagemDeDesconto);
-                    } else {
-                        calculoValorExame =
-                            new CalculoValorDeExame(resultSet.getInt("handle_convenio"),
-                                resultSet.getInt("handle_exame"), dataDoExame, false, porcentagemDeDesconto);
-                    }
-
-                    // adicionando na tabela o exame com o valor calculo de acordo com a data!!!
-                    modelo.addRow(new Object[] { Integer.toString(resultSet.getInt("handle_exame")),
-                        resultSet.getString("nomeExame"),
-                        MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("duracaoDoExame")),
-                        MetodosUteis.colocarZeroEmCampoReais(calculoValorExame.valor_correto_exame), "", "",
-                        calculoValorExame.chConvenio, calculoValorExame.filmeConvenio, calculoValorExame.ch1Exame,
-                        calculoValorExame.ch2Exame, calculoValorExame.filmeExame, "", calculoValorExame.redutor,
-                        calculoValorExame.porcentDescontoPaciente, calculoValorExame.porcentConvenio,
-                        calculoValorExame.porcentPaciente, calculoValorExame.valorExame,
-                        calculoValorExame.valorConvenio, calculoValorExame.valorPaciente,
-                        calculoValorExame.valor_correto_convenio, calculoValorExame.valor_correto_paciente,
-                        calculoValorExame.valor_desconto });
-
+            //preenchendo convenio
+            for (int x = 0; x < listaHandleConvenio.size(); x++) {
+                if (listaHandleConvenio.get(x) == TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getHANDLE_CONVENIO()) {
+                    jCBConvenio.setSelectedIndex(x);
                 }
-                calcularValoresApartirDaTabela();
-            } catch (SQLException e) {
-                this.dispose();
-                JOptionPane.showMessageDialog(null,
-                    "Não foi possivel preencher os dados do Agendamento. Procure o administrador.", "ERRO",
-                    javax.swing.JOptionPane.ERROR_MESSAGE);
             }
+                
+            //preenchendo area de atendimento
+            for (int x = 0; x < listaAreasDeAtendimento.size(); x++) {
+                if (listaAreasDeAtendimento.get(x).getId_areas_atendimento() == TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getListaExames().get(0).getID_AREAS_ATENDIMENTO()) {
+                    jCBAreaDeAtendimento.setSelectedIndex(x);
+                }
+            }
+            // exames
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaParaRegistrarAtendimento();
+            jTFhoraAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(listaDeNovosExames.get(0).getHORA()));
+            for (NagendamentosExames exame : listaDeNovosExames) {
+                // calculando valor do exame
+                CalculoValorDeExame calculoValorExame = new CalculoValorDeExame(TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getHANDLE_CONVENIO(),
+                    exame.getHANDLE_EXAME(), TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getDIA(), false, porcentagemDeDesconto);
+                
+                // adicionando na tabela o exame com o valor calculo de acordo com a data!!!
+                modelo.addRow(new Object[] { exame.getHANDLE_EXAME(),
+                    exame.getNomeExame(),
+                    MetodosUteis.transformarMinutosEmHorario(exame.getDURACAO()),
+                    MetodosUteis.colocarZeroEmCampoReais(calculoValorExame.valor_correto_exame), "", "",
+                    calculoValorExame.chConvenio, calculoValorExame.filmeConvenio, calculoValorExame.ch1Exame,
+                    calculoValorExame.ch2Exame, calculoValorExame.filmeExame, "", calculoValorExame.redutor,
+                    calculoValorExame.porcentDescontoPaciente, calculoValorExame.porcentConvenio,
+                    calculoValorExame.porcentPaciente, calculoValorExame.valorExame,
+                    calculoValorExame.valorConvenio, calculoValorExame.valorPaciente,
+                    calculoValorExame.valor_correto_convenio, calculoValorExame.valor_correto_paciente,
+                    calculoValorExame.valor_desconto });
+                
+                duracaoDoAtendimento += exame.getDURACAO();
+            }
+            jtfDuracaoAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(duracaoDoAtendimento));
+            
+            
+
+            
+
+            calcularValoresApartirDaTabela();
+            
+        } catch (Exception e) {
+            this.dispose();
+            JOptionPane.showMessageDialog(null,
+                "Não foi possivel preencher os dados do Agendamento. Procure o administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }
     
 
@@ -598,7 +564,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 jTFHANDLE_MEDICO_SOL.setText(resultSet.getString("handle_medico_sol"));
                 handle_medico_sol = resultSet.getInt("handle_medico_sol");
 
-                jXDatePicker1.setDate(resultSet.getDate("data_exame_pronto"));
+                jXDPEntregaDoExame.setDate(resultSet.getDate("data_exame_pronto"));
                 jtfHoraEntregaExame.setText(MetodosUteis.transformarMinutosEmHorario(resultSet
                     .getInt("hora_exame_pronto")));
                 jTAObservacao.setText(resultSet.getString("observacao"));
@@ -639,8 +605,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
            date = (Date)formatter.parse(data);
         } catch (ParseException e1) {
         } 
-        datePicker.setDate(date);
-        horaAtendimento.setText(hora);
+        JXDPDataAtendimento.setDate(date);
+        jTFhoraAtendimento.setText(hora);
 
         // preenchendo os exames do atendimento
         // exames
@@ -723,8 +689,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
-
-   
 
     // ok
     public void botaoPesquisarPaciente() {
@@ -925,7 +889,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 atendimento.setHANDLE_AT(handle_at);
 
                 
-                Date dataSelecionada = datePicker.getDate();
+                Date dataSelecionada = JXDPDataAtendimento.getDate();
                 // criando um formato de data
                 SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
                 // colocando data selecionado no formato criado acima
@@ -937,7 +901,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     atendimento.setDATA_ATENDIMENTO(diaAtendimento);
                 } catch (ParseException ex) {
                 }
-                atendimento.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(horaAtendimento.getText()));
+                atendimento.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(jTFhoraAtendimento.getText()));
                 atendimento.setHANDLE_PACIENTE(handle_paciente);
                 atendimento.setHANDLE_MEDICO_SOL(handle_medico_sol);
                 atendimento.setHANDLE_CONVENIO(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()));
@@ -948,7 +912,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 atendimento.setMATRICULA_CONVENIO(jTFMatricula.getText());
                 atendimento.setCOMPLEMENTO(jTFComplemento.getText());
 
-                Date dataSelecionada2 = jXDatePicker1.getDate();
+                Date dataSelecionada2 = jXDPEntregaDoExame.getDate();
                 // criando um formato de data
                 SimpleDateFormat dataFormatada2 = new SimpleDateFormat("dd/MM/yyyy");
                 // colocando data selecionado no formato criado acima
@@ -1045,7 +1009,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     jBPesquisaMedico.setEnabled(false);
                     jBPesquisaPaciente.setEnabled(false);
 
-                    jXDatePicker1.setEnabled(false);
+                    jXDPEntregaDoExame.setEnabled(false);
                     jtfHoraEntregaExame.setEnabled(false);
                     jTAObservacao.setEnabled(false);
 
@@ -1057,7 +1021,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     jBIncluirExame.setEnabled(false);
                     jTable1.setEnabled(false);
                     jTBDesconto.setEnabled(false);
-                    datePicker.setEnabled(false);
+                    JXDPDataAtendimento.setEnabled(false);
                     cadastrouNovoAtendimento = true;
                 }
             } else {
@@ -1239,7 +1203,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             // abrindo a janela pesquisa
             janelaPrincipal.internalFramePesquisarAtendimentos.setVisible(true);
 
-        } else {
+        } else if (veioDeAgendamento){
+            // fechando esta janela
+            this.dispose();
+            janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
+            // abrindo a janela pesquisa
+            janelaPrincipal.internalFrameListaDeAgendamentos.setVisible(true);
+        } else{
             this.dispose();
             janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
         }
@@ -1279,7 +1249,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             //}
             
             
-            Date dataSelecionada = datePicker.getDate();
+            Date dataSelecionada = JXDPDataAtendimento.getDate();
             java.sql.Date dataDoExame = null;
             // criando um formato de data
             SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
@@ -1393,7 +1363,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTAObservacao = new javax.swing.JTextArea(new DocumentoSemAspasEPorcento(500));
         jLabel6 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jXDPEntregaDoExame = new org.jdesktop.swingx.JXDatePicker();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jtfHoraEntregaExame = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##:##"));
         jBAtualizar = new javax.swing.JButton();
@@ -1486,10 +1456,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         JLabel lblDataAtendimento = new JLabel();
         lblDataAtendimento.setText("Data Atendimento");
         
-        datePicker = new JXDatePicker();
-        datePicker.setFormats(new String[] {"E dd/MM/yyyy"});
+        JXDPDataAtendimento = new JXDatePicker();
+        JXDPDataAtendimento.setFormats(new String[] {"E dd/MM/yyyy"});
         
-        horaAtendimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##:##"));
+        jTFhoraAtendimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##:##"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
@@ -1504,7 +1474,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addGap(18)
-                            .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(ComponentPlacement.RELATED)
                             .addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 124, Short.MAX_VALUE))
@@ -1516,9 +1486,9 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
                                 .addComponent(jtfDuracaoAtendimento, GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addComponent(horaAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
                     .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1527,13 +1497,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(lblDataAtendimento)
-                        .addComponent(datePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(horaAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(jLabel10)
@@ -2385,7 +2355,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     public void mudarValorDeExameCasoMudeComMaterialOuComContraste(boolean somarValoresDeMateriais) {
         // pegando a data da tabela que foi clicado para pesquisar os valores dos exames com ela
-        Date dataSelecionada = datePicker.getDate();
+        Date dataSelecionada = JXDPDataAtendimento.getDate();
         java.sql.Date dataDoExame = null;
         // criando um formato de data
         SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
@@ -2643,7 +2613,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jTable1.setEnabled(false);
         jTBDesconto.setEnabled(false);
         jBAtualizar.setVisible(false);
-        datePicker.setVisible(false);
+        JXDPDataAtendimento.setVisible(false);
 
         janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
         SwingWorker worker = new SwingWorker() {
@@ -2750,7 +2720,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jBIncluirExame.setEnabled(false);
         jTable1.setEnabled(false);
         jTBDesconto.setEnabled(false);
-        datePicker.setEnabled(false);
+        JXDPDataAtendimento.setEnabled(false);
         jBAtualizar.setVisible(false);
 
         janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
@@ -2884,9 +2854,9 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jTFValorPaciente;
     public static javax.swing.JTextField jTFValorTotal;
     public static javax.swing.JTable jTable1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private org.jdesktop.swingx.JXDatePicker jXDPEntregaDoExame;
     public static javax.swing.JTextField jtfDuracaoAtendimento;
     public static javax.swing.JTextField jtfHoraEntregaExame;
-    public JXDatePicker datePicker;
-    private JFormattedTextField horaAtendimento;
+    public JXDatePicker JXDPDataAtendimento;
+    private JFormattedTextField jTFhoraAtendimento;
 }

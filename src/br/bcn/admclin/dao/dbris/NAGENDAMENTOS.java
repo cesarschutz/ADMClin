@@ -62,6 +62,7 @@ public class NAGENDAMENTOS {
                                  + "NAGENDAMENTOSEXAMES.\"NAGENID\" AS NAGENID, "
                                  + "NAGENDAMENTOSEXAMES.\"HANDLE_EXAME\" AS HANDLE_EXAME, "
                                  + "EXAMES.\"NOME\" AS EXAMES_NOME, "
+                                 + "EXAMES.\"DURACAO\" AS EXAMES_DURACAO, "
                                  + "AREAS_ATENDIMENTO.\"ID_AREAS_ATENDIMENTO\" AS AREAS_ATENDIMENTO_ID, "
                                  + "AREAS_ATENDIMENTO.\"NOME\" AS AREAS_ATENDIMENTO_NOME "
                                  + "FROM "
@@ -76,6 +77,7 @@ public class NAGENDAMENTOS {
                           exame.setNAGENEID(resultSet2.getInt("NAGENEID"));
                           exame.setNAGDID(resultSet2.getInt("NAGDID"));
                           exame.setHORA(resultSet2.getInt("hora"));
+                          exame.setDURACAO(resultSet2.getInt("EXAMES_DURACAO"));
                           exame.setNAGENID(resultSet2.getInt("NAGENID"));
                           exame.setHANDLE_EXAME(resultSet2.getInt("HANDLE_EXAME"));
                           exame.setNomeExame(resultSet2.getString("EXAMES_NOME"));

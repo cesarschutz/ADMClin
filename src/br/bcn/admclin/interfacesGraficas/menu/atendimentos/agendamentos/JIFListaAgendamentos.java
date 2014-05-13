@@ -222,6 +222,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         JMenuItem registrarAtendimento = new JMenuItem("Registrar Atendimento", iconeMenuAtendimento);
         registrarAtendimento.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
                 TratamentoParaRegistrarAtendimentoApartirDeAgendamento tratamentoDeAgendamento = new TratamentoParaRegistrarAtendimentoApartirDeAgendamento((Nagendamentos)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
             }
         });
