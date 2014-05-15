@@ -1,4 +1,4 @@
-package br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda;
+package br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.
 
 public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
     public static Nagendamentos agendamento;
-    public static ArrayList<Integer> listaIdAreasDeAtendimento = new ArrayList<Integer>();
+    public static ArrayList<String> listaIdAreasDeAtendimento = new ArrayList<String>();
 
     public TratamentoParaRegistrarAtendimentoApartirDeAgendamento(Nagendamentos agendamento) {
         this.agendamento = agendamento;
@@ -43,7 +43,7 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
         for (int i = 0; i < agendamento.getListaExames().size() ; i++) {
             if(id != agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO()){
                 id = agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO();
-                listaIdAreasDeAtendimento.add(id);
+                listaIdAreasDeAtendimento.add(agendamento.getListaExames().get(i).getNomeAreaAtendimento());
             }
         }
     }
@@ -51,7 +51,7 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
     /*
      * metodo que monte uma lista de exames para enviar e registrar um atendimento e apaga o id_area_atendimento da lista
      */
-    public static ArrayList<NagendamentosExames> montaListaParaRegistrarAtendimento(){
+    public static ArrayList<NagendamentosExames> montaListaDeExamesDeUmaArea(int idAreaSelecionada){
         ArrayList<NagendamentosExames> listaDeExamesAEnviar = new ArrayList<NagendamentosExames>();
         //se nao tiver mais retorna null
         if(listaIdAreasDeAtendimento.size() == 0){
@@ -59,12 +59,10 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
         }else{
             //varre em busca de exames com a mesma id_area_de_atendimento
             for (int i = 0; i < agendamento.getListaExames().size() ; i++) {
-                if(agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO() == listaIdAreasDeAtendimento.get(0)){
+                if(agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO() == idAreaSelecionada){
                     listaDeExamesAEnviar.add(agendamento.getListaExames().get(i));
                 }
             }
-            //ja preencheu os exames agora vamos apagar o id_area_atendimento
-            listaIdAreasDeAtendimento.remove(0);
             return listaDeExamesAEnviar;
         }
     }

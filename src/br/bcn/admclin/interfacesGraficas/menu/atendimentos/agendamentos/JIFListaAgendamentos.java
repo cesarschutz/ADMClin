@@ -23,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
 import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
 
 
 /**

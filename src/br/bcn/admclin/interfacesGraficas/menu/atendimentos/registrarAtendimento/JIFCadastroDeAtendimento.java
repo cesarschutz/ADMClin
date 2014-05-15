@@ -64,7 +64,9 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
+
+import javax.swing.JComboBox;
 
 /*
  * To change this template, choose Tools | Templates
@@ -119,6 +121,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
         initComponents();
         this.veioDeAgendamento = veioDeAgendamento;
+        if(!veioDeAgendamento){
+            jCBAreasDoAgendamento.setVisible(false);
+            jLAreasDoAgendamento.setVisible(false);
+        }
         veioDaPesquisa = false;
         con = Conexao.fazConexao();
 
@@ -316,6 +322,12 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
     
     public void preenchendoOsDadosApartirDoAgendamento() {
+        for (String nomeArea : TratamentoParaRegistrarAtendimentoApartirDeAgendamento.listaIdAreasDeAtendimento) {
+            jCBAreasDoAgendamento.addItem(nomeArea);
+        }
+        
+        
+        
         //boolean primeiraVezNoFor = true;
         try {
             // preencher data e hora
@@ -339,7 +351,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             }
             // exames
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaParaRegistrarAtendimento();
+            ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaDeExamesDeUmaArea(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
             jTFhoraAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(listaDeNovosExames.get(0).getHORA()));
             for (NagendamentosExames exame : listaDeNovosExames) {
                 // calculando valor do exame
@@ -375,6 +387,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 "Não foi possivel preencher os dados do Agendamento. Procure o administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+        
     }
     
 
@@ -1889,137 +1902,127 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 jTBDescontoActionPerformed(evt);
             }
         });
+        
+        jLAreasDoAgendamento = new JLabel("Áreas do Agendamento");
+        
+        jCBAreasDoAgendamento = new JComboBox();
+        jCBAreasDoAgendamento.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                
+                jCBAreaDeAtendimento.setSelectedItem(jCBAreasDoAgendamento.getSelectedItem());
+                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+                ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaDeExamesDeUmaArea(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
+                jTFhoraAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(listaDeNovosExames.get(0).getHORA()));
+                for (NagendamentosExames exame : listaDeNovosExames) {
+                    // calculando valor do exame
+                    CalculoValorDeExame calculoValorExame = new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
+                        exame.getHANDLE_EXAME(), TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getDIA(), false, porcentagemDeDesconto);
+                    
+                    // adicionando na tabela o exame com o valor calculo de acordo com a data!!!
+                    modelo.addRow(new Object[] { exame.getHANDLE_EXAME(),
+                        exame.getNomeExame(),
+                        MetodosUteis.transformarMinutosEmHorario(exame.getDURACAO()),
+                        MetodosUteis.colocarZeroEmCampoReais(calculoValorExame.valor_correto_exame), "", "",
+                        calculoValorExame.chConvenio, calculoValorExame.filmeConvenio, calculoValorExame.ch1Exame,
+                        calculoValorExame.ch2Exame, calculoValorExame.filmeExame, "", calculoValorExame.redutor,
+                        calculoValorExame.porcentDescontoPaciente, calculoValorExame.porcentConvenio,
+                        calculoValorExame.porcentPaciente, calculoValorExame.valorExame,
+                        calculoValorExame.valorConvenio, calculoValorExame.valorPaciente,
+                        calculoValorExame.valor_correto_convenio, calculoValorExame.valor_correto_paciente,
+                        calculoValorExame.valor_desconto });
+                    
+                    duracaoDoAtendimento += exame.getDURACAO();
+                }
+                jtfDuracaoAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(duracaoDoAtendimento));
+                
+                calcularValoresApartirDaTabela();
+                
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                        .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+                                .addComponent(jTBDesconto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel20)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(jTFValorTotal, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel15)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(jTFValorPaciente, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(jLabel19)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(jTFValorConvenio, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)))
+                            .addGap(1))))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jBCancelar)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jBSalvar)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jBAtualizar)
+                    .addPreferredGap(ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                    .addComponent(jBImprimirNotaFiscal)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jBImprimirBoletoDeRetirada)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jBImprimirFicha))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jLAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(470, Short.MAX_VALUE))
+                .addComponent(jTFMensagemParaUsuario, GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                                .addComponent(jLabel19)
+                                .addComponent(jTFValorConvenio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel20)
+                                .addComponent(jTFValorTotal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel15)
+                                .addComponent(jTFValorPaciente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jTBDesconto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(10)
+                            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(jTFMensagemParaUsuario, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+                        .addComponent(jBImprimirNotaFiscal, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBImprimirBoletoDeRetirada, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBImprimirFicha, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBSalvar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBCancelar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBAtualizar))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jLAreasDoAgendamento)
+                        .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         getContentPane().setLayout(layout);
-        layout
-            .setHorizontalGroup(layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(
-                    layout
-                        .createSequentialGroup()
-                        .addGroup(
-                            layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(
-                            layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(
-                                    layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jTBDesconto, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(
-                                                    layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jLabel20)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFValorTotal,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE, 73,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jLabel15)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFValorPaciente,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE, 73,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jLabel19)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFValorConvenio,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE, 73,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE))).addGap(1, 1, 1))))
-                .addComponent(jTFMensagemParaUsuario)
-                .addGroup(
-                    javax.swing.GroupLayout.Alignment.TRAILING,
-                    layout
-                        .createSequentialGroup()
-                        .addComponent(jBCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBAtualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(jBImprimirNotaFiscal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBImprimirBoletoDeRetirada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBImprimirFicha)));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                layout
-                    .createSequentialGroup()
-                    .addGroup(
-                        layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(
-                                layout
-                                    .createSequentialGroup()
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(
-                                        layout
-                                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel19)
-                                            .addComponent(jTFValorConvenio, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel20)
-                                            .addComponent(jTFValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel15)
-                                            .addComponent(jTFValorPaciente, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTBDesconto).addGap(1, 1, 1))
-                            .addGroup(
-                                layout
-                                    .createSequentialGroup()
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(
-                        layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jBImprimirNotaFiscal, javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)
-                            .addComponent(jBImprimirBoletoDeRetirada, javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)
-                            .addComponent(jBImprimirFicha, javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)
-                            .addComponent(jBSalvar, javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)
-                            .addComponent(jBCancelar, javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE).addComponent(jBAtualizar))));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -2859,4 +2862,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jtfHoraEntregaExame;
     public JXDatePicker JXDPDataAtendimento;
     private JFormattedTextField jTFhoraAtendimento;
+    private JLabel jLAreasDoAgendamento;
+    private JComboBox jCBAreasDoAgendamento;
 }
