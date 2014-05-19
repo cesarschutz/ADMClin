@@ -70,7 +70,7 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
     public void botaoCancelar() {
         // se ocorrer erro aqui, é pq esta editando um atendimento apartir da janela de pesquisa, entao vai dar erro
         // no JIFAgendaPrincipal, por isso fechamos o outro ;D
-        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimento.setVisible(true);
 
         janelaPrincipal.internalFrameAlterarValorDeExamesNoAtendimento.dispose();
         janelaPrincipal.internalFrameAlterarValorDeExamesNoAtendimento = null;

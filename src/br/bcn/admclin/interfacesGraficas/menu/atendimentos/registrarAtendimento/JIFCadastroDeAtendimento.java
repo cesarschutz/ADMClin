@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -24,6 +23,7 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -55,7 +55,6 @@ import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Areas_atendimento;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
 import br.bcn.admclin.dao.model.Atendimentos;
-import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
 import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
@@ -65,8 +64,6 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
-
-import javax.swing.JComboBox;
 
 /*
  * To change this template, choose Tools | Templates
@@ -325,10 +322,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         for (String nomeArea : TratamentoParaRegistrarAtendimentoApartirDeAgendamento.listaIdAreasDeAtendimento) {
             jCBAreasDoAgendamento.addItem(nomeArea);
         }
-        
-        
-        
-        //boolean primeiraVezNoFor = true;
+                
         try {
             // preencher data e hora
             JXDPDataAtendimento.setDate(TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getDIA());            
@@ -391,7 +385,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     }
     
 
-    public void reservandoHorarioCasoSejaUmHorarioLivre() {
+    public boolean reservandoHorarioCasoSejaUmHorarioLivre() {
         pegandoUmHandle_atDoBanco();
 
         Atendimentos atendimentoMODEL = new Atendimentos();
@@ -412,12 +406,17 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro com a data. Procure o Administrador.");
         }
+        con = Conexao.fazConexao();
         boolean cadastro = ATENDIMENTOS.setCadastrar(con, atendimentoMODEL);
+        Conexao.fechaConexao(con);
 
         if (!cadastro) {
             JOptionPane.showMessageDialog(null,
                 "Erro ao reservar Horário para o Atendimento. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else{
+            return true;
         }
 
     }
@@ -433,15 +432,15 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     public void pegandoUmHandle_atDoBanco() {
         // pegando o handle_ap para salvar no banco
         try {
+            con = Conexao.fazConexao();
             handle_at = ATENDIMENTOS.getHandleAP(con);
+            con = Conexao.fazConexao();
             ATENDIMENTOS.setSomarHandleAP(con);
+            Conexao.fechaConexao(con);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao somar handle_at. Procure o Administrador.", "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao somar handle_at. Procure o Administrador." + e, "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
-        } finally {
-
-            this.dispose();
-        }
+        } 
 
     }
 /*
@@ -944,6 +943,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     hora_exame_pronto = MetodosUteis.transformarHorarioEmMinutos(jtfHoraEntregaExame.getText());
                 }
                 atendimento.setHORA_EXAME_PRONTO(hora_exame_pronto);
+                atendimento.setID_AREAS_ATENDIMENTO(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
                 //atendimento.setMODALIDADE(String.valueOf(jCBModalidade.getSelectedItem()));
 
                 con = Conexao.fazConexao();
@@ -1035,6 +1035,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     jTable1.setEnabled(false);
                     jTBDesconto.setEnabled(false);
                     JXDPDataAtendimento.setEnabled(false);
+                    jTFhoraAtendimento.setEnabled(false);
                     cadastrouNovoAtendimento = true;
                 }
             } else {
@@ -1212,19 +1213,19 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         if (veioDaPesquisa) {
             // fechando esta janela
             this.dispose();
-            janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
+            janelaPrincipal.internalFrameAtendimento = null;
             // abrindo a janela pesquisa
             janelaPrincipal.internalFramePesquisarAtendimentos.setVisible(true);
 
         } else if (veioDeAgendamento){
             // fechando esta janela
             this.dispose();
-            janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
+            janelaPrincipal.internalFrameAtendimento = null;
             // abrindo a janela pesquisa
             janelaPrincipal.internalFrameListaDeAgendamentos.setVisible(true);
         } else{
             this.dispose();
-            janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
+            janelaPrincipal.internalFrameAtendimento = null;
         }
     }
     
@@ -1473,6 +1474,103 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         JXDPDataAtendimento.setFormats(new String[] {"E dd/MM/yyyy"});
         
         jTFhoraAtendimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##:##"));
+        
+        jCBAreasDoAgendamento = new JComboBox();
+        jCBAreasDoAgendamento.addActionListener(new ActionListener() {
+            boolean primeiraVez = true;
+            public void actionPerformed(ActionEvent arg0) {
+                
+                if(!primeiraVez){
+                    jCBAreaDeAtendimento.setSelectedItem(jCBAreasDoAgendamento.getSelectedItem());
+                    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+                    ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaDeExamesDeUmaArea(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
+                    jTFhoraAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(listaDeNovosExames.get(0).getHORA()));
+                    for (NagendamentosExames exame : listaDeNovosExames) {
+                        // calculando valor do exame
+                        CalculoValorDeExame calculoValorExame = new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
+                            exame.getHANDLE_EXAME(), TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getDIA(), false, porcentagemDeDesconto);
+                        
+                        // adicionando na tabela o exame com o valor calculo de acordo com a data!!!
+                        modelo.addRow(new Object[] { exame.getHANDLE_EXAME(),
+                            exame.getNomeExame(),
+                            MetodosUteis.transformarMinutosEmHorario(exame.getDURACAO()),
+                            MetodosUteis.colocarZeroEmCampoReais(calculoValorExame.valor_correto_exame), "", "",
+                            calculoValorExame.chConvenio, calculoValorExame.filmeConvenio, calculoValorExame.ch1Exame,
+                            calculoValorExame.ch2Exame, calculoValorExame.filmeExame, "", calculoValorExame.redutor,
+                            calculoValorExame.porcentDescontoPaciente, calculoValorExame.porcentConvenio,
+                            calculoValorExame.porcentPaciente, calculoValorExame.valorExame,
+                            calculoValorExame.valorConvenio, calculoValorExame.valorPaciente,
+                            calculoValorExame.valor_correto_convenio, calculoValorExame.valor_correto_paciente,
+                            calculoValorExame.valor_desconto });
+                        
+                        duracaoDoAtendimento += exame.getDURACAO();
+                    }
+                    jtfDuracaoAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(duracaoDoAtendimento));
+                    
+                    calcularValoresApartirDaTabela();
+                    
+                    
+                    
+                
+                    //vamos deixar a tela normal caso ele mude de area e tenha salvo o atendimento
+                    if(!jBSalvar.isVisible()){
+                        if(reservandoHorarioCasoSejaUmHorarioLivre()){                            
+                            
+                          //vamos deixar a janela pronta para registrar um novo atendimento (de outra area no caso)
+                            jBSalvar.setVisible(true);
+
+                            // ativando botoes de impressao
+                            // aqui vamos sumir o botao imprimir nota fiscal do modelo de impressao 1 (pois nao imprime nota)
+                            if (janelaPrincipal.modeloDeImpressao == 1) {
+                                jBImprimirFicha.setVisible(false);
+                                jBImprimirBoletoDeRetirada.setVisible(false);
+                            }
+                            // agora sumir o botao imprimir boleto de retirada do modelo 2 (sai junto com a ficha)
+                            if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
+                                jBImprimirFicha.setVisible(false);
+                                jBImprimirNotaFiscal.setVisible(false);
+                            }
+                            // aqui vamos sumir o botao imprimir nota fiscal e o boleto de retirada que sai junto com a ficha
+                            if(janelaPrincipal.modeloDeImpressao == 4){
+                                jBImprimirFicha.setVisible(false);
+                            }
+
+                            // desabilitando os campos do atendimento para nao poder editar
+                            jTFPaciente.setEnabled(true);
+                            jTFMedicoSol.setEnabled(true);
+                            jBPesquisaMedico.setEnabled(true);
+                            jBPesquisaPaciente.setEnabled(true);
+
+                            jXDPEntregaDoExame.setEnabled(true);
+                            jtfHoraEntregaExame.setEnabled(true);
+                            jTAObservacao.setEnabled(true);
+
+                            jCBAreaDeAtendimento.setEnabled(true);
+                            jCBConvenio.setEnabled(true);
+                            jCBExame.setEnabled(true);
+                            jTFMatricula.setEnabled(true);
+                            jTFComplemento.setEnabled(true);
+                            jBIncluirExame.setEnabled(true);
+                            jTable1.setEnabled(true);
+                            jTBDesconto.setEnabled(true);
+                            JXDPDataAtendimento.setEnabled(true);
+                            jTFhoraAtendimento.setEnabled(true);
+                            
+                        }else{
+                            System.out.println("chegou aqui no else");
+                            janelaPrincipal.internalFrameAtendimento.dispose();
+                            janelaPrincipal.internalFrameAtendimento = null;
+                        }
+                        
+                        
+                    }
+                }
+                primeiraVez = false;
+                
+            }
+        });
+        
+        jLAreasDoAgendamento = new JLabel("Áreas do Agendamento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
@@ -1481,28 +1579,34 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addGap(18)
-                            .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGap(18)
-                            .addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 124, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addComponent(lblDataAtendimento, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(jtfDuracaoAtendimento, GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11)
+                                    .addGap(18)
+                                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18)
+                                    .addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
-                    .addContainerGap())
+                                    .addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 140, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(jLabel10)
+                                        .addComponent(lblDataAtendimento, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(jtfDuracaoAtendimento, GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(ComponentPlacement.RELATED)
+                                            .addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
+                            .addContainerGap())
+                        .addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(Alignment.LEADING)
@@ -1525,7 +1629,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
                         .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11))
-                    .addContainerGap(17, Short.MAX_VALUE))
+                    .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLAreasDoAgendamento)))
         );
         jPanel1.setLayout(jPanel1Layout);
 
@@ -1902,43 +2009,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 jTBDescontoActionPerformed(evt);
             }
         });
-        
-        jLAreasDoAgendamento = new JLabel("Áreas do Agendamento");
-        
-        jCBAreasDoAgendamento = new JComboBox();
-        jCBAreasDoAgendamento.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                
-                jCBAreaDeAtendimento.setSelectedItem(jCBAreasDoAgendamento.getSelectedItem());
-                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-                ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaDeExamesDeUmaArea(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
-                jTFhoraAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(listaDeNovosExames.get(0).getHORA()));
-                for (NagendamentosExames exame : listaDeNovosExames) {
-                    // calculando valor do exame
-                    CalculoValorDeExame calculoValorExame = new CalculoValorDeExame(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()),
-                        exame.getHANDLE_EXAME(), TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getDIA(), false, porcentagemDeDesconto);
-                    
-                    // adicionando na tabela o exame com o valor calculo de acordo com a data!!!
-                    modelo.addRow(new Object[] { exame.getHANDLE_EXAME(),
-                        exame.getNomeExame(),
-                        MetodosUteis.transformarMinutosEmHorario(exame.getDURACAO()),
-                        MetodosUteis.colocarZeroEmCampoReais(calculoValorExame.valor_correto_exame), "", "",
-                        calculoValorExame.chConvenio, calculoValorExame.filmeConvenio, calculoValorExame.ch1Exame,
-                        calculoValorExame.ch2Exame, calculoValorExame.filmeExame, "", calculoValorExame.redutor,
-                        calculoValorExame.porcentDescontoPaciente, calculoValorExame.porcentConvenio,
-                        calculoValorExame.porcentPaciente, calculoValorExame.valorExame,
-                        calculoValorExame.valorConvenio, calculoValorExame.valorPaciente,
-                        calculoValorExame.valor_correto_convenio, calculoValorExame.valor_correto_paciente,
-                        calculoValorExame.valor_desconto });
-                    
-                    duracaoDoAtendimento += exame.getDURACAO();
-                }
-                jtfDuracaoAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(duracaoDoAtendimento));
-                
-                calcularValoresApartirDaTabela();
-                
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -1978,12 +2048,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     .addComponent(jBImprimirBoletoDeRetirada)
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addComponent(jBImprimirFicha))
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jLAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(470, Short.MAX_VALUE))
-                .addComponent(jTFMensagemParaUsuario, GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE)
+                .addComponent(jTFMensagemParaUsuario, GroupLayout.DEFAULT_SIZE, 952, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(Alignment.LEADING)
@@ -2016,11 +2081,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                         .addComponent(jBSalvar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBCancelar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBAtualizar))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jLAreasDoAgendamento)
-                        .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(30, Short.MAX_VALUE))
         );
         getContentPane().setLayout(layout);
 
@@ -2567,8 +2628,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             janelaPrincipal.internalFrameJanelaPrincipal.ativandoOMenu();
         }
         //botaoCancelar();
-        janelaPrincipal.internalFrameAtendimentoSemAgenda.dispose();
-        janelaPrincipal.internalFrameAtendimentoSemAgenda = null;
+        janelaPrincipal.internalFrameAtendimento.dispose();
+        janelaPrincipal.internalFrameAtendimento = null;
     }// GEN-LAST:event_jBCancelarKeyPressed
 
     private void jTBDescontoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTBDescontoActionPerformed
@@ -2863,5 +2924,5 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     public JXDatePicker JXDPDataAtendimento;
     private JFormattedTextField jTFhoraAtendimento;
     private JLabel jLAreasDoAgendamento;
-    private JComboBox jCBAreasDoAgendamento;
+    private JComboBox<String> jCBAreasDoAgendamento;
 }

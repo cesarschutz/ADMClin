@@ -297,7 +297,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         //    janelaPrincipal.internalFrameAtendimentoAgenda.setVisible(true);
         //} else {
         //    janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
-            janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+            janelaPrincipal.internalFrameAtendimento.setVisible(true);
         //}
 
         JIFCadastroDeAtendimento.jTFPaciente.setText(jTFNome.getText());

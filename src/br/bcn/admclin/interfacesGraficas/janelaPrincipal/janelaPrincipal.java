@@ -132,7 +132,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static jIFListaAtendimentosParaFaturar internalFrameAtendimentosParaFaturar;
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
     public static JIFrelatorioDeValoresRecebidosConvenio internalFrameValoresRecebidos;
-    public static JIFCadastroDeAtendimento internalFrameAtendimentoSemAgenda;
+    public static JIFCadastroDeAtendimento internalFrameAtendimento;
     public static JIFAreasAtendimentoVisualizar internalFrameAreasDeAtendimentoVisualizar;
     public static JIFAreasAtendimento internalFrameAreasDeAtendimento;
     public static JIFCadastroAgendaVisualizar internalFrameCadastroAgendasVisualizar;
@@ -708,15 +708,15 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private void  jMEAtendimentoSemAgendaActionPerformed(java.awt.event.ActionEvent evt){
         fechandoTodosOsInternalFrames();
 
-        internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0, false);
-        jDesktopPane1.add(internalFrameAtendimentoSemAgenda);
-        internalFrameAtendimentoSemAgenda.setVisible(true);
+        internalFrameAtendimento = new JIFCadastroDeAtendimento("livre", 0, false);
+        jDesktopPane1.add(internalFrameAtendimento);
+        internalFrameAtendimento.setVisible(true);
         int lDesk = jDesktopPane1.getWidth();
         int aDesk = jDesktopPane1.getHeight();
-        int lIFrame = internalFrameAtendimentoSemAgenda.getWidth();
-        int aIFrame = internalFrameAtendimentoSemAgenda.getHeight();
+        int lIFrame = internalFrameAtendimento.getWidth();
+        int aIFrame = internalFrameAtendimento.getHeight();
 
-        internalFrameAtendimentoSemAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        internalFrameAtendimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
 
     private void jMCAAgendasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMCAAgendasActionPerformed

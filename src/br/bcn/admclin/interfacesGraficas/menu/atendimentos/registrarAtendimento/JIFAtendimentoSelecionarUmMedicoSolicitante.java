@@ -128,7 +128,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
 
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
-        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimento.setVisible(true);
 
     }
 
@@ -386,7 +386,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCancelarActionPerformed
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
-        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimento.setVisible(true);
     }// GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBPesquisaMedicoKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBPesquisaMedicoKeyReleased
@@ -459,7 +459,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
     private void jBCancelarKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBCancelarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.dispose();
-            janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+            janelaPrincipal.internalFrameAtendimento.setVisible(true);
         } // TODO add your handling code here:
     }// GEN-LAST:event_jBCancelarKeyPressed
 

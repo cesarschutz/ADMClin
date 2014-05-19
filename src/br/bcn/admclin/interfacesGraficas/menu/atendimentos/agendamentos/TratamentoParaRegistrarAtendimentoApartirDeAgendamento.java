@@ -68,14 +68,14 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
     }
     
     private void abrirJanelaDeRegistro(){
-        janelaPrincipal.internalFrameAtendimentoSemAgenda = new JIFCadastroDeAtendimento("livre", 0, true);
-        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoSemAgenda);
-        janelaPrincipal.internalFrameAtendimentoSemAgenda.setVisible(true);
+        janelaPrincipal.internalFrameAtendimento = new JIFCadastroDeAtendimento("livre", 0, true);
+        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimento);
+        janelaPrincipal.internalFrameAtendimento.setVisible(true);
         int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
         int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
-        int lIFrame = janelaPrincipal.internalFrameAtendimentoSemAgenda.getWidth();
-        int aIFrame = janelaPrincipal.internalFrameAtendimentoSemAgenda.getHeight();
+        int lIFrame = janelaPrincipal.internalFrameAtendimento.getWidth();
+        int aIFrame = janelaPrincipal.internalFrameAtendimento.getHeight();
 
-        janelaPrincipal.internalFrameAtendimentoSemAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        janelaPrincipal.internalFrameAtendimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
 }
