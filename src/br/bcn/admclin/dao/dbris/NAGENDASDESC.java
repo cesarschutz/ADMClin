@@ -226,7 +226,7 @@ public static boolean setDeletar(Nagendasdesc agenda){
             Conexao.fechaConexao(con);
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao Deletar Agenda. Procure o Administrador.");
+            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao Deletar Agenda. Procure o Administrador." + e);
             //se der erro fecha a conexao e retorna false
             try {
                 con.rollback();
