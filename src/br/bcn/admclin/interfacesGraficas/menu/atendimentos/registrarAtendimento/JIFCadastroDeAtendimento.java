@@ -1554,7 +1554,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                             jTBDesconto.setEnabled(true);
                             JXDPDataAtendimento.setEnabled(true);
                             jTFhoraAtendimento.setEnabled(true);
-                            
+                            janelaPrincipal.internalFrameJanelaPrincipal.desativandoOMenu();
                         }else{
                             janelaPrincipal.internalFrameAtendimento.dispose();
                             janelaPrincipal.internalFrameAtendimento = null;
