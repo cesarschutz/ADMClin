@@ -1474,7 +1474,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         JXDPDataAtendimento.setFormats(new String[] {"E dd/MM/yyyy"});
         
         jTFhoraAtendimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##:##"));
-        
         jCBAreasDoAgendamento = new JComboBox();
         jCBAreasDoAgendamento.addActionListener(new ActionListener() {
             boolean primeiraVez = true;
@@ -1557,7 +1556,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                             jTFhoraAtendimento.setEnabled(true);
                             
                         }else{
-                            System.out.println("chegou aqui no else");
                             janelaPrincipal.internalFrameAtendimento.dispose();
                             janelaPrincipal.internalFrameAtendimento = null;
                         }
