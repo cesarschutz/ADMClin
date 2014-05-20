@@ -150,7 +150,7 @@ public class EXAMES {
     public static boolean setCadastrar(Connection con, Exames exame) {
         boolean cadastro = false;
         String sql =
-            "insert into exames (usuarioid,dat,DURACAO,nome,qtdhoras,laudo,HANDLE_CLASSEDEEXAME,modalidade,id_areas_atendimento) values(?,?,?,?,?,?,?,?,?)";
+            "insert into exames (usuarioid,dat,DURACAO,nome,qtdhoras,laudo,HANDLE_CLASSEDEEXAME,modalidade,id_areas_atendimento, area_do_corpo) values(?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, exame.getUsuarioId());
@@ -162,6 +162,7 @@ public class EXAMES {
             stmt.setInt(7, exame.getHANDLE_CLASSEDEEXAME());
             stmt.setString(8, exame.getModalidade());
             stmt.setInt(9, exame.getId_areas_atendimento());
+            stmt.setInt(10, exame.getArea_do_corpo());
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
@@ -184,7 +185,7 @@ public class EXAMES {
     public static boolean setUpdate(Connection con, Exames exame) {
         boolean cadastro = false;
         String sql =
-            "update exames set usuarioid=?, dat=?, duracao=?, nome=?, qtdhoras=?, laudo=?, HANDLE_CLASSEDEEXAME=?, modalidade=?, id_areas_atendimento=?  where HANDLE_EXAME=?";
+            "update exames set usuarioid=?, dat=?, duracao=?, nome=?, qtdhoras=?, laudo=?, HANDLE_CLASSEDEEXAME=?, modalidade=?, id_areas_atendimento=?, AREA_DO_CORPO = ?  where HANDLE_EXAME=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, exame.getUsuarioId());
@@ -196,13 +197,14 @@ public class EXAMES {
             stmt.setInt(7, exame.getHANDLE_CLASSEDEEXAME());
             stmt.setString(8, exame.getModalidade());
             stmt.setInt(9, exame.getId_areas_atendimento());
-            stmt.setInt(10, exame.getHANDLE_EXAME());
+            stmt.setInt(10, exame.getArea_do_corpo());
+            stmt.setInt(11, exame.getHANDLE_EXAME());
 
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar Exame. Procure o administrador.", "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Exame. Procure o administrador." + e, "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return cadastro;

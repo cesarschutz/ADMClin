@@ -39,6 +39,7 @@ import javax.swing.JComboBox;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  * 
@@ -161,6 +162,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     exame.setModalidade(resultSet.getString("modalidade"));
                     exame.setHANDLE_CLASSEDEEXAME(resultSet.getInt("handle_classedeexame"));
                     exame.setId_areas_atendimento(resultSet.getInt("id_areas_atendimento"));
+                    exame.setArea_do_corpo(resultSet.getInt("area_do_corpo"));
                     listaExames.add(exame);
                 }
             }
@@ -200,6 +202,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTFNome.setEnabled(true);
         jCBModalidade.setEnabled(true);
         jCBAreasDeAtendimento.setEnabled(true);
+        jCBParteDoCorpo.setEnabled(true);
         jTFDuracao.setEnabled(true);
         jCBDescricaoClasse.setEnabled(true);
         jTFHorasUteis.setEnabled(true);
@@ -227,7 +230,9 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         // desativando os campos
         jTFNome.setEnabled(false);
         jCBAreasDeAtendimento.setEnabled(false);
+        jCBParteDoCorpo.setEnabled(false);
         jCBAreasDeAtendimento.setSelectedIndex(0);
+        jCBParteDoCorpo.setSelectedIndex(0);
         jCBModalidade.setEnabled(false);
         jCBModalidade.setSelectedIndex(0);
         jTFDuracao.setEnabled(false);
@@ -303,6 +308,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                         exameModel.setLaudo("S");
                     }
                     exameModel.setId_areas_atendimento(listaIdAreaDeAtendimento.get(jCBAreasDeAtendimento.getSelectedIndex()));
+                    exameModel.setArea_do_corpo(jCBParteDoCorpo.getSelectedIndex());
                     boolean cadastro = EXAMES.setCadastrar(con, exameModel);
                     Conexao.fechaConexao(con);
                     if (cadastro) {
@@ -362,6 +368,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     exameModel.setHANDLE_EXAME(HANDLE_EXAME);
                     exameModel.setModalidade(String.valueOf(jCBModalidade.getSelectedItem()));
                     exameModel.setId_areas_atendimento(listaIdAreaDeAtendimento.get(jCBAreasDeAtendimento.getSelectedIndex()));
+                    exameModel.setArea_do_corpo(jCBParteDoCorpo.getSelectedIndex());
                     boolean atualizo = EXAMES.setUpdate(con, exameModel);
                     if (atualizo) {
                         botaoCancelar();
@@ -518,6 +525,12 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         
         jCBAreasDeAtendimento = new JComboBox();
         jCBAreasDeAtendimento.setEnabled(false);
+        
+        JLabel lblParteDoCorpo = new JLabel("Parte do corpo");
+        
+        jCBParteDoCorpo = new JComboBox();
+        jCBParteDoCorpo.setEnabled(false);
+        jCBParteDoCorpo.setModel(new DefaultComboBoxModel(new String[] {"Outros Exames", "Crânio Face", "Região Cervical", "Região Escapular", "Membro Superior", "Região Torácica", "Região Abdominal", "Região Pélvica", "Membro Inferior"}));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2Layout.setHorizontalGroup(
@@ -526,34 +539,39 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     .addContainerGap()
                     .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
                         .addComponent(jTFNome, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                        .addComponent(jCBDescricaoClasse, 0, 395, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel4)
                         .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
+                                .addComponent(jTFDuracao, Alignment.LEADING)
+                                .addComponent(jLabel5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18)
+                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
+                                .addComponent(jLabel6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCBModalidade, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel4)
+                                .addComponent(jCBAreasDeAtendimento, 0, 202, Short.MAX_VALUE)
+                                .addComponent(lblreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
                                         .addComponent(jTFHorasUteis, Alignment.LEADING)
                                         .addComponent(jLabel9, Alignment.LEADING))
                                     .addGap(18)
                                     .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(jLabel10)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addGap(18)
+                                            .addComponent(lblParteDoCorpo))
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(jRBSim)
                                             .addPreferredGap(ComponentPlacement.UNRELATED)
-                                            .addComponent(jRBNao))))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
-                                        .addComponent(jTFDuracao, Alignment.LEADING)
-                                        .addComponent(jLabel5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGap(18)
-                                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
-                                        .addComponent(jLabel6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jCBModalidade, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(jCBAreasDeAtendimento, 0, 202, Short.MAX_VALUE)
-                                        .addComponent(lblreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jRBNao)
+                                            .addPreferredGap(ComponentPlacement.RELATED)
+                                            .addComponent(jCBParteDoCorpo, 0, 195, Short.MAX_VALUE))))
+                                .addComponent(jCBDescricaoClasse, 0, 395, Short.MAX_VALUE))
                             .addPreferredGap(ComponentPlacement.RELATED)))
                     .addContainerGap())
         );
@@ -585,12 +603,14 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(jLabel9)
-                        .addComponent(jLabel10))
+                        .addComponent(jLabel10)
+                        .addComponent(lblParteDoCorpo))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(jTFHorasUteis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(jRBSim)
-                        .addComponent(jRBNao))
+                        .addComponent(jRBNao)
+                        .addComponent(jCBParteDoCorpo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2.setLayout(jPanel2Layout);
@@ -1028,6 +1048,8 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                         jCBAreasDeAtendimento.setSelectedIndex(x);
                     }
                 }
+                
+                jCBParteDoCorpo.setSelectedIndex(listaExames.get(cont).getArea_do_corpo());
             }
             cont++;
         }
@@ -1038,6 +1060,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTFDuracao.setEnabled(true);
         jCBDescricaoClasse.setEnabled(true);
         jCBAreasDeAtendimento.setEnabled(true);
+        jCBParteDoCorpo.setEnabled(true);
         jTFHorasUteis.setEnabled(true);
         jRBNao.setEnabled(true);
         jRBSim.setEnabled(true);
@@ -1078,5 +1101,5 @@ public class jIFCExames extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private JLabel lblreaDeAtendimento;
     private JComboBox jCBAreasDeAtendimento;
-    // End of variables declaration//GEN-END:variables
+    private JComboBox jCBParteDoCorpo;
 }
