@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import br.bcn.admclin.dao.model.Atendimentos;
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
 
@@ -97,4 +98,24 @@ public class NAGENDAMENTOS {
         }
     }
     
+    
+    public static boolean marcerFlagVirouAtendimento(Connection con, Nagendamentos agendamento) {
+        boolean cadastro = false;
+        String sql =
+            "update NAGENDAMENTOS set virou_atendimento = ? where NAGENID=?";
+        try {
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, 1);
+            stmt.setInt(2, agendamento.getNAGENID());
+            stmt.executeUpdate();
+            stmt.close();
+            cadastro = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro" + e, "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return cadastro;
+        }
+    }
 }

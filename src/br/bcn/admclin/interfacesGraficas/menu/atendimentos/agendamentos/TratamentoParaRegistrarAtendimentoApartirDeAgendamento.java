@@ -39,6 +39,7 @@ public class TratamentoParaRegistrarAtendimentoApartirDeAgendamento {
      */
     private void criandoListaDeIdAreaDeAtendimento(){
         listaIdAreasDeAtendimento.clear();
+        listaIdAreasDeAtendimento.add("");
         int id = 0;
         for (int i = 0; i < agendamento.getListaExames().size() ; i++) {
             if(id != agendamento.getListaExames().get(i).getID_AREAS_ATENDIMENTO()){

@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -51,6 +52,7 @@ import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.EXAMES;
+import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Areas_atendimento;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
@@ -341,8 +343,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             for (int x = 0; x < listaAreasDeAtendimento.size(); x++) {
                 if (listaAreasDeAtendimento.get(x).getId_areas_atendimento() == TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getListaExames().get(0).getID_AREAS_ATENDIMENTO()) {
                     jCBAreaDeAtendimento.setSelectedIndex(x);
+                    jCBAreasDoAgendamento.setSelectedItem(jCBAreaDeAtendimento.getSelectedItem());
                 }
             }
+            /*
+             * 
+             * nao precisao mais disso pois acima quando mechemeos na area do agendamento ele ja preenche os exames!
+             * 
             // exames
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaDeExamesDeUmaArea(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
@@ -368,12 +375,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 duracaoDoAtendimento += exame.getDURACAO();
             }
             jtfDuracaoAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(duracaoDoAtendimento));
-            
-            
-
-            
-
             calcularValoresApartirDaTabela();
+            */
             
         } catch (Exception e) {
             this.dispose();
@@ -950,6 +953,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 cadastro = ATENDIMENTOS.setUpdate(con, atendimento);
 
                 if (cadastro) {
+                    if(veioDeAgendamento){
+                        NAGENDAMENTOS.marcerFlagVirouAtendimento(con, TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento);
+                    }
+  
                     // cadastrando os exames na tabela atendimento_exames
                     for (int i = 0; i < jTable1.getRowCount(); i++) {
                         Atendimento_Exames atendimentoExame = new Atendimento_Exames();
@@ -1015,6 +1022,11 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     if(janelaPrincipal.modeloDeImpressao == 4){
                         jBImprimirFicha.setVisible(true);
                     }
+                    
+                    if(veioDeAgendamento){
+                        ((DefaultComboBoxModel<String>) jCBAreasDoAgendamento.getModel()).removeElementAt(jCBAreasDoAgendamento.getSelectedIndex());
+                        jCBAreasDoAgendamento.setSelectedIndex(0);
+                    }
 
                     // desabilitando os campos do atendimento para nao poder editar
                     jTFPaciente.setEnabled(false);
@@ -1037,6 +1049,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     JXDPDataAtendimento.setEnabled(false);
                     jTFhoraAtendimento.setEnabled(false);
                     cadastrouNovoAtendimento = true;
+                    
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
@@ -1212,13 +1226,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
         if (veioDaPesquisa) {
             // fechando esta janela
+            janelaPrincipal.internalFramePesquisarAtendimentos.setVisible(true);
             this.dispose();
             janelaPrincipal.internalFrameAtendimento = null;
             // abrindo a janela pesquisa
-            janelaPrincipal.internalFramePesquisarAtendimentos.setVisible(true);
-
         } else if (veioDeAgendamento){
             // fechando esta janela
+            janelaPrincipal.internalFrameJanelaPrincipal.ativandoOMenu();
             this.dispose();
             janelaPrincipal.internalFrameAtendimento = null;
             // abrindo a janela pesquisa
@@ -1479,7 +1493,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             boolean primeiraVez = true;
             public void actionPerformed(ActionEvent arg0) {
                 
-                if(!primeiraVez){
+                if(!primeiraVez && jCBAreasDoAgendamento.getSelectedItem() != ""){                    
                     jCBAreaDeAtendimento.setSelectedItem(jCBAreasDoAgendamento.getSelectedItem());
                     DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
                     ArrayList<NagendamentosExames> listaDeNovosExames = TratamentoParaRegistrarAtendimentoApartirDeAgendamento.montaListaDeExamesDeUmaArea(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
@@ -1562,9 +1576,16 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                         
                         
                     }
+                }else if(jCBAreasDoAgendamento.getSelectedItem() == ""){
+                    ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
+                    jTable1.updateUI();
+                    duracaoDoAtendimento = 0;
+                    jtfDuracaoAtendimento.setText("00:00");
+                    jTFValorTotal.setText("");
+                    jTFValorConvenio.setText("");
+                    jTFValorPaciente.setText("");
                 }
                 primeiraVez = false;
-                
             }
         });
         
