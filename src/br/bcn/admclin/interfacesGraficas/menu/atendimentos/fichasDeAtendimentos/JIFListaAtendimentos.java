@@ -271,7 +271,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         try {
             while (resultSet.next()) {
                 int handle_at = resultSet.getInt("handle_at");
-                String modalidade = resultSet.getString("modalidade");
+                //String modalidade = resultSet.getString("modalidade");
                 String hora_atendimento =
                     MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento"));
                 String nomePaciente = resultSet.getString("nomePaciente");
@@ -289,7 +289,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 } else if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE) && !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
                     entrega = "1";
                 }
-                modelo.addRow(new Object[] { handle_at, modalidade, hora_atendimento, nomePaciente, nomeMedico,
+                modelo.addRow(new Object[] { handle_at, "", hora_atendimento, nomePaciente, nomeMedico,
                     crmMedico, status1, status2, entrega });
             }
 
