@@ -231,7 +231,7 @@ public class ATENDIMENTOS {
         boolean cadastro = false;
         String sql =
             "update atendimentos set data_atendimento=?, dat=?, data_exame_pronto=?, "
-                + "handle_at=?, handle_paciente=?, handle_medico_sol=?, handle_convenio=?, hora_atendimento=?, duracao_atendimento=?, usuarioid=?, "
+                + "handle_paciente=?, handle_medico_sol=?, handle_convenio=?, hora_atendimento=?, duracao_atendimento=?, usuarioid=?, "
                 + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, ID_AREAS_ATENDIMENTO = ? where handle_at=?";
         try {
 
@@ -240,21 +240,20 @@ public class ATENDIMENTOS {
             stmt.setDate(2, atendimento.getDAT());
             stmt.setDate(3, atendimento.getDATA_EXAME_PRONTO());
 
-            stmt.setInt(4, atendimento.getHANDLE_AT());
-            stmt.setInt(5, atendimento.getHANDLE_PACIENTE());
-            stmt.setInt(6, atendimento.getHANDLE_MEDICO_SOL());
-            stmt.setInt(7, atendimento.getHANDLE_CONVENIO());
-            stmt.setInt(8, atendimento.getHORA_ATENDIMENTO());
-            stmt.setInt(9, atendimento.getDURACAO_ATENDIMENTO());
-            stmt.setInt(10, atendimento.getUSUARIOID());
+            stmt.setInt(4, atendimento.getHANDLE_PACIENTE());
+            stmt.setInt(5, atendimento.getHANDLE_MEDICO_SOL());
+            stmt.setInt(6, atendimento.getHANDLE_CONVENIO());
+            stmt.setInt(7, atendimento.getHORA_ATENDIMENTO());
+            stmt.setInt(8, atendimento.getDURACAO_ATENDIMENTO());
+            stmt.setInt(9, atendimento.getUSUARIOID());
 
-            stmt.setString(11, atendimento.getOBSERVACAO());
-            stmt.setString(12, atendimento.getMATRICULA_CONVENIO());
-            stmt.setString(13, atendimento.getCOMPLEMENTO());
-            stmt.setInt(14, atendimento.getHORA_EXAME_PRONTO());
-            stmt.setInt(15, atendimento.getHORA_EXAME_PRONTO());
+            stmt.setString(10, atendimento.getOBSERVACAO());
+            stmt.setString(11, atendimento.getMATRICULA_CONVENIO());
+            stmt.setString(12, atendimento.getCOMPLEMENTO());
+            stmt.setInt(13, atendimento.getHORA_EXAME_PRONTO());
+            stmt.setInt(14, atendimento.getID_AREAS_ATENDIMENTO());
 
-            stmt.setInt(16, atendimento.getID_AREAS_ATENDIMENTO());
+            stmt.setInt(15, atendimento.getHANDLE_AT());
 
             stmt.executeUpdate();
             stmt.close();
