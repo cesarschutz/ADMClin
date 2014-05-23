@@ -45,6 +45,19 @@ RISIP      - ip do servidor
 NOMEPORTAL - nome do portal (geralmente com nome de PORTAL)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 MODELOS DE IMPRESSÃO!
 
 MODELO 1 - unirad e digimax
@@ -68,9 +81,3 @@ APOS A VERSÃO 6, NAS ALTERAÇÕES DA AGENDA.
 -> criar tabela NAGENDASDESC
 -> criar tabela 
 
-
-
-
-
-tabelas apagadas:
--> agendas
