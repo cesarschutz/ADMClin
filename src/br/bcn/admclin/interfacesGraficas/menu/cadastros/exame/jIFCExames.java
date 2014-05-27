@@ -127,8 +127,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
     }
     
     private void preencheAreasDeAtendimento() {
-        jCBAreasDeAtendimento.addItem("SEM ÁREA");
-        listaIdAreaDeAtendimento.add(0);
         ArrayList<Areas_atendimento> areas = AREAS_ATENDIMENTO.getConsultar();
         for (Areas_atendimento areas_atendimento : areas) {
             jCBAreasDeAtendimento.addItem(areas_atendimento.getNome());
