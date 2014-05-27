@@ -286,7 +286,7 @@ public class relatorioValoresRecebidos {
             tabelaExames.addCell(cell);
 
             //diferença            
-            double valorDiferencaDouble = valorFaturadoDouble - valorConvenioPagoDouble;
+            double valorDiferencaDouble = valorConvenioPagoDouble - valorFaturadoDouble;
             
             String valorDiferencaString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorDiferencaDouble)).replace(".", ",");
             //se convenio ainda nao pagou, a diferença fica vazia
