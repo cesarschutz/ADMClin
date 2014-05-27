@@ -208,6 +208,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public janelaPrincipal() {
 
         initComponents();
+        
 
         // sobreescrevendo o metodo de fechar
         this.addWindowListener(new WindowAdapter() {
@@ -388,6 +389,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         
         JMenuItem mntmAreasDeAtendimento = new JMenuItem("Areas de Atendimento");
+        mntmAreasDeAtendimento.setVisible(false);
         mntmAreasDeAtendimento.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 fechandoTodosOsInternalFrames();
