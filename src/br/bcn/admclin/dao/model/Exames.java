@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 public class Exames {
     private int HANDLE_EXAME, HANDLE_CLASSEDEEXAME, usuarioId, duracao, id_areas_atendimento, area_do_corpo;
-    private String NOME, qtdHoras, laudo, modalidade;
+    private String NOME, qtdHoras, laudo;
     Date data;
 
     public String getNOME() {
@@ -74,14 +74,6 @@ public class Exames {
 
     public void setDuracao(int duracao) {
         this.duracao = duracao;
-    }
-
-    public String getModalidade() {
-        return modalidade;
-    }
-
-    public void setModalidade(String modalidade) {
-        this.modalidade = modalidade;
     }
 
     public int getId_areas_atendimento() {

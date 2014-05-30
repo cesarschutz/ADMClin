@@ -28,17 +28,23 @@ public class ImprimirFichaEBoletoDeRetiradaModelo2DAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct x.atendimento_exame_id, a.modalidade,a.data_exame_pronto,a.data_atendimento,a.hora_atendimento,a.duracao_atendimento,p.nome as nomePaciente,p.nascimento,p.peso,p.telefone,p.cidade,p.uf,p.altura,p.endereco,c.nome as nomeConvenio,m.nome as nomeMedico,e.nome as nomeExame "
+                con.prepareStatement("select distinct x.atendimento_exame_id,"
+                    + "a.data_exame_pronto,a.data_atendimento,a.hora_atendimento,a.duracao_atendimento,"
+                    + "p.nome as nomePaciente,p.nascimento,p.peso,p.telefone,p.cidade,p.uf,p.altura,p.endereco,"
+                    + "c.nome as nomeConvenio,m.nome as nomeMedico,"
+                    + "e.nome as nomeExame,"
+                    + "t.nome as nomeAreaAtendimento "
                     + "from atendimentos a "
                     + "inner join atendimento_exames x on a.handle_at = x.handle_at "
                     + "inner join exames e on x.handle_exame = e.handle_exame "
                     + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
+                    + "inner join areas_atendimento t on a.id_areas_atendimento = t.id_areas_atendimento "
                     + "inner join convenio c  on a.handle_convenio = c.handle_convenio " + "where a.handle_at = ?");
             stmtQuery.setInt(1, handle_at);
             resultSet = stmtQuery.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar os Exames do Paciente. Procure o Administrador.",
+            JOptionPane.showMessageDialog(null, "Erro ao consultar os Exames do Paciente. Procure o Administrador." + e,
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return resultSet;

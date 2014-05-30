@@ -542,8 +542,13 @@ public class ATENDIMENTOS {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select data_atendimento, modalidade, p.nome from atendimentos a "
-                    + "inner join pacientes p on a.handle_paciente = p.handle_paciente " + "where a.handle_at = ?");
+                con.prepareStatement("select a.data_atendimento, "
+                    + "p.nome, "
+                    + "t.nome as nomeAreaAtendimento "
+                    + "from atendimentos a "
+                    + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
+                    + "inner join areas_atendimento t on a.id_areas_atendimento = t.id_areas_atendimento "
+                    + "where a.handle_at = ?");
             stmtQuery.setInt(1, handle_at);
             resultSet = stmtQuery.executeQuery();
         } catch (SQLException e) {

@@ -26,7 +26,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
     private int handle_at;
     private Connection con = null;
     private ESCPrinter imprimir;
-    private String nomePaciente, modalidade, dataAtendimento;
+    private String nomePaciente, nome_area_atendimento, dataAtendimento;
     private String nomeDoArquivo = janelaPrincipal.internalFrameJanelaPrincipal.codigoParaImpressoesLinux + "ETIQUETA";
     
     public ImprimirEtiquetaEnvelopeModelo2(int handle_at) {
@@ -57,6 +57,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
                 getDadosDaEtiqueta();
                 imprimirEtiquetaEnvelope();
                 imprimirNotaCasoSejaLinux();
+                imprimir.close();
                 imprimiu = true;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao imprimir Etiqueta. Procure o Administrador.");
@@ -70,7 +71,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
         ResultSet rs = ATENDIMENTOS.getConsultarDadosEtiqueta(con, handle_at);
         while(rs.next()){
             nomePaciente = rs.getString("nome");
-            modalidade = nomeModalidade(rs.getString("modalidade"));
+            nome_area_atendimento = rs.getString("nomeAreaAtendimento");
             dataAtendimento = MetodosUteis.converterDataParaMostrarAoUsuario(rs.getString("data_atendimento"));
         }
     }
@@ -78,53 +79,9 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
     private void imprimirEtiquetaEnvelope() throws Exception{
         imprimir.print(nomePaciente);
         imprimir.lineFeed();
-        imprimir.print(modalidade);
+        imprimir.print(nome_area_atendimento);
         imprimir.lineFeed();
         imprimir.print(String.valueOf(handle_at) + "           " + dataAtendimento);
         imprimir.lineFeed();
     }
-    
-    private String nomeModalidade(String modalidade){
-         if ("CR".equals(modalidade)) {
-             return "RX";
-             
-         } else if ("CT".equals(modalidade)) {
-             return "TC";
-             
-         } else if ("MG".equals(modalidade)) {
-             return "MG";
-             
-         } else if ("DX".equals(modalidade)) {
-             return "RX";
-             
-         } else if ("RF".equals(modalidade)) {
-             return "FL";
-             
-         } else if ("NM".equals(modalidade)) {
-             return "MN";
-             
-         } else if ("US".equals(modalidade)) {
-             return "US";
-             
-         } else if ("DR".equals(modalidade)) {
-             return "RX";
-             
-         } else if ("MR".equals(modalidade)) {
-             return "RM";
-             
-         } else if ("OT".equals(modalidade)) {
-             return "OT";
-             
-         } else if ("DO".equals(modalidade)) {
-             return "DE";
-             
-         } else if ("OD".equals(modalidade)) {
-             return "OD";
-             
-         } else if ("TR".equals(modalidade)) {
-             return "TR";
-         } else {
-             return "OT";
-         }
-     }
 }

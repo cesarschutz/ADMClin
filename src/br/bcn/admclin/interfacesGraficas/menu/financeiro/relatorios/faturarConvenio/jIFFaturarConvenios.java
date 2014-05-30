@@ -110,7 +110,6 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
             atendimento.setHandle_at(resultSet.getInt("handle_at"));
             atendimento.setNomePaciente(resultSet.getString("nomePaciente"));
             atendimento.setMatricula_convenio(resultSet.getString("matricula_convenio"));
-            atendimento.setModalidade(resultSet.getString("modalidade"));
             atendimento.setData_atendimento(resultSet.getDate("data_atendimento"));
             atendimento.setCrmMedico(resultSet.getString("crm"));
             if (tp.equals("grupo")) {

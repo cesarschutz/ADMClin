@@ -63,7 +63,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo2 {
         // imprimindo exame data e nº
         // 19 espaços //3 espaços //2 espaços
         imprimir.print("                   "
-            + arrumarTamanhoDaString(nomeModalidade(listaDeExames.get(0).getModalidade()), 21) + "   "
+            + arrumarTamanhoDaString(nomeModalidade(listaDeExames.get(0).getNome_area_atendimento()), 21) + "   "
             + arrumarTamanhoDaString(listaDeExames.get(0).getDataEntregaExame(), 13) + "  "
             + arrumarTamanhoDaString(String.valueOf(handle_at), 9));
 
@@ -145,7 +145,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo2 {
         while (resultSet.next()) {
             ImprimirFichaEBoletoDeRetiradaModelo2MODEL exame = new ImprimirFichaEBoletoDeRetiradaModelo2MODEL();
             exame.setNomePaciente(resultSet.getString("nomePaciente"));
-            exame.setModalidade(resultSet.getString("modalidade"));
+            exame.setNome_area_atendimento(resultSet.getString("nomeAreaAtendimento"));
             exame.setDataEntregaExame(MetodosUteis.converterDataParaMostrarAoUsuario(resultSet
                 .getString("data_exame_pronto")));
             exame.setDataAtendimento(MetodosUteis.converterDataParaMostrarAoUsuario(resultSet

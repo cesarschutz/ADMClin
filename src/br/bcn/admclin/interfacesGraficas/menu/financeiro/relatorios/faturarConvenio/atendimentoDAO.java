@@ -35,7 +35,7 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
+                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join atendimento_exames e on a.handle_at = e.handle_at "
@@ -60,7 +60,7 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.modalidade, a.matricula_convenio, a.handle_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
+                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.matricula_convenio, a.handle_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join convenio c on a.handle_convenio = c.handle_convenio "
@@ -91,7 +91,7 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct a.atendimento_exame_id, t.sinonimo, t.cod_exame, e.modalidade, a.lado, a.material, a.valor_correto_convenio, a.valor_correto_exame, a.ch_convenio, a.valor_desconto, a.redutor, "
+                con.prepareStatement("select distinct a.atendimento_exame_id, t.sinonimo, t.cod_exame, a.lado, a.material, a.valor_correto_convenio, a.valor_correto_exame, a.ch_convenio, a.valor_desconto, a.redutor, "
                     + "a.filme_convenio, a.ch1_exame, a.ch2_exame, a.filme_exame, a.lista_materiais from atendimento_exames A "
                     + "inner join exames e on a.handle_exame = e.handle_exame "
                     + "inner join tabelas t on a.handle_exame = t.handle_exame and t.handle_convenio = ? "

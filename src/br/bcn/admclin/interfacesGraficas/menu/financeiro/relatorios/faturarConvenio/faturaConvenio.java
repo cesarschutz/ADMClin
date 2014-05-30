@@ -437,8 +437,7 @@ public class faturaConvenio {
                 // colocando o nome do exame
 
                 String nomeDoExame =
-                    resultSet.getString("cod_exame") + " - " + nomeModalidade(resultSet.getString("modalidade"))
-                        + " - " + resultSet.getString("sinonimo");
+                    resultSet.getString("cod_exame") + " - " + resultSet.getString("sinonimo");
                 if ("CC".equals(resultSet.getString("material"))) {
                     nomeDoExame = nomeDoExame + " - C/ Contraste";
                 } else if ("CM".equals(resultSet.getString("material"))) {

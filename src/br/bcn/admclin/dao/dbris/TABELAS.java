@@ -29,10 +29,16 @@ public class TABELAS {
     public static ResultSet getConsultarExamesDaTabela(Connection con, int handle_convenio, String modalidade){
         ResultSet resultSet = null;
         try{
-        PreparedStatement stmtQuery = con.prepareStatement("select distinct a.nome, a.handle_exame, a.modalidade, b.cofch1, b.cofch2, b.coeffilme, b.sinonimo, b.cod_exame from exames a inner join tabelas b on a.handle_exame = b.handle_exame where b.handle_convenio ="+handle_convenio+" and a.modalidade='"+modalidade+"'");
+        PreparedStatement stmtQuery = con.prepareStatement("select distinct e.nome, e.handle_exame, t.cofch1, t.cofch2, t.coeffilme, t.sinonimo, t.cod_exame from exames e " +
+            "inner join tabelas t on e.handle_exame = t.handle_exame " +
+            "inner join tb_classesexames c on e.handle_classedeexame = c.cod " +
+            "inner join modalidades m on c.modidx = m.modidx " +
+            "where t.handle_convenio = ? and m.modalidade = ?");
+        stmtQuery.setInt(1, handle_convenio);
+        stmtQuery.setString(2, modalidade);
         resultSet = stmtQuery.executeQuery();
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Exames da Tabela. Procure o Administrador." + e,"ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Exames da Tabela. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
         }finally{
             return resultSet;
         }

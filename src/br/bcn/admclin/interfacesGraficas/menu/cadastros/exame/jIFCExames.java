@@ -157,7 +157,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     exame.setNOME(resultSet.getString("nome"));
                     exame.setQtdHoras(resultSet.getString("qtdhoras"));
                     exame.setLaudo(resultSet.getString("laudo"));
-                    exame.setModalidade(resultSet.getString("modalidade"));
                     exame.setHANDLE_CLASSEDEEXAME(resultSet.getInt("handle_classedeexame"));
                     exame.setId_areas_atendimento(resultSet.getInt("id_areas_atendimento"));
                     exame.setArea_do_corpo(resultSet.getInt("area_do_corpo"));
@@ -198,7 +197,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
 
         // ativando os campos
         jTFNome.setEnabled(true);
-        jCBModalidade.setEnabled(true);
         jCBAreasDeAtendimento.setEnabled(true);
         jCBParteDoCorpo.setEnabled(true);
         jTFDuracao.setEnabled(true);
@@ -231,8 +229,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jCBParteDoCorpo.setEnabled(false);
         jCBAreasDeAtendimento.setSelectedIndex(0);
         jCBParteDoCorpo.setSelectedIndex(0);
-        jCBModalidade.setEnabled(false);
-        jCBModalidade.setSelectedIndex(0);
         jTFDuracao.setEnabled(false);
         jCBDescricaoClasse.setEnabled(false);
         jTFHorasUteis.setEnabled(false);
@@ -299,7 +295,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     exameModel.setData(dataDeHojeEmVariavelDate);
                     exameModel.setHANDLE_CLASSEDEEXAME(listaHANDLE_CLASSESDEEXAMES.get(jCBDescricaoClasse
                         .getSelectedIndex()));
-                    exameModel.setModalidade(String.valueOf(jCBModalidade.getSelectedItem()));
                     if (jRBNao.isSelected()) {
                         exameModel.setLaudo("N");
                     } else {
@@ -364,7 +359,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     exameModel.setHANDLE_CLASSEDEEXAME(listaHANDLE_CLASSESDEEXAMES.get(jCBDescricaoClasse
                         .getSelectedIndex()));
                     exameModel.setHANDLE_EXAME(HANDLE_EXAME);
-                    exameModel.setModalidade(String.valueOf(jCBModalidade.getSelectedItem()));
                     exameModel.setId_areas_atendimento(listaIdAreaDeAtendimento.get(jCBAreasDeAtendimento.getSelectedIndex()));
                     exameModel.setArea_do_corpo(jCBParteDoCorpo.getSelectedIndex());
                     boolean atualizo = EXAMES.setUpdate(con, exameModel);
@@ -428,8 +422,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jRBSim = new javax.swing.JRadioButton();
         jRBNao = new javax.swing.JRadioButton();
         jTFDuracao = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("####"));
-        jCBModalidade = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jTFPesquisaNome = new javax.swing.JTextField(new DocumentoSomenteNumerosELetras(64), null, 0);
@@ -511,12 +503,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                 jTFDuracaoFocusLost(evt);
             }
         });
-
-        jCBModalidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CR", "CT", "DO", "DR", "DX", "MG",
-            "MR", "NM", "OD", "OT", "RF", "US", "TR" }));
-        jCBModalidade.setEnabled(false);
-
-        jLabel6.setText("Modalidade");
         
         lblreaDeAtendimento = new JLabel();
         lblreaDeAtendimento.setText("Área de Atendimento");
@@ -535,8 +521,8 @@ public class jIFCExames extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(jTFNome, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(jTFNome, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addComponent(jLabel4)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -544,33 +530,26 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                                 .addComponent(jTFDuracao, Alignment.LEADING)
                                 .addComponent(jLabel5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(18)
-                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
-                                .addComponent(jLabel6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCBModalidade, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(ComponentPlacement.UNRELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(jCBAreasDeAtendimento, 0, 202, Short.MAX_VALUE)
-                                .addComponent(lblreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
+                                .addComponent(lblreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCBAreasDeAtendimento, 0, 266, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
+                                .addComponent(jTFHorasUteis, Alignment.LEADING)
+                                .addComponent(jLabel9, Alignment.LEADING))
+                            .addGap(18)
+                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
-                                        .addComponent(jTFHorasUteis, Alignment.LEADING)
-                                        .addComponent(jLabel9, Alignment.LEADING))
+                                    .addComponent(jLabel10)
                                     .addGap(18)
-                                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel10)
-                                            .addGap(18)
-                                            .addComponent(lblParteDoCorpo))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jRBSim)
-                                            .addPreferredGap(ComponentPlacement.UNRELATED)
-                                            .addComponent(jRBNao)
-                                            .addPreferredGap(ComponentPlacement.RELATED)
-                                            .addComponent(jCBParteDoCorpo, 0, 195, Short.MAX_VALUE))))
-                                .addComponent(jCBDescricaoClasse, 0, 395, Short.MAX_VALUE))
-                            .addPreferredGap(ComponentPlacement.RELATED)))
+                                    .addComponent(lblParteDoCorpo))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jRBSim)
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(jRBNao)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(jCBParteDoCorpo, 0, 195, Short.MAX_VALUE))))
+                        .addComponent(jCBDescricaoClasse, 0, 395, Short.MAX_VALUE))
                     .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -585,17 +564,14 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
                                 .addComponent(jLabel5)
-                                .addComponent(jLabel6))
+                                .addComponent(lblreaDeAtendimento))
                             .addPreferredGap(ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-                                .addComponent(jTFDuracao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCBModalidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel7))
+                            .addComponent(jTFDuracao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(lblreaDeAtendimento)
-                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addGap(20)
                             .addComponent(jCBAreasDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel7)
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addComponent(jCBDescricaoClasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(ComponentPlacement.UNRELATED)
@@ -1030,7 +1006,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     }
                 }
                 jCBDescricaoClasse.setSelectedIndex(indexDoArray);
-                jCBModalidade.setSelectedItem(listaExames.get(cont).getModalidade());
                 jTFHorasUteis.setText(listaExames.get(cont).getQtdHoras());
                 if ("N".equals(listaExames.get(cont).getLaudo())) {
                     jRBNao.setSelected(true);
@@ -1054,7 +1029,6 @@ public class jIFCExames extends javax.swing.JInternalFrame {
 
         // ativando os campos
         jTFNome.setEnabled(true);
-        jCBModalidade.setEnabled(true);
         jTFDuracao.setEnabled(true);
         jCBDescricaoClasse.setEnabled(true);
         jCBAreasDeAtendimento.setEnabled(true);
@@ -1075,13 +1049,10 @@ public class jIFCExames extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBSalvarRegistro;
     @SuppressWarnings("rawtypes")
     private javax.swing.JComboBox jCBDescricaoClasse;
-    @SuppressWarnings("rawtypes")
-    private javax.swing.JComboBox jCBModalidade;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

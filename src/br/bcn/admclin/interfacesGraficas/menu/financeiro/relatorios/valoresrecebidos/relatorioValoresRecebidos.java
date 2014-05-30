@@ -286,8 +286,7 @@ public class relatorioValoresRecebidos {
             tabelaExames.addCell(cell);
 
             //diferença            
-            double valorDiferencaDouble = valorConvenioPagoDouble - valorFaturadoDouble;
-            
+            double valorDiferencaDouble = new BigDecimal(valorConvenioPagoDouble - valorFaturadoDouble).setScale(2, RoundingMode.HALF_EVEN).doubleValue();;
             String valorDiferencaString = String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorDiferencaDouble)).replace(".", ",");
             //se convenio ainda nao pagou, a diferença fica vazia
             if(valorConvenioPagoDouble == 0){
