@@ -165,7 +165,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
 
         jLabel3.setBackground(new java.awt.Color(153, 153, 153));
         jLabel3.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel3.setText("6.0");
+        jLabel3.setText("7.0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
