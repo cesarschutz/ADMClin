@@ -96,10 +96,15 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(0).setMaxWidth(80);
         jTable1.getColumnModel().getColumn(1).setMaxWidth(45);
         jTable1.getColumnModel().getColumn(2).setMaxWidth(80);
-        jTable1.getColumnModel().getColumn(3).setMaxWidth(38);
         jTable1.getColumnModel().getColumn(6).setMaxWidth(105);
         jTable1.getColumnModel().getColumn(6).setPreferredWidth(105);
         jTable1.getColumnModel().getColumn(7).setMaxWidth(60);
+        
+        //sumindo coluna de modalidade
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMinWidth(0);
 
         // COLUNA ACEITANDO ICONES
         TableCellRenderer tcrColuna7 = new ColunaAceitandoIcone();
@@ -147,7 +152,6 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                     modelo.setData_atendimento(resultSet.getString("data_atendimento"));
                     modelo.setHora(MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento")));
                     modelo.setHandle_at(resultSet.getInt("handle_at"));
-                    modelo.setMod(resultSet.getString("modalidade"));
                     modelo.setPaciente(resultSet.getString("nomePaciente"));
                     modelo.setMedico_solicitante(resultSet.getString("nomeMedico"));
                     modelo.setCrm(resultSet.getString("crmMedico"));
@@ -164,7 +168,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                     modelo.addRow(new Object[] {
                         MetodosUteis.converterDataParaMostrarAoUsuario(listaAtendimentos.get(i).getData_atendimento()),
                         listaAtendimentos.get(i).getHora(), listaAtendimentos.get(i).getHandle_at(),
-                        listaAtendimentos.get(i).getMod(), listaAtendimentos.get(i).getPaciente(),
+                        "", listaAtendimentos.get(i).getPaciente(),
                         listaAtendimentos.get(i).getMedico_solicitante(), listaAtendimentos.get(i).getCrm(),
                         listaAtendimentos.get(i).getStatusA() });
                 }
@@ -197,7 +201,6 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                         modelo.setData_atendimento(resultSet.getString("data_atendimento"));
                         modelo.setHora(MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento")));
                         modelo.setHandle_at(resultSet.getInt("handle_at"));
-                        modelo.setMod(resultSet.getString("modalidade"));
                         modelo.setPaciente(resultSet.getString("nomePaciente"));
                         modelo.setMedico_solicitante(resultSet.getString("nomeMedico"));
                         modelo.setCrm(resultSet.getString("crmMedico"));
@@ -215,7 +218,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                         modelo.addRow(new Object[] {
                             MetodosUteis.converterDataParaMostrarAoUsuario(listaAtendimentos.get(i)
                                 .getData_atendimento()), listaAtendimentos.get(i).getHora(),
-                            listaAtendimentos.get(i).getHandle_at(), listaAtendimentos.get(i).getMod(),
+                            listaAtendimentos.get(i).getHandle_at(), "",
                             listaAtendimentos.get(i).getPaciente(), listaAtendimentos.get(i).getMedico_solicitante(),
                             listaAtendimentos.get(i).getCrm(), listaAtendimentos.get(i).getStatusA() });
                     }

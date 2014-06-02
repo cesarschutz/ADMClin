@@ -9,7 +9,7 @@ package br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimento
  * @author Cesar Schutz
  */
 public class EditarAtendimentosMODEL {
-    private String data_atendimento, hora, mod, paciente, medico_solicitante, crm, statusA;
+    private String data_atendimento, hora, paciente, medico_solicitante, crm, statusA;
     private int handle_at, flagFaturado;
 
     public int getFlagFaturado() {
@@ -34,14 +34,6 @@ public class EditarAtendimentosMODEL {
 
     public void setHora(String hora) {
         this.hora = hora;
-    }
-
-    public String getMod() {
-        return mod;
-    }
-
-    public void setMod(String mod) {
-        this.mod = mod;
     }
 
     public String getPaciente() {

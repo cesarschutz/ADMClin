@@ -154,7 +154,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
     private void imprimirExame(int i) {
         // colocando o nome
         String nome_e_codigo =
-            listaDeExames.get(i - 1).getCod_exame() + " - " + listaDeExames.get(i - 1).getModalidade() + " - "
+            listaDeExames.get(i - 1).getCod_exame() + " - "
                 + listaDeExames.get(i - 1).getNome();
         imprimir.print("   " + arrumarTamanhoDaString(nome_e_codigo, 45));
 
@@ -222,7 +222,6 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
             ExameModel exame = new ExameModel();
             exame.setCod_exame(resultSet.getString("cod_exame"));
             exame.setNome(resultSet.getString("nome"));
-            exame.setModalidade(resultSet.getString("modalidade"));
             exame.setValor_correto_paciente(resultSet.getString("valor_correto_paciente"));
 
             listaDeExames.add(exame);

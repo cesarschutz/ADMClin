@@ -51,7 +51,7 @@ public class ImprimirNotaFiscalDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct a.atendimento_exame_id, a.valor_correto_paciente, b.nome, b.modalidade, c.cod_exame, d.handle_convenio from atendimento_exames a "
+                con.prepareStatement("select distinct a.atendimento_exame_id, a.valor_correto_paciente, b.nome, c.cod_exame, d.handle_convenio from atendimento_exames a "
                     + "inner join exames b on a.handle_exame = b.handle_exame "
                     + "inner join atendimentos d on a.handle_at = d.handle_at "
                     + "inner join tabelas c on d.handle_convenio = c.handle_convenio and a.handle_exame = c.handle_exame "

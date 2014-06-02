@@ -9,7 +9,7 @@ package br.bcn.admclin.impressoes.modelo2e3;
  * @author BCN
  */
 public class ExameModel {
-    private String cod_exame, nome, valor_correto_paciente, modalidade;
+    private String cod_exame, nome, valor_correto_paciente;
 
     public String getCod_exame() {
         return cod_exame;
@@ -33,13 +33,5 @@ public class ExameModel {
 
     public void setValor_correto_paciente(String valor_correto_paciente) {
         this.valor_correto_paciente = valor_correto_paciente;
-    }
-
-    public String getModalidade() {
-        return modalidade;
-    }
-
-    public void setModalidade(String modalidade) {
-        this.modalidade = modalidade;
     }
 }

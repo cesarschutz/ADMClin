@@ -24,7 +24,7 @@ public class EditarAtendimentosDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select p.nome as nomePaciente, m.nome as nomeMedico, m.crm as crmMedico, a.handle_at, a.flag_faturado, a.data_atendimento, a.hora_atendimento, a.status1, a.modalidade from atendimentos A "
+                con.prepareStatement("select p.nome as nomePaciente, m.nome as nomeMedico, m.crm as crmMedico, a.handle_at, a.flag_faturado, a.data_atendimento, a.hora_atendimento, a.status1 from atendimentos A "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoId "
                     + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "where p.nome like ? order by a.data_atendimento");
@@ -46,7 +46,7 @@ public class EditarAtendimentosDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select p.nome as nomePaciente, m.nome as nomeMedico, m.crm as crmMedico, a.handle_at, a.flag_faturado, a.data_atendimento, a.hora_atendimento, a.status1, a.modalidade from atendimentos A "
+                con.prepareStatement("select p.nome as nomePaciente, m.nome as nomeMedico, m.crm as crmMedico, a.handle_at, a.flag_faturado, a.data_atendimento, a.hora_atendimento, a.status1 from atendimentos A "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoId "
                     + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "where a.handle_at=? order by a.data_atendimento");
