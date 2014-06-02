@@ -120,32 +120,6 @@ public class ATENDIMENTOS {
     }
 
     /**
-     * Consulta Todos os atendimentos existentes no Banco de Dados
-     * 
-     * @param Connection
-     * @return ResultSet
-     */
-    @SuppressWarnings("finally")
-    public static ResultSet getConsultarAtendimentosPorAgenda(Connection con, Date dia, int handle_agenda) {
-        ResultSet resultSet = null;
-        try {
-            PreparedStatement stmtQuery =
-                con.prepareStatement("select p.nome as nomePaciente, m.nome as nomeMedico, m.crm as crmMedico, a.handle_at, a.data_atendimento, a.hora_atendimento, a.status1, a.modalidade, a.status2, a.EXAME_ENTREGUE_AO_PACIENTE, a.LAUDO_ENTREGUE_AO_PACIENTE, a.valor_desconto, a.valor_atendimento from atendimentos A "
-                    + "inner join medicos m on a.handle_medico_sol = m.medicoId "
-                    + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
-                    + "where data_atendimento=? and handle_agenda=? order by hora_atendimento");
-            stmtQuery.setDate(1, dia);
-            stmtQuery.setInt(2, handle_agenda);
-            resultSet = stmtQuery.executeQuery();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar os Atendimentos. Procure o Administrador.", "ERRO",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
-        } finally {
-            return resultSet;
-        }
-    }
-
-    /**
      * Consulta Todos os dados de um atendimento agenda existentes no Banco de Dados
      * 
      * @param Connection
@@ -533,7 +507,6 @@ public class ATENDIMENTOS {
     }
 
     /*
-     * Consulta a modalidade a data e o nome do paciente de um atendimento
      * 
      * @param handle_at
      */

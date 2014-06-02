@@ -68,16 +68,3 @@ MODELO 3 - de carli - COMO RODA EM LINUX, DEVE TER O ARQUIVO tahoma.ttf na mesma
 MODELO 4 - CIDI - tem somente a ficha pois é diferente, nela sai junto o boleto de retirada! Para a etiqueta é utilizada a mesma classe do modelo 1.
 
 
-
-APOS A VERSÃO 6, NAS ALTERAÇÕES DA AGENDA.
--> NÃO APAGAR OS CAMPOS MODALIDADE E HORARIO NA TABELA ATENDIMENTOS.
--> SOMENTE ADICIONAR NA TABELA ATENDIMENTO_EXAMES ESSES DOIS CAMPOS.
-
--> criada tabela AREAS_ATENDIMENTO 
-    nessa tabela temos o handle 0 que significa sem area de atendimento valor do campo SEM ÁREA
--> colocado o campo ID_AREAS_ATENDIMENTO na tabela AGENDAS com chave estrangeira apontando para PK da tabela AREAS_ATENDIMENTO
--> colocado o campo ID_AREAS_ATENDIMENTO na tabela EXAMES com chave estrangeira apontando para PK da tabela AREAS_ATENDIMENTO
-
--> criar tabela NAGENDASDESC
--> criar tabela 
-

@@ -106,7 +106,7 @@ public class TB_CLASSESDEEXAMES {
     public static ResultSet getConsultarModalidades(Connection con) {
         ResultSet resultSet = null;
         try {
-            PreparedStatement stmtQuery = con.prepareStatement("select * from modalidades");
+            PreparedStatement stmtQuery = con.prepareStatement("select * from modalidades order by modalidade");
             resultSet = stmtQuery.executeQuery();
 
         } catch (SQLException e) {
