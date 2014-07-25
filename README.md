@@ -68,3 +68,6 @@ MODELO 3 - de carli - COMO RODA EM LINUX, DEVE TER O ARQUIVO tahoma.ttf na mesma
 MODELO 4 - CIDI - tem somente a ficha pois é diferente, nela sai junto o boleto de retirada! Para a etiqueta é utilizada a mesma classe do modelo 1.
 
 
+
+
+teste!
