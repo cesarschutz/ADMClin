@@ -693,7 +693,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
         	jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel1Layout.createSequentialGroup()
+        		.addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
         			.addContainerGap()
         			.addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
@@ -703,10 +703,10 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
         	jPanel1Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addContainerGap()
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-        				.addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
+        				.addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+        				.addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         jPanel1.setLayout(jPanel1Layout);
 
@@ -796,9 +796,12 @@ public class jIFCExames extends javax.swing.JInternalFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
-        	layout.createParallelGroup(Alignment.TRAILING)
-        		.addComponent(jTFMensagemParaUsuario, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
-        		.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jTFMensagemParaUsuario, GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+        			.addContainerGap())
+        		.addGroup(layout.createSequentialGroup()
         			.addComponent(jBNovoRegistro)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jBSalvarRegistro)
@@ -809,12 +812,11 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jBCancelar)
         			.addContainerGap())
-        		.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
-        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 552, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 540, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jTFMensagemParaUsuario, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
@@ -824,7 +826,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         				.addComponent(jBApagarRegistro)
         				.addComponent(jBSalvarRegistro)
         				.addComponent(jBCancelar))
-        			.addGap(12))
+        			.addGap(22))
         );
         getContentPane().setLayout(layout);
 

@@ -153,8 +153,15 @@ public class EXAMES {
     public static boolean setCadastrar(Connection con, Exames exame) {
         boolean cadastro = false;
         String sql =
-            "insert into exames (usuarioid,dat,DURACAO,nome,qtdhoras,laudo,HANDLE_CLASSEDEEXAME,id_areas_atendimento, area_do_corpo, dieta) values(?,?,?,?,?,?,?,?,?,?)";
+            "insert into exames (usuarioid,dat,DURACAO,nome,qtdhoras,laudo,HANDLE_CLASSEDEEXAME,id_areas_atendimento, area_do_corpo, dieta, flag_tem_dieta) values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
+        	
+        	int flag_tem_dieta = 0;
+        	if(exame.getDieta().length() > 3 && exame.getDieta() != null){
+        		flag_tem_dieta = 1;
+        	}
+        	
+        	
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, exame.getUsuarioId());
             stmt.setDate(2, exame.getData());
@@ -166,6 +173,7 @@ public class EXAMES {
             stmt.setInt(8, exame.getId_areas_atendimento());
             stmt.setInt(9, exame.getArea_do_corpo());
             stmt.setString(10, exame.getDieta());
+            stmt.setInt(11, flag_tem_dieta);
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
@@ -188,8 +196,15 @@ public class EXAMES {
     public static boolean setUpdate(Connection con, Exames exame) {
         boolean cadastro = false;
         String sql =
-            "update exames set usuarioid=?, dat=?, duracao=?, nome=?, qtdhoras=?, laudo=?, HANDLE_CLASSEDEEXAME=?, id_areas_atendimento=?, AREA_DO_CORPO = ?, dieta = ?  where HANDLE_EXAME=?";
+            "update exames set usuarioid=?, dat=?, duracao=?, nome=?, qtdhoras=?, laudo=?, HANDLE_CLASSEDEEXAME=?, id_areas_atendimento=?, AREA_DO_CORPO = ?, dieta = ?, flag_tem_dieta=?  where HANDLE_EXAME=?";
         try {
+        	
+        	int flag_tem_dieta = 0;
+        	if(exame.getDieta().length() > 3 && exame.getDieta() != null){
+        		flag_tem_dieta = 1;
+        	}
+        	
+        	
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, exame.getUsuarioId());
             stmt.setDate(2, exame.getData());
@@ -201,7 +216,8 @@ public class EXAMES {
             stmt.setInt(8, exame.getId_areas_atendimento());
             stmt.setInt(9, exame.getArea_do_corpo());
             stmt.setString(10, exame.getDieta());
-            stmt.setInt(11, exame.getHANDLE_EXAME());
+            stmt.setInt(11, flag_tem_dieta);
+            stmt.setInt(12, exame.getHANDLE_EXAME());
 
             stmt.executeUpdate();
             stmt.close();
