@@ -126,6 +126,8 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         pegandoDataDoSistema();
         
         preencheAreasDeAtendimento();
+        
+        
     }
     
     private void preencheAreasDeAtendimento() {
@@ -605,7 +607,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
         );
         
-        jTADieta = new JTextArea();
+        jTADieta = new JTextArea(new DocumentoSemAspasEPorcento(4096));
         jTADieta.setEnabled(false);
         scrollPane.setViewportView(jTADieta);
         jPanel2.setLayout(jPanel2Layout);
