@@ -96,6 +96,6 @@ public class Exames {
 	}
 
 	public void setDieta(String dieta) {
-		this.dieta = dieta;
+		this.dieta = dieta.replaceAll("\\n", "\\[\\]");
 	}
 }

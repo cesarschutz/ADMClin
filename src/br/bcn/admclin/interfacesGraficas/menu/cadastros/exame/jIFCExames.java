@@ -1023,7 +1023,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                 if (duracao.length() == 3)
                     duracao = "0" + duracao;
                 jTFDuracao.setText(duracao);
-                jTADieta.setText(listaExames.get(cont).getDieta());
+                jTADieta.setText(listaExames.get(cont).getDieta().replaceAll("\\[\\]", "\n"));
 
                 jTFNome.setText(listaExames.get(cont).getNOME());
                 for (int i = 0; i < listaHANDLE_CLASSESDEEXAMES.size(); i++) {
