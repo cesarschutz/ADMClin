@@ -64,11 +64,13 @@ public class NAGENDAMENTOS {
                                  + "NAGENDAMENTOSEXAMES.\"HANDLE_EXAME\" AS HANDLE_EXAME, "
                                  + "EXAMES.\"NOME\" AS EXAMES_NOME, "
                                  + "EXAMES.\"DURACAO\" AS EXAMES_DURACAO, "
+                                 + "NAGENDASDESC.\"NAME\" AS nomeAgenda, "
                                  + "AREAS_ATENDIMENTO.\"ID_AREAS_ATENDIMENTO\" AS AREAS_ATENDIMENTO_ID, "
                                  + "AREAS_ATENDIMENTO.\"NOME\" AS AREAS_ATENDIMENTO_NOME "
                                  + "FROM "
                                  + "\"EXAMES\" EXAMES INNER JOIN \"NAGENDAMENTOSEXAMES\" NAGENDAMENTOSEXAMES ON EXAMES.\"EXMID\" = NAGENDAMENTOSEXAMES.\"HANDLE_EXAME\" "
                                  + "INNER JOIN \"AREAS_ATENDIMENTO\" AREAS_ATENDIMENTO ON EXAMES.\"ID_AREAS_ATENDIMENTO\" = AREAS_ATENDIMENTO.\"ID_AREAS_ATENDIMENTO\" "
+                                 + "INNER JOIN \"NAGENDASDESC\" NAGENDASDESC ON NAGENDAMENTOSEXAMES.\"NAGDID\" = NAGENDASDESC.\"NAGDID\" "
                                  + "WHERE NAGENID = ? "
                                  + "ORDER BY AREAS_ATENDIMENTO_ID, HORA");
                        stmt.setInt(1, agendamento.getNAGENID());
@@ -84,6 +86,7 @@ public class NAGENDAMENTOS {
                           exame.setNomeExame(resultSet2.getString("EXAMES_NOME"));
                           exame.setID_AREAS_ATENDIMENTO(resultSet2.getInt("AREAS_ATENDIMENTO_ID"));
                           exame.setNomeAreaAtendimento(resultSet2.getString("AREAS_ATENDIMENTO_NOME"));
+                          exame.setNomeAgenda(resultSet2.getString("nomeAgenda"));
                           agendamento.getListaExames().add(exame);
                        }
             }

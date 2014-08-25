@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
+import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
@@ -157,12 +158,12 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(15);
         jTable1.getColumnModel().getColumn(0).setMinWidth(0);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(15);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(2).setMinWidth(100);
-        jTable1.getColumnModel().getColumn(2).setMaxWidth(100);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(3).setMinWidth(100);
-        jTable1.getColumnModel().getColumn(3).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(120);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(120);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(120);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(120);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -235,7 +236,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         for (int i = 0; i < listaDeExamesDoAgendamento.size(); i++) {
             if(listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO() == id_area){
                 //coloca o nome do exame
-                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame());
+                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
                 exame.setForeground(java.awt.Color.blue);  
                 popup.add(exame);
             }else{
@@ -246,7 +247,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
                 areaDeAtendimento.setForeground(java.awt.Color.red); 
                 popup.add(areaDeAtendimento);
                 //coloca o nome do exame
-                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame());
+                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
                 exame.setForeground(java.awt.Color.blue); 
                 popup.add(exame);
                 
