@@ -10,6 +10,7 @@ public class Nagendamentos {
     private String TELEFONE;
     private String CELULAR;
     private int HANDLE_CONVENIO;
+    private int virou_atendimento;
     private String NOME_CONVENIO;
     private ArrayList<NagendamentosExames> listaExames = new ArrayList<NagendamentosExames>();
     
@@ -61,5 +62,12 @@ public class Nagendamentos {
     public void setListaExames(ArrayList<NagendamentosExames> listaExames) {
         this.listaExames = listaExames;
     }
+	public int getVirou_atendimento() {
+		return virou_atendimento;
+	}
+	public void setVirou_atendimento(int virou_atendimento) {
+		this.virou_atendimento = virou_atendimento;
+	}
+    
     
 }

@@ -16,10 +16,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
+import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
 import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
@@ -132,8 +137,17 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         preencheTabela();
+        
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        
+        TableCellRenderer tcrColuna5 = new ColunaAceitandoIcone();
+        TableColumn column5 = jTable1.getColumnModel().getColumn(5);
+        column5.setCellRenderer(tcrColuna5);
     }   
 
+    
     private void preencheTabela(){
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
@@ -143,7 +157,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         //se tiver em todas as areas preenche tudo
         if(jCBAreaDeAtendimento.getSelectedIndex() == 0){
         	for (Nagendamentos agendamento : listaAgendamentos) {
-                modelo.addRow(new Object[] { agendamento, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO() });
+                modelo.addRow(new Object[] { agendamento, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento() });
             } 
         	//se for uma area especifica ele vai apresentar na tela somente os agendamentos que tenham aquela area selecionada
         }else{
@@ -159,13 +173,27 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         		}
         		//se existe exames no agendamento da area selecionada ele apresenta na tela
         		if(agendamentoTemExameDaArea){
-        			modelo.addRow(new Object[] { agendamento, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO() });
+        			modelo.addRow(new Object[] { agendamento, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento()  });
         		}
                
             } 
         }
-               
         
+        colocarIconesNoVirouAtendimento();
+    }
+    
+    ImageIcon iconeVirouAtendimento = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/LaudoEExameEntregue.png"));
+    private void colocarIconesNoVirouAtendimento(){
+    	for (int i = 0; i < jTable1.getRowCount(); i++) {
+    		System.out.println(jTable1.getValueAt(i, 5).toString());
+			if(jTable1.getValueAt(i, 5).toString().equals("1")){
+				System.out.println("entrou no if");
+				jTable1.setValueAt(iconeVirouAtendimento, i, 5);
+			}else if(jTable1.getValueAt(i, 5).toString().equals("0")){
+				System.out.println("entrou no else if");
+				jTable1.setValueAt("", i, 5);
+			}
+		}
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,18 +212,18 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agendamentos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jTable1.setModel(new DefaultTableModel(
-            new Object[][] {
-            },
-            new String[] {
-                "nagendamento", "Paciente", "Telefone", "Celular", "Conv\u00EAnio"
-            }
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"nagendamento", "Paciente", "Telefone", "Celular", "Conv\u00EAnio", "Atendido"
+        	}
         ) {
-            boolean[] columnEditables = new boolean[] {
-                false, false, false, false, false
-            };
-            public boolean isCellEditable(int row, int column) {
-                return columnEditables[column];
-            }
+        	boolean[] columnEditables = new boolean[] {
+        		false, false, false, false, false, true
+        	};
+        	public boolean isCellEditable(int row, int column) {
+        		return columnEditables[column];
+        	}
         });
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(15);
         jTable1.getColumnModel().getColumn(0).setMinWidth(0);
@@ -206,6 +234,9 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
         jTable1.getColumnModel().getColumn(3).setMinWidth(120);
         jTable1.getColumnModel().getColumn(3).setMaxWidth(120);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(5).setMinWidth(60);
+        jTable1.getColumnModel().getColumn(5).setMaxWidth(60);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -280,6 +311,10 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
             }
         });
         popup.add(registrarAtendimento);
+        if(agendamentoClicado.getVirou_atendimento() == 1){
+        	registrarAtendimento.setEnabled(false);
+        }
+        
         
         
         //preenchendo os exames

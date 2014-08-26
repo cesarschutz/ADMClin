@@ -27,6 +27,7 @@ public class NAGENDAMENTOS {
             PreparedStatement stmtQuery = con.prepareStatement("SELECT "
                      + "NAGENDAMENTOS.\"NAGENID\" AS NAGENID, "
                      + "NAGENDAMENTOS.\"DIA\" AS DIA,"
+                     + "NAGENDAMENTOS.\"VIROU_ATENDIMENTO\" AS virou_Atendimento,"
                      + "NAGENDAMENTOS.\"NOMEPACIENTE\" AS NOMEPACIENTE, "
                      + "NAGENDAMENTOS.\"TELEFONE\" AS TELEFONE, "
                      + "NAGENDAMENTOS.\"CELULAR\" AS CELULAR, "
@@ -49,6 +50,7 @@ public class NAGENDAMENTOS {
                agendamento.setCELULAR(resultSet.getString("CELULAR")); 
                agendamento.setHANDLE_CONVENIO(resultSet.getInt("HANDLE_CONVENIO")); 
                agendamento.setNOME_CONVENIO(resultSet.getString("NOME_CONVENIO")); 
+               agendamento.setVirou_atendimento(resultSet.getInt("virou_atendimento"));
                listaAgendamentos.add(agendamento);
             }
             
