@@ -42,6 +42,34 @@ public class AREAS_ATENDIMENTO {
     }
     
     @SuppressWarnings("finally")
+    public static ArrayList<Areas_atendimento> getConsultarComOpcaoDeTodasAsAreas() {
+        listaAreasAtendimento.clear();
+        ResultSet resultSet = null;
+        con = Conexao.fazConexao();
+        try {
+            PreparedStatement stmtQuery = con.prepareStatement("select * from areas_atendimento where id_areas_atendimento != 0 order by nome");
+            resultSet = stmtQuery.executeQuery();
+            Areas_atendimento area1 = new Areas_atendimento();
+            area1.setNome("TODAS AS ÁREAS");
+            area1.setId_areas_atendimento(0);
+            listaAreasAtendimento.add(area1);
+            while (resultSet.next()) {
+                Areas_atendimento area = new Areas_atendimento();
+                area.setNome(resultSet.getString("nome"));
+                area.setId_areas_atendimento(resultSet.getInt("id_areas_atendimento"));
+                listaAreasAtendimento.add(area);
+            }
+            Conexao.fechaConexao(con);
+        } catch (SQLException e) {
+            Conexao.fechaConexao(con);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Agendas. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return listaAreasAtendimento;
+        }
+    }
+    
+    @SuppressWarnings("finally")
     public static boolean setCadastrar(Areas_atendimento model) {
         boolean cadastro = false;
         con = Conexao.fazConexao();
