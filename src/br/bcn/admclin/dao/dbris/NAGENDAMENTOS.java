@@ -101,16 +101,19 @@ public class NAGENDAMENTOS {
         }
     }
     
-    
-    public static boolean marcerFlagVirouAtendimento(Connection con, Nagendamentos agendamento) {
+    /*
+     * metodo que coloca o flag como virou atendimento e atualiza o nome do paciente
+     */
+    public static boolean atualizarAgendamentoAposVirarAtendimento(Connection con, Nagendamentos agendamento, String nomePaciente) {
         boolean cadastro = false;
         String sql =
-            "update NAGENDAMENTOS set virou_atendimento = ? where NAGENID=?";
+            "update NAGENDAMENTOS set virou_atendimento = ?, nomePaciente = ? where NAGENID=?";
         try {
 
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, 1);
-            stmt.setInt(2, agendamento.getNAGENID());
+            stmt.setString(2, nomePaciente);
+            stmt.setInt(3, agendamento.getNAGENID());
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;

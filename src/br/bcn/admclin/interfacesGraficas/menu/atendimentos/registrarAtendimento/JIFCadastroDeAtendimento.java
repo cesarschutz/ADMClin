@@ -954,7 +954,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
                 if (cadastro) {
                     if(veioDeAgendamento){
-                        NAGENDAMENTOS.marcerFlagVirouAtendimento(con, TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento);
+                        NAGENDAMENTOS.atualizarAgendamentoAposVirarAtendimento(con, TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento, jTFPaciente.getText());
                     }
   
                     // cadastrando os exames na tabela atendimento_exames
