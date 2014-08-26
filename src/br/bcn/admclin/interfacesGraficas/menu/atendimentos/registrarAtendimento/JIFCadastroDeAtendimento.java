@@ -948,15 +948,25 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 atendimento.setHORA_EXAME_PRONTO(hora_exame_pronto);
                 atendimento.setID_AREAS_ATENDIMENTO(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
                 //atendimento.setMODALIDADE(String.valueOf(jCBModalidade.getSelectedItem()));
-
+                
+                if(veioDeAgendamento){
+                	atendimento.setId_agendamento(TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getNAGENID());
+                }else{
+                	atendimento.setId_agendamento(0);
+                }
                 con = Conexao.fazConexao();
-                cadastro = ATENDIMENTOS.setUpdate(con, atendimento);
+                if(jBSalvar.isVisible()){
+                	cadastro = ATENDIMENTOS.setUpdate(con, atendimento);
+                }else{
+                	cadastro = ATENDIMENTOS.setUpdateQuandoForAtualizar(con, atendimento);
+                }
+                
 
                 if (cadastro) {
                     if(veioDeAgendamento){
                         NAGENDAMENTOS.atualizarAgendamentoAposVirarAtendimento(con, TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento, jTFPaciente.getText());
                     }
-  
+ 
                     // cadastrando os exames na tabela atendimento_exames
                     for (int i = 0; i < jTable1.getRowCount(); i++) {
                         Atendimento_Exames atendimentoExame = new Atendimento_Exames();

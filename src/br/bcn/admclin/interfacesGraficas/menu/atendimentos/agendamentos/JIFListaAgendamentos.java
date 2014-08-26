@@ -185,12 +185,9 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
     ImageIcon iconeVirouAtendimento = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/LaudoEExameEntregue.png"));
     private void colocarIconesNoVirouAtendimento(){
     	for (int i = 0; i < jTable1.getRowCount(); i++) {
-    		System.out.println(jTable1.getValueAt(i, 5).toString());
 			if(jTable1.getValueAt(i, 5).toString().equals("1")){
-				System.out.println("entrou no if");
 				jTable1.setValueAt(iconeVirouAtendimento, i, 5);
 			}else if(jTable1.getValueAt(i, 5).toString().equals("0")){
-				System.out.println("entrou no else if");
 				jTable1.setValueAt("", i, 5);
 			}
 		}
