@@ -43,6 +43,7 @@ import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimen
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimentoVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaDesc;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaVisualizar;
+import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroBloqueio;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriado;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFFeriadoVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.convenio.JIFCConvenioCH;
@@ -138,6 +139,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFCadastroAgendaVisualizar internalFrameCadastroAgendasVisualizar;
     public static JIFCadastroAgendaDesc internalFrameCadastroAgendasDesc;
     public static JIFListaAgendamentos internalFrameListaDeAgendamentos;
+    public static JIFCadastroBloqueio internalFrameCadastroDeBloqueiosAgenda;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -405,6 +407,14 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 internalFrameAreasDeAtendimentoVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
             }
         });
+        
+        JMenuItem jMCBloqueios = new JMenuItem("Bloqueios");
+        jMCBloqueios.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		jMCadastroDeBloqueio();
+        	}
+        });
+        jMCAgenda.add(jMCBloqueios);
         jMCAgenda.add(mntmAreasDeAtendimento);
         jMCAgenda.add(jMCAFeriados);
 
@@ -1034,6 +1044,21 @@ public class janelaPrincipal extends javax.swing.JFrame {
         int aIFrame = internalFrameListaDeAgendamentos.getHeight();
 
         internalFrameListaDeAgendamentos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+    }
+    
+    private void jMCadastroDeBloqueio(){
+        fechandoTodosOsInternalFrames();
+
+        internalFrameCadastroDeBloqueiosAgenda = new JIFCadastroBloqueio();
+
+        jDesktopPane1.add(internalFrameCadastroDeBloqueiosAgenda);
+        internalFrameCadastroDeBloqueiosAgenda.setVisible(true);
+        int lDesk = jDesktopPane1.getWidth();
+        int aDesk = jDesktopPane1.getHeight();
+        int lIFrame = internalFrameCadastroDeBloqueiosAgenda.getWidth();
+        int aIFrame = internalFrameCadastroDeBloqueiosAgenda.getHeight();
+
+        internalFrameCadastroDeBloqueiosAgenda.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
     /**
      * @param args
