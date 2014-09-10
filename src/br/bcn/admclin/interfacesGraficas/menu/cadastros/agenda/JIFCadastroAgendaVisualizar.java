@@ -50,7 +50,6 @@ public class JIFCadastroAgendaVisualizar extends javax.swing.JInternalFrame {
     }
     
     public void buscaAgendasNoBanco(){
-        listaAgendas = NAGENDASDESC.getConsultar();
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
