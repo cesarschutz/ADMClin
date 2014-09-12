@@ -6,19 +6,31 @@ import java.util.ArrayList;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
+import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.dao.dbris.NAGENDASDESC;
+import br.bcn.admclin.dao.dbris.NAgendaDayBlock;
 import br.bcn.admclin.dao.model.Nagenda;
+import br.bcn.admclin.dao.model.Nagendadayblock;
 import br.bcn.admclin.dao.model.Nagendasdesc;
 
 import com.lowagie.text.List;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JToggleButton;
 
 
 /**
@@ -38,14 +50,49 @@ public class JIFCadastroBloqueio extends javax.swing.JInternalFrame {
         initComponents();
         tirandoBarraDeTitulo();
         preenchherAgendas();
-        jTable1.setRowHeight(25); 
+        iniciarClasse();
+    }
+    
+    private void iniciarClasse(){
+    	jTable1.setRowHeight(25); 
+    	ativandoSelecaoDeLinhaComBotaoDireitoDoMouse();
+    	
+    	DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        
+        TableCellRenderer tcrColuna5 = new ColunaAceitandoIcone();
+        TableColumn column5 = jTable1.getColumnModel().getColumn(1);
+        column5.setCellRenderer(tcrColuna5);
+    	
+    }
+    
+    private void ativandoSelecaoDeLinhaComBotaoDireitoDoMouse() {
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    int col = jTable1.columnAtPoint(e.getPoint());
+                    int row = jTable1.rowAtPoint(e.getPoint());
+                    if (col != -1 && row != -1) {
+                        jTable1.setColumnSelectionInterval(col, col);
+                        jTable1.setRowSelectionInterval(row, row);
+                    }
+                }
+
+                // colocando a seleção na celula clicada
+                int linhaSelecionada = jTable1.getSelectedRow();
+                int colunaSelecionada = jTable1.getSelectedColumn();
+
+                jTable1.editCellAt(linhaSelecionada, colunaSelecionada);                
+            }
+        });
     }
     
     private void preenchherAgendas(){
     	ArrayList<Nagendasdesc> listaAgendas = NAGENDASDESC.getConsultar();
         listaAgendas = NAGENDASDESC.getConsultar();
-        listaHanldeAgendas.add(0);
-        jCBAgendas.addItem("Agendas");
         for (int i = 0; i < listaAgendas.size() ; i++) {
             jCBAgendas.addItem(listaAgendas.get(i).getName());
             listaHanldeAgendas.add(listaAgendas.get(i).getNagdid());
@@ -58,13 +105,11 @@ public class JIFCadastroBloqueio extends javax.swing.JInternalFrame {
     }
     
     private void preencheTabela(){
-    	jBPesquisar.setEnabled(false);
     	((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         
     	//jogamos as informações na variavel local para usarmos para salvar ou deletar bloqueios
     	handle_agenda = listaHanldeAgendas.get(jCBAgendas.getSelectedIndex());
-    	weekDay = getWeekDay();
     	ArrayList<Nagenda> listaTurno = NAGENDASDESC.getTurnosDaAgenda(handle_agenda);
     	for (Nagenda nagenda : listaTurno) {
     		if(nagenda.getWeekday() == weekDay){
@@ -84,6 +129,8 @@ public class JIFCadastroBloqueio extends javax.swing.JInternalFrame {
     			if(start4 > 0) jogaTurnoNaTabela(start4, end4, periodoDaAgenda);
     		}
     	}
+    	
+    	preencheBloqueiosNaTabela();
     }
     
     private void jogaTurnoNaTabela(int start, int end, int duracaoAgenda){
@@ -116,29 +163,22 @@ public class JIFCadastroBloqueio extends javax.swing.JInternalFrame {
 
         return horas + minutos;
     }
-    
-    private int getWeekDay(){
-    	int indexComboBox = jCBDia.getSelectedIndex();
-    	switch (indexComboBox) {
-		case 0:
-			return 2;
-		case 1:
-			return 3;
-		case 2:
-			return 4;
-		case 3:
-			return 5;
-		case 4:
-			return 6;
-		case 5:
-			return 7;
-		case 6:
-			return 1;
-		default:
-			return 0;
+
+    ImageIcon iconeBloqueado = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/fecharPrograma.png"));
+    private void preencheBloqueiosNaTabela(){
+    	ArrayList<Nagendadayblock> listaBloqueios = NAgendaDayBlock.getConsultar(weekDay, handle_agenda);
+    	for (int i = 0; i < listaBloqueios.size(); i++) {
+			for (int j = 0; j < jTable1.getRowCount(); j++) {
+				String horarioTabela   = jTable1.getValueAt(j, 0).toString();
+				String horarioBloqueio = converterMinutosParaHora(listaBloqueios.get(i).getHORARIO());
+				if(horarioBloqueio.equals(horarioTabela)){
+					jTable1.setValueAt(iconeBloqueado, j, 1);
+					break;
+				}
+			}
 		}
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -150,26 +190,18 @@ public class JIFCadastroBloqueio extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jCBAgendas = new javax.swing.JComboBox();
         jCBAgendas.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		jBPesquisar.setEnabled(true);
-        	}
-        });
-        jCBDia = new javax.swing.JComboBox();
-        jCBDia.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		jBPesquisar.setEnabled(true);
-        	}
-        });
-        jBPesquisar = new javax.swing.JButton();
-        jBPesquisar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		if(jCBAgendas.getSelectedIndex() > 0){
-        			preencheTabela();
-        		}
-        		
+        		((DefaultTableModel) jTable1.getModel()).setNumRows(0);
+                jTable1.updateUI();
+                jBDom.setSelected(false);
+                jBSeg.setSelected(false);
+                jBTer.setSelected(false);
+                jBQua.setSelected(false);
+                jBQui.setSelected(false);
+                jBSex.setSelected(false);
+                jBSab.setSelected(false);
         	}
         });
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -179,78 +211,200 @@ public class JIFCadastroBloqueio extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Agenda:");
 
-        jLabel2.setText("Dia:");
-
-        jCBDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sabado", "Domingo" }));
-
-        jBPesquisar.setText("Pesquisar");
-
         jTable1.setModel(new DefaultTableModel(
         	new Object[][] {
         	},
         	new String[] {
         		"Horario", "Bloqueio"
         	}
-        ));
+        ){
+        	public boolean isCellEditable(int row, int column) {   
+                return false;  
+            } 
+        });
         jScrollPane1.setViewportView(jTable1);
+        
+        jBDom = new JToggleButton("Dom");
+        jBDom.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		weekDay = 1;
+        		preencheTabela();
+        		jBDom.setSelected(true);
+                jBSeg.setSelected(false);
+                jBTer.setSelected(false);
+                jBQua.setSelected(false);
+                jBQui.setSelected(false);
+                jBSex.setSelected(false);
+                jBSab.setSelected(false);
+        	}
+        });
+        
+        jBSeg = new JToggleButton("Seg");
+        jBSeg.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		weekDay = 2;
+        		preencheTabela();
+        		jBDom.setSelected(false);
+                jBSeg.setSelected(true);
+                jBTer.setSelected(false);
+                jBQua.setSelected(false);
+                jBQui.setSelected(false);
+                jBSex.setSelected(false);
+                jBSab.setSelected(false);
+        	}
+        });
+        
+        jBTer = new JToggleButton("Ter");
+        jBTer.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		weekDay = 3;
+        		preencheTabela();
+        		jBDom.setSelected(false);
+                jBSeg.setSelected(false);
+                jBTer.setSelected(true);
+                jBQua.setSelected(false);
+                jBQui.setSelected(false);
+                jBSex.setSelected(false);
+                jBSab.setSelected(false);
+        	}
+        });
+        
+        jBQua = new JToggleButton("Qua");
+        jBQua.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		weekDay = 4;
+        		preencheTabela();
+        		jBDom.setSelected(false);
+                jBSeg.setSelected(false);
+                jBTer.setSelected(false);
+                jBQua.setSelected(true);
+                jBQui.setSelected(false);
+                jBSex.setSelected(false);
+                jBSab.setSelected(false);
+        	}
+        });
+        
+        jBQui = new JToggleButton("Qui");
+        jBQui.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		weekDay = 5;
+        		preencheTabela();
+        		jBDom.setSelected(false);
+                jBSeg.setSelected(false);
+                jBTer.setSelected(false);
+                jBQua.setSelected(false);
+                jBQui.setSelected(true);
+                jBSex.setSelected(false);
+                jBSab.setSelected(false);
+        	}
+        });
+        
+        jBSex = new JToggleButton("Sex");
+        jBSex.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		weekDay = 6;
+        		preencheTabela();
+        		jBDom.setSelected(false);
+                jBSeg.setSelected(false);
+                jBTer.setSelected(false);
+                jBQua.setSelected(false);
+                jBQui.setSelected(false);
+                jBSex.setSelected(true);
+                jBSab.setSelected(false);
+        	}
+        });
+        
+        jBSab = new JToggleButton("Sab");
+        jBSab.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		weekDay = 7;
+        		preencheTabela();
+        		jBDom.setSelected(false);
+                jBSeg.setSelected(false);
+                jBTer.setSelected(false);
+                jBQua.setSelected(false);
+                jBQui.setSelected(false);
+                jBSex.setSelected(false);
+                jBSab.setSelected(true);
+        	}
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
         	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(jPanel1Layout.createSequentialGroup()
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
-        				.addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING, false)
-        				.addComponent(jScrollPane1, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-        				.addComponent(jCBAgendas, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(jCBDia, Alignment.LEADING, 0, 216, Short.MAX_VALUE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jBPesquisar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addComponent(jLabel1)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jCBAgendas, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addComponent(jBDom)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBSeg, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING, false)
+        						.addComponent(jScrollPane1, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+        						.addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+        							.addComponent(jBTer, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jBQua)
+        							.addGap(4)
+        							.addComponent(jBQui, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBSex, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBSab, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(39))
         );
         jPanel1Layout.setVerticalGroup(
         	jPanel1Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
-        				.addComponent(jBPesquisar, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(jLabel1)
-        						.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(jLabel2)
-        						.addComponent(jCBDia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel1)
+        				.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jBDom)
+        				.addComponent(jBSeg)
+        				.addComponent(jBTer)
+        				.addComponent(jBQua)
+        				.addComponent(jBQui)
+        				.addComponent(jBSex)
+        				.addComponent(jBSab))
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         			.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 518, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         jPanel1.setLayout(jPanel1Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 422, Short.MAX_VALUE)
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBPesquisar;
     private javax.swing.JComboBox jCBAgendas;
-    private javax.swing.JComboBox jCBDia;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    // End of variables declaration//GEN-END:variables
+    private JToggleButton jBDom;
+    private JToggleButton jBSeg;
+    private JToggleButton jBTer;
+    private JToggleButton jBQua;
+    private JToggleButton jBQui;
+    private JToggleButton jBSex;
+    private JToggleButton jBSab;
 }
