@@ -12,11 +12,15 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
+import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.dbris.NAGENDASDESC;
 import br.bcn.admclin.dao.dbris.NAgendaDayBlock;
 import br.bcn.admclin.dao.model.Nagenda;
 import br.bcn.admclin.dao.model.Nagendadayblock;
+import br.bcn.admclin.dao.model.Nagendamentos;
+import br.bcn.admclin.dao.model.NagendamentosExames;
 import br.bcn.admclin.dao.model.Nagendasdesc;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
 
 import com.lowagie.text.List;
 
@@ -28,6 +32,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JToggleButton;
@@ -73,21 +80,62 @@ public class JIFCadastroBloqueio extends javax.swing.JInternalFrame {
             public void mousePressed(MouseEvent e) {
 
                 if (e.getButton() == MouseEvent.BUTTON3) {
-                    int col = jTable1.columnAtPoint(e.getPoint());
                     int row = jTable1.rowAtPoint(e.getPoint());
-                    if (col != -1 && row != -1) {
-                        jTable1.setColumnSelectionInterval(col, col);
-                        jTable1.setRowSelectionInterval(row, row);
+                    if(jTable1.getSelectedRowCount() > 0){
+                    	int[] listaLinhasSelecionadas = jTable1.getSelectedRows();  
+                    	for (int linha : listaLinhasSelecionadas) {
+							if(linha == row){
+								abrirPopUp(e);
+							}
+						}
+                    	
                     }
-                }
-
-                // colocando a seleção na celula clicada
-                int linhaSelecionada = jTable1.getSelectedRow();
-                int colunaSelecionada = jTable1.getSelectedColumn();
-
-                jTable1.editCellAt(linhaSelecionada, colunaSelecionada);                
+                }            
             }
         });
+    }
+    
+    private void abrirPopUp(java.awt.event.MouseEvent evt){
+        JPopupMenu popup = new JPopupMenu();
+        
+        // menu bloquear
+        JMenuItem bloquear = new JMenuItem("Bloquear");
+        bloquear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	int[] listaLinhasSelecionadas = jTable1.getSelectedRows();  
+            	for (int linha : listaLinhasSelecionadas) {
+					if(jTable1.getValueAt(linha, 1) == null){
+						int horario = converterHoraEmMinutos(jTable1.getValueAt(linha, 0).toString());
+						NAgendaDayBlock.setCadastrar(handle_agenda, weekDay, horario);
+					}
+				}
+            	preencheTabela();
+            }
+        });
+        popup.add(bloquear);
+
+        
+        // menu desbloquear
+        JMenuItem desbloquear = new JMenuItem("Desbloquear");
+        desbloquear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	int[] listaLinhasSelecionadas = jTable1.getSelectedRows();  
+            	for (int linha : listaLinhasSelecionadas) {
+					if(jTable1.getValueAt(linha, 1) != null){
+						int horario = converterHoraEmMinutos(jTable1.getValueAt(linha, 0).toString());
+						NAgendaDayBlock.setDeletar(handle_agenda, weekDay, horario);
+					}
+				}
+            	preencheTabela();
+            }
+        });
+        popup.add(desbloquear);
+        
+        
+        // mostra na tela
+        int x = evt.getX();
+        int y = evt.getY();
+        popup.show(jTable1, x, y);
     }
     
     private void preenchherAgendas(){

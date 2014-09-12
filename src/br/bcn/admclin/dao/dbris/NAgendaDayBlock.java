@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import br.bcn.admclin.dao.model.A_feriadosN;
 import br.bcn.admclin.dao.model.Nagendadayblock;
 public class NAgendaDayBlock {
 	
@@ -42,5 +43,47 @@ public class NAgendaDayBlock {
             return listaBloqueios;
         }
     }
+	
+	 @SuppressWarnings("finally")
+	    public static boolean setCadastrar(int handle_agenda, int weekDay, int horario) {
+	        String sql = "insert into NAgendaDayBlock (NAGDID,WEEKDAY,HORARIO) values(?,?,?)";
+	        try {
+	        	con = Conexao.fazConexao();
+	            PreparedStatement stmt = con.prepareStatement(sql);
+	            stmt.setInt(1, handle_agenda);
+	            stmt.setInt(2, weekDay);
+	            stmt.setInt(3, horario);
+	            stmt.executeUpdate();
+	            stmt.close();
+	            Conexao.fechaConexao(con);
+	            return true;
+	        } catch (SQLException e) {
+	        	Conexao.fechaConexao(con);
+	            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Bloqueio. Procure o Administrador.", "ERRO",
+	                javax.swing.JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	    }
+	 
+	 @SuppressWarnings("finally")
+	    public static boolean setDeletar(int handle_agenda, int weekDay, int horario) {
+	        String sql = "delete from NAgendaDayBlock where NAGDID = ? and  WEEKDAY = ? and HORARIO = ?";
+	        try {
+	        	con = Conexao.fazConexao();
+	            PreparedStatement stmt = con.prepareStatement(sql);
+	            stmt.setInt(1, handle_agenda);
+	            stmt.setInt(2, weekDay);
+	            stmt.setInt(3, horario);
+	            stmt.executeUpdate();
+	            stmt.close();
+	            Conexao.fechaConexao(con);
+	            return true;
+	        } catch (SQLException e) {
+	        	Conexao.fechaConexao(con);
+	            JOptionPane.showMessageDialog(null, "Erro ao Desbloquear. Procure o Administrador." + e, "ERRO",
+	                javax.swing.JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	    }
 	
 }
