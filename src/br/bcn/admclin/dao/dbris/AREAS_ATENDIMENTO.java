@@ -62,7 +62,7 @@ public class AREAS_ATENDIMENTO {
             Conexao.fechaConexao(con);
         } catch (SQLException e) {
             Conexao.fechaConexao(con);
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Agendas. Procure o Administrador.",
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Areas de Atendimentos. Procure o Administrador." + e,
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return listaAreasAtendimento;

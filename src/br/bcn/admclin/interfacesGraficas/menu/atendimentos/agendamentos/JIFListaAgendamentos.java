@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
@@ -140,11 +141,17 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        jTable1.getColumnModel().getColumn(5).setCellRenderer(centralizado);
         
-        TableCellRenderer tcrColuna5 = new ColunaAceitandoIcone();
-        TableColumn column5 = jTable1.getColumnModel().getColumn(5);
-        column5.setCellRenderer(tcrColuna5);
+        TableColumn column1 = jTable1.getColumnModel().getColumn(1);
+        column1.setCellRenderer(centralizado);
+        
+        TableColumn column2 = jTable1.getColumnModel().getColumn(2);
+        column2.setCellRenderer(centralizado);
+        
+        
+        TableCellRenderer tcrColuna7 = new ColunaAceitandoIcone();
+        TableColumn column7 = jTable1.getColumnModel().getColumn(7);
+        column7.setCellRenderer(tcrColuna7);
     }   
 
     
@@ -154,10 +161,22 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         
         ArrayList<Nagendamentos> listaAgendamentos = NAGENDAMENTOS.getConsultar(pegandoDataDoDataPicker());
+        //ordenando a lista por horario do primeiro exame
+        Collections.sort(listaAgendamentos);
+        
         //se tiver em todas as areas preenche tudo
         if(jCBAreaDeAtendimento.getSelectedIndex() == 0){
         	for (Nagendamentos agendamento : listaAgendamentos) {
-                modelo.addRow(new Object[] { agendamento, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento() });
+        		
+        		int minutosPrimeroExame = agendamento.getListaExames().get(0).getHORA();
+    			String horaPrimeiroExameString = MetodosUteis.transformarMinutosEmHorario(minutosPrimeroExame);
+    			
+    			int numeroDeExames = agendamento.getListaExames().size();
+    			int minutosSegundoExame = agendamento.getListaExames().get(numeroDeExames - 1).getHORA();
+    			String horaSegundoExameString = MetodosUteis.transformarMinutosEmHorario(minutosSegundoExame);
+    			
+    			
+    			modelo.addRow(new Object[] { agendamento, horaPrimeiroExameString, horaSegundoExameString, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento()  });
             } 
         	//se for uma area especifica ele vai apresentar na tela somente os agendamentos que tenham aquela area selecionada
         }else{
@@ -173,7 +192,16 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         		}
         		//se existe exames no agendamento da area selecionada ele apresenta na tela
         		if(agendamentoTemExameDaArea){
-        			modelo.addRow(new Object[] { agendamento, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento()  });
+        			
+        			int minutosPrimeroExame = agendamento.getListaExames().get(0).getHORA();
+        			String horaPrimeiroExameString = MetodosUteis.transformarMinutosEmHorario(minutosPrimeroExame);
+        			
+        			int numeroDeExames = agendamento.getListaExames().size();
+        			int minutosSegundoExame = agendamento.getListaExames().get(numeroDeExames - 1).getHORA();
+        			String horaSegundoExameString = MetodosUteis.transformarMinutosEmHorario(minutosSegundoExame);
+        			
+        			
+        			modelo.addRow(new Object[] { agendamento, horaPrimeiroExameString, horaSegundoExameString, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento()  });
         		}
                
             } 
@@ -185,10 +213,10 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
     ImageIcon iconeVirouAtendimento = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/LaudoEExameEntregue.png"));
     private void colocarIconesNoVirouAtendimento(){
     	for (int i = 0; i < jTable1.getRowCount(); i++) {
-			if(jTable1.getValueAt(i, 5).toString().equals("1")){
-				jTable1.setValueAt(iconeVirouAtendimento, i, 5);
-			}else if(jTable1.getValueAt(i, 5).toString().equals("0")){
-				jTable1.setValueAt("", i, 5);
+			if(jTable1.getValueAt(i, 7).toString().equals("1")){
+				jTable1.setValueAt(iconeVirouAtendimento, i, 7);
+			}else if(jTable1.getValueAt(i, 7).toString().equals("0")){
+				jTable1.setValueAt("", i, 7);
 			}
 		}
     }
@@ -212,28 +240,37 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         	new Object[][] {
         	},
         	new String[] {
-        		"nagendamento", "Paciente", "Telefone", "Celular", "Conv\u00EAnio", "Atendido"
+        		"nagendamento", "Hora Inicial", "Hora Final", "Paciente", "Telefone", "Celular", "Conv\u00EAnio", "Atendido"
         	}
         ) {
         	boolean[] columnEditables = new boolean[] {
-        		false, false, false, false, false, true
+        		false, false, false, false, false, false, false, false
         	};
         	public boolean isCellEditable(int row, int column) {
         		return columnEditables[column];
         	}
         });
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(15);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
         jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(15);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);
-        jTable1.getColumnModel().getColumn(2).setMinWidth(120);
-        jTable1.getColumnModel().getColumn(2).setMaxWidth(120);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
-        jTable1.getColumnModel().getColumn(3).setMinWidth(120);
-        jTable1.getColumnModel().getColumn(3).setMaxWidth(120);
-        jTable1.getColumnModel().getColumn(5).setPreferredWidth(60);
-        jTable1.getColumnModel().getColumn(5).setMinWidth(60);
-        jTable1.getColumnModel().getColumn(5).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(75);
+        jTable1.getColumnModel().getColumn(1).setMinWidth(75);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(75);
+        
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(70);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(70);
+        
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(4).setMinWidth(120);
+        jTable1.getColumnModel().getColumn(4).setMaxWidth(120);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(5).setMinWidth(120);
+        jTable1.getColumnModel().getColumn(5).setMaxWidth(120);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(7).setMinWidth(60);
+        jTable1.getColumnModel().getColumn(7).setMaxWidth(60);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
