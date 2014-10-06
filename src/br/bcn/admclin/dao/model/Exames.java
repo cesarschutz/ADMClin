@@ -96,6 +96,11 @@ public class Exames {
 	}
 
 	public void setDieta(String dieta) {
-		this.dieta = dieta.replaceAll("\\n", "\\[\\]");
+		try {
+			this.dieta = dieta.replaceAll("\\n", "\\[\\]");
+		} catch (NullPointerException e) {
+			this.dieta = dieta;
+		}
+		
 	}
 }
