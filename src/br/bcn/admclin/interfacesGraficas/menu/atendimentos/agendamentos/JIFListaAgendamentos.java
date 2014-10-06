@@ -29,9 +29,11 @@ import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
 import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
+import br.bcn.admclin.dao.dbris.NAGENDASDESC;
 import br.bcn.admclin.dao.model.Areas_atendimento;
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
+import br.bcn.admclin.dao.model.Nagendasdesc;
 
 import javax.swing.JComboBox;
 import javax.swing.GroupLayout.Alignment;
@@ -47,6 +49,7 @@ import javax.swing.DefaultComboBoxModel;
 public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
 	
 	public ArrayList<Areas_atendimento> listaAreasDeAtendimento = new ArrayList<Areas_atendimento>();
+	public ArrayList<Nagendasdesc> listaDeAgendas = new ArrayList<Nagendasdesc>();
 
     /**
      * Creates new form JIFCadastroAgendaDesc
@@ -55,6 +58,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         initComponents();
         tirandoBarraDeTitulo();
         preenchendoAreasDeAtendimento();
+        preenchendoAsAgendas();
         iniciarClasse();
         
     }
@@ -66,6 +70,33 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         }
     }
     
+    private void preenchendoAsAgendas(){
+    	listaDeAgendas.clear();
+    	jCBAgendas.removeAllItems();
+    	//busca as agendas
+    	listaDeAgendas = NAGENDASDESC.getConsultar();
+    	
+    	//criando a agenda de todas as agendas
+    	Nagendasdesc agendaGeral = new Nagendasdesc();
+    	agendaGeral.setName("TODAS AS AGENDAS");
+    	agendaGeral.setId_areas_atendimento(0);
+    	listaDeAgendas.add(0,agendaGeral);
+    	
+    	//preenchendo as agendas
+    	if(jCBAreaDeAtendimento.getSelectedIndex() == 0){
+    		for (int i = 0; i < listaDeAgendas.size() ; i++) {
+                jCBAgendas.addItem(listaDeAgendas.get(i).getName());
+            }
+    	}else{
+    		for (int i = 0; i < listaDeAgendas.size() ; i++) {
+    			if(listaDeAgendas.get(i).getId_areas_atendimento() == listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento() || listaDeAgendas.get(i).getId_areas_atendimento() == 0){
+    				jCBAgendas.addItem(listaDeAgendas.get(i).getName());
+    			}
+            }
+    	}
+        
+    }
+    
     private void reescreverMetodoActionPerformanceDoDatePicker() {
         jXDatePicker1.addActionListener(new ActionListener() {
             @Override
@@ -73,7 +104,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
                 preencheTabela();
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        
+                        preencheTabela();
                     }
                 });
             }
@@ -154,7 +185,6 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         column7.setCellRenderer(tcrColuna7);
     }   
 
-    
     private void preencheTabela(){
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
@@ -281,6 +311,14 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         jCBAreaDeAtendimento = new JComboBox();
         jCBAreaDeAtendimento.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		preenchendoAsAgendas();
+        		preencheTabela();
+        	}
+        });
+        
+        jCBAgendas = new JComboBox();
+        jCBAgendas.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
         		preencheTabela();
         	}
         });
@@ -292,17 +330,20 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         			.addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(516, Short.MAX_VALUE))
-        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(242, Short.MAX_VALUE))
+        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
         	jPanel2Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel2Layout.createSequentialGroup()
         			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
+        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE))
         );
         jPanel2.setLayout(jPanel2Layout);
 
@@ -388,4 +429,5 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private JComboBox jCBAreaDeAtendimento;
+    private JComboBox jCBAgendas;
 }
