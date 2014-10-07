@@ -80,7 +80,7 @@ public class relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos {
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
-                "Erro ao elaborar Relatório. Procure o Administrador." + e);
+                "Erro ao elaborar Relatório. Procure o Administrador.");
             return false;
         } finally {
             Conexao.fechaConexao(con);

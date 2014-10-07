@@ -40,6 +40,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 
 
 /**
@@ -50,6 +51,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
 	
 	public ArrayList<Areas_atendimento> listaAreasDeAtendimento = new ArrayList<Areas_atendimento>();
 	public ArrayList<Nagendasdesc> listaDeAgendas = new ArrayList<Nagendasdesc>();
+	ArrayList<Nagendamentos> listaAgendamentos;
 
     /**
      * Creates new form JIFCadastroAgendaDesc
@@ -190,7 +192,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         
-        ArrayList<Nagendamentos> listaAgendamentos = NAGENDAMENTOS.getConsultar(pegandoDataDoDataPicker());
+        listaAgendamentos = NAGENDAMENTOS.getConsultar(pegandoDataDoDataPicker());
         //ordenando a lista por horario do primeiro exame
         Collections.sort(listaAgendamentos);
         
@@ -358,6 +360,13 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
 				}
         	}
         });
+        
+        JButton btnImprimir = new JButton("Imprimir");
+        btnImprimir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		new imprimirAgendamentos(listaAgendamentos, listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid(), listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento(), "25/02/1987", jCBAgendas.getSelectedItem().toString(), jCBAreaDeAtendimento.getSelectedItem().toString());
+        	}
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2Layout.setHorizontalGroup(
@@ -368,8 +377,10 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         			.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(242, Short.MAX_VALUE))
-        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnImprimir)
+        			.addContainerGap(163, Short.MAX_VALUE))
+        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
         	jPanel2Layout.createParallelGroup(Alignment.LEADING)
@@ -377,9 +388,10 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnImprimir))
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE))
+        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE))
         );
         jPanel2.setLayout(jPanel2Layout);
 
