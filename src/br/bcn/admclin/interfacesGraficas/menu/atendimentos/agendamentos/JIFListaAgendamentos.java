@@ -397,25 +397,74 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         //precorre os exames do agendamento
         int id_area = 0;
         for (int i = 0; i < listaDeExamesDoAgendamento.size(); i++) {
-            if(listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO() == id_area){
-                //coloca o nome do exame
-                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
-                exame.setForeground(java.awt.Color.blue);  
-                popup.add(exame);
-            }else{
-                //coloca separador
-                popup.addSeparator();
-                //coloca o nome da area de atendimento
-                JMenuItem areaDeAtendimento = new JMenuItem("ÁREA: " + listaDeExamesDoAgendamento.get(i).getNomeAreaAtendimento());
-                areaDeAtendimento.setForeground(java.awt.Color.red); 
-                popup.add(areaDeAtendimento);
-                //coloca o nome do exame
-                JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
-                exame.setForeground(java.awt.Color.blue); 
-                popup.add(exame);
-                
-                id_area = listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO();
-            }
+        	//todas as areas
+        	if(jCBAgendas.getSelectedIndex() == 0){
+        		if(jCBAreaDeAtendimento.getSelectedIndex() == 0){
+            		if(listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO() == id_area){
+                        //coloca o nome do exame
+                        JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
+                        exame.setForeground(java.awt.Color.blue);  
+                        popup.add(exame);
+                    }else{
+                        //coloca separador
+                        popup.addSeparator();
+                        //coloca o nome da area de atendimento
+                        JMenuItem areaDeAtendimento = new JMenuItem("ÁREA: " + listaDeExamesDoAgendamento.get(i).getNomeAreaAtendimento());
+                        areaDeAtendimento.setForeground(java.awt.Color.red); 
+                        popup.add(areaDeAtendimento);
+                        //coloca o nome do exame
+                        JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
+                        exame.setForeground(java.awt.Color.blue); 
+                        popup.add(exame);
+                        
+                        id_area = listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO();
+                    }
+            		//area especifica
+            	}else{
+            		if(listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO() == listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento()){
+            			if(listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO() == id_area){
+                            //coloca o nome do exame
+                            JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
+                            exame.setForeground(java.awt.Color.blue);  
+                            popup.add(exame);
+                        }else{
+                            //coloca separador
+                            popup.addSeparator();
+                            //coloca o nome da area de atendimento
+                            JMenuItem areaDeAtendimento = new JMenuItem("ÁREA: " + listaDeExamesDoAgendamento.get(i).getNomeAreaAtendimento());
+                            areaDeAtendimento.setForeground(java.awt.Color.red); 
+                            popup.add(areaDeAtendimento);
+                            //coloca o nome do exame
+                            JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
+                            exame.setForeground(java.awt.Color.blue); 
+                            popup.add(exame);
+                            
+                            id_area = listaDeExamesDoAgendamento.get(i).getID_AREAS_ATENDIMENTO();
+                        }
+            		}
+            	}
+        	}else{
+        		System.out.println("agenda do exame: " + listaDeExamesDoAgendamento.get(i).getNAGDID());
+    			System.out.println("agenda do combo box: " + listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid());
+        		if(listaDeExamesDoAgendamento.get(i).getNAGDID() == listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid()){
+        			System.out.println("entrou: " + listaDeExamesDoAgendamento.get(i).getNomeExame());
+        			//coloca separador
+                    popup.addSeparator();
+                    //coloca o nome da area de atendimento
+                    JMenuItem areaDeAtendimento = new JMenuItem("ÁREA: " + listaDeExamesDoAgendamento.get(i).getNomeAreaAtendimento());
+                    areaDeAtendimento.setForeground(java.awt.Color.red); 
+                    popup.add(areaDeAtendimento);
+                    
+                    //coloca o nome do exame
+                    JMenuItem exame = new JMenuItem("    -  " + listaDeExamesDoAgendamento.get(i).getNomeExame() + "    - " + listaDeExamesDoAgendamento.get(i).getNomeAgenda() + " - " + MetodosUteis.transformarMinutosEmHorario(listaDeExamesDoAgendamento.get(i).getHORA()));
+                    exame.setForeground(java.awt.Color.blue);  
+                    popup.add(exame);
+        		}else{
+        			System.out.println("nao entrou: " + listaDeExamesDoAgendamento.get(i).getNomeExame());
+        		}
+        	}
+        	
+            
         }
         // mostra na tela
         int x = evt.getX();
