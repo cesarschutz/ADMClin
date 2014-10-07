@@ -480,10 +480,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
             		}
             	}
         	}else{
-        		System.out.println("agenda do exame: " + listaDeExamesDoAgendamento.get(i).getNAGDID());
-    			System.out.println("agenda do combo box: " + listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid());
         		if(listaDeExamesDoAgendamento.get(i).getNAGDID() == listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid()){
-        			System.out.println("entrou: " + listaDeExamesDoAgendamento.get(i).getNomeExame());
         			//coloca separador
                     popup.addSeparator();
                     //coloca o nome da area de atendimento
