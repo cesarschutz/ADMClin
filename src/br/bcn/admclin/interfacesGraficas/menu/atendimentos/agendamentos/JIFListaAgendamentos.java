@@ -185,7 +185,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         column7.setCellRenderer(tcrColuna7);
     }   
 
-    private void preencheTabela(){
+    private void preencheTabela() throws ArrayIndexOutOfBoundsException{
         ((DefaultTableModel) jTable1.getModel()).setNumRows(0);
         jTable1.updateUI();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -194,29 +194,57 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         //ordenando a lista por horario do primeiro exame
         Collections.sort(listaAgendamentos);
         
-        //se tiver em todas as areas preenche tudo
-        if(jCBAreaDeAtendimento.getSelectedIndex() == 0){
-        	for (Nagendamentos agendamento : listaAgendamentos) {
-        		
-        		int minutosPrimeroExame = agendamento.getListaExames().get(0).getHORA();
-    			String horaPrimeiroExameString = MetodosUteis.transformarMinutosEmHorario(minutosPrimeroExame);
-    			
-    			int numeroDeExames = agendamento.getListaExames().size();
-    			int minutosSegundoExame = agendamento.getListaExames().get(numeroDeExames - 1).getHORA();
-    			String horaSegundoExameString = MetodosUteis.transformarMinutosEmHorario(minutosSegundoExame);
-    			
-    			
-    			modelo.addRow(new Object[] { agendamento, horaPrimeiroExameString, horaSegundoExameString, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento()  });
-            } 
-        	//se for uma area especifica ele vai apresentar na tela somente os agendamentos que tenham aquela area selecionada
+ 
+        if(jCBAgendas.getSelectedIndex() == 0){
+        	if(jCBAreaDeAtendimento.getSelectedIndex() == 0){
+            	for (Nagendamentos agendamento : listaAgendamentos) {
+            		
+            		int minutosPrimeroExame = agendamento.getListaExames().get(0).getHORA();
+        			String horaPrimeiroExameString = MetodosUteis.transformarMinutosEmHorario(minutosPrimeroExame);
+        			
+        			int numeroDeExames = agendamento.getListaExames().size();
+        			int minutosSegundoExame = agendamento.getListaExames().get(numeroDeExames - 1).getHORA();
+        			String horaSegundoExameString = MetodosUteis.transformarMinutosEmHorario(minutosSegundoExame);
+        			
+        			
+        			modelo.addRow(new Object[] { agendamento, horaPrimeiroExameString, horaSegundoExameString, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento()  });
+                } 
+            	//se for uma area especifica ele vai apresentar na tela somente os agendamentos que tenham aquela area selecionada
+            }else{
+            	int handleAreaSelecionada = listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento();
+            	//varre os agendamentos
+            	for (Nagendamentos agendamento : listaAgendamentos) {
+            		boolean agendamentoTemExameDaArea = false;
+            		//varre os exames do agendamento para verficar se existe exames da area selecionada
+            		for (NagendamentosExames exame : agendamento.getListaExames()) {
+            			if(exame.getID_AREAS_ATENDIMENTO() == handleAreaSelecionada){
+            				agendamentoTemExameDaArea = true;
+            			}
+            		}
+            		//se existe exames no agendamento da area selecionada ele apresenta na tela
+            		if(agendamentoTemExameDaArea){
+            			
+            			int minutosPrimeroExame = agendamento.getListaExames().get(0).getHORA();
+            			String horaPrimeiroExameString = MetodosUteis.transformarMinutosEmHorario(minutosPrimeroExame);
+            			
+            			int numeroDeExames = agendamento.getListaExames().size();
+            			int minutosSegundoExame = agendamento.getListaExames().get(numeroDeExames - 1).getHORA();
+            			String horaSegundoExameString = MetodosUteis.transformarMinutosEmHorario(minutosSegundoExame);
+            			
+            			
+            			modelo.addRow(new Object[] { agendamento, horaPrimeiroExameString, horaSegundoExameString, agendamento.getPACIENTE(), agendamento.getTELEFONE(), agendamento.getCELULAR(), agendamento.getNOME_CONVENIO(), agendamento.getVirou_atendimento()  });
+            		}
+                   
+                } 
+            }
         }else{
-        	int handleAreaSelecionada = listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento();
+        	int handleAgenda = listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid();
         	//varre os agendamentos
         	for (Nagendamentos agendamento : listaAgendamentos) {
         		boolean agendamentoTemExameDaArea = false;
         		//varre os exames do agendamento para verficar se existe exames da area selecionada
         		for (NagendamentosExames exame : agendamento.getListaExames()) {
-        			if(exame.getID_AREAS_ATENDIMENTO() == handleAreaSelecionada){
+        			if(exame.getNAGDID() == handleAgenda){
         				agendamentoTemExameDaArea = true;
         			}
         		}
@@ -236,6 +264,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
                
             } 
         }
+        
         
         colocarIconesNoVirouAtendimento();
     }
@@ -311,15 +340,22 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         jCBAreaDeAtendimento = new JComboBox();
         jCBAreaDeAtendimento.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		preenchendoAsAgendas();
-        		preencheTabela();
+        		try {
+        			preenchendoAsAgendas();
+        			preencheTabela();
+				} catch (Exception e2) {
+				}
+        		
         	}
         });
         
         jCBAgendas = new JComboBox();
         jCBAgendas.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		preencheTabela();
+        		try {
+        			preencheTabela();
+				} catch (Exception e2) {
+				}
         	}
         });
 
