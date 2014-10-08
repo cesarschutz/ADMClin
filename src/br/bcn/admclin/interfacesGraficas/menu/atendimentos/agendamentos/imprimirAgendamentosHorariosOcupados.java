@@ -24,11 +24,11 @@ import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
 
-public class imprimirAgendamentos {
+public class imprimirAgendamentosHorariosOcupados {
 
 	ArrayList<Nagendamentos> listaAgendamentosRecebidos;
 	
-	public imprimirAgendamentos(ArrayList<Nagendamentos> listaDeAgendamentos, int handle_agendaRecebida, int handleAreaDeAtendimentoRecebida, String data,String agenda, String areaDeAtendimento) {
+	public imprimirAgendamentosHorariosOcupados(ArrayList<Nagendamentos> listaDeAgendamentos, int handle_agendaRecebida, int handleAreaDeAtendimentoRecebida, String data,String agenda, String areaDeAtendimento) {
 		this.listaAgendamentosRecebidos = listaDeAgendamentos;
 		filtrarAgendamentosDeAcordoComOsFiltros(handle_agendaRecebida, handleAreaDeAtendimentoRecebida);
 		try {

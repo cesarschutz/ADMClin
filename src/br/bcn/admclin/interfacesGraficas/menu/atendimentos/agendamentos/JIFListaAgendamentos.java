@@ -50,7 +50,7 @@ import javax.swing.JButton;
 public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
 	
 	public ArrayList<Areas_atendimento> listaAreasDeAtendimento = new ArrayList<Areas_atendimento>();
-	public ArrayList<Nagendasdesc> listaDeAgendas = new ArrayList<Nagendasdesc>();
+	public ArrayList< Nagendasdesc> listaDeAgendas = new ArrayList<Nagendasdesc>();
 	ArrayList<Nagendamentos> listaAgendamentos;
 
     /**
@@ -90,11 +90,13 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
                 jCBAgendas.addItem(listaDeAgendas.get(i).getName());
             }
     	}else{
-    		for (int i = 0; i < listaDeAgendas.size() ; i++) {
-    			if(listaDeAgendas.get(i).getId_areas_atendimento() == listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento() || listaDeAgendas.get(i).getId_areas_atendimento() == 0){
-    				jCBAgendas.addItem(listaDeAgendas.get(i).getName());
+    		for (Nagendasdesc agenda : listaDeAgendas) {
+    			if(agenda.getId_areas_atendimento() == listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento() || agenda.getId_areas_atendimento() == 0){
+    				jCBAgendas.addItem(agenda.getName());
+    			}else{
+    				listaDeAgendas.remove(agenda);
     			}
-            }
+			}
     	}
         
     }
@@ -361,10 +363,32 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         	}
         });
         
-        JButton btnImprimir = new JButton("Imprimir");
-        btnImprimir.addActionListener(new ActionListener() {
+        JButton jBImprimirHorariosOcupados = new JButton("Imprimir");
+        jBImprimirHorariosOcupados.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		new imprimirAgendamentos(listaAgendamentos, listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid(), listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento(), "25/02/1987", jCBAgendas.getSelectedItem().toString(), jCBAreaDeAtendimento.getSelectedItem().toString());
+        		String dataString = new SimpleDateFormat("dd/MM/yyy").format(new Date(jXDatePicker1.getDateInMillis()));
+        		
+        		new imprimirAgendamentosHorariosOcupados(listaAgendamentos, listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid(), listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento(), dataString, jCBAgendas.getSelectedItem().toString(), jCBAreaDeAtendimento.getSelectedItem().toString());
+        	}
+        });
+        
+        JButton jBImprimirHorariosLivresEOcupados = new JButton("Imprimir Com Horários Livres");
+        jBImprimirHorariosLivresEOcupados.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		String dataString = new SimpleDateFormat("dd/MM/yyy").format(new Date(jXDatePicker1.getDateInMillis()));
+        		
+        		if(jCBAgendas.getSelectedIndex() == 0){
+        			new ImprimirAgendamentosHorariosLivresEOcupados(listaAgendamentos, dataString, listaDeAgendas);
+        		}else{
+        			for (Nagendasdesc agenda : listaDeAgendas) {
+        				ArrayList<Nagendasdesc> listaTemporariaDeAgendasParaEnviar = new ArrayList<Nagendasdesc>();
+						if(agenda.getNagdid() == listaDeAgendas.get(jCBAgendas.getSelectedIndex()).getNagdid()){
+							listaTemporariaDeAgendasParaEnviar.add(agenda);
+							new ImprimirAgendamentosHorariosLivresEOcupados(listaAgendamentos, dataString, listaTemporariaDeAgendasParaEnviar);
+						}
+					}
+        		}
+        		
         	}
         });
 
@@ -376,11 +400,12 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(jCBAgendas, 0, 288, Short.MAX_VALUE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(btnImprimir)
-        			.addContainerGap(163, Short.MAX_VALUE))
-        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
+        			.addComponent(jBImprimirHorariosOcupados)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jBImprimirHorariosLivresEOcupados))
+        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 981, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
         	jPanel2Layout.createParallelGroup(Alignment.LEADING)
@@ -389,9 +414,10 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         				.addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnImprimir))
+        				.addComponent(jBImprimirHorariosLivresEOcupados)
+        				.addComponent(jBImprimirHorariosOcupados))
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE))
+        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
         );
         jPanel2.setLayout(jPanel2Layout);
 
