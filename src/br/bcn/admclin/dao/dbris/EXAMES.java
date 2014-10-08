@@ -75,7 +75,7 @@ public class EXAMES {
                 con.prepareStatement("select e.nome, e.handle_exame, m.modalidade from exames e "+
                     "inner join tb_classesexames c on e.handle_classedeexame = c.cod " +
                     "inner join modalidades m on c.modidx = m.modidx " +
-                    "where modalidade = ?  order by NOME");
+                    "where e.modalidade = ?  order by NOME");
             stmtQuery.setString(1, modalidade);
             resultSet = stmtQuery.executeQuery();
         } catch (SQLException e) {
