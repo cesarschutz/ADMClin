@@ -77,6 +77,7 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
     	jCBAgendas.removeAllItems();
     	//busca as agendas
     	listaDeAgendas = NAGENDASDESC.getConsultar();
+    
     	
     	//criando a agenda de todas as agendas
     	Nagendasdesc agendaGeral = new Nagendasdesc();
@@ -90,13 +91,14 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
                 jCBAgendas.addItem(listaDeAgendas.get(i).getName());
             }
     	}else{
-    		for (Nagendasdesc agenda : listaDeAgendas) {
-    			if(agenda.getId_areas_atendimento() == listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento() || agenda.getId_areas_atendimento() == 0){
-    				jCBAgendas.addItem(agenda.getName());
-    			}else{
-    				listaDeAgendas.remove(agenda);
+    		ArrayList< Nagendasdesc> listaDeAgendasTemporaria = new ArrayList<Nagendasdesc>();
+    		for (int i =0; i < listaDeAgendas.size(); i++) {
+    			if(listaDeAgendas.get(i).getId_areas_atendimento() == listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento() || listaDeAgendas.get(i).getId_areas_atendimento() == 0){
+    				jCBAgendas.addItem(listaDeAgendas.get(i).getName());
+    				listaDeAgendasTemporaria.add(listaDeAgendas.get(i));
     			}
 			}
+    		listaDeAgendas = listaDeAgendasTemporaria;
     	}
         
     }

@@ -4,12 +4,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
+import org.jdesktop.swingx.MultiSplitLayout.Split;
+
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.dbris.NAGENDASDESC;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.dao.model.Nagenda;
 import br.bcn.admclin.dao.model.Nagendamentos;
 import br.bcn.admclin.dao.model.NagendamentosExames;
 import br.bcn.admclin.dao.model.Nagendasdesc;
@@ -64,17 +71,39 @@ ArrayList<Nagendamentos> listaAgendamentosRecebidos;
         
         for (Nagendasdesc agenda : listaDeAgendas) {
         	if(agenda.getNagdid() != 0){
-        		int startTurno1 = 0;
-        		int endTurno1 = 300;
-        		int startTurno2 = 480;
-        		int endTurno2 = 720;
-        		int startTurno3 = 810;
-        		int endTurno3 = 1080;
-        		int startTurno4 = 1200;
-        		int endTurno4 = 1380;
         		
+        		//vamos consultar os horarios dos turnos da agenda de acordo com o seu weekday
+        		String[] diaMesAno = data.split("/");
         		
-        		int periodoAgenda = 10;
+        		Calendar calendario = new GregorianCalendar(Integer.valueOf(diaMesAno[2]), Integer.valueOf(diaMesAno[1]) - 1, Integer.valueOf(diaMesAno[0]));  
+        	    int weekDay = calendario.get(Calendar.DAY_OF_WEEK);
+        	    
+        	    //buscar os turnos da agenda
+        	    //ira retornar um array de inteiros
+        	    //com todos os turnos e o periodo
+        	    ArrayList<Nagenda> turnosDaAgenda = NAGENDASDESC.getTurnosDaAgenda(agenda.getNagdid());
+        	    ArrayList<Nagenda> turnosDaAgendaComWeekDayCorreto = new ArrayList<>();
+        	    for (int i = 0; i < turnosDaAgenda.size(); i++) {
+        	    	if(turnosDaAgenda.get(i).getWeekday() == weekDay){
+        	    		turnosDaAgendaComWeekDayCorreto.add(turnosDaAgenda.get(i));
+					}
+				}
+        	    //paramos caso retorne mais de um turno de acordo com o weekday, pq dai algo tem errado
+        	    if(turnosDaAgendaComWeekDayCorreto.size() != 1){
+        	    	JOptionPane.showMessageDialog(null, "Erro ao consultar Informações da Agenda. Procure o Administrador.");
+        	    	break;
+        	    }
+        		
+        		int startTurno1 = turnosDaAgendaComWeekDayCorreto.get(0).getStart1();
+        		int endTurno1 = turnosDaAgendaComWeekDayCorreto.get(0).getEnd1();
+        		int startTurno2 = turnosDaAgendaComWeekDayCorreto.get(0).getStart2();
+        		int endTurno2 = turnosDaAgendaComWeekDayCorreto.get(0).getEnd2();
+        		int startTurno3 = turnosDaAgendaComWeekDayCorreto.get(0).getStart3();
+        		int endTurno3 = turnosDaAgendaComWeekDayCorreto.get(0).getEnd3();
+        		int startTurno4 = turnosDaAgendaComWeekDayCorreto.get(0).getStart4();
+        		int endTurno4 = turnosDaAgendaComWeekDayCorreto.get(0).getEnd4();
+        		
+        		int periodoAgenda = turnosDaAgendaComWeekDayCorreto.get(0).getDuracao();
         		
         		//cria o cabeçalho
                 document.add(criaCabecalho(data, agenda.getName()));
