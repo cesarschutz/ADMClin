@@ -334,7 +334,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
-        jTFCelular = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
+        jTFCelular = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
         jTFEndereco = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(80), null, 0);
         jLabel13 = new javax.swing.JLabel();
         jTFBairro = new javax.swing.JTextField(new DocumentoSomenteLetras(32), null, 0);

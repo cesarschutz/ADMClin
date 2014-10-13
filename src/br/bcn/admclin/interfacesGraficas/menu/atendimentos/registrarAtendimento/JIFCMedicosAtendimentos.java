@@ -313,7 +313,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
-        jTFCelular = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
+        jTFCelular = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
         jCBEspecialidadeMedica = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
