@@ -393,6 +393,14 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         		
         	}
         });
+        
+        JButton btnAtualizar = new JButton("");
+        btnAtualizar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		preencheTabela();        		
+        	}
+        });
+        btnAtualizar.setIcon(new ImageIcon(JIFListaAgendamentos.class.getResource("/br/bcn/admclin/imagens/atualizarTabela.png")));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2Layout.setHorizontalGroup(
@@ -400,26 +408,30 @@ public class JIFListaAgendamentos extends javax.swing.JInternalFrame {
         		.addGroup(jPanel2Layout.createSequentialGroup()
         			.addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jCBAgendas, 0, 288, Short.MAX_VALUE)
+        			.addComponent(jCBAgendas, 0, 264, Short.MAX_VALUE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jBImprimirHorariosOcupados)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jBImprimirHorariosLivresEOcupados))
-        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 981, Short.MAX_VALUE)
+        			.addComponent(jBImprimirHorariosLivresEOcupados)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnAtualizar))
+        		.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
         	jPanel2Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel2Layout.createSequentialGroup()
-        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jBImprimirHorariosLivresEOcupados)
-        				.addComponent(jBImprimirHorariosOcupados))
+        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+        					.addComponent(jXDatePicker1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(jCBAreaDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(jCBAgendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(jBImprimirHorariosLivresEOcupados)
+        					.addComponent(jBImprimirHorariosOcupados))
+        				.addComponent(btnAtualizar))
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
+        			.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE))
         );
         jPanel2.setLayout(jPanel2Layout);
 
