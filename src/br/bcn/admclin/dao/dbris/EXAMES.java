@@ -223,7 +223,7 @@ public class EXAMES {
             stmt.close();
             cadastro = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar Exame. Procure o administrador." + e, "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Exame. Procure o administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return cadastro;
@@ -248,8 +248,14 @@ public class EXAMES {
             stmt.close();
             deleto = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar Exame. Procure o Administrador.", "ERRO",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
+        	if(e.getMessage().contains("ATENDIMENTO_EXAMES")){
+        		JOptionPane.showMessageDialog(null, "Está exame não pode ser deletado pois pertence a atendimentos já realizados.", "Mensagem",
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        	}else{
+        		JOptionPane.showMessageDialog(null, "Erro ao deletar Exame. Procure o Administrador.", "ERRO",
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+        	}
+            
         } finally {
             return deleto;
         }
