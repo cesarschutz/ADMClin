@@ -189,7 +189,7 @@ public class JIFCConvenioCH extends javax.swing.JInternalFrame {
         jBCancelar = new javax.swing.JButton();
         jTFMensagemParaUsuario = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jTFValorCh = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTFValorCh = new JTextFieldDinheiroReais(new DecimalFormat("0.00000")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8

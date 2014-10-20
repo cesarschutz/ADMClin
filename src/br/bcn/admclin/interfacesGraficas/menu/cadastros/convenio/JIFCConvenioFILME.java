@@ -193,7 +193,7 @@ public class JIFCConvenioFILME extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTFValorFilme = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
+        jTFValorFilme = new JTextFieldDinheiroReais(new DecimalFormat("0.00000")) {
             private static final long serialVersionUID = 1L;
 
             {// limita a 8
