@@ -33,7 +33,7 @@ public class TABELAS {
             "inner join tabelas t on e.handle_exame = t.handle_exame " +
             "inner join tb_classesexames c on e.handle_classedeexame = c.cod " +
             "inner join modalidades m on c.modidx = m.modidx " +
-            "where t.handle_convenio = ? and m.modalidade = ?");
+            "where t.handle_convenio = ? and m.modalidade = ? and e.flag_desativado != 1");
         stmtQuery.setInt(1, handle_convenio);
         stmtQuery.setString(2, modalidade);
         resultSet = stmtQuery.executeQuery();
@@ -116,25 +116,7 @@ public class TABELAS {
         }
     }
     
-    /**Verifica se um exame esta sendo utilizado em alguma tabela antes de apaga-lo
-     * 
-     * @param handle_exame 
-     */
-    @SuppressWarnings("finally")
-    public static boolean verificarSeExameEstaSendoUtilizado(Connection con, int HANDLE_EXAME){
-        boolean utilizada = true;
-        try{
-        PreparedStatement stmtQuery = con.prepareStatement("select * from tabelas where handle_exame=" + HANDLE_EXAME);
-        ResultSet resultSet = stmtQuery.executeQuery();
-        if(!resultSet.next()){
-                utilizada = false;
-        }
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se exame está sendo utilizado. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
-        }finally{
-            return utilizada;
-        }
-    }
+
     /**
      * Deleta um Exame de uma tabela.
      * @param Connection

@@ -267,6 +267,8 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTFHorasUteis.setBackground(new java.awt.Color(255, 255, 255));
 
         jTFPesquisaNome.setEnabled(true);
+        
+        atualizarTabela();
     }
 
     /** Salva uma nova classe de exame na banco de dados. */
@@ -383,28 +385,18 @@ public class jIFCExames extends javax.swing.JInternalFrame {
 
     /** Apaga a classe de exame selecionada do banco de dados. */
     public void botaoApagarRegistro() {
-
-        con = Conexao.fazConexao();
-        boolean utilizada = TABELAS.verificarSeExameEstaSendoUtilizado(con, HANDLE_EXAME);
-        if (utilizada) {
-            JOptionPane.showMessageDialog(null, "Este Exame não pode ser deletado pois é utilizado em alguma Tabela.",
-                "ATENÇÃO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar esse Exame?", "ATENÇÃO", 0);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // fazer o delete de acordo com o codigo
-                con = Conexao.fazConexao();
-                Exames exameModel = new Exames();
-                exameModel.setHANDLE_EXAME(HANDLE_EXAME);
-                boolean deleto = EXAMES.setDeletar(con, exameModel);
-                Conexao.fechaConexao(con);
-                if (deleto) {
-                    botaoCancelar();
-                }
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar esse Exame?", "ATENÇÃO", 0);
+        if (resposta == JOptionPane.YES_OPTION) {
+            // fazer o delete de acordo com o codigo
+            con = Conexao.fazConexao();
+            Exames exameModel = new Exames();
+            exameModel.setHANDLE_EXAME(HANDLE_EXAME);
+            boolean deleto = EXAMES.setDeletar(con, exameModel);
+            Conexao.fechaConexao(con);
+            if (deleto) {
+                botaoCancelar();
             }
-
         }
-
     }
 
     /**

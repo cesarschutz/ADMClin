@@ -26,7 +26,7 @@ public class EXAMES {
     public static ResultSet getConsultar(Connection con) {
         ResultSet resultSet = null;
         try {
-            PreparedStatement stmtQuery = con.prepareStatement("select * from exames order by NOME");
+            PreparedStatement stmtQuery = con.prepareStatement("select * from exames where flag_desativado != 1 order by NOME");
             resultSet = stmtQuery.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Exames. Procure o Administrador.", "ERRO",
@@ -49,7 +49,7 @@ public class EXAMES {
         try {
             PreparedStatement stmtQuery =
                 con.prepareStatement("select distinct a.nome, a.duracao, a.handle_exame, a.ID_AREAS_ATENDIMENTO, b.cofch1, b.cofch2, b.coeffilme, b.vai_materiais_por_padrao from exames a "
-                    + "inner join tabelas b on a.handle_exame = b.handle_exame where b.handle_convenio = ? and ID_AREAS_ATENDIMENTO = ?");
+                    + "inner join tabelas b on a.handle_exame = b.handle_exame where b.handle_convenio = ? and ID_AREAS_ATENDIMENTO = ? and a.flag_desativado != 1");
             stmtQuery.setInt(1, HANDLE_CONVENIO);
             stmtQuery.setInt(2, id_area_de_atendimento);
             resultSet = stmtQuery.executeQuery();
@@ -231,7 +231,7 @@ public class EXAMES {
     }
 
     /**
-     * Deleta um Exame do Banco De Dados
+     *Desativa um exame do banco de dados.
      * 
      * @param Connection
      * @param ExameMODEL
@@ -240,7 +240,7 @@ public class EXAMES {
     @SuppressWarnings("finally")
     public static boolean setDeletar(Connection con, Exames exame) {
         boolean deleto = false;
-        String sql = "delete from exames where HANDLE_EXAME=?";
+        String sql = "update exames set flag_desativado = 1 where HANDLE_EXAME=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, exame.getHANDLE_EXAME());
@@ -248,13 +248,8 @@ public class EXAMES {
             stmt.close();
             deleto = true;
         } catch (SQLException e) {
-        	if(e.getMessage().contains("ATENDIMENTO_EXAMES")){
-        		JOptionPane.showMessageDialog(null, "Está exame não pode ser deletado pois pertence a atendimentos já realizados.", "Mensagem",
-                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
-        	}else{
         		JOptionPane.showMessageDialog(null, "Erro ao deletar Exame. Procure o Administrador.", "ERRO",
                         javax.swing.JOptionPane.ERROR_MESSAGE);
-        	}
             
         } finally {
             return deleto;
