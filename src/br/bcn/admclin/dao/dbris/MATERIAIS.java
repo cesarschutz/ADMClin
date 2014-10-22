@@ -167,7 +167,7 @@ public class MATERIAIS {
             stmt.close();
             deleto = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar Material. Procure o Administrador.", "ERRO",
+            JOptionPane.showMessageDialog(null, "Para deletar o material, os valores devem ser excluidos", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return deleto;

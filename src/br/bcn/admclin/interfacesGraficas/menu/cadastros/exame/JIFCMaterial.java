@@ -257,7 +257,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
         boolean utilizada = TABELAS.verificarSeMaterialEstaSendoUtilizado(con, handle_material);
         if (utilizada) {
             JOptionPane.showMessageDialog(null,
-                "Este Material não pode ser deletado pois é utilizado em alguma Tabela.", "ATENÇÃO",
+                "Este Material não pode ser deletado pois é utilizado em um ou mais Exames.", "ATENÇÃO",
                 javax.swing.JOptionPane.INFORMATION_MESSAGE);
         } else {
             int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar esse Material?", "ATENÇÃO", 0);
