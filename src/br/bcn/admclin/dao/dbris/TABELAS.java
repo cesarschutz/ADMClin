@@ -140,6 +140,29 @@ public class TABELAS {
         }
     }
     /**
+     * Deleta os materias de um exame que foi excluido das tabelas
+     * @param Connection
+     * @param UsuarioModel 
+     */
+    @SuppressWarnings("finally")
+    public static boolean setDeletarMateriasDeUmExame(Connection con, String handle_exame, String handle_convenio){
+        boolean deleto = false;
+        String sql="delete from tabelas where handle_exame=? and handle_convenio=? and handle_material != 0";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, handle_exame);
+            stmt.setString(2, handle_convenio);
+            stmt.executeUpdate();
+            stmt.close();    
+            deleto = true;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao deletar Materiais deste Exame","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return deleto;
+        }
+    }
+    
+    /**
      * Deleta um material de um Exame de uma tabela.
      * @param Connection
      * @param UsuarioModel 

@@ -245,10 +245,18 @@ public class JIFCTabelas extends javax.swing.JInternalFrame {
     public void botaoApagarExame() {
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse Exame?", "ATENÇÃO", 0);
         if (resposta == JOptionPane.YES_OPTION) {
-            // fazer o delete de acordo com o codigo
+            // seta fçag como 1 que esta desativado
             String handle_exame = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
             con = Conexao.fazConexao();
             boolean deleto = TABELAS.setDeletarUmExame(con, handle_exame, handle_convenio);
+            Conexao.fechaConexao(con);
+            
+            //deleta os materiais desse exame nesta tabela de convenio
+            //isso para quando for apagar um material, ele nao fica 'preso' em nenhum exame dessa tabela que foi excluido, pq no caso nao exclui, soh muda o flag
+            //se tivermos o handle_material la, ele bloqueio o excluir daquele material pois acha aqu um exame de uma tabela esta usando o material,
+            //quando na verdade aquele exame esta desativado
+            con = Conexao.fazConexao();
+            TABELAS.setDeletarMateriasDeUmExame(con, handle_exame, handle_convenio);
             Conexao.fechaConexao(con);
             // atualizar tabela
             if (deleto) {
