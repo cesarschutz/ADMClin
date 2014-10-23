@@ -33,7 +33,7 @@ public class TABELAS {
             "inner join tabelas t on e.handle_exame = t.handle_exame " +
             "inner join tb_classesexames c on e.handle_classedeexame = c.cod " +
             "inner join modalidades m on c.modidx = m.modidx " +
-            "where t.handle_convenio = ? and m.modalidade = ? and e.flag_desativado != 1");
+            "where t.handle_convenio = ? and m.modalidade = ? and e.flag_desativado != 1 and t.flag_desativado != 1");
         stmtQuery.setInt(1, handle_convenio);
         stmtQuery.setString(2, modalidade);
         resultSet = stmtQuery.executeQuery();
@@ -125,7 +125,7 @@ public class TABELAS {
     @SuppressWarnings("finally")
     public static boolean setDeletarUmExame(Connection con, String handle_exame, String handle_convenio){
         boolean deleto = false;
-        String sql="delete from tabelas where handle_exame=? and handle_convenio=?";
+        String sql="update tabelas set flag_desativado = 1 where handle_exame=? and handle_convenio=?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, handle_exame);

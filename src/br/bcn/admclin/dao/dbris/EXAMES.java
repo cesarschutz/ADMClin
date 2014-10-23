@@ -49,7 +49,7 @@ public class EXAMES {
         try {
             PreparedStatement stmtQuery =
                 con.prepareStatement("select distinct a.nome, a.duracao, a.handle_exame, a.ID_AREAS_ATENDIMENTO, b.cofch1, b.cofch2, b.coeffilme, b.vai_materiais_por_padrao from exames a "
-                    + "inner join tabelas b on a.handle_exame = b.handle_exame where b.handle_convenio = ? and ID_AREAS_ATENDIMENTO = ? and a.flag_desativado != 1");
+                    + "inner join tabelas b on a.handle_exame = b.handle_exame where b.handle_convenio = ? and ID_AREAS_ATENDIMENTO = ? and a.flag_desativado != 1 and b.flag_desativado != 1");
             stmtQuery.setInt(1, HANDLE_CONVENIO);
             stmtQuery.setInt(2, id_area_de_atendimento);
             resultSet = stmtQuery.executeQuery();
