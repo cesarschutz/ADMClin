@@ -130,7 +130,10 @@ public class ATENDIMENTOS {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select P.nome as nomepac, p.handle_paciente as handle_paciente, p.peso as peso, p.cidade as cidade, p.endereco as endereco_paciente, p.altura as altura, p.nascimento as nascimento_paciente, p.sexo as sexo_paciente, p.telefone as telefone_paciente, p.celular as celular_paciente, p.cpf as cpf_paciente, M.nome as nomemed, m.crm as crmMedico, c.nome as nomeconv,A.data_atendimento,a.hora_atendimento, a.duracao_atendimento, a.handle_paciente, a.handle_medico_sol, a.observacao,a.matricula_convenio, a.complemento, a.handle_convenio, a.flag_imprimiu, a.data_exame_pronto, a.hora_exame_pronto, a.observacao, a.hora_exame_pronto, a.EXAME_ENTREGUE_AO_PACIENTE, a.LAUDO_ENTREGUE_AO_PACIENTE, a.FLAG_LAUDO "
+                con.prepareStatement("select P.nome as nomepac, p.handle_paciente as handle_paciente, p.peso as peso, p.cidade as cidade, p.endereco as endereco_paciente, p.altura as altura, p.nascimento as nascimento_paciente, "
+                		+ "p.sexo as sexo_paciente, p.telefone as telefone_paciente, p.celular as celular_paciente, p.cpf as cpf_paciente, M.nome as nomemed, m.crm as crmMedico, c.nome as nomeconv,A.data_atendimento,a.hora_atendimento, "
+                		+ "a.duracao_atendimento, a.handle_paciente, a.handle_medico_sol, a.observacao,a.matricula_convenio, a.complemento, a.handle_convenio, a.flag_imprimiu, a.data_exame_pronto, a.hora_exame_pronto, a.observacao, "
+                		+ "a.hora_exame_pronto, a.EXAME_ENTREGUE_AO_PACIENTE, a.LAUDO_ENTREGUE_AO_PACIENTE, a.FLAG_LAUDO, a.modalidade "
                     + "from atendimentos as A "
                     + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos M on a.handle_medico_sol = m.medicoid "
