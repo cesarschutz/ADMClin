@@ -89,10 +89,35 @@ public class TABELAS {
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
+            setapagarExamesComFlagDesativadoZero(con, String.valueOf(model.gethandle_exame()), String.valueOf(model.gethandle_convenio()));
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar Exame na Tabela. Procure o Administrador.","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
         }finally{
             return cadastro;
+        }
+    }
+    
+    /*
+     * metodo chamdo quando salvamos um exama na tabela
+     * caso ele ja tenha existido e deletado ele vai estar com flag desativado 1
+     * temos que apagar esse com flag 1 para que futuramente nao de conflito nos valores
+     * ficaria 2 registros do mesmo exame sendo que o com flag desativo 1 eh antigo 
+     * deve ser apagado
+     */
+    public static boolean setapagarExamesComFlagDesativadoZero(Connection con, String handle_exame, String handle_convenio){
+        boolean deleto = false;
+        String sql="delete from tabelas where flag_desativado = 1 and handle_exame=? and handle_convenio=?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, handle_exame);
+            stmt.setString(2, handle_convenio);
+            stmt.executeUpdate();
+            stmt.close();    
+            deleto = true;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao deletar Exame da Tabela. Procure o Administrador","ERRO",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }finally{
+            return deleto;
         }
     }
     
