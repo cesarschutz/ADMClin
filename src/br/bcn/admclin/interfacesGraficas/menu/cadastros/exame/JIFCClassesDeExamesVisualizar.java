@@ -181,11 +181,12 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
             }
         });
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTable1FocusGained(evt);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
+        
         jScrollPane2.setViewportView(jTable1);
 
         jBNovoRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/novo.png"))); // NOI18N
@@ -287,27 +288,25 @@ public class JIFCClassesDeExamesVisualizar extends javax.swing.JInternalFrame {
         }
     }// GEN-LAST:event_jTFPesquisaNomeKeyReleased
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
-        if (jTable1.getSelectedRow() == -1) {
-            jTable1.addRowSelectionInterval(0, 0);
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1FocusGained
+        if (jTable1.getSelectedRow() != -1) {
+	        int ClasseDeExameId = Integer.valueOf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+	
+	        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames =
+	            new JIFCClassesDeExames("editar", ClasseDeExameId);
+	        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames);
+	        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setVisible(true);
+	        int lDesk = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
+	        int aDesk = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
+	        int lIFrame = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getWidth();
+	        int aIFrame = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getHeight();
+	
+	        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
+	            - aIFrame / 2);
+	
+	        this.dispose();
+	        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = null;
         }
-
-        int ClasseDeExameId = Integer.valueOf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-
-        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames =
-            new JIFCClassesDeExames("editar", ClasseDeExameId);
-        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1.add(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames);
-        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setVisible(true);
-        int lDesk = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1.getWidth();
-        int aDesk = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.jDesktopPane1.getHeight();
-        int lIFrame = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getWidth();
-        int aIFrame = br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.getHeight();
-
-        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExames.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
-            - aIFrame / 2);
-
-        this.dispose();
-        br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameClasseDeExamesVisualizar = null;
     }// GEN-LAST:event_jTable1FocusGained
 
     private void jBNovoRegistroActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBNovoRegistroActionPerformed
