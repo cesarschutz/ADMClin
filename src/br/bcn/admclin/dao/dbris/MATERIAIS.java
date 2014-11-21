@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -19,19 +20,18 @@ public class MATERIAIS {
     public static boolean conseguiuConsulta;
 
     /**
-     * Verifica se Material já existe antes de cadastra-lo no Banco de Dados.
+     * Verifica se nome de Material já existe antes de cadastra-lo no Banco de Dados.
      * 
      * @param Connection
      * @param materialMODEL
      * @return boolean
      */
     @SuppressWarnings("finally")
-    public static boolean getConsultarParaSalvarNovoRegistro(Connection con, Materiais model) {
+    public static boolean getConsultarSeNomeJaExiste(Connection con, Materiais model) {
         boolean existe = true;
         try {
-            PreparedStatement stmtQuery = con.prepareStatement("select * from materiais where nome=? or codigo=?");
+            PreparedStatement stmtQuery = con.prepareStatement("select * from materiais where nome=?");
             stmtQuery.setString(1, model.getNome());
-            stmtQuery.setString(2, model.getCodigo());
             ResultSet resultSet = stmtQuery.executeQuery();
             if (!resultSet.next()) {
                 existe = false;
@@ -47,21 +47,48 @@ public class MATERIAIS {
     }
 
     /**
-     * Verifica se Material já existe antes de atualizar o banco de dados
+     * Verifica se Material já existe antes de cadastra-lo no Banco de Dados.
      * 
      * @param Connection
      * @param materialMODEL
      * @return boolean
      */
     @SuppressWarnings("finally")
-    public static boolean getConsultarParaAtualizarRegistro(Connection con, Materiais model) {
+    public static ArrayList<Materiais> getConsultarSeCodigoJaExiste(Connection con, Materiais model) {
+    	ArrayList<Materiais> listaMateriais = new ArrayList<>();
+        try {
+            PreparedStatement stmtQuery = con.prepareStatement("select * from materiais where codigo=?");
+            stmtQuery.setString(1, model.getCodigo());
+            ResultSet resultSet = stmtQuery.executeQuery();
+            
+            while (resultSet.next()) {
+            	Materiais mat = new Materiais();
+                mat.setNome(resultSet.getString("nome"));
+                listaMateriais.add(mat);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se Material já existe. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+        	return listaMateriais;
+        }
+    }
+    
+    /**
+     * Verifica se nome de Material já existe
+     * 
+     * @param Connection
+     * @param materialMODEL
+     * @return boolean
+     */
+    @SuppressWarnings("finally")
+    public static boolean getConsultarNomeParaAtualizarRegistro(Connection con, Materiais model) {
         boolean existe = true;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select * from materiais where (nome=? or codigo=?) and handle_material!=?");
+                con.prepareStatement("select * from materiais where (nome=?) and handle_material!=?");
             stmtQuery.setString(1, model.getNome());
-            stmtQuery.setString(2, model.getCodigo());
-            stmtQuery.setInt(3, model.getHandle_material());
+            stmtQuery.setInt(2, model.getHandle_material());
             ResultSet resultSet = stmtQuery.executeQuery();
             if (!resultSet.next()) {
                 existe = false;
@@ -77,6 +104,37 @@ public class MATERIAIS {
         }
     }
 
+    
+    /**
+     * Verifica se codigo de Material já existe
+     * 
+     * @param Connection
+     * @param materialMODEL
+     * @return boolean
+     */
+    @SuppressWarnings("finally")
+    public static ArrayList<Materiais> getConsultarCodigoParaAtualizarRegistro(Connection con, Materiais model) {
+        boolean existe = true;
+        ArrayList<Materiais> lisMat = new ArrayList<>();
+        try {
+            PreparedStatement stmtQuery =
+                con.prepareStatement("select * from materiais where (codigo=?) and handle_material!=?");
+            stmtQuery.setString(1, model.getCodigo());
+            stmtQuery.setInt(2, model.getHandle_material());
+            ResultSet resultSet = stmtQuery.executeQuery();
+            while (resultSet.next()) {
+            	Materiais mat = new Materiais();
+                mat.setNome(resultSet.getString("nome"));
+                lisMat.add(mat);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se código Material já existe. Procure o Administrador." + e,
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return lisMat;
+        }
+    }
+    
     /**
      * Consulta Todos os Materiais existentes no Banco de Dados.
      * 

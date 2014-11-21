@@ -31,6 +31,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
@@ -162,38 +163,64 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
             materialModelo.setNome(jTDescricao.getText().toUpperCase());
             materialModelo.setCodigo(jTFCodigo.getText().toUpperCase());
             materialModelo.setData(dataDeHojeEmVariavelDate);
-            boolean existe = MATERIAIS.getConsultarParaSalvarNovoRegistro(con, materialModelo);
+            boolean existe = MATERIAIS.getConsultarSeNomeJaExiste(con, materialModelo);
             Conexao.fechaConexao(con);
             if (MATERIAIS.conseguiuConsulta) {
                 if (existe) {
-                    JOptionPane.showMessageDialog(null, "Descrição ou Código já existe.", "ATENÇÃO",
+                    JOptionPane.showMessageDialog(null, "Descrição já existe.", "ATENÇÃO",
                         javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    // fazer a inserção no banco
-                    con = Conexao.fazConexao();
-                    ValoresMateriais valorMaterialModel = new ValoresMateriais();
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    java.sql.Date data = null;
-                    Date dataSelecionada = jXDatePicker1.getDate();
-                    // criando um formato de data
-                    SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-                    // colocando data selecionado no formato criado acima
-                    String data2 = dataFormatada.format(dataSelecionada);
+                	boolean continua = false;
+                	//verfiica se codigo ja existe
+                	con = Conexao.fazConexao();
+                	ArrayList<Materiais> listaMat = MATERIAIS.getConsultarSeCodigoJaExiste(con, materialModelo);
+                	Conexao.fechaConexao(con);
+                	if(listaMat.size() > 0){
+                		String examesQuePossuemOMesmoCodigo = "Algun Materiais já possuem esse código:\n";
+                		for (Materiais mat : listaMat) {
+							examesQuePossuemOMesmoCodigo = examesQuePossuemOMesmoCodigo + "    ->  " + mat.getNome() + "\n";
+						}
+                		examesQuePossuemOMesmoCodigo = examesQuePossuemOMesmoCodigo + "Deseja Continuar?";
+                		Object[] options = { "Sim", "Não" };  
+                		int n = JOptionPane.showOptionDialog(null, examesQuePossuemOMesmoCodigo, "ATENÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                		if(n == JOptionPane.YES_OPTION){                       
+                            continua = true;
+                		}else{
+                			continua = false;
+                		}
+                	}else{
+                		continua = true;
+                	}
+                	
+                	if(continua){
+                		// fazer a inserção no banco
+                        con = Conexao.fazConexao();
+                        ValoresMateriais valorMaterialModel = new ValoresMateriais();
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        java.sql.Date data = null;
+                        Date dataSelecionada = jXDatePicker1.getDate();
+                        // criando um formato de data
+                        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+                        // colocando data selecionado no formato criado acima
+                        String data2 = dataFormatada.format(dataSelecionada);
 
-                    try {
-                        data = new java.sql.Date(format.parse(data2).getTime());
-                    } catch (ParseException ex) {
-                        JOptionPane.showMessageDialog(null, "Preencha a data corretamente");
-                    }
-                    valorMaterialModel.setDataAValer(data);
-                    valorMaterialModel.setValor(Double.valueOf(jTFValor.getText().replace(",", ".")));
-                    valorMaterialModel.setData(dataDeHojeEmVariavelDate);
-                    boolean cadastro = MATERIAIS.setCadastrar(con, materialModelo, valorMaterialModel);
-                    Conexao.fechaConexao(con);
-                    // atualiza tabela
-                    if (cadastro) {
-                        botaoCancelar();
-                    }
+                        try {
+                            data = new java.sql.Date(format.parse(data2).getTime());
+                        } catch (ParseException ex) {
+                            JOptionPane.showMessageDialog(null, "Preencha a data corretamente");
+                        }
+                        valorMaterialModel.setDataAValer(data);
+                        valorMaterialModel.setValor(Double.valueOf(jTFValor.getText().replace(",", ".")));
+                        valorMaterialModel.setData(dataDeHojeEmVariavelDate);
+                        boolean cadastro = MATERIAIS.setCadastrar(con, materialModelo, valorMaterialModel);
+                        Conexao.fechaConexao(con);
+                        // atualiza tabela
+                        if (cadastro) {
+                            botaoCancelar();
+                        }
+                	}
+                	
+                	
                 }
             }
         }
@@ -300,15 +327,43 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
             materialModelo.setCodigo(jTFCodigo.getText().toUpperCase());
             materialModelo.setData(dataDeHojeEmVariavelDate);
             materialModelo.setHandle_material(handle_material);
-            boolean existe = MATERIAIS.getConsultarParaAtualizarRegistro(con, materialModelo);
+            boolean existe = MATERIAIS.getConsultarNomeParaAtualizarRegistro(con, materialModelo);
+            Conexao.fechaConexao(con);
             if (!existe) {
-                boolean cadastro = MATERIAIS.setUpdate(con, materialModelo);
-                Conexao.fechaConexao(con);
-                if (cadastro) {
-                    botaoCancelar();
-                }
+            	
+            	boolean continua = false;
+            	con = Conexao.fazConexao();
+            	ArrayList<Materiais> listaMat = MATERIAIS.getConsultarCodigoParaAtualizarRegistro(con, materialModelo);
+            	Conexao.fechaConexao(con);
+            	if(listaMat.size() > 0){
+            		String examesQuePossuemOMesmoCodigo = "Algun Materiais já possuem esse código:\n";
+            		for (Materiais mat : listaMat) {
+						examesQuePossuemOMesmoCodigo = examesQuePossuemOMesmoCodigo + "    ->  " + mat.getNome() + "\n";
+					}
+            		examesQuePossuemOMesmoCodigo = examesQuePossuemOMesmoCodigo + "Deseja Continuar?";
+            		Object[] options = { "Sim", "Não" };  
+            		int n = JOptionPane.showOptionDialog(null, examesQuePossuemOMesmoCodigo, "ATENÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            		if(n == JOptionPane.YES_OPTION){                       
+                        continua = true;
+            		}else{
+            			continua = false;
+            		}
+            	}else{
+            		continua = true;
+            	}
+            	
+            	
+            	if(continua){
+            		con = Conexao.fazConexao();
+                    boolean cadastro = MATERIAIS.setUpdate(con, materialModelo);
+                    Conexao.fechaConexao(con);
+                    if (cadastro) {
+                        botaoCancelar();
+                    }
+            	}
+            	
             } else {
-                JOptionPane.showMessageDialog(null, "Descrição ou Código já existe.", "ATENÇÃO",
+                JOptionPane.showMessageDialog(null, "Descrição já existe.", "ATENÇÃO",
                     javax.swing.JOptionPane.INFORMATION_MESSAGE);
             }
 
