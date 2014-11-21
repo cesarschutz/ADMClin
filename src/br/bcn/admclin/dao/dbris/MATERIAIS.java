@@ -39,7 +39,7 @@ public class MATERIAIS {
             conseguiuConsulta = true;
         } catch (SQLException e) {
             conseguiuConsulta = false;
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se Material já existe. Procure o Administrador.",
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se nome de Material já existe. Procure o Administrador.",
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return existe;
@@ -67,7 +67,7 @@ public class MATERIAIS {
                 listaMateriais.add(mat);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se Material já existe. Procure o Administrador.",
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se código Material já existe. Procure o Administrador.",
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
         	return listaMateriais;
@@ -97,7 +97,7 @@ public class MATERIAIS {
         } catch (SQLException e) {
             conseguiuConsulta = false;
             existe = false;
-            JOptionPane.showMessageDialog(null, "Erro ao consultar se Material já existe. Procure o Administrador.",
+            JOptionPane.showMessageDialog(null, "Erro ao consultar se nome de Material já existe. Procure o Administrador.",
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return existe;
