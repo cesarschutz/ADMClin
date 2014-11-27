@@ -71,6 +71,8 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
                     nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%"
                         + nomesParaPesquisar[3] + "%";
 
+            System.out.println(sql);
+            sql = "%" + sql;
             ResultSet resultSet = MEDICOS.getConsultar(con, sql);
             try {
                 while (resultSet.next()) {
