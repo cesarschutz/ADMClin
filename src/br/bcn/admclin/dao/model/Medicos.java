@@ -10,7 +10,7 @@ import java.sql.Date;
 public class Medicos {
     
     private int medicoId, emId, usuarioId;
-    private String nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm;
+    private String nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm, telefoneDois, cpfCnpj, nomeSecretaria;
     private Date dat;
 
     public String getBairro() {
@@ -140,4 +140,30 @@ public class Medicos {
     public void setUfcrm(String ufcrm) {
         this.ufcrm = ufcrm;
     }
+
+	public String getTelefoneDois() {
+		return telefoneDois;
+	}
+
+	public void setTelefoneDois(String telefoneDois) {
+		this.telefoneDois = telefoneDois;
+	}
+
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+	public String getNomeSecretaria() {
+		return nomeSecretaria;
+	}
+
+	public void setNomeSecretaria(String nomeSecretaria) {
+		this.nomeSecretaria = nomeSecretaria;
+	}
+    
+
 }
