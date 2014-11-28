@@ -34,8 +34,19 @@ import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.ESPECIALIDADES_MEDICAS;
 import br.bcn.admclin.dao.dbris.MEDICOS;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.dao.model.Especialidades_Medicas;
 import br.bcn.admclin.dao.model.Medicos;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+
+import javax.swing.JButton;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ImageIcon;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -131,9 +142,15 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         jTFBairro.setDocument(new DocumentoSemAspasEPorcento(32));
         jTFCidade.setDocument(new DocumentoSemAspasEPorcento(32));
         // preenchendo as Especialidades Médicas
-        con = Conexao.fazConexao();
+        preencherEspecialidadesMedicas();
+        jCBEspecialidadeMedica.setSelectedItem("SEM ESPECIALIDADE");
+    }
+    
+    private void preencherEspecialidadesMedicas(){
+    	con = Conexao.fazConexao();
         ResultSet resultSet = ESPECIALIDADES_MEDICAS.getConsultar(con);
         listaCodEspecialidadesMedicas.removeAll(listaCodEspecialidadesMedicas);
+        jCBEspecialidadeMedica.removeAllItems();
         //jCBEspecialidadeMedica.addItem("");
         //listaCodEspecialidadesMedicas.add(0);
         try {
@@ -417,259 +434,147 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         jCBUfCRM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "AC", "AL", "AP", "AM", "BA", "CE",
             "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",
             "SP", "SE", "TO" }));
+        
+        btnCadastrarNovaEspecialidade = new JButton("Cadastrar Nova Especialidade");
+        btnCadastrarNovaEspecialidade.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		botaoCadastrarEspecialidade();
+        	}
+        });
+        btnCadastrarNovaEspecialidade.setIcon(new ImageIcon(JIFCMedicosAtendimentos.class.getResource("/br/bcn/admclin/imagens/menuPessoalEspecialidadesMedicas.png")));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1Layout.setHorizontalGroup(
+        	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addGap(551)
+        			.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE))
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(jLabel3)
+        				.addComponent(jLabel13)
+        				.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+        					.addComponent(jTFNome)
+        					.addComponent(jTFEndereco)
+        					.addGroup(jPanel1Layout.createSequentialGroup()
+        						.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        							.addComponent(jTFBairro, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(jLabel14))
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        							.addComponent(jLabel15)
+        							.addComponent(jTFCep, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE))))
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jTFCRM, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jLabel6))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel7)
+        						.addComponent(jCBUfCRM, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)))
+        				.addComponent(jLabel5)
+        				.addComponent(jTFNascimento, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(jCBEspecialidadeMedica, Alignment.LEADING, 0, 311, Short.MAX_VALUE)
+        				.addComponent(jTFEmail, Alignment.LEADING, 311, 311, 311)
+        				.addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(jLabel17)
+        								.addComponent(jTFCidade, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(jLabel16)
+        								.addComponent(jCBUf, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)))
+        						.addComponent(jLabel18)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(jTFTelefone, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel11))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(jLabel12)
+        								.addComponent(jTFCelular, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
+        						.addComponent(jLabel20))
+        					.addGap(59))
+        				.addComponent(btnCadastrarNovaEspecialidade))
+        			.addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+        	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel17)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFCidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel16)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jCBUf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jLabel20)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jTFEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel11)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel12)
+        							.addGap(26))
+        						.addComponent(jTFCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jLabel18)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jCBEspecialidadeMedica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnCadastrarNovaEspecialidade))
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addComponent(jLabel3)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jTFNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(jLabel6)
+        						.addComponent(jLabel7))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(jTFCRM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jCBUfCRM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jLabel5)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jTFNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jLabel13)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jTFEndereco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel14)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFBairro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel15)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFCep, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        					.addGap(80)
+        					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+        );
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout
-            .setHorizontalGroup(jPanel1Layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(
-                    jPanel1Layout
-                        .createSequentialGroup()
-                        .addGap(551, 551, 551)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(
-                    jPanel1Layout
-                        .createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(
-                            jPanel1Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel13)
-                                .addGroup(
-                                    jPanel1Layout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTFNome, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTFEndereco, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(
-                                            javax.swing.GroupLayout.Alignment.LEADING,
-                                            jPanel1Layout
-                                                .createSequentialGroup()
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jTFBairro,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE, 151,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel14))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel15)
-                                                        .addComponent(jTFCep, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                            79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(
-                                    jPanel1Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTFCRM, javax.swing.GroupLayout.PREFERRED_SIZE, 103,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(jLabel6))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel7)
-                                                .addComponent(jCBUfCRM, javax.swing.GroupLayout.PREFERRED_SIZE, 61,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jLabel5)
-                                .addComponent(jTFNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 80,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(
-                            jPanel1Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jCBEspecialidadeMedica, 0, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    Short.MAX_VALUE)
-                                .addComponent(jTFEmail)
-                                .addGroup(
-                                    jPanel1Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createSequentialGroup()
-                                                        .addGroup(
-                                                            jPanel1Layout
-                                                                .createParallelGroup(
-                                                                    javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jLabel17)
-                                                                .addComponent(jTFCidade,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE, 169,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(
-                                                            jPanel1Layout
-                                                                .createParallelGroup(
-                                                                    javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jLabel16)
-                                                                .addComponent(jCBUf,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE, 61,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addComponent(jLabel18)
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createSequentialGroup()
-                                                        .addGroup(
-                                                            jPanel1Layout
-                                                                .createParallelGroup(
-                                                                    javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jTFTelefone,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE, 102,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jLabel11))
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(
-                                                            jPanel1Layout
-                                                                .createParallelGroup(
-                                                                    javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jLabel12)
-                                                                .addComponent(jTFCelular,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE, 104,
-                                                                    javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addComponent(jLabel20)).addGap(59, 59, 59))).addContainerGap()));
-        jPanel1Layout
-            .setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(
-                    javax.swing.GroupLayout.Alignment.TRAILING,
-                    jPanel1Layout
-                        .createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(
-                            jPanel1Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 272,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(
-                                    jPanel1Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jLabel17)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFCidade,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jLabel16)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jCBUf, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel20)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTFEmail, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jLabel11)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFTelefone,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(
-                                                    jPanel1Layout.createSequentialGroup().addComponent(jLabel12)
-                                                        .addGap(26, 26, 26))
-                                                .addComponent(jTFCelular, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel18)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBEspecialidadeMedica, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(
-                                    jPanel1Layout
-                                        .createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jLabel6).addComponent(jLabel7))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jTFCRM, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jCBUfCRM, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTFNascimento, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTFEndereco, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jLabel14)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFBairro,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(
-                                                    jPanel1Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jLabel15)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFCep, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(80, 80, 80)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)))));
 
         jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
         jBAtualizarRegistro.setText("Atualizar e Selecionar Médico");
@@ -770,6 +675,47 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void botaoCadastrarEspecialidade(){
+    	Object[] message = {"Descrição"}; 
+    	String especialidade = JOptionPane.showInputDialog(janelaPrincipal.internalFrameJanelaPrincipal, message, "Adicionar Especialidade Médica", JOptionPane.INFORMATION_MESSAGE); 
+    	if(especialidade != null){
+    		cadastrarEspecialidadeMedica(especialidade.toUpperCase());
+    	}
+    }
+    
+    private void cadastrarEspecialidadeMedica(String especialidade){
+    	if(especialidade.replaceAll(" ", "").length() < 3){
+    		JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "A descrição deve conter no mínimo 3 caracteres");
+    		botaoCadastrarEspecialidade();
+    	}else{
+    		con = Conexao.fazConexao();
+            Especialidades_Medicas especialidadeMedicaMODELO = new Especialidades_Medicas();
+            especialidadeMedicaMODELO.setDescricao(especialidade);
+            boolean existe = ESPECIALIDADES_MEDICAS.getConsultarParaSalvarNovoRegistro(con, especialidadeMedicaMODELO);
+            Conexao.fechaConexao(con);
+            if (ESPECIALIDADES_MEDICAS.conseguiuConsulta) {
+                if (existe) {
+                    JOptionPane.showMessageDialog(null, "Especialidade Médica já existe", "ATENÇÃO",
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    // fazer a inserção no banco
+                    con = Conexao.fazConexao();
+                    especialidadeMedicaMODELO.setUsuarioId(USUARIOS.usrId);
+                    especialidadeMedicaMODELO.setDat(dataDeHojeEmVariavelDate);
+                    boolean cadastro = ESPECIALIDADES_MEDICAS.setCadastrar(con, especialidadeMedicaMODELO);
+                    Conexao.fechaConexao(con);
+                    // atualiza tabela
+                    if (cadastro) {
+                        //se cadastro atualizamos o combo box
+                    	preencherEspecialidadesMedicas();
+                    	jCBEspecialidadeMedica.setSelectedItem(especialidade);
+                    	
+                    }
+                }
+            }
+    	}
+    }
 
     private void jTFNascimentoFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFNascimentoFocusGained
 
@@ -914,5 +860,5 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTFNascimento;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFTelefone;
-    // End of variables declaration//GEN-END:variables
+    private JButton btnCadastrarNovaEspecialidade;
 }
