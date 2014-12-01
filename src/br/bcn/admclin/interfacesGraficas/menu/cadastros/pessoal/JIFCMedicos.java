@@ -45,6 +45,9 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.text.Document;
+import javax.swing.JLabel;
 
 /**
  * 
@@ -100,6 +103,9 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
                     jCBUfCRM.setSelectedItem(JIFCMedicosVisualizar.listaMedicos.get(cont).getUfcrm());
                     jTFNascimento.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getNascimento());
                     jTFTelefone.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getTelefone());
+                    jTFTelefoneDois.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getTelefoneDois());
+                    jTFCpfCnpj.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getCpfCnpj());
+                    jTFNomeSecretaria.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getNomeSecretaria());
                     jTFCelular.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getCelular());
                     jTFEndereco.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getEndereco());
                     jTFBairro.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getBairro());
@@ -193,7 +199,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
 
         boolean emailOk = true;
         if (!"".equals(jTFEmail.getText())) {
-            nascimentoOk = MetodosUteis.verificarSeEmailEValido(jTFEmail, jTFMensagemParaUsuario);
+        	emailOk = MetodosUteis.verificarSeEmailEValido(jTFEmail, jTFMensagemParaUsuario);
         }
         
         boolean crmMedicoOk = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFCRM, 2, jTFMensagemParaUsuario);
@@ -222,7 +228,10 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
             medicosMODEL.setNascimento(jTFNascimento.getText());
             medicosMODEL.setEmail(jTFEmail.getText());
             medicosMODEL.setTelefone(jTFTelefone.getText());
+            medicosMODEL.setTelefoneDois(jTFTelefoneDois.getText());
             medicosMODEL.setCelular(jTFCelular.getText());
+            medicosMODEL.setCpfCnpj(jTFCpfCnpj.getText());
+            medicosMODEL.setNomeSecretaria(jTFNomeSecretaria.getText());
             medicosMODEL.setEndereco(jTFEndereco.getText());
             medicosMODEL.setBairro(jTFBairro.getText());
             medicosMODEL.setCep(jTFCep.getText());
@@ -255,7 +264,10 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
             medicosMODEL.setNascimento(jTFNascimento.getText());
             medicosMODEL.setEmail(jTFEmail.getText());
             medicosMODEL.setTelefone(jTFTelefone.getText());
+            medicosMODEL.setTelefoneDois(jTFTelefoneDois.getText());
             medicosMODEL.setCelular(jTFCelular.getText());
+            medicosMODEL.setCpfCnpj(jTFCpfCnpj.getText());
+            medicosMODEL.setNomeSecretaria(jTFNomeSecretaria.getText());
             medicosMODEL.setEndereco(jTFEndereco.getText());
             medicosMODEL.setBairro(jTFBairro.getText());
             medicosMODEL.setCep(jTFCep.getText());
@@ -316,7 +328,8 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         jTFCep = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##.###-###"));
         jLabel14 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jTFTelefone = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
+        jTFTelefone = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
+        jTFTelefoneDois = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTFCelular = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
@@ -432,13 +445,25 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         	}
         });
         btnCadastrarEspecialidadeMdica.setIcon(new ImageIcon(JIFCMedicos.class.getResource("/br/bcn/admclin/imagens/menuPessoalEspecialidadesMedicas.png")));
+        
+        
+        
+        JLabel label = new JLabel();
+        label.setText("Telefone");
+        
+        JLabel lblCpfCnpj = new JLabel();
+        lblCpfCnpj.setText("CPF / CNPJ");
+        
+        jTFCpfCnpj = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(20), null, 0);
+        
+        JLabel lblNomeSecretaria = new JLabel();
+        lblNomeSecretaria.setText("Nome Secretaria");
+        
+        jTFNomeSecretaria = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
         	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addGap(551)
-        			.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE))
         		.addGroup(jPanel1Layout.createSequentialGroup()
         			.addContainerGap()
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
@@ -469,68 +494,48 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         			.addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(jCBEspecialidadeMedica, Alignment.LEADING, 0, 311, Short.MAX_VALUE)
-        				.addComponent(jTFEmail, Alignment.LEADING, 311, 311, 311)
-        				.addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGap(389)
+        					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
         						.addGroup(jPanel1Layout.createSequentialGroup()
         							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
         								.addComponent(jLabel17)
-        								.addComponent(jTFCidade, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
+        								.addComponent(jTFCidade, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
         								.addComponent(jLabel16)
         								.addComponent(jCBUf, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)))
-        						.addComponent(jLabel18)
+        						.addComponent(jLabel20)
+        						.addComponent(jTFEmail)
         						.addGroup(jPanel1Layout.createSequentialGroup()
         							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
         								.addComponent(jTFTelefone, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
         								.addComponent(jLabel11))
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(jLabel12)
-        								.addComponent(jTFCelular, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
-        						.addComponent(jLabel20))
-        					.addGap(59))
-        				.addComponent(btnCadastrarEspecialidadeMdica))
-        			.addContainerGap())
+        								.addComponent(jTFCelular, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel12))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(label, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jTFTelefoneDois, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)))
+        						.addComponent(jLabel18)
+        						.addComponent(btnCadastrarEspecialidadeMdica)
+        						.addComponent(jTFCpfCnpj, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+        						.addComponent(jTFNomeSecretaria, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+        						.addComponent(jCBEspecialidadeMedica, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(lblCpfCnpj, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblNomeSecretaria, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
+        					.addContainerGap(21, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
-        	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addContainerGap()
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(jLabel17)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(jTFCidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(jLabel16)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(jCBUf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jLabel20)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jTFEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(jLabel11)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(jTFTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(jLabel12)
-        							.addGap(26))
-        						.addComponent(jTFCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jLabel18)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jCBEspecialidadeMedica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(btnCadastrarEspecialidadeMdica))
+        				.addComponent(jSeparator2, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
         				.addGroup(jPanel1Layout.createSequentialGroup()
         					.addComponent(jLabel3)
         					.addPreferredGap(ComponentPlacement.RELATED)
@@ -562,7 +567,48 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(jTFCep, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
         					.addGap(80)
-        					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+        					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel17)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFCidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jLabel20))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel16)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jCBUf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jTFEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING, false)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel11)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        						.addComponent(jTFCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        								.addComponent(label)
+        								.addComponent(jLabel12))
+        							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(jTFTelefoneDois, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblCpfCnpj)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jTFCpfCnpj, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblNomeSecretaria)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(jTFNomeSecretaria, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jLabel18)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jCBEspecialidadeMedica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnCadastrarEspecialidadeMdica))))
         );
         jPanel1.setLayout(jPanel1Layout);
 
@@ -639,46 +685,39 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        layout.setHorizontalGroup(
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        					.addComponent(jTFMensagemParaUsuario, Alignment.LEADING)
+        					.addComponent(jPanel1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 613, Short.MAX_VALUE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(jBCancelar)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBAtualizarRegistro)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBApagarRegistro)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBSalvarRegistro)))
+        			.addGap(54))
+        );
+        layout.setVerticalGroup(
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFMensagemParaUsuario, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        					.addComponent(jBAtualizarRegistro, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(jBApagarRegistro, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(jBSalvarRegistro))
+        				.addComponent(jBCancelar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+        			.addGap(41))
+        );
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-            layout
-                .createSequentialGroup()
-                .addGroup(
-                    layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(
-                            layout.createSequentialGroup().addComponent(jBCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBAtualizarRegistro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBApagarRegistro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBSalvarRegistro).addGap(0, 169, Short.MAX_VALUE))).addContainerGap()));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-            layout
-                .createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 327,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(
-                    layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(
-                            layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBAtualizarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBApagarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBSalvarRegistro))
-                        .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)).addContainerGap()));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -879,4 +918,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFTelefone;
     private JButton btnCadastrarEspecialidadeMdica;
+    private JTextField jTFTelefoneDois;
+    private JTextField jTFCpfCnpj;
+    private JTextField jTFNomeSecretaria;
 }

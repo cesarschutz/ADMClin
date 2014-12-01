@@ -119,12 +119,15 @@ public class JIFCMedicosVisualizar extends javax.swing.JInternalFrame {
                         medicosModelo.setCidade(resultSet.getString("cidade"));
                         medicosModelo.setUf(resultSet.getString("uf"));
                         medicosModelo.setEmail(resultSet.getString("email"));
+                        medicosModelo.setTelefoneDois(resultSet.getString("telefoneDois"));
+                        medicosModelo.setCpfCnpj(resultSet.getString("cpfCnpj"));
+                        medicosModelo.setNomeSecretaria(resultSet.getString("Nome_Secretaria"));
                         listaMedicos.add(medicosModelo);
                     }
 
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador",
+                JOptionPane.showMessageDialog(null, "Não foi possivel atualizar a tabela. Procure o administrador" + e,
                     "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
             Conexao.fechaConexao(con);

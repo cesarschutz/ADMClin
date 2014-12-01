@@ -444,10 +444,9 @@ public class MetodosUteis {
         // se nomes separados eh maior que 0
         if (nomes.length > 0) {
             for (int i = 0; i < nomes.length; i++) {
-                if (nomes[i].length() > 2)
                     nomesv += nomes[i].trim() + (i + 1 < nomes.length ? " " : "");
             }
-
+            
             String[] nomesf = nomesv.split(" ");
             if ((nomesf.length == 1 && nomesf[0].length() > 2) || nomesf.length > 1)
                 return nomesf;
