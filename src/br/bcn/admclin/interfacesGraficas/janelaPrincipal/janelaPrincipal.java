@@ -39,8 +39,6 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCMedicosAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCPacientesAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.jIFAlterarValorDeExame;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimento;
-import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFAreasAtendimentoVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaDesc;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroBloqueio;
@@ -134,8 +132,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static jIFRecebimentoDeConvenios internalFrameRecebimentoDeConvenios;
     public static JIFrelatorioDeValoresRecebidosConvenio internalFrameValoresRecebidos;
     public static JIFCadastroDeAtendimento internalFrameAtendimento;
-    public static JIFAreasAtendimentoVisualizar internalFrameAreasDeAtendimentoVisualizar;
-    public static JIFAreasAtendimento internalFrameAreasDeAtendimento;
     public static JIFCadastroAgendaVisualizar internalFrameCadastroAgendasVisualizar;
     public static JIFCadastroAgendaDesc internalFrameCadastroAgendasDesc;
     public static JIFListaAgendamentos internalFrameListaDeAgendamentos;
@@ -390,23 +386,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
             }
         });
         
-        JMenuItem mntmAreasDeAtendimento = new JMenuItem("Areas de Atendimento");
-        mntmAreasDeAtendimento.setVisible(false);
-        mntmAreasDeAtendimento.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                fechandoTodosOsInternalFrames();
-
-                internalFrameAreasDeAtendimentoVisualizar = new JIFAreasAtendimentoVisualizar();
-                jDesktopPane1.add(internalFrameAreasDeAtendimentoVisualizar);
-                internalFrameAreasDeAtendimentoVisualizar.setVisible(true);
-                int lDesk = jDesktopPane1.getWidth();
-                int aDesk = jDesktopPane1.getHeight();
-                int lIFrame = internalFrameAreasDeAtendimentoVisualizar.getWidth();
-                int aIFrame = internalFrameAreasDeAtendimentoVisualizar.getHeight();
-
-                internalFrameAreasDeAtendimentoVisualizar.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-            }
-        });
         
         JMenuItem jMCBloqueios = new JMenuItem("Bloqueios");
         jMCBloqueios.addActionListener(new ActionListener() {
@@ -415,7 +394,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         	}
         });
         jMCAgenda.add(jMCBloqueios);
-        jMCAgenda.add(mntmAreasDeAtendimento);
         jMCAgenda.add(jMCAFeriados);
 
         jMCadastros.add(jMCAgenda);

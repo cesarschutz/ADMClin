@@ -673,7 +673,7 @@ public class JIFCMaterial extends javax.swing.JInternalFrame {
                     .addContainerGap()));
 
         jBEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
-        jBEditar.setText("Editar");
+        jBEditar.setText("Atualizar");
         jBEditar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
