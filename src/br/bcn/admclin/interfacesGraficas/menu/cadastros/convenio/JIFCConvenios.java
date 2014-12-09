@@ -977,6 +977,10 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_jTFPorcentConvenioFocusLost
 
+    private boolean duplicarConvenio(int convenioAntigo, String nomeNovoConvenio){
+    	return false;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBCh;
