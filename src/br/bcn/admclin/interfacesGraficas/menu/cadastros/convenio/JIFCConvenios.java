@@ -88,7 +88,7 @@ public class JIFCConvenios extends javax.swing.JInternalFrame {
             preencherConvenio();
         }
     }
-//
+
     @SuppressWarnings("unchecked")
     public void preencherGrupoDeConvenios() {
         con = Conexao.fazConexao();
