@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -257,4 +258,80 @@ public class TABELAS {
             return resultSet;
         }
     }
+    
+    /*
+     * Metodo que duplica uma tabela de convenio
+     * recebe o id do convenio que será copiado (idConvenioAntigo) e o id do convenio que recebera essa tabela (idConvenioNovo)
+     * Para isso o metodo deleta todos os exames do convenio que recebera a importação (isso para que nao fica exames duplciados)
+     * apos isso ele cadastra todos os exames do convenio 'antigo' para o convenio 'novo'
+     * 
+     */
+    public static boolean duplicarTabela(int idConvenioAntigo, int idConvenioNovo){
+    	Connection con = Conexao.fazConexao();
+    	try {    	
+    		//retirando o autoCommit
+			con.setAutoCommit(false);
+			
+			//deletando todos os exames do convenioNovo
+			//PreparedStatement stmtDel = con.prepareStatement("delete from tabelas where handle_convenio = ?");
+			//stmtDel.setInt(1, idConvenioNovo);
+			//stmtDel.executeUpdate();
+			//stmtDel.close();
+			
+			//consultando todos os exames da tabela do antigo convenio e colocando na lista
+			ArrayList<Tabelas> listaDeExamesDaTabela = new ArrayList<>();
+			PreparedStatement stmtSelect = con.prepareStatement("select * from tabelas where handle_convenio = ? and flag_desativado = 0");
+			stmtSelect.setInt(1, idConvenioAntigo);
+	        ResultSet resultSet = stmtSelect.executeQuery();
+	        while(resultSet.next()){
+	        	Tabelas tabela = new Tabelas();
+	        	tabela.sethandle_convenio(idConvenioNovo);
+	        	tabela.sethandle_exame(resultSet.getInt("handle_exame"));
+	        	tabela.setCofFilme(resultSet.getDouble("coefFilme"));
+	        	tabela.setCofCh1(resultSet.getDouble("cofCH1"));
+	        	tabela.setCofCh2(resultSet.getDouble("cofCH2"));
+	        	tabela.sethandle_material(resultSet.getInt("handle_material"));
+	        	tabela.setQtdMaterial(resultSet.getInt("qtdMaterial"));
+	        	tabela.setUsuarioId(USUARIOS.usrId);
+	        	tabela.setDat(resultSet.getDate("dat"));
+	        	tabela.setCod_exame(resultSet.getString("cod_exame"));
+	        	tabela.setSinonimo(resultSet.getString("sinonimo"));
+	        	tabela.setVAI_MATERIAIS_POR_PADRAO(resultSet.getInt("VAI_MATERIAIS_POR_PADRAO"));
+	        	listaDeExamesDaTabela.add(tabela);
+	        }
+	        resultSet.close();
+	        
+	        for (Tabelas tabela : listaDeExamesDaTabela) {
+	        	//salvando lista no convenio 'novo'
+		        PreparedStatement smtmInsert = con.prepareStatement("insert into tabelas (usuarioid,dat, handle_convenio, handle_exame, coeffilme, cofch1, cofch2, handle_material, qtdmaterial, cod_exame, sinonimo, VAI_MATERIAIS_POR_PADRAO, flag_desativado) values(?,?,?,?,?,?,?,?,?,?,?,?,0)");
+		        smtmInsert.setInt(1, tabela.getUsuarioId());
+		        smtmInsert.setDate(2, tabela.getDat());
+		        smtmInsert.setInt(3, tabela.gethandle_convenio());
+		        smtmInsert.setInt(4, tabela.gethandle_exame());
+		        smtmInsert.setDouble(5, tabela.getCofFilme());
+		        smtmInsert.setDouble(6, tabela.getCofCh1());
+		        smtmInsert.setDouble(7, tabela.getCofCh2());
+		        smtmInsert.setInt(8, tabela.gethandle_material());
+		        smtmInsert.setInt(9, tabela.getQtdMaterial());
+		        smtmInsert.setString(10, tabela.getCod_exame());
+		        smtmInsert.setString(11, tabela.getSinonimo());
+		        smtmInsert.setInt(12, tabela.getVAI_MATERIAIS_POR_PADRAO());
+		        smtmInsert.executeUpdate();
+		        smtmInsert.close();
+			}
+	        
+	        //comitando a transaçao
+	        con.commit();
+			Conexao.fechaConexao(con);
+			return true;
+		} catch (SQLException e) {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+			}
+			JOptionPane.showMessageDialog(null, "Erro ao duplicar Tabela de Convênio." + e);
+			return false;
+		}
+    }
+
 }
