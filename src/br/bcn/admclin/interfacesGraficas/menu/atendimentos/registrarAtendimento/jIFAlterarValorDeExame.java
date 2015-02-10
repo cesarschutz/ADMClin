@@ -14,11 +14,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import br.bcn.admclin.ClasseAuxiliares.JTextFieldDinheiroReais;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * 
@@ -58,8 +62,15 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
         this.porcentagem_convenio = porcentagem_convenio;
         this.porcentagem_paciente = porcentagem_paciente;
         this.linhaSelecionadaNaTabela = linhaDaTabelaSelecionada;
+        String valorExame = JIFCadastroDeAtendimento.jTable1.getValueAt(linhaDaTabelaSelecionada, 3).toString().replaceAll("\\.", ",");
+        String valorExameDividido[] = valorExame.split(",");
+        if(valorExameDividido[1].length() < 2){
+        	valorExame = valorExame + "0";
+        }
+        
+        jTFValorExame.setText(valorExame);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exame: " + nomeExame,
-            javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+                javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
     }
 
     public void tirandoBarraDeTitulo() {
@@ -185,6 +196,25 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
                 setLimit(8);
             }
         };
+        jTFValorConvenio.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusLost(FocusEvent arg0) {
+        		double valorExame    = new BigDecimal(Double.valueOf(jTFValorExame.getText().replaceAll(",", "."))).setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+        		double valorConvenio = new BigDecimal(Double.valueOf(jTFValorConvenio.getText().replaceAll(",", "."))).setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+        		double valorPaciente = new BigDecimal(valorExame - valorConvenio).setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+        		
+        		if(valorPaciente >= 0){
+        			String valorPacienteString = String.valueOf(valorPaciente).replaceAll("\\.", ",");
+        			String valorPacienteDividido[] = valorPacienteString.split(",");
+        	        if(valorPacienteDividido[1].length() < 2){
+        	        	valorPacienteString = valorPacienteString + "0";
+        	        }
+        			jTFValorPaciente.setText(valorPacienteString);
+        		}else{
+        			jTFValorPaciente.setText("00,00");
+        		}
+        	}
+        });
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTFValorPaciente = new JTextFieldDinheiroReais(new DecimalFormat("0.00")) {
@@ -195,6 +225,26 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
                 setLimit(8);
             }
         };
+        jTFValorPaciente.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusLost(FocusEvent arg0) {
+        		double valorExame    = new BigDecimal(Double.valueOf(jTFValorExame.getText().replaceAll(",", "."))).setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+        		double valorPaciente = new BigDecimal(Double.valueOf(jTFValorPaciente.getText().replaceAll(",", "."))).setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+        		double valorConvenio = new BigDecimal(valorExame - valorPaciente).setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+        		
+        		
+        		if(valorConvenio >= 0){
+        			String valorConvenioString = String.valueOf(valorConvenio).replaceAll("\\.", ",");
+        			String valorConvenioDividido[] = valorConvenioString.split(",");
+        	        if(valorConvenioDividido[1].length() < 2){
+        	        	valorConvenioString = valorConvenioString + "0";
+        	        }
+        			jTFValorConvenio.setText(valorConvenioString);
+        		}else{
+        			jTFValorConvenio.setText("00,00");
+        		}
+        	}
+        });
         jBCancelar = new javax.swing.JButton();
         jBOkExame3 = new javax.swing.JButton();
 
@@ -392,7 +442,6 @@ public class jIFAlterarValorDeExame extends javax.swing.JInternalFrame {
             jTFValorExame.setEnabled(true);
         } else {
             jTFValorExame.setEnabled(false);
-            jTFValorExame.setText("");
 
             jTFValorPaciente.setEnabled(true);
             jTFValorConvenio.setEnabled(true);
