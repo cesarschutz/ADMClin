@@ -316,7 +316,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTFNome = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
+        jTFNome = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();

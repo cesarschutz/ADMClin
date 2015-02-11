@@ -319,7 +319,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
         jTFNascimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##/##/####"));
         jLabel3 = new javax.swing.JLabel();
-        jTFNome = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
+        jTFNome = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jTFEndereco = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(80), null, 0);
         jTFCidade = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(32), null, 0);
         jLabel15 = new javax.swing.JLabel();

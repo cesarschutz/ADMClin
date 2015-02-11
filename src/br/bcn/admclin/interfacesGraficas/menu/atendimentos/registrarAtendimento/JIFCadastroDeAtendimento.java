@@ -1409,10 +1409,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jBPesquisaPaciente = new javax.swing.JButton();
         jTFHANDLE_PACIENTE = new javax.swing.JTextField();
-        jTFPaciente = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
+        jTFPaciente = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTFMedicoSol = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
+        jTFMedicoSol = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jBPesquisaMedico = new javax.swing.JButton();
         jTFHANDLE_MEDICO_SOL = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
