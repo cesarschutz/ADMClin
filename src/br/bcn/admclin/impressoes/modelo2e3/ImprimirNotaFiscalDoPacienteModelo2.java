@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
@@ -44,6 +45,12 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
             imprimir = new ESCPrinter(nomeDoArquivo, true);
         }else{
+        	String[] list = {"1", "2"}; 
+        	JComboBox jcb = new JComboBox(list);  
+        	JOptionPane.showMessageDialog( null, jcb, "Selecione a impressora desejada:", JOptionPane.QUESTION_MESSAGE);
+        	String impressoraParaImpressao = USUARIOS.impressora_nota_fiscal + jcb.getSelectedItem().toString();
+        	JOptionPane.showMessageDialog(null, impressoraParaImpressao);
+        	
             imprimir = new ESCPrinter(USUARIOS.impressora_nota_fiscal, true);
         }
     }
