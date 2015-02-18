@@ -83,5 +83,7 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
         imprimir.lineFeed();
         imprimir.print(String.valueOf(handle_at) + "           " + dataAtendimento);
         imprimir.lineFeed();
+        imprimir.lineFeed();
+        imprimir.lineFeed();
     }
 }
