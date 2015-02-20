@@ -15,8 +15,18 @@ public class atendimentoModel {
     private int handle_at, handle_convenio, flag_laudo, flag_faturado;
     private String nomePaciente, matricula_convenio, nascimentoPaciente, crmMedico, hora, nomeMedico;
     private Date data_atendimento;
+    private int ID_AREAS_ATENDIMENTO;
 
-    public int getHandle_at() {
+    
+    public int getID_AREAS_ATENDIMENTO() {
+		return ID_AREAS_ATENDIMENTO;
+	}
+
+	public void setID_AREAS_ATENDIMENTO(int iD_AREAS_ATENDIMENTO) {
+		ID_AREAS_ATENDIMENTO = iD_AREAS_ATENDIMENTO;
+	}
+
+	public int getHandle_at() {
         return handle_at;
     }
 
