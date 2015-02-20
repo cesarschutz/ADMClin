@@ -454,7 +454,10 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         "/br/bcn/admclin/imagens/imagemPesquisarInvertida.png"));
     ImageIcon iconeEditarAtendimento = new javax.swing.ImageIcon(getClass().getResource(
         "/br/bcn/admclin/imagens/menuAtendimentoAtendimento.png"));
-
+    ImageIcon iconeExcluirExame = new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/popUpCancelar.png"));
+    
+    
     private void abrirPopUp(MouseEvent evt) {
 
         // Paciente recebeu o exame
@@ -474,7 +477,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         });
         
         //excluir atendimento
-        JMenuItem excluirAtendimento = new JMenuItem("Excluir Atendimento", iconeVisualizarAtendimento);
+        JMenuItem excluirAtendimento = new JMenuItem("Excluir Atendimento", iconeExcluirExame);
         excluirAtendimento.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 excluirAtendimento();
@@ -483,6 +486,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
 
         // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
+        popup.add(visualizarAtendimento);
         // se for financeiro ou administrador  E  flag_faturado for igual a 0 libera o menu editar atendimento
         int flagFaturado = listaAtendimentos.get(jTable1.getSelectedRow()).getFlagFaturado();
         if ("A".equals(USUARIOS.statusUsuario) || "F".equals(USUARIOS.statusUsuario)) {
@@ -493,7 +497,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                 editarAtendimento.setText("Editar Atendimento (já faturado)");
             }
         }
-        popup.add(visualizarAtendimento);
+        
 
         // mostra na tela
         int x = evt.getX();
