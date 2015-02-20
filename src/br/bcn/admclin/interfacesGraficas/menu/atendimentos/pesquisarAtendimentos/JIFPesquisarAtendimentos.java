@@ -7,6 +7,8 @@ package br.bcn.admclin.interfacesGraficas.menu.atendimentos.pesquisarAtendimento
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
+import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
+import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
@@ -470,6 +472,14 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
                 visualizarAtendimento();
             }
         });
+        
+        //excluir atendimento
+        JMenuItem excluirAtendimento = new JMenuItem("Excluir Atendimento", iconeVisualizarAtendimento);
+        excluirAtendimento.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                excluirAtendimento();
+            }
+        });
 
         // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
@@ -477,6 +487,7 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         int flagFaturado = listaAtendimentos.get(jTable1.getSelectedRow()).getFlagFaturado();
         if ("A".equals(USUARIOS.statusUsuario) || "F".equals(USUARIOS.statusUsuario)) {
             popup.add(editarAtendimento);
+            popup.add(excluirAtendimento);
             if(flagFaturado == 1){
                 editarAtendimento.setEnabled(false);
                 editarAtendimento.setText("Editar Atendimento (já faturado)");
@@ -516,6 +527,23 @@ public class JIFPesquisarAtendimentos extends javax.swing.JInternalFrame {
         int aIFrame = janelaPrincipal.internalFrameListaAtendimentos.getHeight();
 
         janelaPrincipal.internalFrameListaAtendimentos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+    }
+    
+    private void excluirAtendimento(){
+    	Object[] options = { "Sim", "Não" };  
+    	int n = JOptionPane.showOptionDialog(null,  
+    	                "Tem certeza que deseja deletar esse atendimento ? ",  
+    	                "Confirmação", JOptionPane.YES_NO_OPTION,  
+    	                JOptionPane.QUESTION_MESSAGE, null, options, options[0]); 
+    	//se sim apaga
+    	if(n == 0){
+	    	int handle_at = Integer.parseInt(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
+	    	Connection conexao = Conexao.fazConexao();
+	    	ATENDIMENTO_EXAMES.setDeletarTodosDeUmAtendimento(conexao, handle_at);
+	    	ATENDIMENTOS.setDeletar(conexao, handle_at);
+	    	Conexao.fechaConexao(conexao);
+	    	botaoPesquisarAtendimentos(jTFPesquisaPaciente.getText());
+    	}
     }
 
     @SuppressWarnings("rawtypes")
