@@ -5,7 +5,7 @@ import java.util.Date;
 public class Model {
 	private Date data;
 	private int handle_at;
-	private String convenio, paciente, valor_convenio, valor_paciente, valor_total, ususario;
+	private String convenio, paciente, valor_convenio, valor_paciente, valor_total, usuario;
 	
 	public Date getData() {
 		return data;
@@ -49,11 +49,11 @@ public class Model {
 	public void setValor_total(String valor_total) {
 		this.valor_total = valor_total;
 	}
-	public String getUsusario() {
-		return ususario;
+	public String getUsuario() {
+		return usuario;
 	}
-	public void setUsusario(String ususario) {
-		this.ususario = ususario;
+	public void setUsuario(String ususario) {
+		this.usuario = ususario;
 	}
 	
 	
