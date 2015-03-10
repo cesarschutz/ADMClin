@@ -1443,6 +1443,13 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 imprimirCodigoDeBarras();
             }
         });
+        
+        JMenuItem registrarPagamentoDePaciente = new JMenuItem("Registrar Pag. Pac.", null);
+        registrarPagamentoDePaciente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                registrarPagamentoDePaciente();
+            }
+        });
 
         // Historia Clinica
         JMenuItem historiaClinica = new JMenuItem("Historia Clínica", iconeHistoriaClinica);
@@ -1481,6 +1488,14 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         popup.add(imprimir);
         popup.add(historiaClinica);
         popup.add(laudo);
+        
+        //coloca possibilidade de registrar pagamento de apciente, caso nao tenha sido pago
+        int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        if(ATENDIMENTOS.getPacientePagou(handle_at) == 0){
+        	popup.addSeparator();
+            popup.add(registrarPagamentoDePaciente);
+        }
+        
 
         // mostra na tela
         // mostra na tela
@@ -1505,6 +1520,11 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         his.setVisible(true);
     }
 
+    private void registrarPagamentoDePaciente(){
+    	int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+    	ATENDIMENTOS.setPacientePagou(handle_at);
+    }
+    
     private void laudo() {
         // pegando a data
         java.util.Date dataSelecionada = jXDatePicker1.getDate();

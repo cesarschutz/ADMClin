@@ -31,6 +31,27 @@ public class ATENDIMENTOS {
         }
         return handle_aTDoAgendamentoCadastrado;
     }
+    
+    public static int getPacientePagou(int handle_at) {
+        ResultSet resultSet = null;
+        int flag_paciente_pagou = 0;
+        Connection con = Conexao.fazConexao();
+        
+        try{
+        	String sql = "select paciente_pagou from atendimentos where handle_at = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, handle_at);
+            resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                flag_paciente_pagou = resultSet.getInt("paciente_pagou");
+            }
+            return flag_paciente_pagou;
+        }catch(Exception e){
+        	return 1;
+        }
+        
+        
+    }
 
     // metodo para somar 1 no handle_at
     public static void setSomarHandleAP(Connection con) throws SQLException {
@@ -354,6 +375,28 @@ public class ATENDIMENTOS {
             cadastro = true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao mudar Status do Atendimento. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return cadastro;
+        }
+    }
+
+    
+    /**
+     registra que apciente pagou o que esta pendente
+     */
+    public static boolean setPacientePagou(int handle_at) {
+        boolean cadastro = false;
+        Connection con = Conexao.fazConexao();
+        String sql = "update atendimentos set paciente_pagou = ? where handle_at=" + handle_at;
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, 1);
+            stmt.executeUpdate();
+            stmt.close();
+            cadastro = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao registrar pagamento de Paciente. Procure o Administrador.",
                 "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } finally {
             return cadastro;
