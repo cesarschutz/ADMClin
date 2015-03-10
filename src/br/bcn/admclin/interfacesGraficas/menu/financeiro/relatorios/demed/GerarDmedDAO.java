@@ -32,7 +32,7 @@ public class GerarDmedDAO {
                 con.prepareStatement("select e.handle_at, a.data_atendimento, e.valor_correto_paciente, p.nome, p.cpf, p.responsavel, p.cpfresponsavel from atendimento_exames e "
                     + "inner join atendimentos a on e.handle_at = a.handle_at "
                     + "inner join pacientes p on a.handle_paciente = p.pacienteid "
-                    + "where(a.data_atendimento > ? or a.data_atendimento = ?)  and  (a.data_atendimento < ? or a.data_atendimento = ?) and e.valor_correto_paciente > 0 "
+                    + "where(a.data_atendimento > ? or a.data_atendimento = ?)  and  (a.data_atendimento < ? or a.data_atendimento = ?) and e.valor_correto_paciente > 0 and a.paciente_pagou = 1"
                     + "order by a.data_atendimento, p.nome, e.handle_at asc");
             stmtQuery.setDate(1, diaInicial);
             stmtQuery.setDate(2, diaInicial);
