@@ -70,6 +70,7 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos.Tratamen
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+
 import javax.swing.JCheckBox;
 
 /*
@@ -235,6 +236,20 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     // essa variavel fica treu quando vem da pesquisa para quando precisarmos saber se veio da pesquisa ou nao
     public static boolean veioDaPesquisa = false;
 
+    public java.util.Date formDataStrgToJava(String data) {
+        /*
+         * Função de conversão de uma data do tipo STRING dd-MM-yyyy para formato date do java.util
+         */
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");// Formato da data que virá do banco
+        java.util.Date date = null;
+        try {
+            date = (java.util.Date) formatter.parse(data);// convertendo o formato para Date
+        } catch (ParseException ex) {
+            System.out.println(ex);
+        }
+        return date;
+    }
+    
     // esse metodo contrutor serve para abrir a classe apartir da edição de atendimentos
     public JIFCadastroDeAtendimento(int handle_at, String data, String hora) {
         initComponents();
@@ -590,7 +605,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 jTFHANDLE_MEDICO_SOL.setText(resultSet.getString("handle_medico_sol"));
                 handle_medico_sol = resultSet.getInt("handle_medico_sol");
 
-                jXDPEntregaDoExame.setDate(resultSet.getDate("data_exame_pronto"));
+                jXDPEntregaDoExame.setDateInMillis(resultSet.getDate("data_exame_pronto").getTime());
                 jtfHoraEntregaExame.setText(MetodosUteis.transformarMinutosEmHorario(resultSet
                     .getInt("hora_exame_pronto")));
                 jTAObservacao.setText(resultSet.getString("observacao"));
@@ -625,12 +640,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
         // fechando a conexao
-        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");  
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");  
         Date date = null;
         try {
            date = (Date)formatter.parse(data);
         } catch (ParseException e1) {
         } 
+       
         JXDPDataAtendimento.setDate(date);
         jTFhoraAtendimento.setText(hora);
 
