@@ -14,7 +14,7 @@ public class Atendimentos {
     
     private String FLAG_BOLETO_ENTREGUE, OBSERVACAO, VALOR_ATENDIMENTO, CRM_RADIOLOGISTA1, CRM_RADIOLOGISTA2, CRM_RADIOLOGISTA3, MATRICULA_CONVENIO, HANDLE_IMAGEM, FLAG_LAUDO, FLAG_AUDIO, STATUS1, STATUS2, STATUS3, STATUS4, COMPLEMENTO, LAUDO_ENTREGUE_AO_PACIENTE, EXAME_ENTREGUE_AO_PACIENTE, FLAG_IMPRIMIU;
     private Date DATA_ATENDIMENTO, DATA_EXAME_PRONTO, DATA_FECHAMENTO, DAT;
-    private int HANDLE_AT, HORA_ATENDIMENTO, DURACAO_ATENDIMENTO, HANDLE_PACIENTE, HANDLE_MEDICO_SOL, HANDLE_AGENDA, HANDLE_CONVENIO, USUARIOID, HORA_EXAME_PRONTO, ID_AREAS_ATENDIMENTO, id_agendamento;
+    private int HANDLE_AT, HORA_ATENDIMENTO, DURACAO_ATENDIMENTO, HANDLE_PACIENTE, HANDLE_MEDICO_SOL, HANDLE_AGENDA, HANDLE_CONVENIO, USUARIOID, HORA_EXAME_PRONTO, ID_AREAS_ATENDIMENTO, id_agendamento, paciente_pagou;
 
     public String getCRM_RADIOLOGISTA1() {
         return CRM_RADIOLOGISTA1;
@@ -278,6 +278,16 @@ public class Atendimentos {
 
 	public void setId_agendamento(int id_agendamento) {
 		this.id_agendamento = id_agendamento;
+	}
+
+	public int getPaciente_pagou() {
+		return paciente_pagou;
+	}
+
+	public void setPaciente_pagou(int paciente_pagou) {
+		this.paciente_pagou = paciente_pagou;
 	}    
+	
+	
     
 }
