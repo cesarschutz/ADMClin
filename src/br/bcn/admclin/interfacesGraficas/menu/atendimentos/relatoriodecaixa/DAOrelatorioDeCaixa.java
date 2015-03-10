@@ -35,7 +35,7 @@ public class DAOrelatorioDeCaixa {
 		try {
 			Connection con = Conexao.fazConexao();
 			PreparedStatement stmtQuery = con
-					.prepareStatement("select a.data_atendimento, a.handle_at, c.handle_convenio, c.nome as nome_convenio, p.pacienteid, p.nome as nome_paciente, "
+					.prepareStatement("select a.data_atendimento, a.handle_at, a.paciente_pagou, c.handle_convenio, c.nome as nome_convenio, p.pacienteid, p.nome as nome_paciente, "
 							+ "e.valor_correto_convenio, e.valor_correto_paciente, e.valor_correto_exame, u.usrid, u.nm_usuario from atendimento_exames e "
 							
 							+ "inner join atendimentos a on e.handle_at = a.handle_at "
@@ -59,8 +59,28 @@ public class DAOrelatorioDeCaixa {
 				model.setConvenio(resultSet.getString("nome_convenio"));
 				model.setPaciente(resultSet.getString("nome_paciente"));
 				model.setValor_convenio(resultSet.getString("valor_correto_convenio"));
-				model.setValor_paciente(resultSet.getString("valor_correto_paciente"));
-				model.setValor_total(resultSet.getString("valor_correto_exame"));
+				
+				//soma valor do paciente somente se paciente apgou
+				if(resultSet.getInt("paciente_pagou") == 1){
+					model.setValor_paciente(resultSet.getString("valor_correto_paciente"));
+				}else{
+					model.setValor_paciente("0");
+				}
+				
+				//retira do total caso o paciente nao tennha pago
+				if(resultSet.getInt("paciente_pagou") == 1){
+					model.setValor_total(resultSet.getString("valor_correto_exame"));
+				}else{
+					Double valorTotal = Double.valueOf(resultSet.getString("valor_correto_exame"));
+					Double valorPaciente = Double.valueOf(resultSet.getString("valor_correto_paciente"));
+					
+					Double valorCorreto = valorTotal - valorPaciente;
+					
+					model.setValor_total(valorCorreto.toString());
+				}
+				
+				
+				
 				model.setUsuario(resultSet.getString("nm_usuario"));
 				lista.add(model);
 			}
