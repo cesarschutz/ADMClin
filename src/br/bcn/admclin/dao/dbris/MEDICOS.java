@@ -36,6 +36,20 @@ public class MEDICOS {
             return resultSet;
         }
     }
+    
+    public static ResultSet getConsultarPorCRM(Connection con, String crm) {
+        ResultSet resultSet = null;
+        try {
+            PreparedStatement stmtQuery = con.prepareStatement("select * from medicos where crm = ? order by nome");
+            stmtQuery.setString(1, crm);
+            resultSet = stmtQuery.executeQuery();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Médicos. Procure o Administrador.", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return resultSet;
+        }
+    }
 
     /**
      * verificar handle_paciente de um paicente cadastrado no banco de dados

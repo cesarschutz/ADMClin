@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.dao.dbris.Conexao;
@@ -71,7 +72,23 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
                     nomesParaPesquisar[0] + "%" + nomesParaPesquisar[1] + "%" + nomesParaPesquisar[2] + "%"
                         + nomesParaPesquisar[3] + "%";
 
-            ResultSet resultSet = MEDICOS.getConsultar(con, sql);
+            
+            ResultSet resultSet = null;
+            boolean isNumber;
+            try {
+                @SuppressWarnings("unused")
+                int x = Integer.valueOf(nomePesquisado);
+                isNumber = true;
+            } catch (Exception e) {
+                isNumber = false;
+            }
+            
+            if(isNumber){
+            	resultSet = MEDICOS.getConsultarPorCRM(con, nomePesquisado);
+            }else{
+            	resultSet = MEDICOS.getConsultar(con, sql);
+            }
+            		
             try {
                 while (resultSet.next()) {
                     if (resultSet.getInt("medicoid") > 0) {
@@ -192,7 +209,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTFNomeMedico = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
+        jTFNomeMedico = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(64), null, 0);
         jBPesquisaMedico = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         jTFMensagemParaUsuario = new javax.swing.JTextField();
@@ -223,7 +240,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("Nome / CRM");
 
         jTFNomeMedico.setText("jTextField1");
         jTFNomeMedico.addKeyListener(new java.awt.event.KeyAdapter() {
