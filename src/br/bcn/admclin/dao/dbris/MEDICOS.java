@@ -62,6 +62,31 @@ public class MEDICOS {
             return handle_paciente;
         }
     }
+    
+    /**
+     * 
+     * @param Connection
+     * @param PacienteMODEL
+     * @return boolean
+     */
+    public static boolean getConsultarSeMedicoPertenceAoIpe(String nome) {
+        
+        try {
+          	Connection con = Conexao.fazConexaoMedicosIPE();
+            PreparedStatement stmtQuery = con.prepareStatement("select * from medicos where nome=?");
+            stmtQuery.setString(1, nome);
+            ResultSet resultSet = stmtQuery.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }else{
+            	return false;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel consultar medico no ipê. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 
     /**
      * Consulta os dados de um medico exitentes no Banco De Dados.

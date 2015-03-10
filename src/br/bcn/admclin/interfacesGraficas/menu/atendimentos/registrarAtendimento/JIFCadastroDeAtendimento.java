@@ -52,6 +52,7 @@ import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.EXAMES;
+import br.bcn.admclin.dao.dbris.MEDICOS;
 import br.bcn.admclin.dao.dbris.NAGENDAMENTOS;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.dao.model.Areas_atendimento;
@@ -66,6 +67,9 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /*
  * To change this template, choose Tools | Templates
@@ -891,7 +895,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     // ok
     public void botaoSalvar() {
         boolean cadastro = false;
-        if (verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida()) {
+        if (verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida() && verificaMedico()) {
 
             // se pegou o valor do handle_ap ele cadastra
             if (handle_at > 0) {
@@ -1420,6 +1424,12 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jCBConvenio = new javax.swing.JComboBox();
+        jCBConvenio.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusLost(FocusEvent arg0) {
+        		verificaMedico();
+        	}
+        });
         jBIncluirExame = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jCBAreaDeAtendimento = new javax.swing.JComboBox();
@@ -2117,6 +2127,56 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean verificaMedico(){
+    	//se ja selecionou o medico verifica, se nao return true
+    	if(jTFHANDLE_MEDICO_SOL.getText().length() > 0){
+    		return verificaMedConvIpe();
+    	}else{
+    		return true;
+    	}
+    }
+    
+    private boolean verificaMedConvIpe(){
+    	int modeloDeValidacaoMatricula = 0;
+
+        // buscando o modelo de verificaçao da matricula
+        con = Conexao.fazConexao();
+        ResultSet resultSet =
+            ATENDIMENTOS.getConsultarModeloDeValidacaoMatriculaDoConvenio(con,
+                listaHandleConvenio.get(jCBConvenio.getSelectedIndex()));
+        try {
+            while (resultSet.next()) {
+                // colocando dados na tabela
+                modeloDeValidacaoMatricula = resultSet.getInt("validacao_matricula");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                "Não foi possível verificar o Modelo de Validação da Matrícula. Procure o administrador", "ERRO",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            Conexao.fechaConexao(con);
+            return false;
+        }
+        Conexao.fechaConexao(con);
+
+        // se for 0 nao verifica nada
+        if (modeloDeValidacaoMatricula == 0) {
+            return true;
+        } else if (modeloDeValidacaoMatricula == 1) {
+            //se verificaçao de matricula for 1 é pq é ipe, entao verifica o medico
+            if(MEDICOS.getConsultarSeMedicoPertenceAoIpe(jTFMedicoSol.getText())){
+            	return true;
+            }else{
+            	JOptionPane.showMessageDialog(null, "Médico selecionado não pertence ao Convênio Ipê. Verifique as Informações...");
+            	return false;
+            }
+            
+        } else {
+            jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
+            jTFMensagemParaUsuario.setText("Modelo de Validação da Matrícula não é válido. Procure o Administrador.");
+            return false;
+        }
+    }
+    
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCancelarActionPerformed
         if ("livre".equals(horarioLivreOuOcupado) && !cadastrouNovoAtendimento) {
             deletarOAtendimento();
