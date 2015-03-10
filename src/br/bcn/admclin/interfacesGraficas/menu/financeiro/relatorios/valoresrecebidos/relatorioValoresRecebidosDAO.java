@@ -39,7 +39,7 @@ public class relatorioValoresRecebidosDAO {
         Connection con = Conexao.fazConexao();
 
         String sql =
-            "SELECT ATENDIMENTOS.\"HANDLE_AT\" AS ATENDIMENTOS_HANDLE_AT, ATENDIMENTOS.\"DATA_ATENDIMENTO\" AS ATENDIMENTOS_DATA_ATENDIMENTO, PACIENTES.\"NOME\" AS PACIENTES_NOME, EXAMES.\"NOME\" AS EXAMES_NOME, "
+            "SELECT ATENDIMENTOS.\"HANDLE_AT\" AS ATENDIMENTOS_HANDLE_AT, ATENDIMENTOS.PACIENTE_PAGOU,  ATENDIMENTOS.\"DATA_ATENDIMENTO\" AS ATENDIMENTOS_DATA_ATENDIMENTO, PACIENTES.\"NOME\" AS PACIENTES_NOME, EXAMES.\"NOME\" AS EXAMES_NOME, "
                 + "ATENDIMENTO_EXAMES.\"VALOR_CORRETO_PACIENTE\" AS ATENDIMENTO_EXAMES_VALOR_PACIENTE, ATENDIMENTO_EXAMES.\"VALOR_CORRETO_CONVENIO\" AS ATENDIMENTO_EXAMES_VALOR_CORRETO_CONVENIO, "
                 + "ATENDIMENTO_EXAMES.\"VALOR_RECEBIDO_CONVENIO\" AS ATENDIMENTO_EXAMES_VALOR_RECEBI, "
                 + "CONVENIO.\"NOME\" AS CONVENIO_NOME, "
@@ -67,8 +67,15 @@ public class relatorioValoresRecebidosDAO {
             exameRealizado.setCodigo(resultSet.getInt("ATENDIMENTOS_HANDLE_AT"));
             exameRealizado.setPaciente(resultSet.getString("PACIENTES_NOME"));
             exameRealizado.setExame(resultSet.getString("EXAMES_NOME"));
-            exameRealizado.setValorPaciente(MetodosUteis.colocarZeroEmCampoReais(resultSet
-                .getDouble("ATENDIMENTO_EXAMES_VALOR_PACIENTE")));
+            
+            if(resultSet.getInt("paciente_pagou") == 1){
+            	exameRealizado.setValorPaciente(MetodosUteis.colocarZeroEmCampoReais(resultSet
+                        .getDouble("ATENDIMENTO_EXAMES_VALOR_PACIENTE")));
+            }else{
+            	exameRealizado.setValorPaciente(MetodosUteis.colocarZeroEmCampoReais(0.00));
+            }
+            
+            
             exameRealizado.setValorFaturado(MetodosUteis.colocarZeroEmCampoReais(resultSet
                 .getDouble("ATENDIMENTO_EXAMES_VALOR_CORRETO_CONVENIO")));
             exameRealizado.setValorPagoConvenio(MetodosUteis.colocarZeroEmCampoReais(resultSet
