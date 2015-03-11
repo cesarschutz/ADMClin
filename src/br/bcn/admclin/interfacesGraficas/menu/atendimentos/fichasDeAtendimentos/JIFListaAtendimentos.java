@@ -1444,10 +1444,31 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             }
         });
         
-        JMenuItem registrarPagamentoDePaciente = new JMenuItem("Registrar Pag. Pac.", null);
+        final boolean pacientePagou;
+        int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        if(ATENDIMENTOS.getPacientePagou(handle_at) == 1){
+        	pacientePagou = true;
+        }else{
+        	pacientePagou = false;
+        }
+        
+        JMenuItem registrarPagamentoDePaciente;
+        if(pacientePagou){
+        	ImageIcon iconeNaoPago = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/popUpCancelar.png"));
+        	registrarPagamentoDePaciente = new JMenuItem("Definir como NÃO pago", iconeNaoPago);
+        }else{
+        	ImageIcon iconePago = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/sim.png"));
+        	registrarPagamentoDePaciente = new JMenuItem("Definir como pago", iconePago);
+        }
+        
         registrarPagamentoDePaciente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                registrarPagamentoDePaciente();
+            	if(pacientePagou){
+            		registrarPagamentoDePaciente(0);
+            	}else{
+            		registrarPagamentoDePaciente(1);
+            	}
+                
             }
         });
 
@@ -1488,13 +1509,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         popup.add(imprimir);
         popup.add(historiaClinica);
         popup.add(laudo);
-        
-        //coloca possibilidade de registrar pagamento de apciente, caso nao tenha sido pago
-        int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        if(ATENDIMENTOS.getPacientePagou(handle_at) == 0){
-        	popup.addSeparator();
-            popup.add(registrarPagamentoDePaciente);
-        }
+        popup.addSeparator();
+        popup.add(registrarPagamentoDePaciente);
         
 
         // mostra na tela
@@ -1520,9 +1536,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         his.setVisible(true);
     }
 
-    private void registrarPagamentoDePaciente(){
+    private void registrarPagamentoDePaciente(int flag){
     	int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-    	ATENDIMENTOS.setPacientePagou(handle_at);
+    	ATENDIMENTOS.setPacientePagou(handle_at, flag);
     }
     
     private void laudo() {

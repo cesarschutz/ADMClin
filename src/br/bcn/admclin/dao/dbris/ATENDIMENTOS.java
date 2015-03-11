@@ -384,14 +384,16 @@ public class ATENDIMENTOS {
     
     /**
      registra que apciente pagou o que esta pendente
+     o flag 0 é nao e 1 eh sim
      */
-    public static boolean setPacientePagou(int handle_at) {
+    public static boolean setPacientePagou(int handle_at, int flag) {
         boolean cadastro = false;
         Connection con = Conexao.fazConexao();
-        String sql = "update atendimentos set paciente_pagou = ? where handle_at=" + handle_at;
+        String sql = "update atendimentos set paciente_pagou = ?, usuarioid = ? where handle_at=" + handle_at;
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, 1);
+            stmt.setInt(1, flag);
+            stmt.setInt(2, USUARIOS.usrId);
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
