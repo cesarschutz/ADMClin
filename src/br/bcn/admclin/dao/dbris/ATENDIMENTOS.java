@@ -230,7 +230,7 @@ public class ATENDIMENTOS {
         String sql =
             "update atendimentos set data_atendimento=?, dat=?, data_exame_pronto=?, "
                 + "handle_paciente=?, handle_medico_sol=?, handle_convenio=?, hora_atendimento=?, duracao_atendimento=?, usuarioid=?, "
-                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, ID_AREAS_ATENDIMENTO = ?, nagenid = ?, paciente_pagou = ? where handle_at=?";
+                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, ID_AREAS_ATENDIMENTO = ?, nagenid = ?, paciente_pagou = ?, data_pagamento_paciente = ? where handle_at=?";
         try {
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -254,7 +254,11 @@ public class ATENDIMENTOS {
             
             stmt.setInt(16, atendimento.getPaciente_pagou());
             
-            stmt.setInt(17, atendimento.getHANDLE_AT());
+            Date dataPagamentoPacienteAtual = new Date(new java.util.Date().getTime());
+            stmt.setDate(17, dataPagamentoPacienteAtual);
+            
+            
+            stmt.setInt(18, atendimento.getHANDLE_AT());
 
             stmt.executeUpdate();
             stmt.close();
@@ -273,7 +277,7 @@ public class ATENDIMENTOS {
         String sql =
             "update atendimentos set data_atendimento=?, dat=?, data_exame_pronto=?, "
                 + "handle_paciente=?, handle_medico_sol=?, handle_convenio=?, hora_atendimento=?, duracao_atendimento=?, usuarioid=?, "
-                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, ID_AREAS_ATENDIMENTO = ?, paciente_pagou = ? where handle_at=?";
+                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, ID_AREAS_ATENDIMENTO = ? where handle_at=?";
         try {
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -294,9 +298,7 @@ public class ATENDIMENTOS {
             stmt.setInt(13, atendimento.getHORA_EXAME_PRONTO());
             stmt.setInt(14, atendimento.getID_AREAS_ATENDIMENTO());
             
-            stmt.setInt(15, atendimento.getPaciente_pagou());
-            
-            stmt.setInt(16, atendimento.getHANDLE_AT());
+            stmt.setInt(15, atendimento.getHANDLE_AT());
 
             stmt.executeUpdate();
             stmt.close();
@@ -389,11 +391,15 @@ public class ATENDIMENTOS {
     public static boolean setPacientePagou(int handle_at, int flag) {
         boolean cadastro = false;
         Connection con = Conexao.fazConexao();
-        String sql = "update atendimentos set paciente_pagou = ?, usuarioid = ? where handle_at=" + handle_at;
+        String sql = "update atendimentos set paciente_pagou = ?, usuarioid = ?, data_pagamento_paciente = ?  where handle_at=" + handle_at;
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, flag);
             stmt.setInt(2, USUARIOS.usrId);
+            
+            Date dataPagamentoPacienteAtual = new Date(new java.util.Date().getTime());
+            stmt.setDate(3, dataPagamentoPacienteAtual);
+            
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
