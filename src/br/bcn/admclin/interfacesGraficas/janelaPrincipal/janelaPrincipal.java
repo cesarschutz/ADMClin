@@ -1123,7 +1123,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 
                 RISIP = System.getenv("RISIP");
                 RISDB = System.getenv("RISDB");
-                RISDBMEDIPE = System.getenv("RISDBMEDIPE");
                 PACDB = System.getenv("PACDB");
                 NOMEPORTAL = System.getenv("NOMEPORTAL");
 

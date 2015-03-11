@@ -86,8 +86,8 @@ public class MEDICOS {
     public static boolean getConsultarSeMedicoPertenceAoIpe(String nome) {
         
         try {
-          	Connection con = Conexao.fazConexaoMedicosIPE();
-            PreparedStatement stmtQuery = con.prepareStatement("select * from medicos where nome=?");
+          	Connection con = Conexao.fazConexao();
+            PreparedStatement stmtQuery = con.prepareStatement("select * from medicosipe where nome=?");
             stmtQuery.setString(1, nome);
             ResultSet resultSet = stmtQuery.executeQuery();
             if (resultSet.next()) {

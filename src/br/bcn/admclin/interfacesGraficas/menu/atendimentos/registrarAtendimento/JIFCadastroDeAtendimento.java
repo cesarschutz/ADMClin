@@ -918,7 +918,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     // ok
     public void botaoSalvar() {
         boolean cadastro = false;
-        if (verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida() && verificaMedico()) {
+        if (verificaMedico() && verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida()) {
 
             // se pegou o valor do handle_ap ele cadastra
             if (handle_at > 0) {
@@ -2203,8 +2203,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             if(MEDICOS.getConsultarSeMedicoPertenceAoIpe(jTFMedicoSol.getText())){
             	return true;
             }else{
-            	JOptionPane.showMessageDialog(null, "Médico selecionado não pertence ao Convênio Ipê. Verifique as Informações...");
-            	return false;
+            	int resposta = JOptionPane.showConfirmDialog(null, "Médico selecionado não pertence ao Convênio Ipê. Deseja Continuar?");
+            	if(resposta == JOptionPane.YES_OPTION){
+            		return true;
+            	}else{
+            		return false;
+            	}
+            	
             }
             
         } else {
