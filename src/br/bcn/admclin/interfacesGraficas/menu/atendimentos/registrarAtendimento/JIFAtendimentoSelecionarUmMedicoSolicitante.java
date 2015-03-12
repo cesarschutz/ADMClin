@@ -146,6 +146,7 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
         this.dispose();
         janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
         janelaPrincipal.internalFrameAtendimento.setVisible(true);
+        janelaPrincipal.internalFrameAtendimento.verificaMedicoSemAlerta();
 
     }
 

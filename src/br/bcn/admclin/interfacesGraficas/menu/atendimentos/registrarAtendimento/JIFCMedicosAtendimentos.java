@@ -299,6 +299,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         //} else {
         //    janelaPrincipal.internalFrameAgendaPrincipal.setVisible(true);
             janelaPrincipal.internalFrameAtendimento.setVisible(true);
+            
         //}
 
         JIFCadastroDeAtendimento.jTFMedicoSol.setText(jTFNome.getText());
@@ -306,6 +307,8 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
         JIFCadastroDeAtendimento.handle_medico_sol = Integer.valueOf(medicoId);
+        
+        janelaPrincipal.internalFrameAtendimento.verificaMedicoSemAlerta();
     }
 
     /**

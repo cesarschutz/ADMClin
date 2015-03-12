@@ -918,7 +918,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     // ok
     public void botaoSalvar() {
         boolean cadastro = false;
-        if (verificaMedico() && verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida()) {
+        if ( verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida() && verificaMedicoComAlerta()) {
 
             // se pegou o valor do handle_ap ele cadastra
             if (handle_at > 0) {
@@ -1454,12 +1454,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jCBConvenio = new javax.swing.JComboBox();
-        jCBConvenio.addFocusListener(new FocusAdapter() {
-        	@Override
-        	public void focusLost(FocusEvent arg0) {
-        		verificaMedico();
-        	}
-        });
+       
         jBIncluirExame = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jCBAreaDeAtendimento = new javax.swing.JComboBox();
@@ -2164,16 +2159,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean verificaMedico(){
-    	//se ja selecionou o medico verifica, se nao return true
-    	if(jTFHANDLE_MEDICO_SOL.getText().length() > 0){
-    		return verificaMedConvIpe();
-    	}else{
-    		return true;
-    	}
-    }
-    
-    private boolean verificaMedConvIpe(){
+    private boolean getValidacaoIpe(){
     	int modeloDeValidacaoMatricula = 0;
 
         // buscando o modelo de verificaçao da matricula
@@ -2185,7 +2171,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             while (resultSet.next()) {
                 // colocando dados na tabela
                 modeloDeValidacaoMatricula = resultSet.getInt("validacao_matricula");
+                if(modeloDeValidacaoMatricula == 1){
+                	Conexao.fechaConexao(con);
+                	return true;
+                }
             }
+            Conexao.fechaConexao(con);
+            return false;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
                 "Não foi possível verificar o Modelo de Validação da Matrícula. Procure o administrador", "ERRO",
@@ -2193,30 +2185,49 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             Conexao.fechaConexao(con);
             return false;
         }
-        Conexao.fechaConexao(con);
-
-        // se for 0 nao verifica nada
-        if (modeloDeValidacaoMatricula == 0) {
-            return true;
-        } else if (modeloDeValidacaoMatricula == 1) {
-            //se verificaçao de matricula for 1 é pq é ipe, entao verifica o medico
-            if(MEDICOS.getConsultarSeMedicoPertenceAoIpe(jTFMedicoSol.getText())){
+        
+    }
+    
+    private boolean verificaMedicoComAlerta(){
+    	//se ja selecionou o medico verifica, se nao return true
+    	if(jTFHANDLE_MEDICO_SOL.getText().length() > 0){
+    		if (getValidacaoIpe()) {
+                
+                if(MEDICOS.getConsultarSeMedicoPertenceAoIpe(jTFMedicoSol.getText())){
+                	return true;
+                }else{
+                	int resposta = JOptionPane.showConfirmDialog(null, "Médico selecionado não pertence ao Convênio Ipê. Deseja Continuar?");
+                	if(resposta == JOptionPane.YES_OPTION){
+                		return true;
+                	}else{
+                		return false;
+                	}
+                }
+                
+            } else{
             	return true;
-            }else{
-            	int resposta = JOptionPane.showConfirmDialog(null, "Médico selecionado não pertence ao Convênio Ipê. Deseja Continuar?");
-            	if(resposta == JOptionPane.YES_OPTION){
-            		return true;
-            	}else{
-            		return false;
-            	}
-            	
             }
-            
-        } else {
-            jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
-            jTFMensagemParaUsuario.setText("Modelo de Validação da Matrícula não é válido. Procure o Administrador.");
-            return false;
-        }
+    	}else{
+    		return true;
+    	}
+    }
+    
+    public void verificaMedicoSemAlerta(){
+    	
+    	if(jTFHANDLE_MEDICO_SOL.getText().length() > 0){
+    		if (getValidacaoIpe()) {
+                if(!MEDICOS.getConsultarSeMedicoPertenceAoIpe(jTFMedicoSol.getText())){
+                	jTFMensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
+                    jTFMensagemParaUsuario.setText("Médico não pertence ao convênio Ipê.");
+                }else{
+                	jTFMensagemParaUsuario.setText("");
+                }
+            }else{
+            	jTFMensagemParaUsuario.setText("");
+            }
+    	}else{
+    		jTFMensagemParaUsuario.setText("");
+    	}
     }
     
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCancelarActionPerformed
@@ -2281,6 +2292,9 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         if (jCBConvenio.getSelectedIndex() != 0) {
             int indexDoConvenio = jCBConvenio.getSelectedIndex();
             int handle_convenio = listaHandleConvenio.get(indexDoConvenio);
+            
+            //verifica se o medico esta correto em relacao ao convenio ipe
+            verificaMedicoSemAlerta();
 
             // preenchendo os exames
             con = Conexao.fazConexao();
@@ -2709,8 +2723,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     }// GEN-LAST:event_jTFPacienteFocusLost
 
     private void jTFMedicoSolFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFMedicoSolFocusLost
-        jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
-        jTFMensagemParaUsuario.setText("");
+        
     }// GEN-LAST:event_jTFMedicoSolFocusLost
 
     private void jBPesquisaPacienteKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jBPesquisaPacienteKeyPressed
