@@ -1565,8 +1565,13 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                     
                 }
             });
+            
+            JMenuItem valor = new JMenuItem("Valor: R$ " + ATENDIMENTO_EXAMES.getValorTotalPacienteDeUmAtendimento(handle_at));
+            valor.setEnabled(false);
         	
             JPopupMenu popup = new JPopupMenu();
+            popup.add(valor);
+            popup.addSeparator();
             popup.add(registrarPagamentoDePaciente);
             
 

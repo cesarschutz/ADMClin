@@ -148,4 +148,26 @@ public class ATENDIMENTO_EXAMES {
         stmt.close();
         st.close();
     }
+
+    public static String getValorTotalPacienteDeUmAtendimento(int handle_at){
+    	Connection con = Conexao.fazConexao();
+    	ResultSet resultSet = null;
+        try {
+            PreparedStatement stmtQuery =
+                con.prepareStatement("select valor_correto_paciente from atendimento_exames "
+                    + "where handle_at = ? order by numero_sequencia");
+            stmtQuery.setInt(1, handle_at);
+            resultSet = stmtQuery.executeQuery();
+            
+            Double valorTotal = 0.0;
+            while(resultSet.next()){
+            	valorTotal = valorTotal + resultSet.getDouble("valor_correto_paciente");
+            }
+            return valorTotal.toString();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Valor do Paciente. Procure o Administrador.",
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return "0,00";
+        } 
+    }
 }
