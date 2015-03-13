@@ -40,6 +40,7 @@ import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.JIFCPacientesAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.registrarAtendimento.jIFAlterarValorDeExame;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.relatoriodecaixa.JIFRelatorioDeCaixa;
+import br.bcn.admclin.interfacesGraficas.menu.atendimentos.relatoriodecaixa.JIFRelatorioDeMovimentos;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaDesc;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroAgendaVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.agenda.JIFCadastroBloqueio;
@@ -138,6 +139,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFListaAgendamentos internalFrameListaDeAgendamentos;
     public static JIFCadastroBloqueio internalFrameCadastroDeBloqueiosAgenda;
     public static JIFRelatorioDeCaixa internalFrameRelatorioDeCaixa;
+    public static JIFRelatorioDeMovimentos internalFrameRelatorioDeMovimento;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -596,6 +598,24 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         mntmRelatrioDeCaixa.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/financeiroAtendimentos.png")));
         jMenu1.add(mntmRelatrioDeCaixa);
+        
+        mntmRelatrioDeMovimento = new JMenuItem("Relatório de Movimento");
+        mntmRelatrioDeMovimento.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		fechandoTodosOsInternalFrames();
+
+        		internalFrameRelatorioDeMovimento = new JIFRelatorioDeMovimentos();
+                jDesktopPane1.add(internalFrameRelatorioDeMovimento);
+                internalFrameRelatorioDeMovimento.setVisible(true);
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFrameRelatorioDeMovimento.getWidth();
+                int aIFrame = internalFrameRelatorioDeMovimento.getHeight();
+
+                internalFrameRelatorioDeMovimento.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        	}
+        });
+        jMenu1.add(mntmRelatrioDeMovimento);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
             "/br/bcn/admclin/imagens/menuAtendimentosConsultaValoresDeExames.png"))); // NOI18N
@@ -1166,4 +1186,5 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private JMenuItem mntmRelatrioDeMovimento;
 }
