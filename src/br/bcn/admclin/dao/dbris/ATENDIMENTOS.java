@@ -277,7 +277,7 @@ public class ATENDIMENTOS {
         String sql =
             "update atendimentos set data_atendimento=?, dat=?, data_exame_pronto=?, "
                 + "handle_paciente=?, handle_medico_sol=?, handle_convenio=?, hora_atendimento=?, duracao_atendimento=?, usuarioid=?, "
-                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, ID_AREAS_ATENDIMENTO = ? where handle_at=?";
+                + "observacao=?, matricula_convenio=?, COMPLEMENTO=?, hora_exame_pronto=?, ID_AREAS_ATENDIMENTO = ?, paciente_pagou = ?, data_pagamento_paciente = ? where handle_at=?";
         try {
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -298,7 +298,12 @@ public class ATENDIMENTOS {
             stmt.setInt(13, atendimento.getHORA_EXAME_PRONTO());
             stmt.setInt(14, atendimento.getID_AREAS_ATENDIMENTO());
             
-            stmt.setInt(15, atendimento.getHANDLE_AT());
+            stmt.setInt(15, atendimento.getPaciente_pagou());
+            
+            Date dataPagamentoPacienteAtual = new Date(new java.util.Date().getTime());
+            stmt.setDate(16, dataPagamentoPacienteAtual);
+            
+            stmt.setInt(17, atendimento.getHANDLE_AT());
 
             stmt.executeUpdate();
             stmt.close();

@@ -254,7 +254,6 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     public JIFCadastroDeAtendimento(int handle_at, String data, String hora) {
         initComponents();
         con = Conexao.fazConexao();
-        jCBPacientePagou.setVisible(false);
         veioDaPesquisa = true;
         this.handle_at = handle_at;
         // buscando o handle_agenda do atendimento
