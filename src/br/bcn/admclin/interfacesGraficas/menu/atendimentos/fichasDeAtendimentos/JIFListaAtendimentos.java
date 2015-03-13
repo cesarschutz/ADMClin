@@ -199,7 +199,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     }
 
     private void iniciarClasse() {
-        // arrumando formatação do data picker
+    	// arrumando formatação do data picker
         jXDatePicker1.setFormats(new String[] { "E dd/MM/yyyy" });
         jXDatePicker1.setLinkDate(System.currentTimeMillis(), "Hoje");
 
@@ -223,6 +223,10 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         TableCellRenderer tcrColuna8 = new ColunaAceitandoIcone();
         TableColumn column8 = jTable1.getColumnModel().getColumn(8);
         column8.setCellRenderer(tcrColuna8);
+        
+        TableCellRenderer tcrColuna9 = new ColunaAceitandoIcone();
+        TableColumn column9 = jTable1.getColumnModel().getColumn(9);
+        column9.setCellRenderer(tcrColuna9);
 
         // tamanho das colunas
         jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
@@ -235,6 +239,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(6).setMaxWidth(60);
         jTable1.getColumnModel().getColumn(7).setMaxWidth(60);
         jTable1.getColumnModel().getColumn(8).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(9).setMaxWidth(65);
 
         // alinhando conteudo da coluna de uma tabela
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -289,8 +294,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 } else if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE) && !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
                     entrega = "1";
                 }
+                int pacientePagou = resultSet.getInt("paciente_pagou");
                 modelo.addRow(new Object[] { handle_at, "", hora_atendimento, nomePaciente, nomeMedico,
-                    crmMedico, status1, status2, entrega });
+                    crmMedico, status1, status2, entrega, pacientePagou });
             }
 
             salvandoInformacoesDaTabelaNoArray();
@@ -621,7 +627,27 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             } catch (Exception e) {
             }
         }
+        
+     // icone de pagamento do paciente
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            try {
+                int status1 = Integer.valueOf(String.valueOf(jTable1.getValueAt(i, 9)));
+                // nao pago
+                if (status1 == 0) {
+                	
+                    jTable1.setValueAt(iconePacienteNaoPagou, i, 9);
+                }
+                // pago
+                if (status1 == 1) {
+                	
+                    jTable1.setValueAt(iconePacientePagou, i, 9);
+                }
+            } catch (Exception e) {
+            }
+        }
     }
+    ImageIcon iconePacienteNaoPagou = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/nao.png"));
+    ImageIcon iconePacientePagou = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/menuRecebimentoDeConvenios.png"));
 
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
@@ -667,19 +693,50 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         jXDatePicker1.setRequestFocusEnabled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-            { null, null, null, null, null, null, null, null, null },
-            { null, null, null, null, null, null, null, null, null },
-            { null, null, null, null, null, null, null, null, null },
-            { null, null, null, null, null, null, null, null, null } }, new String[] { "Código", "Mod.", "Hora",
-            "Paciente", "Médico Solicitante", "CRM", "Status A.", "Status P.", "Entrega" }) {
-            private static final long serialVersionUID = 1L;
-            boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
+        jTable1.setModel(new DefaultTableModel(
+        	new Object[][] {
+        		{null, null, null, null, null, null, null, null, null, null},
+        		{null, null, null, null, null, null, null, null, null, null},
+        		{null, null, null, null, null, null, null, null, null, null},
+        		{null, null, null, null, null, null, null, null, null, null},
+        	},
+        	new String[] {
+        		"C\u00F3digo", "Mod.", "Hora", "Paciente", "M\u00E9dico Solicitante", "CRM", "Status A.", "Status P.", "Entrega", "Pac. Pag."
+        	}
+        ) {
+        	boolean[] columnEditables = new boolean[] {
+        		false, true, false, false, false, false, false, false, false, false
+        	};
+        	public boolean isCellEditable(int row, int column) {
+        		return columnEditables[column];
+        	}
         });
+        jTable1.getColumnModel().getColumn(0).setResizable(false);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(15);
+        jTable1.getColumnModel().getColumn(1).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(38);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(45);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(45);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(105);
+        jTable1.getColumnModel().getColumn(5).setMaxWidth(105);
+        jTable1.getColumnModel().getColumn(6).setResizable(false);
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(6).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(7).setResizable(false);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(7).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(8).setResizable(false);
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(8).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(9).setResizable(false);
+        jTable1.getColumnModel().getColumn(9).setPreferredWidth(70);
+        jTable1.getColumnModel().getColumn(9).setMaxWidth(70);
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -941,9 +998,6 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
             jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-
-        jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
-        jTable1.getColumnModel().getColumn(1).setMinWidth(0);
         jTable1.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
         jTable1.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
         
@@ -1204,7 +1258,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
             } else if (colunaClicada == 8) {
                 abrirPopUpEntregue(evt);
-            } else {
+            }else if(colunaClicada == 9){
+            	abrirPopUpPagamentoPaciente(evt);
+            }else {
                 abrirPopUpMenu(evt);
             }
         }
@@ -1444,33 +1500,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             }
         });
         
-        final boolean pacientePagou;
-        int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        if(ATENDIMENTOS.getPacientePagou(handle_at) == 1){
-        	pacientePagou = true;
-        }else{
-        	pacientePagou = false;
-        }
         
-        JMenuItem registrarPagamentoDePaciente;
-        if(pacientePagou){
-        	ImageIcon iconeNaoPago = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/popUpCancelar.png"));
-        	registrarPagamentoDePaciente = new JMenuItem("Definir como NÃO pago", iconeNaoPago);
-        }else{
-        	ImageIcon iconePago = new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/sim.png"));
-        	registrarPagamentoDePaciente = new JMenuItem("Definir como pago", iconePago);
-        }
-        
-        registrarPagamentoDePaciente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	if(pacientePagou){
-            		registrarPagamentoDePaciente(0);
-            	}else{
-            		registrarPagamentoDePaciente(1);
-            	}
-                
-            }
-        });
 
         // Historia Clinica
         JMenuItem historiaClinica = new JMenuItem("Historia Clínica", iconeHistoriaClinica);
@@ -1509,8 +1539,6 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         popup.add(imprimir);
         popup.add(historiaClinica);
         popup.add(laudo);
-        popup.addSeparator();
-        popup.add(registrarPagamentoDePaciente);
         
 
         // mostra na tela
@@ -1520,6 +1548,47 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         popup.show(jTable1, x, y);
     }
 
+    private void abrirPopUpPagamentoPaciente(MouseEvent evt){
+    	
+    	final boolean pacientePagou;
+        int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        if(ATENDIMENTOS.getPacientePagou(handle_at) == 1){
+        	pacientePagou = true;
+        }else{
+        	pacientePagou = false;
+        }
+        
+        JMenuItem registrarPagamentoDePaciente;
+        if(pacientePagou){
+        	registrarPagamentoDePaciente = new JMenuItem("Definir como NÃO pago", iconePacienteNaoPagou);
+        }else{
+        	registrarPagamentoDePaciente = new JMenuItem("Definir como pago", iconePacientePagou);
+        }
+        
+        registrarPagamentoDePaciente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	if(pacientePagou){
+            		registrarPagamentoDePaciente(0);
+            		jTable1.setValueAt(iconePacienteNaoPagou, jTable1.getSelectedRow(), 9);
+            	}else{
+            		registrarPagamentoDePaciente(1);
+            		jTable1.setValueAt(iconePacientePagou, jTable1.getSelectedRow(), 9);
+            	}
+                
+            }
+        });
+    	
+        JPopupMenu popup = new JPopupMenu();
+        popup.add(registrarPagamentoDePaciente);
+        
+
+        // mostra na tela
+        // mostra na tela
+        int x = evt.getX();
+        int y = evt.getY();
+        popup.show(jTable1, x, y);
+    	
+    }
     private void historiaClincia() {
         // pegando o handle_at
         int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));

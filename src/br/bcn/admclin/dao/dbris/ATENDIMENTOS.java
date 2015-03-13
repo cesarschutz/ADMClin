@@ -126,7 +126,7 @@ public class ATENDIMENTOS {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select p.nome as nomePaciente, m.nome as nomeMedico, m.crm as crmMedico, a.handle_at, a.data_atendimento, a.hora_atendimento, a.status1, a.status2, a.EXAME_ENTREGUE_AO_PACIENTE, a.LAUDO_ENTREGUE_AO_PACIENTE from atendimentos A "
+                con.prepareStatement("select p.nome as nomePaciente, m.nome as nomeMedico, m.crm as crmMedico, a.handle_at, a.data_atendimento, a.hora_atendimento, a.status1, a.status2, a.EXAME_ENTREGUE_AO_PACIENTE, a.LAUDO_ENTREGUE_AO_PACIENTE, a.paciente_pagou from atendimentos A "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoId "
                     + "inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "where data_atendimento=? order by hora_atendimento");
