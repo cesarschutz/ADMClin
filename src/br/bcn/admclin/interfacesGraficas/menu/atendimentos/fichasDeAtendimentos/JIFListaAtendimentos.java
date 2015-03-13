@@ -1552,41 +1552,32 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     	
     	final boolean pacientePagou;
         int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        if(ATENDIMENTOS.getPacientePagou(handle_at) == 1){
-        	pacientePagou = true;
-        }else{
-        	pacientePagou = false;
-        }
         
-        JMenuItem registrarPagamentoDePaciente;
-        if(pacientePagou){
-        	registrarPagamentoDePaciente = new JMenuItem("Definir como NÃO pago", iconePacienteNaoPagou);
-        }else{
-        	registrarPagamentoDePaciente = new JMenuItem("Definir como pago", iconePacientePagou);
-        }
-        
-        registrarPagamentoDePaciente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	if(pacientePagou){
-            		registrarPagamentoDePaciente(0);
-            		jTable1.setValueAt(iconePacienteNaoPagou, jTable1.getSelectedRow(), 9);
-            	}else{
-            		registrarPagamentoDePaciente(1);
-            		jTable1.setValueAt(iconePacientePagou, jTable1.getSelectedRow(), 9);
-            	}
-                
-            }
-        });
-    	
-        JPopupMenu popup = new JPopupMenu();
-        popup.add(registrarPagamentoDePaciente);
-        
+        //se paciente nao pagou abre popup
+        if(ATENDIMENTOS.getPacientePagou(handle_at) == 0){
+        	JMenuItem registrarPagamentoDePaciente = registrarPagamentoDePaciente = new JMenuItem("Definir como pago", iconePacientePagou);
+            
+            registrarPagamentoDePaciente.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                	
+                		registrarPagamentoDePaciente(1);
+                		jTable1.setValueAt(iconePacientePagou, jTable1.getSelectedRow(), 9);
+                    
+                }
+            });
+        	
+            JPopupMenu popup = new JPopupMenu();
+            popup.add(registrarPagamentoDePaciente);
+            
 
-        // mostra na tela
-        // mostra na tela
-        int x = evt.getX();
-        int y = evt.getY();
-        popup.show(jTable1, x, y);
+            // mostra na tela
+            // mostra na tela
+            int x = evt.getX();
+            int y = evt.getY();
+            popup.show(jTable1, x, y);
+        }
+        
+        
     	
     }
     private void historiaClincia() {
