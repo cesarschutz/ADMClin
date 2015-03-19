@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -41,18 +44,52 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         this.handle_at = handle_at;
     }
     
+    /**
+     * metodo antigo
+     * 
     private void instanciarImpressora(){
         if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
             imprimir = new ESCPrinter(nomeDoArquivo, true);
         }else{
         	String[] list = {"1", "2"}; 
-        	JComboBox jcb = new JComboBox(list);  
+        	JComboBox jcb = new JComboBox<>();  
         	JOptionPane.showMessageDialog( null, jcb, "Selecione a impressora desejada:", JOptionPane.QUESTION_MESSAGE);
         	String impressoraParaImpressao = USUARIOS.impressora_nota_fiscal + jcb.getSelectedItem().toString();
         	JOptionPane.showMessageDialog(null, impressoraParaImpressao);
         	
             imprimir = new ESCPrinter(USUARIOS.impressora_nota_fiscal, true);
         }
+    }
+    */
+    
+    private void instanciarImpressora(){
+        
+    	//preenche as impressoras no combo box
+        	String[] list = {"1", "2"}; 
+        	JComboBox<String> jcb = new JComboBox<>();  
+        	for (String impressora : buscarImpressoras()) {
+				jcb.addItem(impressora);
+			}
+        	
+        	JOptionPane.showMessageDialog( null, jcb, "Selecione a impressora desejada:", JOptionPane.QUESTION_MESSAGE);
+        	
+        	//cria o nome da impressora
+        	String impressoraParaImpressao = USUARIOS.impressora_nota_fiscal + jcb.getSelectedItem().toString();
+        	
+        	//instancia a impressora
+            imprimir = new ESCPrinter(USUARIOS.impressora_nota_fiscal, true);
+
+    }
+    
+    private ArrayList<String> buscarImpressoras(){
+    	ArrayList<String> listaRetorno = new ArrayList<>();
+    	
+    	DocFlavor dflavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+    	 PrintService[] impressoras = PrintServiceLookup.lookupPrintServices(dflavor, null);
+         for(PrintService ps : impressoras){
+             listaRetorno.add(ps.getName());
+         }
+         return listaRetorno;
     }
     
     private void imprimirNotaCasoSejaLinux() throws IOException{
