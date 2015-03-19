@@ -65,7 +65,6 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
     private void instanciarImpressora(){
         
     	//preenche as impressoras no combo box
-        	String[] list = {"1", "2"}; 
         	JComboBox<String> jcb = new JComboBox<>();  
         	for (String impressora : buscarImpressoras()) {
 				jcb.addItem(impressora);
@@ -77,7 +76,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         	String impressoraParaImpressao = USUARIOS.impressora_nota_fiscal + jcb.getSelectedItem().toString();
         	
         	//instancia a impressora
-            imprimir = new ESCPrinter(USUARIOS.impressora_nota_fiscal, true);
+            imprimir = new ESCPrinter(impressoraParaImpressao, true);
 
     }
     
@@ -94,7 +93,19 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
     
     private void imprimirNotaCasoSejaLinux() throws IOException{
         if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
-            Runtime.getRuntime().exec("lpr -P " + USUARIOS.impressora_nota_fiscal + " " + nomeDoArquivo);  
+        	//preenche as impressoras no combo box
+        	JComboBox<String> jcb = new JComboBox<>();  
+        	for (String impressora : buscarImpressoras()) {
+				jcb.addItem(impressora);
+			}
+        	
+        	JOptionPane.showMessageDialog( null, jcb, "Selecione a impressora desejada:", JOptionPane.QUESTION_MESSAGE);
+        	
+        	//cria o nome da impressora
+        	String impressoraParaImpressao = USUARIOS.impressora_nota_fiscal + jcb.getSelectedItem().toString();
+        	
+        	//imprime
+            Runtime.getRuntime().exec("lpr -P " + impressoraParaImpressao + " " + nomeDoArquivo);  
         }
     }
 
