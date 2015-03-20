@@ -49,6 +49,7 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaCodigoDeBarrasModelo2
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
@@ -1560,8 +1561,24 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             registrarPagamentoDePaciente.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                 	
+                	
+                	
                 		registrarPagamentoDePaciente(1);
                 		jTable1.setValueAt(iconePacientePagou, jTable1.getSelectedRow(), 9);
+                		
+                		int retorno = JOptionPane.showConfirmDialog(null, "Deseja imprimir nota?");
+                		if(retorno == JOptionPane.YES_OPTION){
+                			int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+                			ImprimirNotaFiscalDoPacienteModelo2 imprimir = new ImprimirNotaFiscalDoPacienteModelo2(handle_at);
+                            boolean imprimiu = imprimir.imprimir();
+
+                            if (imprimiu) {
+                                // aqui colocar o flag_imprimiu como "S"
+                                con = Conexao.fazConexao();
+                                ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
+                                Conexao.fechaConexao(con);
+                            }
+                		}
                     
                 }
             });

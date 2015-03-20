@@ -1058,7 +1058,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     // agora sumir o botao imprimir boleto de retirada do modelo 2 (sai junto com a ficha)
                     if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
                         jBImprimirFicha.setVisible(true);
-                        jBImprimirNotaFiscal.setVisible(true);
+                        if(jCBPacientePagou.isSelected()){
+                        	jBImprimirNotaFiscal.setVisible(true);
+                        }
+                        
                     }
                     // aqui vamos sumir o botao imprimir nota fiscal e o boleto de retirada que sai junto com a ficha
                     if(janelaPrincipal.modeloDeImpressao == 4){
