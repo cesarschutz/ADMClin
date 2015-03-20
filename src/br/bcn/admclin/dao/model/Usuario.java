@@ -21,6 +21,7 @@ public class Usuario {
     private String envia_email;
     private String impressora_ficha;
     private String impressora_nota_fiscal;
+    private String impressora_nota_fiscal_2;
     private String impressora_etiqueta_envelope;
     private String impressora_codigo_de_barras;
     private String pasta_raiz;
@@ -113,8 +114,17 @@ public class Usuario {
     public void setImpressora_nota_fiscal(String impressora_nota_fiscal) {
         this.impressora_nota_fiscal = impressora_nota_fiscal;
     }
+   
 
-    public String getImpressora_etiqueta_envelope() {
+    public String getImpressora_nota_fiscal_2() {
+		return impressora_nota_fiscal_2;
+	}
+
+	public void setImpressora_nota_fiscal_2(String impressora_nota_fiscal_2) {
+		this.impressora_nota_fiscal_2 = impressora_nota_fiscal_2;
+	}
+
+	public String getImpressora_etiqueta_envelope() {
         return impressora_etiqueta_envelope;
     }
 

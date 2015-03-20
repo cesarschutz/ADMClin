@@ -97,6 +97,7 @@ public class JIFCUsuariosVisualizar extends javax.swing.JInternalFrame {
                 usuarioModel.setImpressora_ficha(resultSet.getString("IMPRESSORA_FICHA"));
                 usuarioModel.setImpressora_etiqueta_envelope(resultSet.getString("IMPRESSORA_ETIQUETA_ENVELOPE"));
                 usuarioModel.setImpressora_nota_fiscal(resultSet.getString("IMPRESSORA_NOTA_FISCAL"));
+                usuarioModel.setImpressora_nota_fiscal_2(resultSet.getString("IMPRESSORA_NOTA_FISCAL_2"));
                 usuarioModel.setPasta_raiz(resultSet.getString("PASTA_RAIZ"));
                 usuarioModel.setImpressora_codigo_de_barras(resultSet.getString("IMPRESSORA_CODIGO_DE_BARRAS"));
                 listaUsuarios.add(usuarioModel);

@@ -21,6 +21,7 @@ public class USUARIOS {
     public static boolean senhaAssinaturaConferida = false;
     public static String impressora_ficha = null;
     public static String impressora_nota_fiscal = null;
+    public static String impressora_nota_fiscal_2 = null;
     public static String impressora_etiqueta_envelope = null;
     public static String impressora_codigo_de_barras = null;
     public static String pasta_raiz = "-";
@@ -82,7 +83,7 @@ public class USUARIOS {
      * @throws SQLException 
      */
     public static boolean setCadastrar(Connection con, Usuario usuario) throws SQLException{
-        String sql = "insert into USUARIOS (DS_UNIDADE,NM_USUARIO,PW_SENHA,FG_ESTATUS,EMAIL,ENVIA_EMAILS, usuarioid, dat, IMPRESSORA_FICHA, IMPRESSORA_NOTA_FISCAL, IMPRESSORA_ETIQUETA_ENVELOPE, PASTA_RAIZ, IMPRESSORA_CODIGO_DE_BARRAS) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into USUARIOS (DS_UNIDADE,NM_USUARIO,PW_SENHA,FG_ESTATUS,EMAIL,ENVIA_EMAILS, usuarioid, dat, IMPRESSORA_FICHA, IMPRESSORA_NOTA_FISCAL, IMPRESSORA_NOTA_FISCAL_2, IMPRESSORA_ETIQUETA_ENVELOPE, PASTA_RAIZ, IMPRESSORA_CODIGO_DE_BARRAS) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, usuario.getDescricao());
         stmt.setString(2, usuario.getUsuario());
@@ -94,9 +95,10 @@ public class USUARIOS {
         stmt.setDate(8, usuario.getDat());
         stmt.setString(9, usuario.getImpressora_ficha());
         stmt.setString(10, usuario.getImpressora_nota_fiscal());
-        stmt.setString(11, usuario.getImpressora_etiqueta_envelope());
-        stmt.setString(12, usuario.getPasta_raiz());
-        stmt.setString(13, usuario.getImpressora_codigo_de_barras());
+        stmt.setString(11, usuario.getImpressora_nota_fiscal_2());
+        stmt.setString(12, usuario.getImpressora_etiqueta_envelope());
+        stmt.setString(13, usuario.getPasta_raiz());
+        stmt.setString(14, usuario.getImpressora_codigo_de_barras());
         stmt.executeUpdate();
         stmt.close();
         return true;
@@ -110,7 +112,7 @@ public class USUARIOS {
      */
     public static boolean setUpdate(Connection con, Usuario usuario) throws SQLException{
         boolean atualizo = false;
-        String sql = "update USUARIOS set DS_UNIDADE=?, NM_USUARIO=?, PW_SENHA=?, FG_ESTATUS=?, EMAIL=?, ENVIA_EMAILS=?, USUARIOID=?, dat=?, IMPRESSORA_FICHA=?, IMPRESSORA_NOTA_FISCAL=?, IMPRESSORA_ETIQUETA_ENVELOPE=?, PASTA_RAIZ=?, IMPRESSORA_CODIGO_DE_BARRAS=? where USRID=?";
+        String sql = "update USUARIOS set DS_UNIDADE=?, NM_USUARIO=?, PW_SENHA=?, FG_ESTATUS=?, EMAIL=?, ENVIA_EMAILS=?, USUARIOID=?, dat=?, IMPRESSORA_FICHA=?, IMPRESSORA_NOTA_FISCAL=?, IMPRESSORA_NOTA_FISCAL_2=?, IMPRESSORA_ETIQUETA_ENVELOPE=?, PASTA_RAIZ=?, IMPRESSORA_CODIGO_DE_BARRAS=? where USRID=?";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, usuario.getDescricao());
         stmt.setString(2, usuario.getUsuario());
@@ -122,10 +124,11 @@ public class USUARIOS {
         stmt.setDate(8, usuario.getDat());
         stmt.setString(9, usuario.getImpressora_ficha());
         stmt.setString(10, usuario.getImpressora_nota_fiscal());
-        stmt.setString(11, usuario.getImpressora_etiqueta_envelope());
-        stmt.setString(12, usuario.getPasta_raiz());
-        stmt.setString(13, usuario.getImpressora_codigo_de_barras());
-        stmt.setInt(14, usuario.getUsrid());
+        stmt.setString(11, usuario.getImpressora_nota_fiscal_2());
+        stmt.setString(12, usuario.getImpressora_etiqueta_envelope());
+        stmt.setString(13, usuario.getPasta_raiz());
+        stmt.setString(14, usuario.getImpressora_codigo_de_barras());
+        stmt.setInt(15, usuario.getUsrid());
         stmt.executeUpdate();
         stmt.close();
         atualizo = true;
@@ -185,6 +188,7 @@ public class USUARIOS {
             usrId = resultSet.getInt("USRID");
             impressora_ficha = resultSet.getString("IMPRESSORA_FICHA");
             impressora_nota_fiscal = resultSet.getString("IMPRESSORA_NOTA_FISCAL");
+            impressora_nota_fiscal_2 = resultSet.getString("IMPRESSORA_NOTA_FISCAL_2");
             impressora_etiqueta_envelope = resultSet.getString("IMPRESSORA_ETIQUETA_ENVELOPE");
             impressora_codigo_de_barras = resultSet.getString("impressora_codigo_de_barras");
             pasta_raiz = verificarPastaRaiz(resultSet.getString("PASTA_RAIZ")) + nomeUsuario;

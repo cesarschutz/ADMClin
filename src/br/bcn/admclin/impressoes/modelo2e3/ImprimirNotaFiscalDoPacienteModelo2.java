@@ -39,6 +39,8 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
     private int handle_at;
     public List<ExameModel> listaDeExames = new ArrayList<ExameModel>();
     private String nomeDoArquivo = janelaPrincipal.internalFrameJanelaPrincipal.codigoParaImpressoesLinux + "NOTAFISCAL";
+    
+    private String caminhoImpressora = ""; 
 
     public ImprimirNotaFiscalDoPacienteModelo2(int handle_at) {
         this.handle_at = handle_at;
@@ -66,9 +68,9 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         
     	//preenche as impressoras no combo box
         	JComboBox<String> jcb = new JComboBox<>();  
-        	for (String impressora : buscarImpressoras()) {
-				jcb.addItem(impressora);
-			}
+		    jcb.addItem(USUARIOS.impressora_nota_fiscal);
+		    jcb.addItem(USUARIOS.impressora_nota_fiscal_2);
+		    
         	
         	JOptionPane.showMessageDialog( null, jcb, "Selecione a impressora desejada:", JOptionPane.QUESTION_MESSAGE);
         	
@@ -77,35 +79,15 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         	
         	//instancia a impressora
             imprimir = new ESCPrinter(impressoraParaImpressao, true);
+            caminhoImpressora = impressoraParaImpressao;
 
-    }
-    
-    private ArrayList<String> buscarImpressoras(){
-    	ArrayList<String> listaRetorno = new ArrayList<>();
-    	
-    	DocFlavor dflavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-    	 PrintService[] impressoras = PrintServiceLookup.lookupPrintServices(dflavor, null);
-         for(PrintService ps : impressoras){
-             listaRetorno.add(ps.getName());
-         }
-         return listaRetorno;
     }
     
     private void imprimirNotaCasoSejaLinux() throws IOException{
         if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
-        	//preenche as impressoras no combo box
-        	JComboBox<String> jcb = new JComboBox<>();  
-        	for (String impressora : buscarImpressoras()) {
-				jcb.addItem(impressora);
-			}
-        	
-        	JOptionPane.showMessageDialog( null, jcb, "Selecione a impressora desejada:", JOptionPane.QUESTION_MESSAGE);
-        	
-        	//cria o nome da impressora
-        	String impressoraParaImpressao = USUARIOS.impressora_nota_fiscal + jcb.getSelectedItem().toString();
         	
         	//imprime
-            Runtime.getRuntime().exec("lpr -P " + impressoraParaImpressao + " " + nomeDoArquivo);  
+            Runtime.getRuntime().exec("lpr -P " + caminhoImpressora + " " + nomeDoArquivo);  
         }
     }
 

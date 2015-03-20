@@ -32,6 +32,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.awt.SystemColor;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -130,6 +132,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                      jTFImpressoraFicha.setText(JIFCUsuariosVisualizar.listaUsuarios.get(cont).getImpressora_ficha());
                      jTFImpressoraEtiquetaEnvelope.setText(JIFCUsuariosVisualizar.listaUsuarios.get(cont).getImpressora_etiqueta_envelope());
                      jTFImpressoraNotaFiscal.setText(JIFCUsuariosVisualizar.listaUsuarios.get(cont).getImpressora_nota_fiscal());
+                     jTFImpressoraNotaFiscal2.setText(JIFCUsuariosVisualizar.listaUsuarios.get(cont).getImpressora_nota_fiscal_2());
                      jTFPastaRaiz.setText(JIFCUsuariosVisualizar.listaUsuarios.get(cont).getPasta_raiz());
                      jTFImpressora_cod_de_barras.setText(JIFCUsuariosVisualizar.listaUsuarios.get(cont).getImpressora_codigo_de_barras());
                 }
@@ -239,6 +242,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                         usuarioModel.setImpressora_ficha(jTFImpressoraFicha.getText());
                         usuarioModel.setImpressora_etiqueta_envelope(jTFImpressoraEtiquetaEnvelope.getText());
                         usuarioModel.setImpressora_nota_fiscal(jTFImpressoraNotaFiscal.getText());
+                        usuarioModel.setImpressora_nota_fiscal_2(jTFImpressoraNotaFiscal2.getText());
                         usuarioModel.setPasta_raiz(jTFPastaRaiz.getText());
                         usuarioModel.setImpressora_codigo_de_barras(jTFImpressora_cod_de_barras.getText());
                         
@@ -248,7 +252,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                         try {
                             cadastro = USUARIOS.setCadastrar(con, usuarioModel);
                         } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao cadastrar Usuário. Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao cadastrar Usuário. Procure o Administrador." + e, "Erro", JOptionPane.ERROR_MESSAGE);
                         }
                         Conexao.fechaConexao(con);
                         //atualiza tabela
@@ -345,6 +349,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                         usuarioModel.setImpressora_ficha(jTFImpressoraFicha.getText());
                         usuarioModel.setImpressora_etiqueta_envelope(jTFImpressoraEtiquetaEnvelope.getText());
                         usuarioModel.setImpressora_nota_fiscal(jTFImpressoraNotaFiscal.getText());
+                        usuarioModel.setImpressora_nota_fiscal_2(jTFImpressoraNotaFiscal2.getText());
                         usuarioModel.setPasta_raiz(jTFPastaRaiz.getText());
                         usuarioModel.setImpressora_codigo_de_barras(jTFImpressora_cod_de_barras.getText());
                         con = Conexao.fazConexao();
@@ -352,7 +357,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                         try {
                             atualizo = USUARIOS.setUpdate(con, usuarioModel);
                         } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao atualizar Usuário. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal, "Erro ao atualizar Usuário. Procure o administrador" + e, "Erro", JOptionPane.ERROR_MESSAGE);
                         }
                         Conexao.fechaConexao(con);
                         if(atualizo){
@@ -785,51 +790,63 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
                 definirPastaRaiz();
             }
         });
+        
+        lblImpressotaParaNota = new JLabel("Impressota para Nota Fiscal 2 (matricial)");
+        
+        jTFImpressoraNotaFiscal2 = new JTextField();
+        jTFImpressoraNotaFiscal2.setColumns(10);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(jTFImpressoraFicha, 501, 501, 501)
-                        .addComponent(jTFImpressoraNotaFiscal, 501, 501, 501)
-                        .addComponent(jTFImpressoraEtiquetaEnvelope, 501, 501, 501)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel9)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel10)
-                        .addComponent(jTFImpressora_cod_de_barras, 501, 501, 501)
-                        .addComponent(jLabel11)
-                        .addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
-                            .addComponent(btnDefinirPastaRaiz)
-                            .addComponent(jTFPastaRaiz, 491, 491, 491)))
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel2Layout.createSequentialGroup()
+        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblImpressotaParaNota)
+        				.addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
+        					.addComponent(jTFImpressoraNotaFiscal2, Alignment.LEADING)
+        					.addComponent(jTFImpressoraFicha, Alignment.LEADING, 501, 501, Short.MAX_VALUE)
+        					.addComponent(jTFImpressoraNotaFiscal, Alignment.LEADING, 501, 501, Short.MAX_VALUE)
+        					.addComponent(jLabel8, Alignment.LEADING)
+        					.addComponent(jLabel7, Alignment.LEADING))
+        				.addComponent(jTFImpressoraEtiquetaEnvelope, 501, 501, 501)
+        				.addComponent(jLabel9)
+        				.addComponent(jLabel10)
+        				.addComponent(jTFImpressora_cod_de_barras, 501, 501, 501)
+        				.addComponent(jLabel11)
+        				.addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING)
+        					.addComponent(btnDefinirPastaRaiz)
+        					.addComponent(jTFPastaRaiz, 491, 491, 491)))
+        			.addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addComponent(jLabel7)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jTFImpressoraFicha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jLabel8)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jTFImpressoraNotaFiscal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jLabel9)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jTFImpressoraEtiquetaEnvelope, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jLabel11)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jTFImpressora_cod_de_barras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jLabel10)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(jTFPastaRaiz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(btnDefinirPastaRaiz)
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel2Layout.createSequentialGroup()
+        			.addComponent(jLabel7)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFImpressoraFicha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jLabel8)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFImpressoraNotaFiscal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(lblImpressotaParaNota)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFImpressoraNotaFiscal2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jLabel9)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFImpressoraEtiquetaEnvelope, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jLabel11)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFImpressora_cod_de_barras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jLabel10)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFPastaRaiz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnDefinirPastaRaiz)
+        			.addContainerGap(111, Short.MAX_VALUE))
         );
         jPanel2.setLayout(jPanel2Layout);
 
@@ -871,7 +888,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
         );
         getContentPane().setLayout(layout);
 
-        setBounds(0, 0, 979, 480);
+        setBounds(0, 0, 979, 541);
     }// </editor-fold>//GEN-END:initComponents
 
 private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
@@ -1113,5 +1130,7 @@ jTFEmail.setText(jTFEmail.getText().toUpperCase());
     private javax.swing.JTextField jTFSenha;
     private javax.swing.JTextField jTFUsuario;
     private JButton btnDefinirPastaRaiz;
+    private JLabel lblImpressotaParaNota;
+    private JTextField jTFImpressoraNotaFiscal2;
     // End of variables declaration//GEN-END:variables
 }
