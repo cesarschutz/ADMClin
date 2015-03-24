@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
+import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
@@ -98,7 +99,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
             	//instancia a impressora
                 imprimir = new ESCPrinter(impressoraParaImpressao, true);
                 caminhoImpressora = impressoraParaImpressao;
-        		
+
         		return true;
         	}
         	
@@ -128,6 +129,7 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
                 imprimirNotaCasoSejaLinux();
                 imprimiu = true;
                 imprimir.close();
+                salvarImpressoraUtilizadaNoBD();
             }
             
         } catch (Exception e) {
@@ -138,6 +140,17 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
             
         }
         return imprimiu;
+    }
+    
+    private void salvarImpressoraUtilizadaNoBD(){
+    	//tenta salvar 3 vezes para garantir que salvou o nome
+    	if(!ATENDIMENTOS.setImpressoraNotaUtilizada(handle_at, caminhoImpressora)){
+    		if(!ATENDIMENTOS.setImpressoraNotaUtilizada(handle_at, caminhoImpressora)){
+    			if(!ATENDIMENTOS.setImpressoraNotaUtilizada(handle_at, caminhoImpressora)){
+            		
+            	}
+        	}
+    	}
     }
 
     private void imprimirNotaNew() {

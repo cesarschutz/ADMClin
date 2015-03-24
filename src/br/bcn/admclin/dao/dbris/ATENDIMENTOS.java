@@ -339,6 +339,33 @@ public class ATENDIMENTOS {
             return deleto;
         }
     }
+    
+    /**
+     * Deleta um Atendimento do Banco De Dados
+     * 
+     * @param Connection
+     * @return boolean
+     */
+    @SuppressWarnings("finally")
+    public static boolean setImpressoraNotaUtilizada(int handle_at, String nomeImpressora) {
+        boolean atualizou = false;
+        
+        Connection con = Conexao.fazConexao();
+        String sql = "update atendimentos set IMPRESSORA_UTILIZADA_NOTA = ? where HANDLE_AT=?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nomeImpressora);
+            stmt.setInt(2, handle_at);
+            stmt.executeUpdate();
+            stmt.close();
+            atualizou = true;
+        } catch (SQLException e) {
+            
+        } finally {
+        	Conexao.fechaConexao(con);
+            return atualizou;
+        }
+    }
 
     /**
      * marca flag_imprimiu como "S" para nao poder mais mecher nos valores do atendimento
