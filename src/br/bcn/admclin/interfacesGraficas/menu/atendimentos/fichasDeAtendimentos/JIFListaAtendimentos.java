@@ -1562,10 +1562,12 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 public void actionPerformed(ActionEvent e) {
                 	
                 	
-                	
-                		registrarPagamentoDePaciente(1);
-                		jTable1.setValueAt(iconePacientePagou, jTable1.getSelectedRow(), 9);
+                		//se registro pagamento altera o icone
+                		if(registrarPagamentoDePaciente(1)){
+                    		jTable1.setValueAt(iconePacientePagou, jTable1.getSelectedRow(), 9);
+                		}
                 		
+                		//pergunta se deseja imprimir nota e se imprimir imprime e muda flag
                 		int retorno = JOptionPane.showConfirmDialog(null, "Deseja imprimir nota?");
                 		if(retorno == JOptionPane.YES_OPTION){
                 			int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
@@ -1618,9 +1620,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         his.setVisible(true);
     }
 
-    private void registrarPagamentoDePaciente(int flag){
+    private boolean registrarPagamentoDePaciente(int flag){
     	int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-    	ATENDIMENTOS.setPacientePagou(handle_at, flag);
+    	return ATENDIMENTOS.setPacientePagou(handle_at, flag);
     }
     
     private void laudo() {

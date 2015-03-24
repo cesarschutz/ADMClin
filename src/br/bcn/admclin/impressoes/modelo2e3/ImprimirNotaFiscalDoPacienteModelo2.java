@@ -64,22 +64,46 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
     }
     */
     
-    private void instanciarImpressora(){
-        
-    	//preenche as impressoras no combo box
-        	JComboBox<String> jcb = new JComboBox<>();  
-		    jcb.addItem(USUARIOS.impressora_nota_fiscal);
-		    jcb.addItem(USUARIOS.impressora_nota_fiscal_2);
-		    
+    private boolean instanciarImpressora(){
+    	String impressorUm = USUARIOS.impressora_nota_fiscal;
+    	String impressoraDois = USUARIOS.impressora_nota_fiscal_2;
+                	
+    	try {
+			String[] impressoraUmArray = impressorUm.split("\\\\");
+			impressorUm = impressoraUmArray[3];
+			
+			String[] impressoraDoisArray = impressoraDois.split("\\\\");
+			impressoraDois = impressoraDoisArray[3];
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+       	
+        	Object[] opcoes = {impressorUm, impressoraDois};  
+        	Object res = JOptionPane.showInputDialog(null, "Escolha uma Impressora:" , "Definir Impressora" ,  
+        	                JOptionPane.PLAIN_MESSAGE , null ,opcoes,"");
+        	if(res == null){
+        		return false;
+        	}else{
+        		
+        		//cria o nome da impressora
+        		String impressoraParaImpressao;
+        		if(USUARIOS.impressora_nota_fiscal.contains(res.toString())){
+        			impressoraParaImpressao = USUARIOS.impressora_nota_fiscal;
+        		}else{
+        			impressoraParaImpressao = USUARIOS.impressora_nota_fiscal_2;
+        		}
+            	
+            	//instancia a impressora
+                imprimir = new ESCPrinter(impressoraParaImpressao, true);
+                caminhoImpressora = impressoraParaImpressao;
+        		
+        		return true;
+        	}
         	
-        	JOptionPane.showMessageDialog( null, jcb, "Selecione a impressora desejada:", JOptionPane.QUESTION_MESSAGE);
         	
-        	//cria o nome da impressora
-        	String impressoraParaImpressao = USUARIOS.impressora_nota_fiscal + jcb.getSelectedItem().toString();
         	
-        	//instancia a impressora
-            imprimir = new ESCPrinter(impressoraParaImpressao, true);
-            caminhoImpressora = impressoraParaImpressao;
+        	
+        	
 
     }
     
@@ -95,12 +119,13 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         boolean imprimiu = false;
         con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
         try {
-            instanciarImpressora();
-            getDadosPaciente();
-            getExamesRealizados();
-            imprimirNotaNew();
-            imprimirNotaCasoSejaLinux();
-            imprimiu = true;
+            if(instanciarImpressora()){
+            	getDadosPaciente();
+                getExamesRealizados();
+                imprimirNotaNew();
+                imprimirNotaCasoSejaLinux();
+                imprimiu = true;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao imprimir Nota Fiscal. Procure o Administrador.", "Erro",
                 JOptionPane.ERROR_MESSAGE);
