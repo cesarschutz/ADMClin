@@ -81,6 +81,8 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
         	Object[] opcoes = {impressorUm, impressoraDois};  
         	Object res = JOptionPane.showInputDialog(null, "Escolha uma Impressora:" , "Definir Impressora" ,  
         	                JOptionPane.PLAIN_MESSAGE , null ,opcoes,"");
+        	janelaPrincipal.internalFrameJanelaPrincipal.setAlwaysOnTop(true);
+        	janelaPrincipal.internalFrameJanelaPrincipal.setAlwaysOnTop(false);
         	if(res == null){
         		return false;
         	}else{
@@ -125,13 +127,15 @@ public class ImprimirNotaFiscalDoPacienteModelo2 {
                 imprimirNotaNew();
                 imprimirNotaCasoSejaLinux();
                 imprimiu = true;
+                imprimir.close();
             }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao imprimir Nota Fiscal. Procure o Administrador.", "Erro",
                 JOptionPane.ERROR_MESSAGE);
         } finally {
             br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
-            imprimir.close();
+            
         }
         return imprimiu;
     }
