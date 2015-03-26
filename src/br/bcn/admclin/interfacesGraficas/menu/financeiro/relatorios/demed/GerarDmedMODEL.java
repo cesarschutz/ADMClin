@@ -12,7 +12,7 @@ import java.sql.Date;
  */
 public class GerarDmedMODEL {
     
-    private String nomePaciente, nomeResponsavel, cpfPaciente, cpfResponsavel;
+    private String nomePaciente, nomeResponsavel, cpfPaciente, cpfResponsavel, impressoraUtilizadaImpressaoNota;
     private int handle_at;
     private double valorPago;
     private Date data;
@@ -78,5 +78,14 @@ public class GerarDmedMODEL {
     public void setValorPago(double valorPago) {
         this.valorPago = valorPago;
     }
+
+	public String getImpressoraUtilizadaImpressaoNota() {
+		return impressoraUtilizadaImpressaoNota;
+	}
+
+	public void setImpressoraUtilizadaImpressaoNota(
+			String impressoraUtilizadaImpressaoNota) {
+		this.impressoraUtilizadaImpressaoNota = impressoraUtilizadaImpressaoNota;
+	}
     
 }

@@ -9,6 +9,7 @@ import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 
+import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
@@ -96,6 +97,8 @@ public class GerarDmed {
             atendimento.setNomeResponsavel(resultSet.getString("responsavel"));
             atendimento.setCpfPaciente(resultSet.getString("cpf"));
             atendimento.setCpfResponsavel(resultSet.getString("cpfresponsavel"));
+            atendimento.setImpressoraUtilizadaImpressaoNota(resultSet.getString("IMPRESSORA_UTILIZADA_NOTA"));
+           // JOptionPane.showMessageDialog(null, "handleAt: " + atendimento.getHandle_at() + "      impressora:" + atendimento.getImpressoraUtilizadaImpressaoNota());
             atendimento.setValorPago(Double.valueOf(resultSet.getString("valor_correto_paciente")));
             listaDmed.add(atendimento);
         }
@@ -109,6 +112,168 @@ public class GerarDmed {
 
         Font font8 = FontFactory.getFont("Calibri", 8, Font.NORMAL);
         Font fontBold8 = FontFactory.getFont("Calibri", 8, Font.BOLD);
+        Font fontBold10 = FontFactory.getFont("Calibri", 10, Font.BOLD);
+        
+        PdfPCell cell;
+
+        double valorTotalImpressora = 0.0;
+        String ultimaImpressoraUtilizada = listaDmed.get(0).getImpressoraUtilizadaImpressaoNota();
+        
+        //colocando a primeira impressora utilizada
+        PdfPTable tabelaPrimeiraImpressora = new PdfPTable(1);
+        tabelaPrimeiraImpressora.setWidths(new int[] { 1 });
+        tabelaPrimeiraImpressora.setWidthPercentage(100);
+        
+        if(ultimaImpressoraUtilizada.length() < 9){
+			cell = new PdfPCell(new Phrase("Impressora Utilizada: " + "Sem Impressão", fontBold10));
+		}else{
+			String nome[] = ultimaImpressoraUtilizada.split("\\\\");
+			cell = new PdfPCell(new Phrase("Impressora Utilizada: " + nome[3], fontBold10));
+		}
+        
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tabelaPrimeiraImpressora.addCell(cell);
+        cell = new PdfPCell(new Phrase("", fontBold10));
+        cell.setBorder(Rectangle.NO_BORDER);
+        tabelaPrimeiraImpressora.addCell(cell);
+        cell = new PdfPCell(new Phrase("", fontBold10));
+        cell.setBorder(Rectangle.NO_BORDER);
+        tabelaPrimeiraImpressora.addCell(cell);
+        document.add(tabelaPrimeiraImpressora);
+        
+        //coloca o cabeçalho na pagina
+        colocarCabecalhoNoDocumento(document);
+        
+        //tabela paara os atendimentos
+        PdfPTable tableatendimentos = new PdfPTable(6);
+        tableatendimentos.setWidths(new int[] { 8, 12, 30, 15, 28, 7 });
+        tableatendimentos.setWidthPercentage(100);
+        
+        for (int i = 0; i < listaDmed.size(); i++) {
+        	//se é a mesma impressora
+        	if(!listaDmed.get(i).getImpressoraUtilizadaImpressaoNota().equals(ultimaImpressoraUtilizada)){
+        		//coloca a tabela de atendimentos
+        		document.add(tableatendimentos);
+        		
+        		//zera a tabela  de atendimentos para continuar depois
+        		tableatendimentos = new PdfPTable(6);
+        	    tableatendimentos.setWidths(new int[] { 8, 12, 30, 15, 28, 7 });
+        	    tableatendimentos.setWidthPercentage(100);
+        	    
+        		//coloca o valor total
+        		PdfPTable total = new PdfPTable(1);
+        		total.setWidths(new int[] { 1 });	
+        		total.setWidthPercentage(100);
+        		
+        		cell = new PdfPCell(new Phrase("Valor Total: " + String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorTotalImpressora).replace(".", ",")), fontBold8));
+                cell.setBorder(Rectangle.NO_BORDER);
+                cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+                total.addCell(cell);
+                document.add(total);
+                
+                //zera o valor total da impressora
+                valorTotalImpressora = 0.0;
+        		
+        		//atualiza a ultima impressora utilizada
+        		ultimaImpressoraUtilizada = listaDmed.get(i).getImpressoraUtilizadaImpressaoNota(); 
+        		
+        		//quebra de pagina
+        		document.add(Chunk.NEXTPAGE);  
+        		
+        		//imprime a impressora que esta sendo veriicada apartir de agora
+        		PdfPTable tabelaImpressora = new PdfPTable(1);
+        		tabelaImpressora.setWidths(new int[] { 1 });
+        		tabelaImpressora.setWidthPercentage(100);
+                
+        		if(ultimaImpressoraUtilizada == null || ultimaImpressoraUtilizada == ""){
+        			cell = new PdfPCell(new Phrase("Impressora Utilizada: " + "Sem Impressão", fontBold10));
+        		}else{
+        			String nome[] = ultimaImpressoraUtilizada.split("\\\\");
+        			cell = new PdfPCell(new Phrase("Impressora Utilizada: " + nome[3], fontBold10));
+        		}
+        		
+                cell.setBorder(Rectangle.NO_BORDER);
+                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+                tabelaImpressora.addCell(cell);
+                cell = new PdfPCell(new Phrase("", fontBold10));
+                cell.setBorder(Rectangle.NO_BORDER);
+                tabelaImpressora.addCell(cell);
+                cell = new PdfPCell(new Phrase("", fontBold10));
+                cell.setBorder(Rectangle.NO_BORDER);
+                tabelaImpressora.addCell(cell);
+                document.add(tabelaImpressora);
+                
+              //coloca o cabeçalho na pagina
+                colocarCabecalhoNoDocumento(document);
+        		
+        	}
+        	
+        	//soma o valor total
+        	valorTotalImpressora = valorTotalImpressora + listaDmed.get(i).getValorPago();
+        	
+        	
+            // colocando a data
+            DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+            String dataCerta = fmt.format(listaDmed.get(i).getData());
+
+            cell = new PdfPCell(new Phrase(dataCerta, font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tableatendimentos.addCell(cell);
+
+            // colocando a cpf paciente
+            cell = new PdfPCell(new Phrase(listaDmed.get(i).getCpfPaciente(), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tableatendimentos.addCell(cell);
+
+            // colocando a nome paciente
+            cell = new PdfPCell(new Phrase(listaDmed.get(i).getNomePaciente(), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tableatendimentos.addCell(cell);
+
+            // colocando a cpf responsavel
+            cell = new PdfPCell(new Phrase(listaDmed.get(i).getCpfResponsavel(), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tableatendimentos.addCell(cell);
+
+            // colocando a nome responsavel
+            cell = new PdfPCell(new Phrase(listaDmed.get(i).getNomeResponsavel(), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tableatendimentos.addCell(cell);
+
+            // colocando a valor
+            cell =
+                new PdfPCell(new Phrase(String.valueOf(MetodosUteis.colocarZeroEmCampoReais(
+                    listaDmed.get(i).getValorPago()).replace(".", ",")), font8));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            tableatendimentos.addCell(cell);
+
+        }
+
+        document.add(tableatendimentos);
+        
+      //coloca o valor total
+		PdfPTable total = new PdfPTable(1);
+		total.setWidths(new int[] { 1 });	
+		total.setWidthPercentage(100);
+		
+		cell = new PdfPCell(new Phrase("Valor Total: " + String.valueOf(MetodosUteis.colocarZeroEmCampoReais(valorTotalImpressora).replace(".", ",")), fontBold8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+        total.addCell(cell);
+        document.add(total);
+
+        document.close();
+    }
+    
+    private void colocarCabecalhoNoDocumento(Document document) throws DocumentException{
+    	Font fontBold8 = FontFactory.getFont("Calibri", 8, Font.BOLD);
         PdfPCell cell;
 
         // tabela de cabeçalho
@@ -160,58 +325,6 @@ public class GerarDmed {
         tablePrincipal.addCell(cell);
 
         document.add(tablePrincipal);
-
-        PdfPTable tableatendimentos = new PdfPTable(6);
-        tableatendimentos.setWidths(new int[] { 8, 12, 30, 15, 28, 7 });
-        tableatendimentos.setWidthPercentage(100);
-
-        for (int i = 0; i < listaDmed.size(); i++) {
-            // colocando a data
-            DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-            String dataCerta = fmt.format(listaDmed.get(i).getData());
-
-            cell = new PdfPCell(new Phrase(dataCerta, font8));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tableatendimentos.addCell(cell);
-
-            // colocando a cpf paciente
-            cell = new PdfPCell(new Phrase(listaDmed.get(i).getCpfPaciente(), font8));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tableatendimentos.addCell(cell);
-
-            // colocando a nome paciente
-            cell = new PdfPCell(new Phrase(listaDmed.get(i).getNomePaciente(), font8));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tableatendimentos.addCell(cell);
-
-            // colocando a cpf responsavel
-            cell = new PdfPCell(new Phrase(listaDmed.get(i).getCpfResponsavel(), font8));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tableatendimentos.addCell(cell);
-
-            // colocando a nome responsavel
-            cell = new PdfPCell(new Phrase(listaDmed.get(i).getNomeResponsavel(), font8));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tableatendimentos.addCell(cell);
-
-            // colocando a valor
-            cell =
-                new PdfPCell(new Phrase(String.valueOf(MetodosUteis.colocarZeroEmCampoReais(
-                    listaDmed.get(i).getValorPago()).replace(".", ",")), font8));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-            tableatendimentos.addCell(cell);
-
-        }
-
-        document.add(tableatendimentos);
-
-        document.close();
     }
 
     private void abrindoPDF() throws IOException {

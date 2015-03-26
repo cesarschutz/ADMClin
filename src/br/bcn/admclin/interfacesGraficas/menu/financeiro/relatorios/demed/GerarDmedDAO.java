@@ -29,11 +29,11 @@ public class GerarDmedDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select e.handle_at, a.data_atendimento, e.valor_correto_paciente, p.nome, p.cpf, p.responsavel, p.cpfresponsavel from atendimento_exames e "
+                con.prepareStatement("select e.handle_at, a.data_atendimento, a.IMPRESSORA_UTILIZADA_NOTA, e.valor_correto_paciente, p.nome, p.cpf, p.responsavel, p.cpfresponsavel from atendimento_exames e "
                     + "inner join atendimentos a on e.handle_at = a.handle_at "
                     + "inner join pacientes p on a.handle_paciente = p.pacienteid "
                     + "where(a.data_atendimento > ? or a.data_atendimento = ?)  and  (a.data_atendimento < ? or a.data_atendimento = ?) and e.valor_correto_paciente > 0 and a.paciente_pagou = 1"
-                    + "order by a.data_atendimento, p.nome, e.handle_at asc");
+                    + "order by a.IMPRESSORA_UTILIZADA_NOTA, a.data_atendimento, p.nome, e.handle_at asc");
             stmtQuery.setDate(1, diaInicial);
             stmtQuery.setDate(2, diaInicial);
             stmtQuery.setDate(3, diaFinal);
