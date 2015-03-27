@@ -7,8 +7,8 @@ package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimento
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos;
-import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioAnalitico;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioAnaliticoPorConvenio;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -160,8 +160,8 @@ public class jIFFinanceiroAtendimentos extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, "Erro com a data Final. Procure o Administrador.");
                     }
 
-                    relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos relatorio =
-                        new relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos(diaInicialSql, diaFinalSql);
+                    relatorioAnalitico relatorio =
+                        new relatorioAnalitico(diaInicialSql, diaFinalSql);
                     relatorio.gerarRelatorio();
                 } else {
                     JOptionPane.showMessageDialog(null, "Verifique as datas e tente novamente.");
@@ -213,8 +213,8 @@ public class jIFFinanceiroAtendimentos extends javax.swing.JInternalFrame {
                     }
 
                     int handle_convenio = listaHandleConvenio.get(jCBConvenio.getSelectedIndex());
-                    relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos relatorio =
-                        new relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos(diaInicialSql, diaFinalSql,
+                    relatorioAnaliticoPorConvenio relatorio =
+                        new relatorioAnaliticoPorConvenio(diaInicialSql, diaFinalSql,
                             handle_convenio);
                     relatorio.gerarRelatorio();
                 } else {

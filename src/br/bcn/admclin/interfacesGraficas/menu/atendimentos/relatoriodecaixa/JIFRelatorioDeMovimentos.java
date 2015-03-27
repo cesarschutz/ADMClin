@@ -4,34 +4,24 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.atendimentos.relatoriodecaixa;
 
-import br.bcn.admclin.dao.dbris.CONVENIO;
-import br.bcn.admclin.dao.dbris.Conexao;
-import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos;
-import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
-
-import java.awt.Color;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  * 

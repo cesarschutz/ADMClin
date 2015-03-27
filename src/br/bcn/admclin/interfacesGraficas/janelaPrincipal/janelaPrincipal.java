@@ -86,7 +86,16 @@ import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.valoresreceb
 public class janelaPrincipal extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
-    public static JjIFAguarde internalFrameAguarde;
+    
+    //numero sequencial para os pdf do sistema
+    private static Integer numeroSequencialDoSistemaParaPDF = 1;
+    
+    public static Integer getNumeroSequencialDoSistemaParaPDF() {
+    	numeroSequencialDoSistemaParaPDF = numeroSequencialDoSistemaParaPDF + 1;
+		return numeroSequencialDoSistemaParaPDF;
+	}
+
+	public static JjIFAguarde internalFrameAguarde;
     public static janelaPrincipal internalFrameJanelaPrincipal;
     public static JIFFeriadoVisualizar internalFrameFeriadoVisualizar;
     public static JIFFeriado internalFrameFeriado;

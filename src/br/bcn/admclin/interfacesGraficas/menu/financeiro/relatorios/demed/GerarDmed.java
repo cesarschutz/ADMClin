@@ -8,6 +8,7 @@ import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
@@ -46,8 +47,10 @@ public class GerarDmed {
     private Connection con = null;
     int anoSelecionado = 0;
 
+    String nomeArquivo;
     public GerarDmed(int anoSelecionado) {
         this.anoSelecionado = anoSelecionado;
+        nomeArquivo = "demed_" + janelaPrincipal.getNumeroSequencialDoSistemaParaPDF() +anoSelecionado + ".pdf";
     }
 
     public void gerarDemed() {
@@ -104,10 +107,12 @@ public class GerarDmed {
         }
         Conexao.fechaConexao(con);
     }
+    
+    
 
     private void gerandoPDF() throws FileNotFoundException, DocumentException {
         Document document = new Document(PageSize.A4, 20, 20, 20, 20); // colocar as margens
-        PdfWriter.getInstance(document, new FileOutputStream(caminho + "dmed" + anoSelecionado + ".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(caminho + nomeArquivo));
         document.open();
 
         Font font8 = FontFactory.getFont("Calibri", 8, Font.NORMAL);
@@ -330,11 +335,11 @@ public class GerarDmed {
     private void abrindoPDF() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         if (OSvalidator.isWindows()) {
-            runtime.exec("cmd /c \"" + caminho + "dmed" + anoSelecionado + ".pdf");
+            runtime.exec("cmd /c \"" + caminho + nomeArquivo);
         } else if (OSvalidator.isMac()) {
-            runtime.exec("open " + caminho + "dmed" + anoSelecionado + ".pdf");
+            runtime.exec("open " + caminho + nomeArquivo);
         } else {
-            runtime.exec("gnome-open " + caminho + "dmed" + anoSelecionado + ".pdf");
+            runtime.exec("gnome-open " + caminho + nomeArquivo);
         }
     }
 }

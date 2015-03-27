@@ -10,6 +10,7 @@ import br.bcn.admclin.dao.db.JLAUDOS;
 import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos.criaPDFdoLaudo;
 
 import com.lowagie.text.Document;
@@ -63,6 +64,8 @@ public class faturaConvenio {
 	private double valorTotal7Densitometria;
 	private double valorTotal8EcoDoppler;
 	private double valorTotal9ExamesComplexos;
+	
+	String nomeArquivo;
 
 	// convenio
 	public faturaConvenio(String tp, Date dataInicial, Date dataFinal,
@@ -71,6 +74,7 @@ public class faturaConvenio {
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 		this.nome = nome.replace(" ", "_");
+		nomeArquivo = this.nome + "_" + janelaPrincipal.getNumeroSequencialDoSistemaParaPDF() + ".pdf";
 		this.handle_convenio = handle_convenio;
 		this.tipo = tp;
 		this.listaDeAtendimentos = listaAtendimentos;
@@ -84,6 +88,7 @@ public class faturaConvenio {
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 		this.nome = "Grupo" + nome.replace(" ", "_");
+		nomeArquivo = this.nome + "_" + janelaPrincipal.getNumeroSequencialDoSistemaParaPDF() + ".pdf";
 		this.grupo_id = grupo_id;
 		this.tipo = tp;
 		this.listaDeAtendimentos = listaAtendimentos;
@@ -192,6 +197,8 @@ public class faturaConvenio {
 		}
 
 	}
+	
+	
 
 	// metodo que cria a fatura
 	private void criandoAFatura() throws DocumentException,
@@ -200,8 +207,7 @@ public class faturaConvenio {
 		Rectangle rect = new Rectangle(PageSize.A4);
 		Document document = new Document(rect, 20, 20, 20, 20); // colocar as
 																// margens
-		PdfWriter.getInstance(document, new FileOutputStream(caminho + "Fatura"
-				+ nome + ".pdf"));
+		PdfWriter.getInstance(document, new FileOutputStream(caminho + nomeArquivo));
 		document.open();
 
 		// fontes utilizadas
@@ -866,11 +872,11 @@ public class faturaConvenio {
 	private void abrirFichaPDF() throws IOException {
 		Runtime runtime = Runtime.getRuntime();
 		if (OSvalidator.isWindows()) {
-			runtime.exec("cmd /c " + caminho + "Fatura" + nome + ".pdf");
+			runtime.exec("cmd /c " + caminho + nomeArquivo);
 		} else if (OSvalidator.isMac()) {
-			runtime.exec("open " + caminho + "Fatura" + nome + ".pdf");
+			runtime.exec("open " + caminho + nomeArquivo);
 		} else {
-			runtime.exec("gnome-open " + caminho + "Fatura" + nome + ".pdf");
+			runtime.exec("gnome-open " + caminho + nomeArquivo);
 		}
 	}
 

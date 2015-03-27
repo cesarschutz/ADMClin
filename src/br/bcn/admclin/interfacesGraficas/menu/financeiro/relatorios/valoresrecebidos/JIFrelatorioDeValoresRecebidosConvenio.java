@@ -4,12 +4,6 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.valoresrecebidos;
 
-import br.bcn.admclin.dao.dbris.CONVENIO;
-import br.bcn.admclin.dao.dbris.Conexao;
-import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificos;
-import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.porClassesDeExames.relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos;
-
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.sql.Connection;
@@ -21,17 +15,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JLabel;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingWorker;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+
+import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
  * 

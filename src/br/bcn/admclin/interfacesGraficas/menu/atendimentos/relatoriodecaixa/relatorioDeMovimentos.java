@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -92,12 +93,14 @@ public class relatorioDeMovimentos {
 				dataInicial, dataFinal);
 	}
 
+	String nomeArquivo = "Relatorio_de_movimento_" + janelaPrincipal.getNumeroSequencialDoSistemaParaPDF() + ".pdf";
+	
 	public void criandoFatura() throws FileNotFoundException, DocumentException {
 		Rectangle rect = new Rectangle(PageSize.A4.rotate());
 		Document document = new Document(rect, 20, 20, 20, 20); // colocar as
 																// margens
 		PdfWriter.getInstance(document, new FileOutputStream(caminho
-				+ "RelatorioDeAtendimentos.pdf"));
+				+ nomeArquivo));
 		document.open();
 
 		Font fontNegrito11 = FontFactory.getFont("Calibri", 11, Font.BOLD);
@@ -392,12 +395,13 @@ public class relatorioDeMovimentos {
 	 */
 	private void abrirFichaPDF() throws IOException {
 		Runtime runtime = Runtime.getRuntime();
+		
 		if (OSvalidator.isWindows()) {
-			runtime.exec("cmd /c \"" + caminho + "RelatorioDeAtendimentos.pdf");
+			runtime.exec("cmd /c \"" + caminho + nomeArquivo);
 		} else if (OSvalidator.isMac()) {
-			runtime.exec("open " + caminho + "RelatorioDeAtendimentos.pdf");
+			runtime.exec("open " + caminho + nomeArquivo);
 		} else {
-			runtime.exec("gnome-open " + caminho + "RelatorioDeAtendimentos.pdf");
+			runtime.exec("gnome-open " + caminho + nomeArquivo);
 		}
 	}
 }

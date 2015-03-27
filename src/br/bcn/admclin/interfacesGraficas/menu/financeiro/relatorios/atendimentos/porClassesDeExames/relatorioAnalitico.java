@@ -8,6 +8,7 @@ import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -42,18 +43,15 @@ import javax.swing.JOptionPane;
  * 
  * @author Cesar Schutz
  */
-public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
+public class relatorioAnalitico {
 
     private Date dataInicial = null, dataFinal = null;
     private String dataInicialString, dataFinalString;
     private Connection con = null;
-    private int handle_convenio;
 
-    public relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos(Date dataInicial, Date dataFinal,
-        int handle_convenio) {
+    public relatorioAnalitico(Date dataInicial, Date dataFinal) {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
-        this.handle_convenio = handle_convenio;
 
         // passando as datas para string
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -91,17 +89,17 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
     }
 
     // metodo que busca os atendimentos de acordo com a classe
-    public List<relatorioUmConvenioTodasClassesAnaliticoValoresEspecificosMODEL> listaDeAtendimentos =
-        new ArrayList<relatorioUmConvenioTodasClassesAnaliticoValoresEspecificosMODEL>();
+    public List<relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificosMODEL> listaDeAtendimentos =
+        new ArrayList<relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificosMODEL>();
 
     private void consultarAtendimentos() throws SQLException {
         listaDeAtendimentos.removeAll(listaDeAtendimentos);
         ResultSet resultSet =
-            relatorioUmConvenioTodasClassesAnaliticoValoresEspecificosDAO.getConsultarAtendimentos(con, dataInicial,
-                dataFinal, handle_convenio);
+            relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificosDAO.getConsultarAtendimentos(con,
+                dataInicial, dataFinal);
         while (resultSet.next()) {
-            relatorioUmConvenioTodasClassesAnaliticoValoresEspecificosMODEL atendimento =
-                new relatorioUmConvenioTodasClassesAnaliticoValoresEspecificosMODEL();
+            relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificosMODEL atendimento =
+                new relatorioTodosConveniosTodasClassesAnaliticoValoresEspecificosMODEL();
             atendimento.setData(resultSet.getDate("data_atendimento"));
             atendimento.setHandle_at(resultSet.getInt("handle_at"));
             atendimento.setPaciente(resultSet.getString("nomePaciente"));
@@ -127,12 +125,13 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
         }
 
     }
+    String nomeArquivo = "relatorio_analitico_" + janelaPrincipal.getNumeroSequencialDoSistemaParaPDF() + ".pdf";
 
     public void criandoFatura() throws FileNotFoundException, DocumentException {
         Rectangle rect = new Rectangle(PageSize.A4.rotate());
         Document document = new Document(rect, 20, 20, 20, 20); // colocar as margens
         PdfWriter.getInstance(document, new FileOutputStream(caminho
-            + "relatórioUmConvênioTodasClassesDeExamesAnalíticoValoresEspecíficos" + handle_convenio + ".pdf"));
+            + nomeArquivo));
         document.open();
 
         Font fontNegrito11 = FontFactory.getFont("Calibri", 11, Font.BOLD);
@@ -149,14 +148,7 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
         // colocando o
         cell =
             new PdfPCell(new Phrase(
-                "Relatório de Atendimentos Analítico com Valores Específicos por Classes de Exames de um Convênio",
-                fontNegrito11));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-        tablePrincipal.addCell(cell);
-
-        // colocando o convenio
-        cell = new PdfPCell(new Phrase("Convênio: " + listaDeAtendimentos.get(0).getConvenio(), fontNegrito11));
+                "Relatório de Atendimentos Analítico com Valores Específicos por Classes de Exames", fontNegrito11));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tablePrincipal.addCell(cell);
@@ -188,8 +180,8 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
 
         // adicionando tabela com o cabeçalho (informações das colunas)
         // tabela de cabeçalho
-        PdfPTable tabelaCabecalho = new PdfPTable(10);
-        tabelaCabecalho.setWidths(new int[] { 7, 6, 25, 19, 6, 8, 10, 6, 5, 8 });
+        PdfPTable tabelaCabecalho = new PdfPTable(11);
+        tabelaCabecalho.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
         tabelaCabecalho.setWidthPercentage(100);
 
         cell = new PdfPCell(new Phrase("DATA", fontNegrito8));
@@ -203,6 +195,11 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
         tabelaCabecalho.addCell(cell);
 
         cell = new PdfPCell(new Phrase("PACIENTE", fontNegrito8));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        tabelaCabecalho.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("CONVÊNIO", fontNegrito8));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tabelaCabecalho.addCell(cell);
@@ -245,7 +242,7 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
         cell = new PdfPCell(new Phrase("", fontNegrito8));
         cell.setBorder(Rectangle.ALIGN_BOTTOM);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-        cell.setColspan(10);
+        cell.setColspan(11);
         tabelaCabecalho.addCell(cell);
 
         // adicionando tabela ao documento
@@ -265,8 +262,8 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
                 // nao pode te os totais antes de aprensentar a primeira classe
                 if (qtdDeExamesDaClasse > 0) {
                     // colocando os valores totais da classe
-                    PdfPTable tabelaTotaisDaClasse = new PdfPTable(10);
-                    tabelaTotaisDaClasse.setWidths(new int[] { 7, 6, 25, 19, 6, 8, 10, 6, 5, 8 });
+                    PdfPTable tabelaTotaisDaClasse = new PdfPTable(11);
+                    tabelaTotaisDaClasse.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
                     tabelaTotaisDaClasse.setWidthPercentage(100);
 
                     // classe e total de exames
@@ -275,7 +272,7 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
                             fontNegrito8));
                     cell.setBorder(Rectangle.NO_BORDER);
                     cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                    cell.setColspan(4);
+                    cell.setColspan(5);
                     tabelaTotaisDaClasse.addCell(cell);
 
                     // total ch
@@ -332,7 +329,7 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
                         cell = new PdfPCell(new Phrase("", fontNegrito8));
                         cell.setBorder(Rectangle.NO_BORDER);
                         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                        cell.setColspan(10);
+                        cell.setColspan(11);
                         tabelaTotaisDaClasse.addCell(cell);
                     }
 
@@ -365,8 +362,8 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
             }
 
             // adicionar os atendimentos
-            PdfPTable tabelaDosExames = new PdfPTable(10);
-            tabelaDosExames.setWidths(new int[] { 7, 6, 25, 19, 6, 8, 10, 6, 5, 8 });
+            PdfPTable tabelaDosExames = new PdfPTable(11);
+            tabelaDosExames.setWidths(new int[] { 7, 6, 20, 11, 13, 6, 8, 10, 6, 5, 8 });
             tabelaDosExames.setWidthPercentage(100);
 
             // colocando a data do atendimento
@@ -386,6 +383,12 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
 
             // colocando o nome do paciente
             cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getPaciente(), font9));
+            cell.setBorder(Rectangle.NO_BORDER);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            tabelaDosExames.addCell(cell);
+
+            // colocando o convenio
+            cell = new PdfPCell(new Phrase(listaDeAtendimentos.get(i).getConvenio(), font9));
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             tabelaDosExames.addCell(cell);
@@ -734,14 +737,14 @@ public class relatorioUmConvenioTodasClassesAnaliticoValoresEspecificos {
     private void abrirFichaPDF() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         if (OSvalidator.isWindows()) {
-            runtime.exec("cmd /c \"" + caminho + "relatórioUmConvênioTodasClassesDeExamesAnalíticoValoresEspecíficos"
-                + handle_convenio + ".pdf");
+            runtime.exec("cmd /c \"" + caminho
+                + nomeArquivo);
         } else if (OSvalidator.isMac()) {
-            runtime.exec("open " + caminho + "relatórioUmConvênioTodasClassesDeExamesAnalíticoValoresEspecíficos"
-                + handle_convenio + ".pdf");
+            runtime.exec("open " + caminho
+                + nomeArquivo);
         } else {
-            runtime.exec("gnome-open " + caminho + "relatórioUmConvênioTodasClassesDeExamesAnalíticoValoresEspecíficos"
-                + handle_convenio + ".pdf");
+            runtime.exec("gnome-open " + caminho
+                + nomeArquivo);
         }
     }
 }

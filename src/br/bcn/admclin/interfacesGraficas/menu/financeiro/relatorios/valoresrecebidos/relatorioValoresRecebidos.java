@@ -8,6 +8,7 @@ import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -100,11 +101,13 @@ public class relatorioValoresRecebidos {
             relatorioValoresRecebidosDAO.getConsultarAtendimentosTodosOsConvenios(dataInicial, dataFinal,
                 handle_convenio);
     }
+    
+    String nomeArquivo = "relatorio_de_valores_recebidos_" + janelaPrincipal.getNumeroSequencialDoSistemaParaPDF() + ".pdf";
 
     public void criandoFatura() throws FileNotFoundException, DocumentException {
         Rectangle rect = new Rectangle(PageSize.A4.rotate());
         Document document = new Document(rect, 20, 20, 20, 20); // colocar as margens
-        PdfWriter.getInstance(document, new FileOutputStream(caminho + "relatorioDeValoresRecebidos.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(caminho + nomeArquivo));
         document.open();
 
         Font fontNegrito11 = FontFactory.getFont("Calibri", 11, Font.BOLD);
@@ -401,11 +404,11 @@ public class relatorioValoresRecebidos {
     private void abrirFichaPDF() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         if (OSvalidator.isWindows()) {
-            runtime.exec("cmd /c \"" + caminho + "relatorioDeValoresRecebidos.pdf");
+            runtime.exec("cmd /c \"" + caminho + nomeArquivo);
         } else if (OSvalidator.isMac()) {
-            runtime.exec("open " + caminho + "relatorioDeValoresRecebidos.pdf");
+            runtime.exec("open " + caminho + nomeArquivo);
         } else {
-            runtime.exec("gnome-open " + caminho + "relatorioDeValoresRecebidos.pdf");
+            runtime.exec("gnome-open " + caminho + nomeArquivo);
         }
     }
 }

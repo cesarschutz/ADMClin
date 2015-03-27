@@ -8,6 +8,7 @@ import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -96,6 +97,8 @@ public class relatorioDeCaixa {
 	// metodo que busca os atendimentos de acordo com a classe
 	public List<Model> listaDeAtendimentos = new ArrayList<Model>();
 
+	String nomeArquivo = "Relatorio_de_caixa_" + janelaPrincipal.getNumeroSequencialDoSistemaParaPDF() + ".pdf";
+	
 	private void consultarAtendimentos() throws SQLException {
 		listaDeAtendimentos.removeAll(listaDeAtendimentos);
 		listaDeAtendimentos = DAOrelatorioDeCaixa.getConsultarAtendimentos(
@@ -107,7 +110,7 @@ public class relatorioDeCaixa {
 		Document document = new Document(rect, 20, 20, 20, 20); // colocar as
 																// margens
 		PdfWriter.getInstance(document, new FileOutputStream(caminho
-				+ "RelatorioDeCaixa.pdf"));
+				+ nomeArquivo));
 		document.open();
 
 		Font fontNegrito11 = FontFactory.getFont("Calibri", 11, Font.BOLD);
@@ -400,11 +403,11 @@ public class relatorioDeCaixa {
 	private void abrirFichaPDF() throws IOException {
 		Runtime runtime = Runtime.getRuntime();
 		if (OSvalidator.isWindows()) {
-			runtime.exec("cmd /c \"" + caminho + "RelatorioDeCaixa.pdf");
+			runtime.exec("cmd /c \"" + caminho + nomeArquivo);
 		} else if (OSvalidator.isMac()) {
-			runtime.exec("open " + caminho + "RelatorioDeCaixa.pdf");
+			runtime.exec("open " + caminho + nomeArquivo);
 		} else {
-			runtime.exec("gnome-open " + caminho + "RelatorioDeCaixa.pdf");
+			runtime.exec("gnome-open " + caminho + nomeArquivo);
 		}
 	}
 }
