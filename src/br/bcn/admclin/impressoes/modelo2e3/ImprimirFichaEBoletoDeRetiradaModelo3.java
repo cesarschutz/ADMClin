@@ -179,7 +179,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
                 imprimir.lineFeed();
             } else {
                 // 59 espaços
-                imprimir.print("                                                           "
+                imprimir.print("        " + arrumarTamanhoDaString(listaDeExames.get(0).getNomeMedicoSolicitante(), 61) 
                     + arrumarTamanhoDaString(nomeDoExame, 20));
                 imprimir.lineFeed();
             }
