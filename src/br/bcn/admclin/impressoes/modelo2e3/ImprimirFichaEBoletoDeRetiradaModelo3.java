@@ -149,6 +149,12 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         // imprimi endereço do paciente, telefone do paciente na linha 17
         imprimir.print("      " + arrumarTamanhoDaString(listaDeExames.get(0).getEnderecoPaciente(), 28) + "    "
             + arrumarTamanhoDaString(listaDeExames.get(0).getTelefonePaciente(), 19));
+        
+        imprimir.lineFeed(); 
+        
+        //colocanndo o celular 
+        imprimir.print("      " + arrumarTamanhoDaString("", 28) + "    "
+                + arrumarTamanhoDaString(listaDeExames.get(0).getCelularPaciente(), 19));
 
         imprimir.lineFeed();
         
@@ -210,6 +216,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
             exame.setPesoPaciente(resultSet.getString("peso"));
             exame.setHoraAtendimento(MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento")));
             exame.setTelefonePaciente(resultSet.getString("telefone"));
+            exame.setCelularPaciente(resultSet.getString("celular"));
             exame.setEnderecoPaciente(resultSet.getString("endereco"));
             exame.setDuracaoAtendimento(MetodosUteis.transformarMinutosEmHorario(resultSet
                 .getInt("duracao_atendimento")));

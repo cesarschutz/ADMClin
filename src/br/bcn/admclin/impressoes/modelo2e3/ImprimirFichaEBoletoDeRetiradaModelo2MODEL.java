@@ -10,7 +10,7 @@ package br.bcn.admclin.impressoes.modelo2e3;
  */
 public class ImprimirFichaEBoletoDeRetiradaModelo2MODEL {
     
-    private String nome_area_atendimento, nomePaciente, dataEntregaExame, dataAtendimento, idadePaciente, pesoPaciente, horaAtendimento, telefonePaciente, nomeExame, enderecoPaciente, duracaoAtendimento, nomeConvenio, nomeMedicoSolicitante, cidadePaciente, ufPaciente, alturaPaciente;
+    private String nome_area_atendimento, nomePaciente, dataEntregaExame, dataAtendimento, idadePaciente, pesoPaciente, horaAtendimento, telefonePaciente, celularPaciente, nomeExame, enderecoPaciente, duracaoAtendimento, nomeConvenio, nomeMedicoSolicitante, cidadePaciente, ufPaciente, alturaPaciente;
 
     public String getNomePaciente() {
         return nomePaciente;
@@ -138,5 +138,13 @@ public class ImprimirFichaEBoletoDeRetiradaModelo2MODEL {
 
     public void setNome_area_atendimento(String nome_area_atendimento) {
         this.nome_area_atendimento = nome_area_atendimento;
-    }    
+    }
+
+	public String getCelularPaciente() {
+		return celularPaciente;
+	}
+
+	public void setCelularPaciente(String celularPaciente) {
+		this.celularPaciente = celularPaciente;
+	}    
 }

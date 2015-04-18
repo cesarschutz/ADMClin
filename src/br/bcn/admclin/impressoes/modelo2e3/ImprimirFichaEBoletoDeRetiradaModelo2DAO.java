@@ -30,7 +30,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo2DAO {
             PreparedStatement stmtQuery =
                 con.prepareStatement("select distinct x.atendimento_exame_id,"
                     + "a.data_exame_pronto,a.data_atendimento,a.hora_atendimento,a.duracao_atendimento,"
-                    + "p.nome as nomePaciente,p.nascimento,p.peso,p.telefone,p.cidade,p.uf,p.altura,p.endereco,"
+                    + "p.nome as nomePaciente,p.nascimento,p.peso,p.telefone,p.celular,p.cidade,p.uf,p.altura,p.endereco,"
                     + "c.nome as nomeConvenio,m.nome as nomeMedico,"
                     + "e.nome as nomeExame,"
                     + "t.nome as nomeAreaAtendimento "
