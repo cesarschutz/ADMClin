@@ -156,7 +156,6 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         imprimir.print("      " + arrumarTamanhoDaString("", 28) + "    "
                 + arrumarTamanhoDaString(listaDeExames.get(0).getCelularPaciente(), 19));
 
-        imprimir.lineFeed();
         
         // aqui imprimimos o exame cidade uf, peso altura e idade
         for (int i = 0; i <= 4; i++) {
