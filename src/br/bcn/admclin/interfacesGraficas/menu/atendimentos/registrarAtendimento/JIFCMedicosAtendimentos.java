@@ -341,11 +341,11 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
-        jTFTelefone = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
+        jTFTelefone = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
-        jTFCelular = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
+        jTFCelular = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
         jCBEspecialidadeMedica = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -458,7 +458,7 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
         });
         btnCadastrarNovaEspecialidade.setIcon(new ImageIcon(JIFCMedicosAtendimentos.class.getResource("/br/bcn/admclin/imagens/menuPessoalEspecialidadesMedicas.png")));
         
-        jTFTelefoneDois = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(20), null, 0);
+        jTFTelefoneDois = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
         
         JLabel label = new JLabel();
         label.setText("Telefone");

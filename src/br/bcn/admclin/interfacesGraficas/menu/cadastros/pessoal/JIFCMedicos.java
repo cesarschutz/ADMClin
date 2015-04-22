@@ -328,11 +328,11 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         jTFCep = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##.###-###"));
         jLabel14 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jTFTelefone = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
-        jTFTelefoneDois = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
+        jTFTelefone = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
+        jTFTelefoneDois = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTFCelular = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(15), null, 0);
+        jTFCelular = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("(##) ####-####"));
         jCBEspecialidadeMedica = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
