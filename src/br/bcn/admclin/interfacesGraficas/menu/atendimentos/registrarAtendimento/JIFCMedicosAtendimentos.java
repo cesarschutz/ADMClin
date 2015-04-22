@@ -80,6 +80,9 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
     /** Creates new form JIFCMedicos */
     public JIFCMedicosAtendimentos(String novoOuEditar, int medicoId) {
         initComponents();
+        
+        
+        
         this.novoOuEditar = novoOuEditar;
         this.medicoId = medicoId;
         iniciarClasse();
@@ -90,6 +93,9 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             jBAtualizarRegistro.setVisible(false);
             jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar novo Médico",
                 javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+            
+            jTFCidade.setText(janelaPrincipal.cidadePadrao);
+            jCBUf.setSelectedItem(janelaPrincipal.estadoPadrao);
         } else {
             jBSalvarRegistro.setVisible(false);
             jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Médico",
@@ -133,6 +139,8 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
 
         }
+        
+        
     }
 
     public void tirandoBarraDeTitulo() {
@@ -237,6 +245,10 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             medicosMODEL.setCidade(jTFCidade.getText());
             medicosMODEL.setUf((String) jCBUf.getSelectedItem());
             medicosMODEL.setEmId(listaCodEspecialidadesMedicas.get(jCBEspecialidadeMedica.getSelectedIndex()));
+            
+            janelaPrincipal.cidadePadrao = medicosMODEL.getCidade();
+            janelaPrincipal.estadoPadrao = medicosMODEL.getUf();
+            
             boolean cadastro = MEDICOS.setCadastrar(con, medicosMODEL);
             Conexao.fechaConexao(con);
             // atualiza tabela
@@ -278,6 +290,10 @@ public class JIFCMedicosAtendimentos extends javax.swing.JInternalFrame {
             medicosMODEL.setCidade(jTFCidade.getText());
             medicosMODEL.setUf((String) jCBUf.getSelectedItem());
             medicosMODEL.setEmId(listaCodEspecialidadesMedicas.get(jCBEspecialidadeMedica.getSelectedIndex()));
+            
+            janelaPrincipal.cidadePadrao = medicosMODEL.getCidade();
+            janelaPrincipal.estadoPadrao = medicosMODEL.getUf();
+            
             boolean cadastro = MEDICOS.setUpdate(con, medicosMODEL);
             Conexao.fechaConexao(con);
             // atualiza tabela

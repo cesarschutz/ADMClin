@@ -55,6 +55,8 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         this.novoOuEditar = novoOuEditar;
         this.handle_paciente = handle_paciente;
         iniciarClasse();
+        
+        
 
         pegandoDataDoSistema();
         tirandoBarraDeTitulo();
@@ -142,6 +144,9 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
                 javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
             jBAtualizarRegistro.setVisible(false);
             jTFNome.setText(JIFAtendimentoSelecionarUmPaciente.jTFNomePaciente.getText());
+            
+            jTFCidade.setText(janelaPrincipal.cidadePadrao);
+            jCBUf.setSelectedItem(janelaPrincipal.estadoPadrao);
         }
     }
 
@@ -226,6 +231,10 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
             pacienteModel.setEstadoCivil((String) jCBEstadoCivil.getSelectedItem());
             pacienteModel.setObs(jTAObs.getText());
             pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
+            
+            janelaPrincipal.cidadePadrao = pacienteModel.getCidade();
+            janelaPrincipal.estadoPadrao = pacienteModel.getUf();
+            
             con = Conexao.fazConexao();
             boolean cadastro = PACIENTES.setCadastrar(con, pacienteModel);
             Conexao.fechaConexao(con);
@@ -277,6 +286,10 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
             pacienteModel.setEstadoCivil((String) jCBEstadoCivil.getSelectedItem());
             pacienteModel.setObs(jTAObs.getText());
             pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
+            
+            janelaPrincipal.cidadePadrao = pacienteModel.getCidade();
+            janelaPrincipal.estadoPadrao = pacienteModel.getUf();
+            
             con = Conexao.fazConexao();
             boolean atualizo = PACIENTES.setUpdate(con, pacienteModel);
             Conexao.fechaConexao(con);

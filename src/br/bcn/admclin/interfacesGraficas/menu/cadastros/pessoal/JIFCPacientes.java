@@ -53,6 +53,8 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
         this.novoOuEditar = novoOuEditar;
         this.handle_paciente = handle_paciente;
         iniciarClasse();
+        
+        
 
         pegandoDataDoSistema();
         tirandoBarraDeTitulo();
@@ -137,6 +139,8 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
         if ("novo".equals(novoOuEditar)) {
             jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de novo Paciente",
                 javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+            jTFCidade.setText(janelaPrincipal.cidadePadrao);
+            jCBUf.setSelectedItem(janelaPrincipal.estadoPadrao);
         }
     }
 
@@ -225,6 +229,10 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
             pacienteModel.setEstadoCivil((String) jCBEstadoCivil.getSelectedItem());
             pacienteModel.setObs(jTAObs.getText());
             pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
+            
+            janelaPrincipal.cidadePadrao = pacienteModel.getCidade();
+            janelaPrincipal.estadoPadrao = pacienteModel.getUf();
+            
             con = Conexao.fazConexao();
             boolean cadastro = PACIENTES.setCadastrar(con, pacienteModel);
             Conexao.fechaConexao(con);
@@ -271,6 +279,10 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
             pacienteModel.setEstadoCivil((String) jCBEstadoCivil.getSelectedItem());
             pacienteModel.setObs(jTAObs.getText());
             pacienteModel.setTelefone_responsavel(jTFTelefoneResponsavel.getText());
+            
+            janelaPrincipal.cidadePadrao = pacienteModel.getCidade();
+            janelaPrincipal.estadoPadrao = pacienteModel.getUf();
+            
             con = Conexao.fazConexao();
             boolean atualizo = PACIENTES.setUpdate(con, pacienteModel);
             Conexao.fechaConexao(con);

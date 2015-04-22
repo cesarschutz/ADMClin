@@ -95,6 +95,9 @@ public class janelaPrincipal extends javax.swing.JFrame {
 		return numeroSequencialDoSistemaParaPDF;
 	}
 
+    public static String cidadePadrao = "";
+    public static String estadoPadrao = "";
+    
 	public static JjIFAguarde internalFrameAguarde;
     public static janelaPrincipal internalFrameJanelaPrincipal;
     public static JIFFeriadoVisualizar internalFrameFeriadoVisualizar;
