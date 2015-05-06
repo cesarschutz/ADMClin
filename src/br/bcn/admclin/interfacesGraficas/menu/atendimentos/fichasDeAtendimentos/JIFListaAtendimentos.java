@@ -44,6 +44,7 @@ import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1;
+import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora;
 import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaCodigoDeBarrasModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
@@ -1744,8 +1745,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             protected Object doInBackground() throws Exception {
                 boolean abriuEtiqueta = false;
                 if (janelaPrincipal.modeloDeImpressao == 1 || janelaPrincipal.modeloDeImpressao == 4) {
-                    ImprimirEtiquetaEnvelopeModelo1 imprimirEtiqueta = new ImprimirEtiquetaEnvelopeModelo1(handle_at);
-                    abriuEtiqueta = imprimirEtiqueta.salvarEIMprimirEtiqueta();
+                    new ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora(handle_at);
                 } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
                     ImprimirEtiquetaEnvelopeModelo2 imprimir = new ImprimirEtiquetaEnvelopeModelo2(handle_at);
                     abriuEtiqueta = imprimir.imprimir();

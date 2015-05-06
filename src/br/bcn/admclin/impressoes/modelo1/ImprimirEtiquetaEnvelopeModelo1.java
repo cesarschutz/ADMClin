@@ -66,7 +66,7 @@ public class ImprimirEtiquetaEnvelopeModelo1 {
             abrirEtiquetaPDF();
             conseguiuSalvarEAbrirEtiqueta = true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível Criar Etiqueta. Procure o Administrador." + " 000001", "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não foi possível Criar Etiqueta. Procure o Administrador." + " 000001" + e, "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
         } catch (DocumentException e) {
             JOptionPane.showMessageDialog(null,
                 "Não foi possível Criar Etiqueta. Procure o Administrador." + " 000002", "ERRO",
@@ -101,7 +101,7 @@ public class ImprimirEtiquetaEnvelopeModelo1 {
 
             data_atendimento = MetodosUteis.converterDataParaMostrarAoUsuario(resultSet.getString("data_atendimento"));
             hora_atendimento = MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento"));
-            modalidade = resultSet.getString("modalidade");
+            modalidade = "";
 
         }
     }
