@@ -15,7 +15,9 @@ public class VerificacaoDeMatricula {
      * Metodo apra verificar matricula do IPE
      * Numero da Matrícula do Beneficiário no IPE. 
         Validação : > 999999999999                                         1ª verificação > 999999999999
-        FORMATO : OOPPPPPPPXDDY 
+        FORMATO : O
+                    |   |   |   |   |   |
+                   x1  x2  x1  x2  x1  x2OPPPPPPPXDDY 
         Se OO igual a 63 então X é digito de controle de PPPPPPP 
        ( módulo 10 ) .                                                     2ª verificação o digito X
         Se OO igual a 19, 20, 41 ou 73 então X é digito de controle 
@@ -52,8 +54,6 @@ public class VerificacaoDeMatricula {
                   +---+---+---+---+---+---+   +---+
                   | 2 | 6 | 1 | 5 | 3 | 3 | - | 4 |
                   +---+---+---+---+---+---+   +---+
-                    |   |   |   |   |   |
-                   x1  x2  x1  x2  x1  x2
                     |   |   |   |   |   |
                    =2 =12  =1 =10  =3  =6
                     +---+---+---+---+---+-> = (16 / 10) = 1, resto 6 => DV = (10 - 6) = 4
@@ -98,7 +98,7 @@ public class VerificacaoDeMatricula {
                             dig = Integer.parseInt(mat.substring(i,i+1));
                             soma += dig * fator11--;
                         }
-                        dig = (11 - (soma % 11));
+                        dig = (soma % 11) > 1 ? (11 - (soma % 11)): 0; // alterado
                         
                         XX = Integer.parseInt(X);
                         if (dig != XX) return false;
