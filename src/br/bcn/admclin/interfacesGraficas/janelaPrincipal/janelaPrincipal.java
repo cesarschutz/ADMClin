@@ -589,6 +589,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 jMEAtendimentoSemAgendaActionPerformed(arg0);
             }
         });
+        jMERegistrarAtendimento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
 
         jMEntradaESaida.add(jMenu1);
         
