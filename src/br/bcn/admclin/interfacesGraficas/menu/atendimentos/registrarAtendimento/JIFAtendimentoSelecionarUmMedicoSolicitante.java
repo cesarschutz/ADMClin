@@ -134,19 +134,21 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
     }
 
     public void botaoSelecionar() {
-        String handle_medico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-        String nomeMedico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
-
-        JIFCadastroDeAtendimento.jTFHANDLE_MEDICO_SOL.setText(handle_medico);
-        JIFCadastroDeAtendimento.jTFMedicoSol.setText(nomeMedico);
-
-        // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
-        JIFCadastroDeAtendimento.handle_medico_sol = Integer.valueOf(handle_medico);
-
-        this.dispose();
-        janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
-        janelaPrincipal.internalFrameAtendimento.setVisible(true);
-        janelaPrincipal.internalFrameAtendimento.verificaMedicoSemAlerta();
+    	if(jTable1.getSelectedRow() >= 0){
+	        String handle_medico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+	        String nomeMedico = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
+	
+	        JIFCadastroDeAtendimento.jTFHANDLE_MEDICO_SOL.setText(handle_medico);
+	        JIFCadastroDeAtendimento.jTFMedicoSol.setText(nomeMedico);
+	
+	        // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
+	        JIFCadastroDeAtendimento.handle_medico_sol = Integer.valueOf(handle_medico);
+	
+	        this.dispose();
+	        janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante = null;
+	        janelaPrincipal.internalFrameAtendimento.setVisible(true);
+	        janelaPrincipal.internalFrameAtendimento.verificaMedicoSemAlerta();
+    	}
 
     }
 
@@ -154,25 +156,26 @@ public class JIFAtendimentoSelecionarUmMedicoSolicitante extends javax.swing.JIn
      * metodo que abre o paciente selecionado para editar e seleciona-lo
      */
     public void botaoEditarMedico() {
-
-        //if (JIFAtendimentoAgenda.veioDaPesquisa) {
-        //    janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
-        //} else {
-            janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
-        //}
-
-        int handle_medico = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-        janelaPrincipal.internalFrameAtendimentoCadastroMedicos = new JIFCMedicosAtendimentos("editar", handle_medico);
-
-        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoCadastroMedicos);
-        janelaPrincipal.internalFrameAtendimentoCadastroMedicos.setVisible(true);
-        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
-        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
-        int lIFrame = janelaPrincipal.internalFrameAtendimentoCadastroMedicos.getWidth();
-        int aIFrame = janelaPrincipal.internalFrameAtendimentoCadastroMedicos.getHeight();
-
-        janelaPrincipal.internalFrameAtendimentoCadastroMedicos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
-            - aIFrame / 2);
+    	if(jTable1.getSelectedRow() >= 0){
+	        //if (JIFAtendimentoAgenda.veioDaPesquisa) {
+	        //    janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
+	        //} else {
+	            janelaPrincipal.internalFrameAtendimentoSelecionarUmMedicoSolicitante.setVisible(false);
+	        //}
+	
+	        int handle_medico = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+	        janelaPrincipal.internalFrameAtendimentoCadastroMedicos = new JIFCMedicosAtendimentos("editar", handle_medico);
+	
+	        janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameAtendimentoCadastroMedicos);
+	        janelaPrincipal.internalFrameAtendimentoCadastroMedicos.setVisible(true);
+	        int lDesk = janelaPrincipal.jDesktopPane1.getWidth();
+	        int aDesk = janelaPrincipal.jDesktopPane1.getHeight();
+	        int lIFrame = janelaPrincipal.internalFrameAtendimentoCadastroMedicos.getWidth();
+	        int aIFrame = janelaPrincipal.internalFrameAtendimentoCadastroMedicos.getHeight();
+	
+	        janelaPrincipal.internalFrameAtendimentoCadastroMedicos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2
+	            - aIFrame / 2);
+    	}
     }
 
     /*
