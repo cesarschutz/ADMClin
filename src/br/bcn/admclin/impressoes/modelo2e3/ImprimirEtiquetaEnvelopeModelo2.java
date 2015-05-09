@@ -85,5 +85,6 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
         imprimir.lineFeed();
         imprimir.lineFeed();
         imprimir.lineFeed();
+        imprimir.lineFeed();
     }
 }
