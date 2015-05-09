@@ -101,6 +101,9 @@ public class GerarDmed {
             atendimento.setCpfPaciente(resultSet.getString("cpf"));
             atendimento.setCpfResponsavel(resultSet.getString("cpfresponsavel"));
             atendimento.setImpressoraUtilizadaImpressaoNota(resultSet.getString("IMPRESSORA_UTILIZADA_NOTA"));
+            if(atendimento.getImpressoraUtilizadaImpressaoNota() == null){
+            	atendimento.setImpressoraUtilizadaImpressaoNota("");
+            }
            // JOptionPane.showMessageDialog(null, "handleAt: " + atendimento.getHandle_at() + "      impressora:" + atendimento.getImpressoraUtilizadaImpressaoNota());
             atendimento.setValorPago(Double.valueOf(resultSet.getString("valor_correto_paciente")));
             listaDmed.add(atendimento);
@@ -129,7 +132,8 @@ public class GerarDmed {
         tabelaPrimeiraImpressora.setWidths(new int[] { 1 });
         tabelaPrimeiraImpressora.setWidthPercentage(100);
         
-        if(ultimaImpressoraUtilizada.length() < 9){
+        if(ultimaImpressoraUtilizada == null || ultimaImpressoraUtilizada.length() < 9){
+        	ultimaImpressoraUtilizada = "";
 			cell = new PdfPCell(new Phrase("Impressora Utilizada: " + "Sem Impressão", fontBold10));
 		}else{
 			String nome[] = ultimaImpressoraUtilizada.split("\\\\");
