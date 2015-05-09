@@ -155,7 +155,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         //colocanndo o celular 
         imprimir.print("      " + arrumarTamanhoDaString("", 28) + "    "
                 + arrumarTamanhoDaString(listaDeExames.get(0).getCelularPaciente(), 19));
-
+        imprimir.lineFeed();
         
         // aqui imprimimos o exame cidade uf, peso altura e idade
         for (int i = 0; i <= 4; i++) {
@@ -168,20 +168,28 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
 
             if (i == 2) {
                 imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getCidadePaciente(), 26) + "   "
-                    + arrumarTamanhoDaString(listaDeExames.get(0).getUfPaciente(), 24) + "  "
+                    + arrumarTamanhoDaString(listaDeExames.get(0).getUfPaciente(), 34) + "  "
                     + arrumarTamanhoDaString(nomeDoExame, 20));
                 imprimir.lineFeed();
             } else if (i == 3) {
                 imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getAlturaPaciente(), 8) + "    "
                     + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getPesoPaciente()), 10) + "    "
-                    + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getIdadePaciente()), 27) + "  "
+                    + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getIdadePaciente()), 2) + " - " + arrumarTamanhoDaString(listaDeExames.get(0).getNascimentoPaciente(), 32) + "  "
                     + arrumarTamanhoDaString(nomeDoExame, 20));
                 imprimir.lineFeed();
             } else {
-                // 59 espaços
-                imprimir.print("        " + arrumarTamanhoDaString(listaDeExames.get(0).getNomeMedicoSolicitante(), 61) 
-                    + arrumarTamanhoDaString(nomeDoExame, 20));
-                imprimir.lineFeed();
+            	if(i == 0){
+            		// 59 espaços
+                    imprimir.print("        " + arrumarTamanhoDaString(listaDeExames.get(0).getNomeMedicoSolicitante(), 61) 
+                        + arrumarTamanhoDaString(nomeDoExame, 20));
+                    imprimir.lineFeed();
+            	}else{
+            		// 59 espaços
+                    imprimir.print("        " + arrumarTamanhoDaString("", 61) 
+                        + arrumarTamanhoDaString(nomeDoExame, 20));
+                    imprimir.lineFeed();
+            	}
+                
             }
         }
 
@@ -212,6 +220,7 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
             } catch (Exception e) {
                 exame.setIdadePaciente("-");
             }
+            exame.setNascimentoPaciente(resultSet.getString("nascimento"));
             exame.setPesoPaciente(resultSet.getString("peso"));
             exame.setHoraAtendimento(MetodosUteis.transformarMinutosEmHorario(resultSet.getInt("hora_atendimento")));
             exame.setTelefonePaciente(resultSet.getString("telefone"));
