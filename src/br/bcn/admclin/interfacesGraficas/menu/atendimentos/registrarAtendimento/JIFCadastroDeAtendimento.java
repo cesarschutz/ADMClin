@@ -72,6 +72,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 /*
  * To change this template, choose Tools | Templates
@@ -228,7 +229,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         // focus no paciente
         jTFPaciente.requestFocusInWindow();
 
-        Conexao.fechaConexao(con);
+        Conexao.fechaConexao(con);        
     }
 
     // ok
@@ -631,6 +632,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 jtfDuracaoAtendimento.setText(MetodosUteis.transformarMinutosEmHorario(resultSet
                     .getInt("duracao_atendimento")));
                 duracaoDoAtendimento = resultSet.getInt("duracao_atendimento");
+                
+                jTFHandleAt.setText(String.valueOf(handle_atendimento));
 
             }
         } catch (SQLException ex) {
@@ -1096,7 +1099,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                     jCBPacientePagou.setEnabled(false);
                     cadastrouNovoAtendimento = true;
                     
-                    
+                    jTFHandleAt.setText(String.valueOf(atendimento.getHANDLE_AT()));
                 }
             } else {
                 JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
@@ -1637,68 +1640,81 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         });
         
         jLAreasDoAgendamento = new JLabel("Áreas do Agendamento");
+        
+        jTFHandleAt = new JTextField();
+        jTFHandleAt.setHorizontalAlignment(SwingConstants.CENTER);
+        jTFHandleAt.setEnabled(false);
+        jTFHandleAt.setEditable(false);
+        jTFHandleAt.setColumns(10);
+        
+        JLabel lblCd = new JLabel("Cód.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel11)
-                                    .addGap(18)
-                                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(18)
-                                    .addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 140, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(jLabel10)
-                                        .addComponent(lblDataAtendimento, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(jtfDuracaoAtendimento, GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(ComponentPlacement.RELATED)
-                                            .addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
-                            .addContainerGap())
-                        .addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE))))
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel11)
+        							.addGap(18)
+        							.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addComponent(jLabel6)
+        							.addGap(18)
+        							.addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+        							.addComponent(lblCd)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFHandleAt, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(jLabel10)
+        								.addComponent(lblDataAtendimento, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(jtfDuracaoAtendimento, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+        								.addGroup(jPanel1Layout.createSequentialGroup()
+        									.addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+        									.addPreferredGap(ComponentPlacement.RELATED)
+        									.addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
+        					.addContainerGap())
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addComponent(jLAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(lblDataAtendimento)
-                        .addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(jtfDuracaoAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(13)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11))
-                    .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLAreasDoAgendamento)))
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel6)
+        				.addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jTFHandleAt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblCd))
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblDataAtendimento)
+        				.addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel10)
+        				.addComponent(jtfDuracaoAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addGap(13)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel11))
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jCBAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLAreasDoAgendamento)))
         );
         jPanel1.setLayout(jPanel1Layout);
 
@@ -3072,4 +3088,5 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     private JLabel jLAreasDoAgendamento;
     private JComboBox<String> jCBAreasDoAgendamento;
     private JCheckBox jCBPacientePagou;
+    private JTextField jTFHandleAt;
 }
