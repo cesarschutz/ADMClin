@@ -59,9 +59,11 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
             // inicializando a impressora
             imprimir.initialize();
             // imprimindo o boleto de retirada (parte superior da ficha)
-            imprimirCanhotoDeRetirada();
+            //imprimirCanhotoDeRetirada();
+            imprimirCanhotoDeRetirada2();
             // imprimindo a ficha em si
-            imprimirFicha();
+            //imprimirFicha();
+            imprimirFicha2();
             imprimirNotaCasoSejaLinux();
             imprimiu = true;
         } catch (Exception e) {
@@ -86,13 +88,14 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 67));
 
         imprimir.lineFeed(); // linha 2
-        imprimir.lineFeed(); // linha 3
+        
 
         // imprimindo exame data e nº
         imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getNome_area_atendimento(), 27)
             + "     " + arrumarTamanhoDaString(listaDeExames.get(0).getDataEntregaExame(), 20) + "   "
             + arrumarTamanhoDaString(String.valueOf(handle_at), 13));
-
+        
+        imprimir.lineFeed(); // linha 3
         imprimir.lineFeed(); // linha 4
         imprimir.lineFeed(); // linha 5
         imprimir.lineFeed(); // linha 6
@@ -103,6 +106,125 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         imprimir.lineFeed(); // linha 11
 
     }
+private void imprimirCanhotoDeRetirada2() {
+    	
+        imprimir.lineFeed(); // linha 1
+        imprimir.lineFeed(); // linha 2
+        imprimir.lineFeed(); // linha 3
+        imprimir.lineFeed(); // linha 4
+        imprimir.lineFeed(); // linha 5
+        imprimir.lineFeed(); // linha 6
+        imprimir.lineFeed(); // linha 7
+        // imprimindo o nome do paciente
+        imprimir.print("     " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 67));
+
+        imprimir.lineFeed(); // linha 2
+        
+
+        // imprimindo exame data e nº
+        imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getNome_area_atendimento(), 27)
+            + "     " + arrumarTamanhoDaString(listaDeExames.get(0).getDataEntregaExame(), 20) + "   "
+            + arrumarTamanhoDaString(String.valueOf(handle_at), 13));
+        
+        imprimir.lineFeed(); // linha 3
+        imprimir.lineFeed(); // linha 4
+        imprimir.lineFeed(); // linha 5
+        imprimir.lineFeed(); // linha 6
+        imprimir.lineFeed(); // linha 7
+        imprimir.lineFeed(); // linha 8
+        imprimir.lineFeed(); // linha 9
+        imprimir.lineFeed(); // linha 10
+        //imprimir.lineFeed(); // linha 11
+
+    }
+private void imprimirFicha2() {
+
+    // imprimir a hora do atendimento linha 10 (campo: hora de chegada)
+    // 69 espaços em branco
+    imprimir.print("                                                                      "
+        + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 10));
+
+    imprimir.lineFeed(); // linha 11
+    
+    // imprimi na linha 12 a data do atendimento (campo: data)
+    // 62 espaços
+    imprimir.print("                                                                "
+        + arrumarTamanhoDaString(listaDeExames.get(0).getDataAtendimento(), 12));
+
+    imprimir.lineFeed(); // linha 13
+    // imprimir o handle at na linha 13 (campo: nº)
+    // 37 espaços em branco
+    imprimir.print("                                       " + arrumarTamanhoDaString(String.valueOf(handle_at), 19));
+
+    imprimir.lineFeed();
+
+    // imprimi a hora marca
+    imprimir.print("     " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 54) 
+    		+ "          " + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 6));
+    
+    imprimir.lineFeed();
+    
+    imprimir.print("                                          " + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getNomeConvenio()), 16));
+
+    imprimir.lineFeed();
+    //imprimir.lineFeed();
+    
+    // imprimi hora do atendimento na linha 16
+    Calendar hoje = Calendar.getInstance();
+    SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+    String horaAtual = format.format(hoje.getTime());
+    // 70 espaços em branco
+    imprimir.print("                                                                        "
+        + arrumarTamanhoDaString(String.valueOf(horaAtual), 6));
+
+    imprimir.lineFeed(); 
+    
+    // imprimi endereço do paciente, telefone do paciente na linha 17
+    imprimir.print("       " + arrumarTamanhoDaString(listaDeExames.get(0).getEnderecoPaciente(), 28) + "    "
+        + arrumarTamanhoDaString(listaDeExames.get(0).getTelefonePaciente(), 19));
+    
+    imprimir.lineFeed(); 
+    
+    //colocanndo o celular 
+    imprimir.print("      " + arrumarTamanhoDaString("", 28) + "     "
+            + arrumarTamanhoDaString(listaDeExames.get(0).getCelularPaciente(), 19));
+    imprimir.lineFeed();
+    imprimir.print("    " + arrumarTamanhoDaString(listaDeExames.get(0).getCidadePaciente(), 26) + "   "
+            + arrumarTamanhoDaString(listaDeExames.get(0).getUfPaciente(), 34));
+    imprimir.lineFeed(); 
+    imprimir.print("     " + arrumarTamanhoDaString(listaDeExames.get(0).getAlturaPaciente(), 8) + "     "
+            + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getPesoPaciente()), 10) + "     "
+            + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getIdadePaciente()), 2) + " - " + arrumarTamanhoDaString(listaDeExames.get(0).getNascimentoPaciente(), 32));
+    imprimir.lineFeed(); 
+    imprimir.lineFeed(); 
+    imprimir.print("        " + arrumarTamanhoDaString(listaDeExames.get(0).getNomeMedicoSolicitante(), 61));
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    
+    // aqui imprimimos o exame cidade uf, peso altura e idade
+    for (int i = 0; i <= 4; i++) {
+        String nomeDoExame = " ";
+        try {
+            nomeDoExame = listaDeExames.get(i).getNomeExame();
+        } catch (Exception e) {
+            nomeDoExame = " ";
+        }
+        imprimir.print("    " + arrumarTamanhoDaString(nomeDoExame, 20));
+        imprimir.lineFeed();
+    }
+
+    for (int i = 0; i < 10; i++) {
+        imprimir.lineFeed();
+    }
+    imprimir.close();
+
+}
 
     private void imprimirFicha() {
 
