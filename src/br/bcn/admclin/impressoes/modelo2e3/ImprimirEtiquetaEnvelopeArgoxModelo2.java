@@ -29,6 +29,7 @@ import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
  */
 public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
 
+	private String nome_area_de_atendimento;
     private int handle_at;
     private String str_handle_at;
     private String caminhoImpressora;
@@ -55,7 +56,6 @@ public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
 		Connection con = Conexao.fazConexao();
 		ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con, handle_at);
 		while (resultSet.next()) {
-			JOptionPane.showMessageDialog(null, "nome: " + nome_paciente);
 			nome_medico_sol = resultSet.getString("nomeMed");
 
 			data_atendimento = MetodosUteis
@@ -65,6 +65,7 @@ public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
 					.transformarMinutosEmHorario(resultSet
 							.getInt("hora_atendimento"));
 			modalidade = "";
+			nome_area_de_atendimento = resultSet.getString("nome_area");
 
 		}
 	}

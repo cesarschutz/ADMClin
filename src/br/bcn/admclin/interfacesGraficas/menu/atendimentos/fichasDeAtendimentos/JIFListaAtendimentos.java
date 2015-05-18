@@ -1519,7 +1519,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 		            @Override
 		            protected void done() {
 		                //preenchendoTabela();
-		                //janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
+		                janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
 		            }
 		        };
 
