@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
@@ -25,14 +27,15 @@ import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
  *
  * @author BCN
  */
-public class ImprimirEtiquetaCodigoDeBarrasModelo2 {
+public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
 
     private int handle_at;
     private String str_handle_at;
     private String caminhoImpressora;
     private String nomeDoArquivo = janelaPrincipal.internalFrameJanelaPrincipal.codigoParaImpressoesLinux + "CODIGOBARRAS";
     
-    public ImprimirEtiquetaCodigoDeBarrasModelo2(int handle_at) {
+    public ImprimirEtiquetaEnvelopeArgoxModelo2(int handle_at) {
+    	this.handle_at = handle_at;
 		this.str_handle_at = String.valueOf(handle_at);
 		try {
 			buscarInformaçõesDoAtendimento();
@@ -52,7 +55,7 @@ public class ImprimirEtiquetaCodigoDeBarrasModelo2 {
 		Connection con = Conexao.fazConexao();
 		ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con, handle_at);
 		while (resultSet.next()) {
-			nome_paciente = resultSet.getString("nomePac");
+			JOptionPane.showMessageDialog(null, "nome: " + nome_paciente);
 			nome_medico_sol = resultSet.getString("nomeMed");
 
 			data_atendimento = MetodosUteis
@@ -74,10 +77,12 @@ public class ImprimirEtiquetaCodigoDeBarrasModelo2 {
         }
     }
     
+    private PrintWriter fo;
+    
     public boolean writeFile(){
         try{ 
             instanciarImpressora();
-            PrintWriter fo = new PrintWriter(new FileOutputStream(new File(caminhoImpressora)));
+            fo = new PrintWriter(new FileOutputStream(new File(caminhoImpressora)));
             
             
             
@@ -132,16 +137,16 @@ public class ImprimirEtiquetaCodigoDeBarrasModelo2 {
 			fo.print("E");
 			fo.print((char) 13);
 			fo.print((char) 10);
-			                    
-			fo.close();
-            
-            
-            fo.close();
             
             return true;
         }catch(Exception e){
             System.out.println("Erro: " + e);
             return false;
+        }finally{
+        	try {
+        		fo.close();
+			} catch (Exception e2) {
+			}
         }
     }
     

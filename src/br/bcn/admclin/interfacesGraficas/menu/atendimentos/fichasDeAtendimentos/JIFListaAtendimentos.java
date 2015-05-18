@@ -46,7 +46,7 @@ import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora;
 import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
-import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaCodigoDeBarrasModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeArgoxModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
@@ -1501,7 +1501,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 		        SwingWorker worker = new SwingWorker() {
 		            @Override
 		            protected Object doInBackground() throws Exception {
-		            	ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at);
+		            	ImprimirEtiquetaEnvelopeArgoxModelo2 imprimir = new ImprimirEtiquetaEnvelopeArgoxModelo2(handle_at);
 		                //ImprimirEtiquetaEnvelopeModelo2 imprimirBoletoDeRetirada =
 		                    //new ImprimirEtiquetaEnvelopeModelo2(handle_at);
 		                /*
@@ -1839,7 +1839,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             @Override
             protected Object doInBackground() throws Exception {
                 boolean abriuEtiqueta = false;
-                ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at);
+                ImprimirEtiquetaEnvelopeArgoxModelo2 imprimir = new ImprimirEtiquetaEnvelopeArgoxModelo2(handle_at);
                 abriuEtiqueta = imprimir.writeFile();
 
                 if (abriuEtiqueta) {
