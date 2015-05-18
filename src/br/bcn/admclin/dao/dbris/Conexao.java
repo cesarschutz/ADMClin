@@ -35,18 +35,18 @@ public class Conexao {
             Properties props = new Properties();
             props.put("user", "SYSDBA");
             props.put("password", "masterkey");
-            props.put("charset", "UTF8");
-            props.put("lc_ctype", "ISO8859_1");
+            //props.put("charset", "UTF8");
+            //props.put("lc_ctype", "ISO8859_1");
 
             con =
                 DriverManager.getConnection("jdbc:firebirdsql:" + janelaPrincipal.RISIP + "/3050:"
                     + janelaPrincipal.RISDB, props);
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                "Erro no drive de conexão. Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+                "Erro no drive de conexão. Procure o administrador"+e, "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                "Erro na conexao! Procure o administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+                "Erro na conexao! Procure o administrador"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             return con;
         }

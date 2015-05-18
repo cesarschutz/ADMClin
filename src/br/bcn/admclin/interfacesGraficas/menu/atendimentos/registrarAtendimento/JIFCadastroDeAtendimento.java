@@ -634,6 +634,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 duracaoDoAtendimento = resultSet.getInt("duracao_atendimento");
                 
                 jTFHandleAt.setText(String.valueOf(handle_atendimento));
+                
+                jTFUsuarioQueCadastrou.setText(resultSet.getString("nm_usuario"));
 
             }
         } catch (SQLException ex) {
@@ -1535,6 +1537,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         lblDataAtendimento.setText("Data Atendimento");
         
         JXDPDataAtendimento = new JXDatePicker();
+        JXDPDataAtendimento.setEnabled(false);
         JXDPDataAtendimento.setFormats(new String[] {"E dd/MM/yyyy"});
         
         jTFhoraAtendimento = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##:##"));
@@ -1648,6 +1651,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         jTFHandleAt.setColumns(10);
         
         JLabel lblCd = new JLabel("Cód.");
+        
+        jTFUsuarioQueCadastrou = new JTextField();
+        jTFUsuarioQueCadastrou.setEnabled(false);
+        jTFUsuarioQueCadastrou.setColumns(10);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
@@ -1667,7 +1674,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         							.addComponent(jXDPEntregaDoExame, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(jtfHoraEntregaExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+        							.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
         							.addComponent(lblCd)
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(jTFHandleAt, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
@@ -1681,7 +1688,9 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         								.addGroup(jPanel1Layout.createSequentialGroup()
         									.addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
         									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))))
+        									.addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        									.addGap(18)
+        									.addComponent(jTFUsuarioQueCadastrou, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))))
         					.addContainerGap())
         				.addGroup(jPanel1Layout.createSequentialGroup()
         					.addComponent(jLAreasDoAgendamento, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
@@ -1702,7 +1711,8 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblDataAtendimento)
         				.addComponent(JXDPDataAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(jTFhoraAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jTFUsuarioQueCadastrou, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLabel10)
@@ -3089,4 +3099,5 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     private JComboBox<String> jCBAreasDoAgendamento;
     private JCheckBox jCBPacientePagou;
     private JTextField jTFHandleAt;
+    private JTextField jTFUsuarioQueCadastrou;
 }

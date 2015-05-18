@@ -90,18 +90,6 @@ public class ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora {
 			PrintWriter fo = new PrintWriter(new FileOutputStream(new File(
 					caminhoImpressora)));
 			
-			fo.print((char) 2);
-			fo.print("L");
-			fo.print((char) 13);
-			fo.print("D11");
-			fo.print((char) 13);
-			fo.print("121100001000050" + handle_at + " - " + nome_paciente);
-			fo.print((char) 13);
-			
-			
-			
-			fo.print("E");
-			fo.print((char) 13);
 			
 			/**
 			fo.print((char) 2);

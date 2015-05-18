@@ -194,19 +194,11 @@ private void imprimirFicha2() {
     imprimir.lineFeed(); 
     imprimir.print("     " + arrumarTamanhoDaString(listaDeExames.get(0).getAlturaPaciente(), 8) + "     "
             + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getPesoPaciente()), 10) + "     "
-            + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getIdadePaciente()), 2) + " - " + arrumarTamanhoDaString(listaDeExames.get(0).getNascimentoPaciente(), 32));
+            + arrumarTamanhoDaString(String.valueOf(listaDeExames.get(0).getIdadePaciente()), 2) + " ano(s) - " + arrumarTamanhoDaString(listaDeExames.get(0).getNascimentoPaciente(), 32));
     imprimir.lineFeed(); 
     imprimir.lineFeed(); 
     imprimir.print("        " + arrumarTamanhoDaString(listaDeExames.get(0).getNomeMedicoSolicitante(), 61));
     imprimir.lineFeed();
-    imprimir.lineFeed();
-    imprimir.lineFeed();
-    imprimir.lineFeed();
-    imprimir.lineFeed();
-    imprimir.lineFeed();
-    imprimir.lineFeed();
-    imprimir.lineFeed();
-    
     // aqui imprimimos o exame cidade uf, peso altura e idade
     for (int i = 0; i <= 4; i++) {
         String nomeDoExame = " ";
@@ -215,11 +207,20 @@ private void imprimirFicha2() {
         } catch (Exception e) {
             nomeDoExame = " ";
         }
-        imprimir.print("    " + arrumarTamanhoDaString(nomeDoExame, 20));
+        imprimir.print("                              " + arrumarTamanhoDaString(nomeDoExame, 20));
         imprimir.lineFeed();
     }
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    imprimir.lineFeed();
+    
 
-    for (int i = 0; i < 10; i++) {
+
+    for (int i = 0; i < 11; i++) {
         imprimir.lineFeed();
     }
     imprimir.close();
@@ -331,6 +332,7 @@ private void imprimirFicha2() {
         listaDeExames.clear();
         while (resultSet.next()) {
             ImprimirFichaEBoletoDeRetiradaModelo2MODEL exame = new ImprimirFichaEBoletoDeRetiradaModelo2MODEL();
+            
             exame.setNome_area_atendimento(resultSet.getString("nomeAreaAtendimento"));
             exame.setNomePaciente(resultSet.getString("nomePaciente"));
             exame.setDataEntregaExame(MetodosUteis.converterDataParaMostrarAoUsuario(resultSet

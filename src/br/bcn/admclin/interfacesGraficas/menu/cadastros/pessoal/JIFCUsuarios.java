@@ -782,7 +782,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel11.setText("Impressora para Código de Barras");
+        jLabel11.setText("Impressora para Etiqueta Envelope (argox)");
         
         btnDefinirPastaRaiz = new JButton("Definir Pasta Raiz");
         btnDefinirPastaRaiz.addActionListener(new ActionListener() {

@@ -87,4 +87,9 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
         imprimir.lineFeed();
         imprimir.lineFeed();
     }
+
+	public boolean salvarEIMprimirBoletoDeRetirada() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

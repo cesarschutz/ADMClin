@@ -1462,16 +1462,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         JMenu imprimir = new JMenu("Imprimir");
         imprimir.setIcon(iconeImprimir);
 
-        // imprimir laudo
-        JMenuItem imprimirLaudo = new JMenuItem("Laudo", iconeImprimirLaudo);
-        imprimirLaudo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // fazer o metodo
-            }
-        });
-
         // imprimir etiqueta
-        JMenuItem imprimirEtiqueta = new JMenuItem("Etiqueta", iconeImrimirEtiqueta);
+        JMenuItem imprimirEtiqueta = new JMenuItem("Etiqueta Envelope (matricial)", iconeImrimirEtiqueta);
         imprimirEtiqueta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 imprimirEiqueta();
@@ -1495,11 +1487,44 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         });
 
         // imprimir codigo de barras
-        JMenuItem imprimirCodigoDeBarras = new JMenuItem("Código de Barras", iconeImprimirCodigoDeBarras);
+        JMenuItem imprimirCodigoDeBarras = new JMenuItem("Etiqueta Envelope (argox)", iconeImprimirCodigoDeBarras);
         imprimirCodigoDeBarras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                imprimirCodigoDeBarras();
+                //imprimirCodigoDeBarras();
+            	imprimirEtiquetaEnvelope();
             }
+
+			private void imprimirEtiquetaEnvelope() {
+				// TODO Auto-generated method stub
+		        final int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+		        janelaPrincipal.internalFrameJanelaPrincipal.ativarCarregamento();
+		        SwingWorker worker = new SwingWorker() {
+		            @Override
+		            protected Object doInBackground() throws Exception {
+		            	ImprimirEtiquetaCodigoDeBarrasModelo2 imprimir = new ImprimirEtiquetaCodigoDeBarrasModelo2(handle_at);
+		                //ImprimirEtiquetaEnvelopeModelo2 imprimirBoletoDeRetirada =
+		                    //new ImprimirEtiquetaEnvelopeModelo2(handle_at);
+		                /*
+		                boolean abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+		                if (abriuBoletoDeRetirada) {
+		                    // aqui colocar o flag_imprimiu como "S"
+		                    con = Conexao.fazConexao();
+		                    ATENDIMENTOS.setUpdateFlagImprimiu(con, handle_at);
+		                    Conexao.fechaConexao(con);
+		                }
+		                */
+		                return null;
+		            }
+
+		            @Override
+		            protected void done() {
+		                //preenchendoTabela();
+		                //janelaPrincipal.internalFrameJanelaPrincipal.desativarCarregamento();
+		            }
+		        };
+
+		        worker.execute();
+			}
         });
         
         
@@ -1519,6 +1544,40 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 laudo();
             }
         });
+        
+     // Laudo
+        JMenuItem imprimirLaudo = new JMenuItem("Imprimir Laudo", iconeEscreverLaudo);
+        imprimirLaudo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	if(jTable1.getSelectedRow() > 0){
+            		imprimirLaudo();
+            	}
+                
+            }
+
+			private void imprimirLaudo() {
+				//CRIAR METODO QUE IMPRIME O LAUDO
+				
+				//CHAMAR MakeLaudoPDF
+				//java -jar C:\\PacLinkWeb10\makeLaudoPdf.jar 200.175.100.218 portal40 1082 MR
+				
+				String handle_at = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+		        String commandsmac = "java -jar " + "C:\\PacLinkWeb10\\makelaudopdf.jar " + janelaPrincipal.RISIP + " portal40 " + handle_at + " MR";
+		        //JOptionPane.showMessageDialog(null, commandsmac);
+		                Process proc = null;
+
+		                try {
+		                    proc = Runtime.getRuntime().exec(commandsmac);
+		                } catch (Exception ex) {
+		                	//JOptionPane.showMessageDialog(null, ex);
+		                }
+				
+				
+				
+				
+				
+			}
+        });
 
         // adicionando os submenus no impimir
 
@@ -1527,13 +1586,16 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirBoletoDeRetirada);
             imprimir.add(imprimirEtiqueta);
+            imprimir.add(imprimirLaudo);
         } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirEtiqueta);
             imprimir.add(imprimirCodigoDeBarras);
+            imprimir.add(imprimirLaudo);
         } else if (janelaPrincipal.modeloDeImpressao == 4){
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirEtiqueta);
+            imprimir.add(imprimirLaudo);
         }
 
         // cria o menu popup e adiciona os itens
