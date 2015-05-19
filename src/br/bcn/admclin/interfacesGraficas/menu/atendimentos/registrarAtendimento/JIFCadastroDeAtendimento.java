@@ -187,7 +187,12 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             jTFhoraAtendimento.setText(dateFormat.format(date));
 
             con = Conexao.fazConexao();
-            reservandoHorarioCasoSejaUmHorarioLivre();
+            
+            //esse metodo foi removido por que nao vamos mais reservar o horario
+            //vamos salvar diretamente
+            //antes ele reservava e somente atualizava quando ia salvar, isso por causa da agenda antigo (gambiarra para nao duplicar atendimentos com recepcionistgas diferentes
+            
+            //reservandoHorarioCasoSejaUmHorarioLivre();
 
             // caso venha de um agendamento, ele preenche os campos com as informações do agendamento
             if(veioDeAgendamento){
@@ -456,12 +461,12 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         // pegando o handle_ap para salvar no banco
         try {
             con = Conexao.fazConexao();
-            handle_at = ATENDIMENTOS.getHandleAP(con);
+            handle_at = ATENDIMENTOS.getHandleAP(con) + 1;
             con = Conexao.fazConexao();
             ATENDIMENTOS.setSomarHandleAP(con);
             Conexao.fechaConexao(con);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao somar handle_at. Procure o Administrador." + e, "ERRO",
+            JOptionPane.showMessageDialog(null, "Erro ao somar handle_at. Procure o Administrador.", "ERRO",
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         } 
 
@@ -920,195 +925,268 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     }
 
     // ok
-    public void botaoSalvar() {
-        boolean cadastro = false;
-        if ( verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida() && verificaMedicoComAlerta()) {
+	public void botaoSalvar() {
 
-            // se pegou o valor do handle_ap ele cadastra
-            if (handle_at > 0) {
-                con = Conexao.fazConexao();
-                deletarExamesDeUmAtendimento();
-                // cadastrando atendimento na tabela atendimentos
-                Atendimentos atendimento = new Atendimentos();
-                atendimento.setUSUARIOID(USUARIOS.usrId);
-                atendimento.setDAT(dataDeHojeEmVariavelDate);
-                atendimento.setHANDLE_AT(handle_at);
-                
-                if(jCBPacientePagou.isSelected()){
-                	atendimento.setPaciente_pagou(1);
-                }else{
-                	atendimento.setPaciente_pagou(0);
-                }
+		// se nao veio da pesquisa é pq eh novo
+		// entao pega o handle_at
+		if (!veioDaPesquisa) {
+			/*
+			 * agora antes de salvar ele reserva o handle_at antes reservao
+			 * handle_at ao entra na janela. isso foi alterado e o salvar sera
+			 * um insert e nao mais um update como antigamente era um update
+			 * pois reservava um handle_at para nao duplicar o mesmo atendimento
+			 * entre recepcionistas diferentes (gambiarra)
+			 */
+			reservandoHorarioCasoSejaUmHorarioLivre();
+		}
 
-                
-                Date dataSelecionada = JXDPDataAtendimento.getDate();
-                // criando um formato de data
-                SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-                // colocando data selecionado no formato criado acima
-                String data = dataFormatada.format(dataSelecionada);
-                try {
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    java.sql.Date diaAtendimento = null;
-                    diaAtendimento = new java.sql.Date(format.parse(data).getTime());
-                    atendimento.setDATA_ATENDIMENTO(diaAtendimento);
-                } catch (ParseException ex) {
-                }
-                atendimento.setHORA_ATENDIMENTO(MetodosUteis.transformarHorarioEmMinutos(jTFhoraAtendimento.getText()));
-                atendimento.setHANDLE_PACIENTE(handle_paciente);
-                atendimento.setHANDLE_MEDICO_SOL(handle_medico_sol);
-                atendimento.setHANDLE_CONVENIO(listaHandleConvenio.get(jCBConvenio.getSelectedIndex()));
+		boolean cadastro = false;
+		if (verificarSeFoiTudoPreenchido() && verificarSeMatriculaEValida()
+				&& verificaMedicoComAlerta()) {
 
-                atendimento.setOBSERVACAO(jTAObservacao.getText());
+			// se pegou o valor do handle_ap ele cadastra
+			if (handle_at > 0) {
+				con = Conexao.fazConexao();
+				deletarExamesDeUmAtendimento();
+				// cadastrando atendimento na tabela atendimentos
+				Atendimentos atendimento = new Atendimentos();
+				atendimento.setUSUARIOID(USUARIOS.usrId);
+				atendimento.setDAT(dataDeHojeEmVariavelDate);
+				atendimento.setHANDLE_AT(handle_at);
 
-                atendimento.setDURACAO_ATENDIMENTO(duracaoDoAtendimento);
-                atendimento.setMATRICULA_CONVENIO(jTFMatricula.getText());
-                atendimento.setCOMPLEMENTO(jTFComplemento.getText());
+				if (jCBPacientePagou.isSelected()) {
+					atendimento.setPaciente_pagou(1);
+				} else {
+					atendimento.setPaciente_pagou(0);
+				}
 
-                Date dataSelecionada2 = jXDPEntregaDoExame.getDate();
-                // criando um formato de data
-                SimpleDateFormat dataFormatada2 = new SimpleDateFormat("dd/MM/yyyy");
-                // colocando data selecionado no formato criado acima
-                String data2 = dataFormatada2.format(dataSelecionada2);
-                try {
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    java.sql.Date diaExamePronto = null;
-                    diaExamePronto = new java.sql.Date(format.parse(data2).getTime());
-                    atendimento.setDATA_EXAME_PRONTO(diaExamePronto);
-                } catch (ParseException ex) {
-                }
+				Date dataSelecionada = JXDPDataAtendimento.getDate();
+				// criando um formato de data
+				SimpleDateFormat dataFormatada = new SimpleDateFormat(
+						"dd/MM/yyyy");
+				// colocando data selecionado no formato criado acima
+				String data = dataFormatada.format(dataSelecionada);
+				try {
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+					java.sql.Date diaAtendimento = null;
+					diaAtendimento = new java.sql.Date(format.parse(data)
+							.getTime());
+					atendimento.setDATA_ATENDIMENTO(diaAtendimento);
+				} catch (ParseException ex) {
+				}
+				atendimento.setHORA_ATENDIMENTO(MetodosUteis
+						.transformarHorarioEmMinutos(jTFhoraAtendimento
+								.getText()));
+				atendimento.setHANDLE_PACIENTE(handle_paciente);
+				atendimento.setHANDLE_MEDICO_SOL(handle_medico_sol);
+				atendimento.setHANDLE_CONVENIO(listaHandleConvenio
+						.get(jCBConvenio.getSelectedIndex()));
 
-                int hora_exame_pronto = 0;
-                // setando a hora de entrega do exame
-                if (!"  :  ".equals(jtfHoraEntregaExame.getText())) {
-                    hora_exame_pronto = MetodosUteis.transformarHorarioEmMinutos(jtfHoraEntregaExame.getText());
-                }
-                atendimento.setHORA_EXAME_PRONTO(hora_exame_pronto);
-                atendimento.setID_AREAS_ATENDIMENTO(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
-                //atendimento.setMODALIDADE(String.valueOf(jCBModalidade.getSelectedItem()));
-                
-                if(veioDeAgendamento){
-                	atendimento.setId_agendamento(TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento.getNAGENID());
-                }else{
-                	atendimento.setId_agendamento(0);
-                }
-                con = Conexao.fazConexao();
-                if(jBSalvar.isVisible()){
-                	cadastro = ATENDIMENTOS.setUpdate(con, atendimento);
-                }else{
-                	cadastro = ATENDIMENTOS.setUpdateQuandoForAtualizar(con, atendimento);
-                }
-                
+				atendimento.setOBSERVACAO(jTAObservacao.getText());
 
-                if (cadastro) {
-                    if(veioDeAgendamento){
-                        NAGENDAMENTOS.atualizarAgendamentoAposVirarAtendimento(con, TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento, jTFPaciente.getText());
-                    }
- 
-                    // cadastrando os exames na tabela atendimento_exames
-                    for (int i = 0; i < jTable1.getRowCount(); i++) {
-                        Atendimento_Exames atendimentoExame = new Atendimento_Exames();
-                        atendimentoExame.setHANDLE_AT(handle_at);
-                        atendimentoExame.setHANDLE_EXAME(Integer.valueOf(String.valueOf(jTable1.getValueAt(i, 0))));
-                        atendimentoExame.setDURACAO(MetodosUteis.transformarHorarioEmMinutos(String.valueOf(jTable1
-                            .getValueAt(i, 2))));
-                        atendimentoExame.setLADO(String.valueOf(jTable1.getValueAt(i, 4)));
-                        atendimentoExame.setMATERIAL(String.valueOf(jTable1.getValueAt(i, 5)));
-                        atendimentoExame.setVALOR_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 16))));
-                        atendimentoExame.setCH_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 6))));
-                        atendimentoExame.setFILME_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 7))));
-                        atendimentoExame.setCH1_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 8))));
-                        atendimentoExame.setCH2_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 9))));
-                        atendimentoExame.setFILME_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 10))));
-                        atendimentoExame.setLISTA_MATERIAIS(String.valueOf(jTable1.getValueAt(i, 11)));
-                        atendimentoExame.setREDUTOR(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 12))));
-                        atendimentoExame
-                            .setDESCONTO_PACIENTE(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 13))));
-                        atendimentoExame.setPORCENTAGEM_CONVENIO(Double.valueOf(String.valueOf(jTable1
-                            .getValueAt(i, 14))));
-                        atendimentoExame.setPORCENTAGEM_PACIENTE(Double.valueOf(String.valueOf(jTable1
-                            .getValueAt(i, 15))));
-                        atendimentoExame
-                            .setVALOR_CORRETO_EXAME(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 3))));
-                        atendimentoExame.setVALOR_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 17))));
-                        atendimentoExame.setVALOR_PACIENTE(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 18))));
-                        atendimentoExame.setVALOR_CORRETO_CONVENIO(Double.valueOf(String.valueOf(jTable1.getValueAt(i,
-                            19))));
-                        atendimentoExame.setVALOR_CORRETO_PACIENTE(Double.valueOf(String.valueOf(jTable1.getValueAt(i,
-                            20))));
-                        atendimentoExame.setVALOR_DESCONTO(Double.valueOf(String.valueOf(jTable1.getValueAt(i, 21))));
+				atendimento.setDURACAO_ATENDIMENTO(duracaoDoAtendimento);
+				atendimento.setMATRICULA_CONVENIO(jTFMatricula.getText());
+				atendimento.setCOMPLEMENTO(jTFComplemento.getText());
 
-                        atendimentoExame.setNUMERO_SEQUENCIA(String.valueOf(i + 1));
-                        if (atendimentoExame.getNUMERO_SEQUENCIA().length() < 2) {
-                            atendimentoExame.setNUMERO_SEQUENCIA("0" + atendimentoExame.getNUMERO_SEQUENCIA());
-                        }
-                        con = Conexao.fazConexao();
-                        cadastro = ATENDIMENTO_EXAMES.setCadastrar(con, atendimentoExame);
-                    }
-                }
+				Date dataSelecionada2 = jXDPEntregaDoExame.getDate();
+				// criando um formato de data
+				SimpleDateFormat dataFormatada2 = new SimpleDateFormat(
+						"dd/MM/yyyy");
+				// colocando data selecionado no formato criado acima
+				String data2 = dataFormatada2.format(dataSelecionada2);
+				try {
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+					java.sql.Date diaExamePronto = null;
+					diaExamePronto = new java.sql.Date(format.parse(data2)
+							.getTime());
+					atendimento.setDATA_EXAME_PRONTO(diaExamePronto);
+				} catch (ParseException ex) {
+				}
 
-                // fechando a conexao
-                Conexao.fechaConexao(con);
+				int hora_exame_pronto = 0;
+				// setando a hora de entrega do exame
+				if (!"  :  ".equals(jtfHoraEntregaExame.getText())) {
+					hora_exame_pronto = MetodosUteis
+							.transformarHorarioEmMinutos(jtfHoraEntregaExame
+									.getText());
+				}
+				atendimento.setHORA_EXAME_PRONTO(hora_exame_pronto);
+				atendimento.setID_AREAS_ATENDIMENTO(listaAreasDeAtendimento
+						.get(jCBAreaDeAtendimento.getSelectedIndex())
+						.getId_areas_atendimento());
+				// atendimento.setMODALIDADE(String.valueOf(jCBModalidade.getSelectedItem()));
 
-                if (cadastro) {
-                    janelaPrincipal.internalFrameJanelaPrincipal.ativandoOMenu();
-                    jBSalvar.setVisible(false);
-                    jBAtualizar.setVisible(false);
+				if (veioDeAgendamento) {
+					atendimento
+							.setId_agendamento(TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento
+									.getNAGENID());
+				} else {
+					atendimento.setId_agendamento(0);
+				}
+				con = Conexao.fazConexao();
+				if (jBSalvar.isVisible()) {
+					cadastro = ATENDIMENTOS.setUpdate(con, atendimento);
+				} else {
+					cadastro = ATENDIMENTOS.setUpdateQuandoForAtualizar(con,
+							atendimento);
+				}
 
-                    // ativando botoes de impressao
-                    // aqui vamos sumir o botao imprimir nota fiscal do modelo de impressao 1 (pois nao imprime nota)
-                    if (janelaPrincipal.modeloDeImpressao == 1) {
-                        jBImprimirFicha.setVisible(true);
-                        jBImprimirBoletoDeRetirada.setVisible(true);
-                    }
-                    // agora sumir o botao imprimir boleto de retirada do modelo 2 (sai junto com a ficha)
-                    if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
-                        jBImprimirFicha.setVisible(true);
-                        if(jCBPacientePagou.isSelected()){
-                        	jBImprimirNotaFiscal.setVisible(true);
-                        }
-                        
-                    }
-                    // aqui vamos sumir o botao imprimir nota fiscal e o boleto de retirada que sai junto com a ficha
-                    if(janelaPrincipal.modeloDeImpressao == 4){
-                        jBImprimirFicha.setVisible(true);
-                    }
-                    
-                    if(veioDeAgendamento){
-                        ((DefaultComboBoxModel<String>) jCBAreasDoAgendamento.getModel()).removeElementAt(jCBAreasDoAgendamento.getSelectedIndex());
-                        jCBAreasDoAgendamento.setSelectedIndex(0);
-                    }
+				if (cadastro) {
+					if (veioDeAgendamento) {
+						NAGENDAMENTOS
+								.atualizarAgendamentoAposVirarAtendimento(
+										con,
+										TratamentoParaRegistrarAtendimentoApartirDeAgendamento.agendamento,
+										jTFPaciente.getText());
+					}
 
-                    // desabilitando os campos do atendimento para nao poder editar
-                    jTFPaciente.setEnabled(false);
-                    jTFMedicoSol.setEnabled(false);
-                    jBPesquisaMedico.setEnabled(false);
-                    jBPesquisaPaciente.setEnabled(false);
+					// cadastrando os exames na tabela atendimento_exames
+					for (int i = 0; i < jTable1.getRowCount(); i++) {
+						Atendimento_Exames atendimentoExame = new Atendimento_Exames();
+						atendimentoExame.setHANDLE_AT(handle_at);
+						atendimentoExame.setHANDLE_EXAME(Integer.valueOf(String
+								.valueOf(jTable1.getValueAt(i, 0))));
+						atendimentoExame.setDURACAO(MetodosUteis
+								.transformarHorarioEmMinutos(String
+										.valueOf(jTable1.getValueAt(i, 2))));
+						atendimentoExame.setLADO(String.valueOf(jTable1
+								.getValueAt(i, 4)));
+						atendimentoExame.setMATERIAL(String.valueOf(jTable1
+								.getValueAt(i, 5)));
+						atendimentoExame.setVALOR_EXAME(Double.valueOf(String
+								.valueOf(jTable1.getValueAt(i, 16))));
+						atendimentoExame.setCH_CONVENIO(Double.valueOf(String
+								.valueOf(jTable1.getValueAt(i, 6))));
+						atendimentoExame.setFILME_CONVENIO(Double
+								.valueOf(String.valueOf(jTable1
+										.getValueAt(i, 7))));
+						atendimentoExame.setCH1_EXAME(Double.valueOf(String
+								.valueOf(jTable1.getValueAt(i, 8))));
+						atendimentoExame.setCH2_EXAME(Double.valueOf(String
+								.valueOf(jTable1.getValueAt(i, 9))));
+						atendimentoExame.setFILME_EXAME(Double.valueOf(String
+								.valueOf(jTable1.getValueAt(i, 10))));
+						atendimentoExame.setLISTA_MATERIAIS(String
+								.valueOf(jTable1.getValueAt(i, 11)));
+						atendimentoExame.setREDUTOR(Double.valueOf(String
+								.valueOf(jTable1.getValueAt(i, 12))));
+						atendimentoExame.setDESCONTO_PACIENTE(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										13))));
+						atendimentoExame.setPORCENTAGEM_CONVENIO(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										14))));
+						atendimentoExame.setPORCENTAGEM_PACIENTE(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										15))));
+						atendimentoExame.setVALOR_CORRETO_EXAME(Double
+								.valueOf(String.valueOf(jTable1
+										.getValueAt(i, 3))));
+						atendimentoExame.setVALOR_CONVENIO(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										17))));
+						atendimentoExame.setVALOR_PACIENTE(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										18))));
+						atendimentoExame.setVALOR_CORRETO_CONVENIO(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										19))));
+						atendimentoExame.setVALOR_CORRETO_PACIENTE(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										20))));
+						atendimentoExame.setVALOR_DESCONTO(Double
+								.valueOf(String.valueOf(jTable1.getValueAt(i,
+										21))));
 
-                    jXDPEntregaDoExame.setEnabled(false);
-                    jtfHoraEntregaExame.setEnabled(false);
-                    jTAObservacao.setEnabled(false);
+						atendimentoExame.setNUMERO_SEQUENCIA(String
+								.valueOf(i + 1));
+						if (atendimentoExame.getNUMERO_SEQUENCIA().length() < 2) {
+							atendimentoExame.setNUMERO_SEQUENCIA("0"
+									+ atendimentoExame.getNUMERO_SEQUENCIA());
+						}
+						con = Conexao.fazConexao();
+						cadastro = ATENDIMENTO_EXAMES.setCadastrar(con,
+								atendimentoExame);
+					}
+				}
 
-                    jCBAreaDeAtendimento.setEnabled(false);
-                    jCBConvenio.setEnabled(false);
-                    jCBExame.setEnabled(false);
-                    jTFMatricula.setEnabled(false);
-                    jTFComplemento.setEnabled(false);
-                    jBIncluirExame.setEnabled(false);
-                    jTable1.setEnabled(false);
-                    jTBDesconto.setEnabled(false);
-                    JXDPDataAtendimento.setEnabled(false);
-                    jTFhoraAtendimento.setEnabled(false);
-                    jCBPacientePagou.setEnabled(false);
-                    cadastrouNovoAtendimento = true;
-                    
-                    jTFHandleAt.setText(String.valueOf(atendimento.getHANDLE_AT()));
-                }
-            } else {
-                JOptionPane.showMessageDialog(janelaPrincipal.internalFrameJanelaPrincipal,
-                    "Erro ao cadastrar atendimento.Procure o Administrador.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
+				// fechando a conexao
+				Conexao.fechaConexao(con);
+
+				if (cadastro) {
+					janelaPrincipal.internalFrameJanelaPrincipal
+							.ativandoOMenu();
+					jBSalvar.setVisible(false);
+					jBAtualizar.setVisible(false);
+
+					// ativando botoes de impressao
+					// aqui vamos sumir o botao imprimir nota fiscal do
+					// modelo de impressao 1 (pois nao imprime nota)
+					if (janelaPrincipal.modeloDeImpressao == 1) {
+						jBImprimirFicha.setVisible(true);
+						jBImprimirBoletoDeRetirada.setVisible(true);
+					}
+					// agora sumir o botao imprimir boleto de retirada do
+					// modelo 2 (sai junto com a ficha)
+					if (janelaPrincipal.modeloDeImpressao == 2
+							|| janelaPrincipal.modeloDeImpressao == 3) {
+						jBImprimirFicha.setVisible(true);
+						if (jCBPacientePagou.isSelected()) {
+							jBImprimirNotaFiscal.setVisible(true);
+						}
+
+					}
+					// aqui vamos sumir o botao imprimir nota fiscal e o
+					// boleto de retirada que sai junto com a ficha
+					if (janelaPrincipal.modeloDeImpressao == 4) {
+						jBImprimirFicha.setVisible(true);
+					}
+
+					if (veioDeAgendamento) {
+						((DefaultComboBoxModel<String>) jCBAreasDoAgendamento
+								.getModel())
+								.removeElementAt(jCBAreasDoAgendamento
+										.getSelectedIndex());
+						jCBAreasDoAgendamento.setSelectedIndex(0);
+					}
+
+					// desabilitando os campos do atendimento para nao poder
+					// editar
+					jTFPaciente.setEnabled(false);
+					jTFMedicoSol.setEnabled(false);
+					jBPesquisaMedico.setEnabled(false);
+					jBPesquisaPaciente.setEnabled(false);
+
+					jXDPEntregaDoExame.setEnabled(false);
+					jtfHoraEntregaExame.setEnabled(false);
+					jTAObservacao.setEnabled(false);
+
+					jCBAreaDeAtendimento.setEnabled(false);
+					jCBConvenio.setEnabled(false);
+					jCBExame.setEnabled(false);
+					jTFMatricula.setEnabled(false);
+					jTFComplemento.setEnabled(false);
+					jBIncluirExame.setEnabled(false);
+					jTable1.setEnabled(false);
+					jTBDesconto.setEnabled(false);
+					JXDPDataAtendimento.setEnabled(false);
+					jTFhoraAtendimento.setEnabled(false);
+					jCBPacientePagou.setEnabled(false);
+					cadastrouNovoAtendimento = true;
+
+					jTFHandleAt.setText(String.valueOf(atendimento
+							.getHANDLE_AT()));
+				}
+			} else {
+				JOptionPane
+						.showMessageDialog(
+								janelaPrincipal.internalFrameJanelaPrincipal,
+								"Erro ao cadastrar atendimento.Procure o Administrador.",
+								"Erro", JOptionPane.ERROR_MESSAGE);
+			}
+
+		}
+	}
 
     boolean cadastrouNovoAtendimento = false;
 
@@ -1580,7 +1658,11 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 
                     //vamos deixar a tela normal caso ele mude de area e tenha salvo o atendimento
                     if(!jBSalvar.isVisible()){
-                        if(reservandoHorarioCasoSejaUmHorarioLivre()){                            
+                    	
+                    	//esse metodo foi removido por que nao vamos mais reservar o horario
+                        //vamos salvar diretamente
+                        //antes ele reservava e somente atualizava quando ia salvar, isso por causa da agenda antigo (gambiarra para nao duplicar atendimentos com recepcionistgas diferentes
+                        //if(reservandoHorarioCasoSejaUmHorarioLivre()){                            
                             
                           //vamos deixar a janela pronta para registrar um novo atendimento (de outra area no caso)
                             jBSalvar.setVisible(true);
@@ -1622,10 +1704,10 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                             JXDPDataAtendimento.setEnabled(true);
                             jTFhoraAtendimento.setEnabled(true);
                             janelaPrincipal.internalFrameJanelaPrincipal.desativandoOMenu();
-                        }else{
-                            janelaPrincipal.internalFrameAtendimento.dispose();
-                            janelaPrincipal.internalFrameAtendimento = null;
-                        }
+                        //}else{
+                        //    janelaPrincipal.internalFrameAtendimento.dispose();
+                        //    janelaPrincipal.internalFrameAtendimento = null;
+                        //}
                         
                         
                     }
