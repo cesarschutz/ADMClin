@@ -56,6 +56,7 @@ public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
 		Connection con = Conexao.fazConexao();
 		ResultSet resultSet = ATENDIMENTOS.getConsultarDadosDeUmAtendimento(con, handle_at);
 		while (resultSet.next()) {
+			nome_paciente = resultSet.getString("nomepac");
 			nome_medico_sol = resultSet.getString("nomeMed");
 
 			data_atendimento = MetodosUteis
@@ -84,8 +85,6 @@ public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
         try{ 
             instanciarImpressora();
             fo = new PrintWriter(new FileOutputStream(new File(caminhoImpressora)));
-            
-            
             
             fo.print((char) 2);
 			fo.print("n");
@@ -125,20 +124,19 @@ public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
 			fo.print("D11");
 			fo.print((char) 13);
 			fo.print((char) 10);
-            
-            fo.print("190000501200000     Data   : "+data_atendimento+"Protocolo : "+str_handle_at);  fo.print((char) 13);  fo.print((char) 10);
-            fo.print("190000501000000     Nome   : "+nome_paciente);  fo.print((char) 13);  fo.print((char) 10);
-            fo.print("190000500800000     Medico : "+nome_medico_sol);  fo.print((char) 13);  fo.print((char) 10);
-            //fo.print("190000500600000              "+exame2);  fo.print((char) 13);  fo.print((char) 10);
-            //fo.print("190000500400000              "+exame3);  fo.print((char) 13);  fo.print((char) 10);
-            
+
+            fo.print("190000301300000     Data    : "+data_atendimento+"        Num  : "+str_handle_at);  fo.print((char) 13);  fo.print((char) 10);
+            fo.print("190000301000000     Nome   : "+nome_paciente);  fo.print((char) 13);  fo.print((char) 10);
+            fo.print("190000300700000     Medico : "+nome_medico_sol);  fo.print((char) 13);  fo.print((char) 10);
+            //fo.print("190000300400000     Exame  : "+nome_area_de_atendimento);  fo.print((char) 13);  fo.print((char) 10);
+
 			fo.print("Q0001");
 			fo.print((char) 13);
 			fo.print((char) 10);
 			fo.print("E");
 			fo.print((char) 13);
 			fo.print((char) 10);
-            
+
             return true;
         }catch(Exception e){
             System.out.println("Erro: " + e);
