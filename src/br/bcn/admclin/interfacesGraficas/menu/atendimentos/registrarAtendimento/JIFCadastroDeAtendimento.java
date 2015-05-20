@@ -625,6 +625,13 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                         //jCBModalidade.setSelectedItem(resultSet.getString("modalidade"));
                     }
                 }
+                
+                //preenchendo a area de atendimento
+                for (int x = 0; x < listaAreasDeAtendimento.size(); x++) {
+                    if (listaAreasDeAtendimento.get(x).getId_areas_atendimento() == resultSet.getInt("id_areas_atendimento")) {
+                        jCBAreaDeAtendimento.setSelectedIndex(x);
+                    }
+                }
 
                 if ("S".equals(resultSet.getString("flag_imprimiu"))) {
                     flag_imprimu = true;
@@ -1011,9 +1018,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 									.getText());
 				}
 				atendimento.setHORA_EXAME_PRONTO(hora_exame_pronto);
-				atendimento.setID_AREAS_ATENDIMENTO(listaAreasDeAtendimento
-						.get(jCBAreaDeAtendimento.getSelectedIndex())
-						.getId_areas_atendimento());
+				atendimento.setID_AREAS_ATENDIMENTO(listaAreasDeAtendimento.get(jCBAreaDeAtendimento.getSelectedIndex()).getId_areas_atendimento());
 				// atendimento.setMODALIDADE(String.valueOf(jCBModalidade.getSelectedItem()));
 
 				if (veioDeAgendamento) {

@@ -20,6 +20,13 @@ public class AREAS_ATENDIMENTO {
     @SuppressWarnings("finally")
     public static ArrayList<Areas_atendimento> getConsultar() {
         listaAreasAtendimento.clear();
+        
+        //cria a area de atendimento com handle = 0 com nome Selecione uma area de atendimento
+        Areas_atendimento areaAtend = new Areas_atendimento();
+        areaAtend.setNome("Selecione uma Área de Atendimento");
+        areaAtend.setId_areas_atendimento(0);
+        listaAreasAtendimento.add(areaAtend);
+        
         ResultSet resultSet = null;
         con = Conexao.fazConexao();
         try {
