@@ -47,7 +47,7 @@ public class DAOrelatorioDeCaixa {
 							+ "inner join convenio c on a.handle_convenio = c.handle_convenio "
 							+ "inner join usuarios u on a.usuarioid = u.usrid "
 							+ "where(a.DATA_PAGAMENTO_PACIENTE > ? or a.DATA_PAGAMENTO_PACIENTE = ?)  and  (a.DATA_PAGAMENTO_PACIENTE < ? or a.DATA_PAGAMENTO_PACIENTE = ?) "
-							+ "order by a.data_atendimento asc, u.nm_usuario asc");
+							+ "order by a.handle_at asc");
 			stmtQuery.setDate(1, diaInicial);
 			stmtQuery.setDate(2, diaInicial);
 			stmtQuery.setDate(3, diaFinal);
