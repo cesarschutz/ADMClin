@@ -21,6 +21,10 @@ import br.bcn.admclin.dao.dbris.Conexao;
  * @author Cesar Schutz
  */
 public class DAOrelatorioDeCaixa {
+	
+	public static enum tiposDeOrdenacao{
+		
+	}
 
 	/**
 	 * Consulta Todos os atendimentos existentes no Banco de Dados
