@@ -72,6 +72,7 @@ import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCResponsaveis
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCResponsaveisTecnicosVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuarios;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuariosVisualizar;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.alterarvaloresnotaipe.jIFAlterarValoresNotaIpe;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.recebimentoConvenio.jIFRecebimentoDeConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.jIFFinanceiroAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.demed.jIFDemed;
@@ -152,6 +153,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFCadastroBloqueio internalFrameCadastroDeBloqueiosAgenda;
     public static JIFRelatorioDeCaixa internalFrameRelatorioDeCaixa;
     public static JIFRelatorioDeMovimentos internalFrameRelatorioDeMovimento;
+    public static jIFAlterarValoresNotaIpe internalFrameAlterarValorDeExamesNotaIpe;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -697,6 +699,24 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 internalFrameValoresRecebidos.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
             }
         });
+        
+        JMenuItem jMIAlterarValoresNotaIPE = new JMenuItem("Alterar Valores Nota IPÊ");
+        jMIAlterarValoresNotaIPE.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		fechandoTodosOsInternalFrames();
+
+        		internalFrameAlterarValorDeExamesNotaIpe = new jIFAlterarValoresNotaIpe();
+                jDesktopPane1.add(internalFrameAlterarValorDeExamesNotaIpe);
+                internalFrameAlterarValorDeExamesNotaIpe.setVisible(true);
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFrameAlterarValorDeExamesNotaIpe.getWidth();
+                int aIFrame = internalFrameAlterarValorDeExamesNotaIpe.getHeight();
+
+                internalFrameAlterarValorDeExamesNotaIpe.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        	}
+        });
+        jMRelatorios.add(jMIAlterarValoresNotaIPE);
         mntmValoresRecebidos.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/menuValoresRecebidos.png")));
         jMRelatorios.add(mntmValoresRecebidos);
 

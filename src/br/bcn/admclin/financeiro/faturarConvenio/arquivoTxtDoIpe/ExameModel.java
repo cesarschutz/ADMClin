@@ -23,10 +23,11 @@ public class ExameModel {
     // variaveis necessarias para o designativo
     private double valor_correto_convenio; // valor a ser cobrado do convenio
     private double valor_materiais; // valor total dos materiais e medicamentos utilizados
-    private String mes; // mes dos exames
+	private String mes; // mes dos exames
     private String ano; // ano dos exames
     private String nn; // numero da nota que o exame se encontra
     private String ref; // numero da linha na nota
+    private int ATENDIMENTO_EXAME_ID; //id - para quando construir a nota do ipe atualizar o numero da nota e o numero de referencia (linha) da nota
 
     public String getHandle_at() {
         return handle_at;
@@ -131,5 +132,13 @@ public class ExameModel {
     public void setNn(String nn) {
         this.nn = nn;
     }
+    
+    public int getATENDIMENTO_EXAME_ID() {
+		return ATENDIMENTO_EXAME_ID;
+	}
+
+	public void setATENDIMENTO_EXAME_ID(int aTENDIMENTO_EXAME_ID) {
+		ATENDIMENTO_EXAME_ID = aTENDIMENTO_EXAME_ID;
+	}
 
 }

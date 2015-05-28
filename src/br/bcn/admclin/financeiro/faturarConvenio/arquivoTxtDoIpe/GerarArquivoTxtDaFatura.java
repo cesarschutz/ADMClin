@@ -131,6 +131,7 @@ public class GerarArquivoTxtDaFatura {
             
             
             ExameModel exame = new ExameModel();
+            exame.setATENDIMENTO_EXAME_ID(resultSet.getInt("atendimento_exame_id"));
             exame.setHandle_at(resultSet.getString("handle_at"));
             exame.setMatricula(resultSet.getString("matricula_convenio"));
             exame.setCrm(resultSet.getString("crm"));
@@ -230,20 +231,29 @@ public class GerarArquivoTxtDaFatura {
                 // verificar se o proximo paciente cabe no que resta
                 if (verificaSeProximoCabeNaNota(i, numeroLinha)) {
                     numeroLinha++;
+                	JOptionPane.showMessageDialog(null, "nota: " + String.valueOf(numeroNota) + "   -   " + String.valueOf(numeroLinha));
                     listaDeExames.get(i).setNn(String.valueOf(numeroNota));
                     listaDeExames.get(i).setRef(String.valueOf(numeroLinha));
+                    salvarNumeroRefEnota(listaDeExames.get(i));
                 } else {
                     numeroLinha = 1;
                     numeroNota++;
+                    JOptionPane.showMessageDialog(null, "nota: " + String.valueOf(numeroNota) + "   -   " + String.valueOf(numeroLinha));
                     listaDeExames.get(i).setNn(String.valueOf(numeroNota));
                     listaDeExames.get(i).setRef(String.valueOf(numeroLinha));
+                    salvarNumeroRefEnota(listaDeExames.get(i));
                 }
             }
         }
 
     }
 
-    private boolean verificaSeProximoCabeNaNota(int index, int numeroLinha) {
+    private void salvarNumeroRefEnota(ExameModel exameModel) {
+    	GerarArquivoTextIpeDAO.setUpdate(exameModel);
+		
+	}
+
+	private boolean verificaSeProximoCabeNaNota(int index, int numeroLinha) {
         int n = 0;
         String matricula1 = listaDeExames.get(index).getMatricula();
         for (int i = index + 1; i < listaDeExames.size(); i++) {
