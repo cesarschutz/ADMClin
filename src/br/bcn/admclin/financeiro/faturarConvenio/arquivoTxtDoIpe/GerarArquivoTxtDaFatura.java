@@ -231,14 +231,12 @@ public class GerarArquivoTxtDaFatura {
                 // verificar se o proximo paciente cabe no que resta
                 if (verificaSeProximoCabeNaNota(i, numeroLinha)) {
                     numeroLinha++;
-                	JOptionPane.showMessageDialog(null, "nota: " + String.valueOf(numeroNota) + "   -   " + String.valueOf(numeroLinha));
                     listaDeExames.get(i).setNn(String.valueOf(numeroNota));
                     listaDeExames.get(i).setRef(String.valueOf(numeroLinha));
                     salvarNumeroRefEnota(listaDeExames.get(i));
                 } else {
                     numeroLinha = 1;
                     numeroNota++;
-                    JOptionPane.showMessageDialog(null, "nota: " + String.valueOf(numeroNota) + "   -   " + String.valueOf(numeroLinha));
                     listaDeExames.get(i).setNn(String.valueOf(numeroNota));
                     listaDeExames.get(i).setRef(String.valueOf(numeroLinha));
                     salvarNumeroRefEnota(listaDeExames.get(i));

@@ -39,8 +39,11 @@ import javax.swing.JTable;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.UIManager;
+
 import java.awt.Color;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -78,8 +81,22 @@ public class jIFAlterarValoresNotaIpe extends JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //jTable1.getTableHeader().getColumnModel().getColumn(8).setMaxWidth(0);
-        //jTable1.getTableHeader().getColumnModel().getColumn(8).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(40);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(40);
+        jTable1.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(70);
+        jTable1.getTableHeader().getColumnModel().getColumn(1).setMinWidth(70);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(110);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMinWidth(110);
+        jTable1.getTableHeader().getColumnModel().getColumn(5).setMaxWidth(30);
+        jTable1.getTableHeader().getColumnModel().getColumn(5).setMinWidth(30);
+        jTable1.getTableHeader().getColumnModel().getColumn(6).setMaxWidth(90);
+        jTable1.getTableHeader().getColumnModel().getColumn(6).setMinWidth(90);
+        
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(direita);
+        jTable1.getColumnModel().getColumn(1).setCellRenderer(direita);
+        jTable1.getColumnModel().getColumn(5).setCellRenderer(direita);
+        jTable1.getColumnModel().getColumn(6).setCellRenderer(direita);
+
         
         
         //colocando focu na tabela
@@ -113,10 +130,28 @@ public class jIFAlterarValoresNotaIpe extends JInternalFrame {
     }
     
     private void clicarNaTabela() {
-		
+		if(jTable1.getSelectedRow() >= 0){
+			int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
+			String novo_valor = JOptionPane.showInputDialog("Digite o valor.");
+			novo_valor = novo_valor.replaceAll(",", ".");
+			Double valorDOuble;
+			try {
+				valorDOuble = Double.valueOf(novo_valor);
+				boolean retorno = atualizaValorConvenio(handle_at, valorDOuble);
+				if(retorno){
+					jTable1.setValueAt(valorDOuble, jTable1.getSelectedRow(), 6);
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Valor Inválido");
+			}	
+		}
 	}
         
-    private void initComponents() {
+    private boolean atualizaValorConvenio(int handle_at, Double valorDOuble) {
+    	return ExameNotaIpeDAO.atualizaValorConvenio(handle_at, valorDOuble);
+	}
+
+	private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -137,11 +172,26 @@ public class jIFAlterarValoresNotaIpe extends JInternalFrame {
 
         jTable1.setModel(new DefaultTableModel(
         	new Object[][] {
+        		{null, null, null, null, null, null, null},
         	},
         	new String[] {
         		"Ref.", "Ficha", "Paciente", "Matricula", "Exame", "Dia", "Valor"
         	}
-        ));
+        ) {
+        	boolean[] columnEditables = new boolean[] {
+        		false, false, false, false, false, false, false
+        	};
+        	public boolean isCellEditable(int row, int column) {
+        		return columnEditables[column];
+        	}
+        });
+        jTable1.getColumnModel().getColumn(0).setResizable(false);
+        jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jTable1.getColumnModel().getColumn(6).setResizable(false);
         jScrollPane1.setViewportView(jTable1);
         
         lblNmeroNota = new JLabel("Número Nota:");
