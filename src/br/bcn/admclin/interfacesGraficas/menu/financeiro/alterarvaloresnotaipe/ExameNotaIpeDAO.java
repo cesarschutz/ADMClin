@@ -21,11 +21,11 @@ public class ExameNotaIpeDAO {
 	        ResultSet resultSet = null;
 	        Connection con = Conexao.fazConexao();
 	        try {
-	            PreparedStatement stmtQuery = con.prepareStatement("select a.matricula_convenio, a.handle_at, e.valor_correto_convenio, e.NUMERO_REF_NOTA_IPE, a.data_atendimento, j.nome as nome_exame, p.nome as nome_paciente from atendimento_exames e" 
+	            PreparedStatement stmtQuery = con.prepareStatement("select a.matricula_convenio, a.handle_at, e.valor_correto_convenio, e.NUMERO_REF_NOTA_IPE, e.atendimento_exame_id, a.data_atendimento, j.nome as nome_exame, p.nome as nome_paciente from atendimento_exames e" 
 					+ " inner join atendimentos a   on a.handle_at = e.handle_at "
 					+ " inner join exames j on j.handle_exame = e.handle_exame "
 					+ " inner join pacientes p on p.handle_paciente = a.handle_paciente "
-					+ " where e.NUMERO_NOTA_IPE = ? order by e.NUMERO_REF_NOTA_IPE");
+					+ " where e.NUMERO_NOTA_IPE = ? order by a.handle_at, e.NUMERO_REF_NOTA_IPE");
 	            stmtQuery.setInt(1, numeroNota);
 	            resultSet = stmtQuery.executeQuery();
 	            while (resultSet.next()) {
@@ -41,6 +41,8 @@ public class ExameNotaIpeDAO {
 	        		exame.setMatricula(resultSet.getString("matricula_convenio"));
 	        		exame.setPaciente(resultSet.getString("nome_paciente"));
 	        		exame.setValor(String.valueOf(resultSet.getDouble("valor_correto_convenio")));
+	        		exame.setAtendimtno_exame_id(resultSet.getInt("atendimento_exame_id"));
+	        		exame.setNUMERO_REF_NOTA_IPE(resultSet.getString("numero_ref_nota_ipe"));
 	        		listaExames.add(exame);
 	            }
 	            Conexao.fechaConexao(con);
@@ -53,13 +55,13 @@ public class ExameNotaIpeDAO {
 	        }
 	}
 	
-	public static boolean atualizaValorConvenio(int handle_at, double valorCorretoConvenio){
+	public static boolean atualizaValorConvenio(int atendimento_exame_id, double valorCorretoConvenio){
 		try {
 			Connection con = Conexao.fazConexao();
-			String sql2 = "update atendimento_exames set valor_correto_convenio= ? where handle_at = ?";
+			String sql2 = "update atendimento_exames set valor_correto_convenio= ? where atendimento_exame_id = ?";
             PreparedStatement stmt2 = con.prepareStatement(sql2);
             stmt2.setDouble(1, valorCorretoConvenio);
-            stmt2.setInt(2, handle_at);
+            stmt2.setInt(2, atendimento_exame_id);
             stmt2.executeUpdate();
             return true;
 		} catch (Exception e) {

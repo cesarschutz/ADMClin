@@ -123,7 +123,7 @@ public class jIFAlterarValoresNotaIpe extends JInternalFrame {
             //"Ref.", "Ficha", "Paciente", "Matricula", "Exame", "Dia", "Valor"
             // preenche a tabela com os atendimentos
             for (ExameNotaIpeMODEL exame : listaExames) {
-                modelo.addRow(new Object[] { jTable1.getRowCount() + 1, exame.getFicha(), exame.getPaciente(), exame.getMatricula(), exame.getExame(), exame.getDia(), exame.getValor() });
+                modelo.addRow(new Object[] { exame.getNUMERO_REF_NOTA_IPE(), exame.getFicha(), exame.getPaciente(), exame.getMatricula(), exame.getExame(), exame.getDia(), exame.getValor() });
             }
 
         }
@@ -131,13 +131,13 @@ public class jIFAlterarValoresNotaIpe extends JInternalFrame {
     
     private void clicarNaTabela() {
 		if(jTable1.getSelectedRow() >= 0){
-			int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
+			int atendimento_exame_id = listaExames.get(jTable1.getSelectedRow()).getAtendimtno_exame_id();
 			String novo_valor = JOptionPane.showInputDialog("Digite o valor.");
 			novo_valor = novo_valor.replaceAll(",", ".");
 			Double valorDOuble;
 			try {
 				valorDOuble = Double.valueOf(novo_valor);
-				boolean retorno = atualizaValorConvenio(handle_at, valorDOuble);
+				boolean retorno = atualizaValorConvenio(atendimento_exame_id, valorDOuble);
 				if(retorno){
 					jTable1.setValueAt(valorDOuble, jTable1.getSelectedRow(), 6);
 				}

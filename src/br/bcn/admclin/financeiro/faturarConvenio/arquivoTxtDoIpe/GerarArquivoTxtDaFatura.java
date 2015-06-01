@@ -82,7 +82,18 @@ public class GerarArquivoTxtDaFatura {
         dir.mkdirs();
     }
 
-    private String cnpjEmpresa, nomeEmpresa;
+    private void criarLaudos(){
+    	for (atendimentoModel atendimentoModel : listaDeAtendimentos) {
+			criaLaudo(atendimentoModel.getHandle_at(), caminho);
+		}
+    }
+    
+    private void criaLaudo(int handle_at, String caminhoParaSalvarPDF) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private String cnpjEmpresa, nomeEmpresa;
     private int nro_prestador_ipe;
 
     private void buscarInformacoesDaEmpresaNoBanco() throws SQLException {
@@ -536,6 +547,7 @@ public class GerarArquivoTxtDaFatura {
                 criaHeader();
                 escrever();
                 validarNumeroNota();
+                criarLaudos();
                 Conexao.fechaConexao(con);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
