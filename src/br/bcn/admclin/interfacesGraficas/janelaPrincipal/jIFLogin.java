@@ -108,7 +108,7 @@ public class jIFLogin extends javax.swing.JInternalFrame {
         ResultSet resultSet = null;
         try {
             con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
-            resultSet = DADOS_EMPRESA.getConsultar(con);
+            resultSet = DADOS_EMPRESA.getConsultar(con, 1);
             while(resultSet.next()){
                 janelaPrincipal.modeloDeImpressao = resultSet.getInt("modelo_impressao");
             }

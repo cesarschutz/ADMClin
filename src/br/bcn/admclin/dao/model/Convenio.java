@@ -9,7 +9,7 @@ import java.sql.Date;
  */
 public class Convenio {
     
-    private int handle_convenio, regAns, remessa, numExtra, numExtra2, irmaoDoConv, diasParaNota, numMaxExamePorFicha, usuarioId, VALIDACAO_MATRICULA, IMPRIMI_ARQUIVO_TXT_COM_FATURA,grupoid;
+    private int handle_convenio, regAns, remessa, numExtra, numExtra2, irmaoDoConv, diasParaNota, numMaxExamePorFicha, id_dados_empresa, usuarioId, VALIDACAO_MATRICULA, IMPRIMI_ARQUIVO_TXT_COM_FATURA,grupoid;
     private String cgc, sigla, nome, endereco, cep, cidade, uf, telefone, contato, email, codPrestador, tipo, valorCh, valorFilme, porcentPaciente, porcentConvenio, porcentTabela,
             faturarJuntoConv, temDoc, validarMedico, tipoValidacao, arquivo, dataAValerCh, dataAValerFilme,redutor;
     private Date dat;
@@ -317,4 +317,12 @@ public class Convenio {
     public void setGrupoid(int grupoid) {
         this.grupoid = grupoid;
     }
+
+	public int getId_dados_empresa() {
+		return id_dados_empresa;
+	}
+
+	public void setId_dados_empresa(int id_dados_empresa) {
+		this.id_dados_empresa = id_dados_empresa;
+	}
 }

@@ -183,7 +183,7 @@ public class faturaConvenio {
 			validarNumeroFatura();
 			abrirFichaPDF();
 			if (geraLaudos) {
-				gerarLaudos();
+				//gerarLaudos();
 			}
 			return true;
 		} catch (Exception e) {

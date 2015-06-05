@@ -8,6 +8,9 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
@@ -15,7 +18,15 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.dao.dbris.CONVENIO;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
+
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
 
 /**
  * 
@@ -25,6 +36,8 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = 1L;
     Connection con;
+	public List<Integer> lista_id_empresa = new ArrayList<Integer>();
+
 
     /**
      * Creates new form JIFGruposConvenios
@@ -35,11 +48,12 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         jBEditar.setVisible(false);
         jBDeletar.setVisible(false);
         jTFNome.setDocument(new DocumentoSemAspasEPorcento(64));
+        preencherEmpresas();
     }
 
     int grupo_id;
 
-    public JIFGruposConvenios(int grupo_id, int gera_arquivo_texto, String nome) {
+    public JIFGruposConvenios(int grupo_id, int gera_arquivo_texto, String nome, int id_empresa) {
         initComponents();
         tirandoBarraDeTitulo();
         jBSalvar.setVisible(false);
@@ -49,6 +63,12 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         jCBGeraArquivoTexto.setSelectedIndex(gera_arquivo_texto);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Grupo de Convênios",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        preencherEmpresas();
+        for (int x = 0; x < lista_id_empresa.size(); x++) {
+			if (lista_id_empresa.get(x) == id_empresa) {
+				jCBEmpresa.setSelectedIndex(x);
+			}
+		}
     }
 
     public void tirandoBarraDeTitulo() {
@@ -65,6 +85,26 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
             return false;
         }
     }
+    
+    public void preencherEmpresas() {
+		con = Conexao.fazConexao();
+		try {
+			ResultSet resultSet = DADOS_EMPRESA.getConsultarEmpresa(con);
+			while (resultSet.next()) {
+				if (resultSet.getInt("dados_empresa_id") != 0) {
+					lista_id_empresa.add(resultSet
+							.getInt("dados_empresa_id"));
+					jCBEmpresa.addItem(resultSet.getString("nome"));
+
+				}
+
+			}
+			Conexao.fechaConexao(con);
+		} catch (Exception e) {
+			this.dispose();
+			janelaPrincipal.internalFrameConvenios = null;
+		}
+	}
 
     private void botaoCancelar() {
         this.dispose();
@@ -86,8 +126,9 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
     private void botaoSalvar() {
         if (tudoPreenchido()) {
             con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
+            int id_empresa = lista_id_empresa.get(jCBEmpresa.getSelectedIndex());
             boolean cadastro =
-                CONVENIO.setCadastrarGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex());
+                CONVENIO.setCadastrarGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex(), id_empresa);
             br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
@@ -98,9 +139,10 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
     private void botaoAtualizar() {
         if (tudoPreenchido()) {
             con = br.bcn.admclin.dao.dbris.Conexao.fazConexao();
+            int id_empresa = lista_id_empresa.get(jCBEmpresa.getSelectedIndex());
             boolean cadastro =
                 CONVENIO.setUpdateGrupoDeConvenio(con, jTFNome.getText(), jCBGeraArquivoTexto.getSelectedIndex(),
-                    grupo_id);
+                    grupo_id, id_empresa);
             br.bcn.admclin.dao.dbris.Conexao.fechaConexao(con);
             if (cadastro) {
                 botaoCancelar();
@@ -149,41 +191,45 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         jLabel2.setText("Gera arquivo texto?");
 
         jCBGeraArquivoTexto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        
+        JLabel lblEmpresa = new JLabel("Empresa:");
+        
+        jCBEmpresa = new JComboBox();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1Layout.setHorizontalGroup(
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(jLabel1)
+        				.addComponent(jTFNome, GroupLayout.PREFERRED_SIZE, 485, GroupLayout.PREFERRED_SIZE)
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel2)
+        						.addComponent(lblEmpresa))
+        					.addGap(18)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jCBEmpresa, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jCBGeraArquivoTexto, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))))
+        			.addContainerGap(36, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addComponent(jLabel1)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTFNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel2)
+        				.addComponent(jCBGeraArquivoTexto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblEmpresa)
+        				.addComponent(jCBEmpresa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                jPanel1Layout
-                    .createSequentialGroup()
-                    .addGroup(
-                        jPanel1Layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 485,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(
-                                jPanel1Layout
-                                    .createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jCBGeraArquivoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 96,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))).addGap(0, 0, Short.MAX_VALUE)));
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                jPanel1Layout
-                    .createSequentialGroup()
-                    .addComponent(jLabel1)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(
-                        jPanel1Layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jCBGeraArquivoTexto, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))));
 
         jBDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/deletar.png"))); // NOI18N
         jBDeletar.setText("Apagar");
@@ -248,36 +294,38 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        layout.setHorizontalGroup(
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jTFMensagemParaUsuario, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+        			.addContainerGap())
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jBCancelar)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jBSalvar)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jBEditar)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jBDeletar)
+        			.addContainerGap())
+        );
+        layout.setVerticalGroup(
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
+        			.addGap(13)
+        			.addComponent(jTFMensagemParaUsuario, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        					.addComponent(jBSalvar)
+        					.addComponent(jBEditar)
+        					.addComponent(jBDeletar))
+        				.addComponent(jBCancelar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+        			.addGap(58))
+        );
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(jTFMensagemParaUsuario)
-            .addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addComponent(jBCancelar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBSalvar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBEditar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jBDeletar)
-                    .addGap(0, 0, Short.MAX_VALUE)));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-            layout
-                .createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFMensagemParaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(
-                    layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(
-                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBSalvar).addComponent(jBEditar).addComponent(jBDeletar))
-                        .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -334,5 +382,5 @@ public class JIFGruposConvenios extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTFMensagemParaUsuario;
     private javax.swing.JTextField jTFNome;
-    // End of variables declaration//GEN-END:variables
+    private JComboBox<String> jCBEmpresa;
 }

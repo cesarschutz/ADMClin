@@ -10,5 +10,14 @@
 	<classpathentry kind="lib" path="src/iText-2.1.7.jar"/>
 	<classpathentry kind="lib" path="src/jaybird-full-2.1.6.jar"/>
 	<classpathentry kind="lib" path="src/swingx.jar"/>
+	<classpathentry kind="lib" path="src/itext-pdfa-5.3.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/itext-pdfa-5.3.3-sources.jar"/>
+	<classpathentry kind="lib" path="src/itext-pdfa-5.3.3.jar"/>
+	<classpathentry kind="lib" path="src/itext-xtra-5.3.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/itext-xtra-5.3.3-sources.jar"/>
+	<classpathentry kind="lib" path="src/itext-xtra-5.3.3.jar"/>
+	<classpathentry kind="lib" path="src/itextpdf-5.3.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/itextpdf-5.3.3-sources.jar"/>
+	<classpathentry kind="lib" path="src/itextpdf-5.3.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

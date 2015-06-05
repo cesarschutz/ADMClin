@@ -15,7 +15,15 @@ public class DADOS_EMPRESA {
      * @return ResultSet
      * @throws SQLException 
      */
-    public static ResultSet getConsultar(Connection con) throws SQLException{
+    public static ResultSet getConsultar(Connection con, int id_dados_empresa) throws SQLException{
+        ResultSet resultSet = null;
+        PreparedStatement stmtQuery = con.prepareStatement("select * from DADOS_EMPRESA where dados_empresa_id = ?");
+        stmtQuery.setInt(1, id_dados_empresa);
+        resultSet = stmtQuery.executeQuery();
+        return resultSet;
+    }
+    
+    public static ResultSet getConsultarEmpresa(Connection con) throws SQLException{
         ResultSet resultSet = null;
         PreparedStatement stmtQuery = con.prepareStatement("select * from DADOS_EMPRESA");
         resultSet = stmtQuery.executeQuery();

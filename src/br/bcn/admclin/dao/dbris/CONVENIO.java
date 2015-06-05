@@ -159,7 +159,7 @@ public class CONVENIO {
         boolean atualizo = false;
         String sql = "update convenio set sigla=?, cgc=?, regans=?, nome=?, endereco=?, cidade=?, cep=?, uf=?, telefone=?, contato=?, email=?"
                 + ", codprestador=?, tipo=?, remessa=?, numextra=?, numextra2=?, porcentpaciente=?, porcentconvenio=?, porcenttabela=?, irmaodoconv=?, "
-                + "diasparanota=?, faturarjuntoconv=?, nummaxexameporficha=?, temdoc=?, validarmedico=?, tipovalidacao=?, arquivo=?, usuarioid=?, dat=?, redutor=?, validacao_matricula=?, IMPRIMI_ARQUIVO_TXT_COM_FATURA=?, grupoid=? where handle_convenio=?";
+                + "diasparanota=?, faturarjuntoconv=?, nummaxexameporficha=?, temdoc=?, validarmedico=?, tipovalidacao=?, arquivo=?, usuarioid=?, dat=?, redutor=?, validacao_matricula=?, IMPRIMI_ARQUIVO_TXT_COM_FATURA=?, grupoid=?, id_dados_empresa = ? where handle_convenio=?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, model.getSigla());
@@ -197,7 +197,8 @@ public class CONVENIO {
             stmt.setInt(31, model.getVALIDACAO_MATRICULA());
             stmt.setInt(32, model.getIMPRIMI_ARQUIVO_TXT_COM_FATURA());
             stmt.setInt(33, model.getGrupoid());
-            stmt.setInt(34, model.getHandle_convenio());
+            stmt.setInt(34, model.getId_dados_empresa());
+            stmt.setInt(35, model.getHandle_convenio());
             
             stmt.executeUpdate();
             stmt.close();
@@ -379,14 +380,15 @@ public class CONVENIO {
      * @return Boolean
      */
     @SuppressWarnings("finally")
-    public static boolean setCadastrarGrupoDeConvenio(Connection con, String nome, int geraTxt){
+    public static boolean setCadastrarGrupoDeConvenio(Connection con, String nome, int geraTxt, int id_empresa){
         boolean cadastro = false;
-        String sql = "insert into convenios_grupos (nome, gera_arquivo_texto, numero_nota) values(?,?,?)";
+        String sql = "insert into convenios_grupos (nome, gera_arquivo_texto, numero_nota, id_dados_empresa) values(?,?,?,?)";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setInt(2, geraTxt);
             stmt.setInt(3, 0);
+            stmt.setInt(4, id_empresa);
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
@@ -405,14 +407,15 @@ public class CONVENIO {
      * @return Boolean
      */
     @SuppressWarnings("finally")
-    public static boolean setUpdateGrupoDeConvenio(Connection con, String nome, int gera_txt, int grupo_id){
+    public static boolean setUpdateGrupoDeConvenio(Connection con, String nome, int gera_txt, int grupo_id, int id_empresa){
         boolean cadastro = false;
-        String sql = "update convenios_grupos set nome=?, gera_arquivo_texto=? where grupo_id=?";
+        String sql = "update convenios_grupos set nome=?, gera_arquivo_texto=?, id_dados_empresa=? where grupo_id=?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setInt(2, gera_txt);
-            stmt.setInt(3, grupo_id);
+            stmt.setInt(3, id_empresa);
+            stmt.setInt(4, grupo_id);
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;

@@ -12,6 +12,7 @@ import br.bcn.admclin.dao.dbris.CONVENIO;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
 import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.financeiro.faturarConvenio.arquivoTxtDoIpe.gerarLaudos.MakeLaudoPdf;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.atendimentoModel;
 
 import java.io.File;
@@ -90,14 +91,17 @@ public class GerarArquivoTxtDaFatura {
     
     private void criaLaudo(int handle_at, String caminhoParaSalvarPDF) {
 		// TODO Auto-generated method stub
-		
+		MakeLaudoPdf makeLaudoPDF = new MakeLaudoPdf();
+		makeLaudoPDF.criaLaudo(handle_at, caminhoParaSalvarPDF);
 	}
 
 	private String cnpjEmpresa, nomeEmpresa;
     private int nro_prestador_ipe;
 
     private void buscarInformacoesDaEmpresaNoBanco() throws SQLException {
-        ResultSet resultSet = DADOS_EMPRESA.getConsultar(con);
+    	int id_dados_empresa = listaDeAtendimentos.get(0).getId_dados_empresa();
+    	
+        ResultSet resultSet = DADOS_EMPRESA.getConsultar(con, id_dados_empresa);
         while (resultSet.next()) {
             cnpjEmpresa = resultSet.getString("cnpj");
             nomeEmpresa = resultSet.getString("nome");
@@ -235,6 +239,15 @@ public class GerarArquivoTxtDaFatura {
 
     private void colocarNumeroDaNotaNaLista() {
         int numeroLinha = 0;
+        
+        String numeroNotaString = JOptionPane.showInputDialog(null, "Digite a nota inicial para o arquivo texto!");
+        try {
+        	numeroNota = Integer.valueOf(numeroNotaString);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Número Inválido. As notas começaram do zero.");
+			numeroNota = 1;
+		}
+        
         for (int i = 0; i < listaDeExames.size(); i++) {
 
             // para saber se ainda cabe paciente nesta nota
@@ -551,7 +564,7 @@ public class GerarArquivoTxtDaFatura {
                 Conexao.fechaConexao(con);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal.internalFrameJanelaPrincipal,
-                    "Erro ao gerar arquivo TXT desta fatura. Procure o Administrador." + e, "Erro",
+                    "Erro ao gerar arquivo TXT desta fatura. Procure o Administrador.", "Erro",
                     JOptionPane.ERROR_MESSAGE);
                 Conexao.fechaConexao(con);
             }

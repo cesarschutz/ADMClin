@@ -54,6 +54,11 @@ public class JIFGruposConveniosVisualizar extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(0).setMinWidth(0);
         jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMinWidth(0);
 
         jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
         jTable1.getColumnModel().getColumn(1).setMinWidth(0);
@@ -72,7 +77,7 @@ public class JIFGruposConveniosVisualizar extends javax.swing.JInternalFrame {
                 // colocando dados na tabela
                 if (resultSet.getInt("grupo_id") != 0) {
                     modelo.addRow(new String[] { Integer.toString(resultSet.getInt("grupo_id")),
-                        Integer.toString(resultSet.getInt("gera_arquivo_texto")), resultSet.getString("nome") });
+                        Integer.toString(resultSet.getInt("gera_arquivo_texto")), resultSet.getString("nome"), Integer.toString(resultSet.getInt("id_dados_empresa")) });
                 }
             }
         } catch (SQLException e) {
@@ -114,11 +119,11 @@ public class JIFGruposConveniosVisualizar extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grupos de Convênios",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { { null, null, null },
-            { null, null, null }, { null, null, null }, { null, null, null } }, new String[] { "GrupoConvenioId",
-            "geraArquivoTexto", "Nome" }) {
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { { null, null, null, null },
+            { null, null, null, null }, { null, null, null, null }, { null, null, null, null } }, new String[] { "GrupoConvenioId",
+            "geraArquivoTexto", "Nome", "id_empresa" }) {
             private static final long serialVersionUID = 1L;
-            boolean[] canEdit = new boolean[] { false, false, false };
+            boolean[] canEdit = new boolean[] { false, false, false, false };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
@@ -185,8 +190,9 @@ public class JIFGruposConveniosVisualizar extends javax.swing.JInternalFrame {
         int grupo_id = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         int gera_arquivo_texto = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
         String nome = jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString();
+        int id_empresa = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
 
-        janelaPrincipal.internalFrameGruposDeConvenios = new JIFGruposConvenios(grupo_id, gera_arquivo_texto, nome);
+        janelaPrincipal.internalFrameGruposDeConvenios = new JIFGruposConvenios(grupo_id, gera_arquivo_texto, nome, id_empresa);
         janelaPrincipal.jDesktopPane1.add(janelaPrincipal.internalFrameGruposDeConvenios);
         janelaPrincipal.internalFrameGruposDeConvenios.setVisible(true);
 

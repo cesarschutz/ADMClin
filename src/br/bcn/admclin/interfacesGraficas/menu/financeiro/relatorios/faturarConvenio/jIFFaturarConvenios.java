@@ -120,6 +120,7 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
             atendimento.setFlag_faturado(resultSet.getInt("flag_faturado"));
             atendimento.setNomeMedico(resultSet.getString("nomeMedico"));
             atendimento.setID_AREAS_ATENDIMENTO(resultSet.getInt("id_areas_atendimento"));
+            atendimento.setId_dados_empresa(resultSet.getInt("id_dados_empresa"));
 
             listaDeAtendimentos.add(atendimento);
         }
