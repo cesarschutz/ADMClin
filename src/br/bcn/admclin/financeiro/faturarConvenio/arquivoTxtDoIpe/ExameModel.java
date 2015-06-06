@@ -4,6 +4,8 @@
  */
 package br.bcn.admclin.financeiro.faturarConvenio.arquivoTxtDoIpe;
 
+import javax.swing.JOptionPane;
+
 /**
  * Classe feita para ser utilizada no arquivo TXT do IPE, para criar o arquivo TXT de faturamento do IPE!
  * 
@@ -70,7 +72,14 @@ public class ExameModel {
     }
 
     public String getCod_exame() {
-        return cod_exame;
+    	String cod_exame_novo = "";
+    	if(cod_exame.length() > 8){
+    		cod_exame_novo = cod_exame.substring(0, 8);
+    		return cod_exame_novo;
+    	}else{
+    		return cod_exame;
+    	}
+        
     }
 
     public void setCod_exame(String cod_exame) {

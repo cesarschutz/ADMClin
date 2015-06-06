@@ -237,6 +237,7 @@ public class GerarArquivoTxtDaFatura {
 
     int numeroNota = 1; //numero da nota começa com 1 (mas sera alterado de acordo com o digitado)
     int qtdNotas   = 1; //quantidaddes de notas geradas
+    int numeroNotaInicial = 1;
     
     private void colocarNumeroDaNotaNaLista() {
         int numeroLinha = 0;
@@ -244,6 +245,8 @@ public class GerarArquivoTxtDaFatura {
         String numeroNotaString = JOptionPane.showInputDialog(null, "Digite a nota inicial para o arquivo texto!");
         try {
         	numeroNota = Integer.valueOf(numeroNotaString);
+        	numeroNotaParaImprimir = Integer.valueOf(numeroNotaString);
+        	numeroNotaInicial = Integer.valueOf(numeroNotaString);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Número Inválido. As notas começaram do zero.");
 			numeroNota = 1;
@@ -252,7 +255,7 @@ public class GerarArquivoTxtDaFatura {
         for (int i = 0; i < listaDeExames.size(); i++) {
 
             // para saber se ainda cabe paciente nesta nota
-            if (numeroLinha < 20) {
+            if (numeroLinha <= 20) {
                 // verificar se o proximo paciente cabe no que resta
                 if (verificaSeProximoCabeNaNota(i, numeroLinha)) {
                     numeroLinha++;
@@ -300,8 +303,8 @@ public class GerarArquivoTxtDaFatura {
     private void criaHeader() {
         // arrumando a quantidade de notas para ter 4 digitos
         String qtdNotas = String.valueOf(this.qtdNotas);
-        if (String.valueOf(numeroNota).length() < 4) {
-            int falta = 4 - String.valueOf(numeroNota).length();
+        if (qtdNotas.length() < 4) {
+            int falta = 4 - String.valueOf(qtdNotas).length();
             for (int i = 0; i < falta; i++) {
                 qtdNotas = "0" + qtdNotas;
             }
@@ -344,7 +347,7 @@ public class GerarArquivoTxtDaFatura {
         arquivo.write(header + "\r\n");
 
         // escrevendo as notas
-        for (int i = 1; i <= qtdNotas; i++) {
+        for (int i = numeroNotaInicial; i <= numeroNota; i++) {
             for (int j = 0; j < listaDeExames.size(); j++) {
                 // se a nota da lista for a mesma nota que estamos montando entra aqui
                 if (Integer.valueOf(listaDeExames.get(j).getNn()) == i) {
@@ -434,9 +437,8 @@ public class GerarArquivoTxtDaFatura {
                     }
                     // pegando o ano com dois digitos
                     String ano = listaDeExames.get(j).getAno().substring(2);
-                    // arrumando o numero da nota para 5 casas
-                    int numeroNotaMenosUm = Integer.valueOf(listaDeExames.get(j).getNn()) - 1;
-                    String numeroNotaString = String.valueOf(numeroNotaMenosUm);
+                 // arrumando o numero da nota para 5 casas
+                    String numeroNotaString = String.valueOf(numeroNotaParaImprimir);
                     if (numeroNotaString.length() < 5) {
                         int falta = 5 - numeroNotaString.length();
                         for (int h = 0; h < falta; h++) {
@@ -446,9 +448,9 @@ public class GerarArquivoTxtDaFatura {
 
                     String espacosEmBranco = "                            ";
                     headerNota =
-                        "0035" + qtdLancamentosNotaString + cnpjEmpresa + valorTotalNotaString
-                            + valorTotalMateriaisString + "10" + listaDeExames.get(j).getMes() + ano + numeroNotaString
-                            + espacosEmBranco + "\r\n";
+                        "0035" + qtdLancamentosNotaString + cnpjEmpresa + valorTotalNotaString + valorTotalMateriaisString + "10"
+                            + listaDeExames.get(0).getMes() + ano + numeroNotaString + espacosEmBranco + "\r\n";
+                    numeroNotaParaImprimir = numeroNotaParaImprimir + 1;
                     arquivo.write(headerNota);
                     headerNota = "";
                     qtdLancamentosDaNota = 0;
