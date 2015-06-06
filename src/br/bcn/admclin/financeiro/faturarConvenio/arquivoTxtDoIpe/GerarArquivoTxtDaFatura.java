@@ -235,8 +235,9 @@ public class GerarArquivoTxtDaFatura {
         }
     }
 
-    int numeroNota = 1;
-
+    int numeroNota = 1; //numero da nota começa com 1 (mas sera alterado de acordo com o digitado)
+    int qtdNotas   = 1; //quantidaddes de notas geradas
+    
     private void colocarNumeroDaNotaNaLista() {
         int numeroLinha = 0;
         
@@ -261,6 +262,7 @@ public class GerarArquivoTxtDaFatura {
                 } else {
                     numeroLinha = 1;
                     numeroNota++;
+                    qtdNotas++;
                     listaDeExames.get(i).setNn(String.valueOf(numeroNota));
                     listaDeExames.get(i).setRef(String.valueOf(numeroLinha));
                     salvarNumeroRefEnota(listaDeExames.get(i));
@@ -269,7 +271,7 @@ public class GerarArquivoTxtDaFatura {
         }
 
     }
-
+    
     private void salvarNumeroRefEnota(ExameModel exameModel) {
     	GerarArquivoTextIpeDAO.setUpdate(exameModel);
 		
@@ -297,7 +299,7 @@ public class GerarArquivoTxtDaFatura {
 
     private void criaHeader() {
         // arrumando a quantidade de notas para ter 4 digitos
-        String qtdNotas = String.valueOf(numeroNota);
+        String qtdNotas = String.valueOf(this.qtdNotas);
         if (String.valueOf(numeroNota).length() < 4) {
             int falta = 4 - String.valueOf(numeroNota).length();
             for (int i = 0; i < falta; i++) {
@@ -320,8 +322,7 @@ public class GerarArquivoTxtDaFatura {
                 numeroPrestadorIpe = "0" + numeroPrestadorIpe;
             }
         }
-        numeroPrestadorIpe = "10" + numeroPrestadorIpe;
-
+        
         header = "SMH" + cnpjEmpresa + qtdNotas + qtdLancamentos + numeroPrestadorIpe + nomeEmpresa;
 
         if (header.length() < 81) {
@@ -343,7 +344,7 @@ public class GerarArquivoTxtDaFatura {
         arquivo.write(header + "\r\n");
 
         // escrevendo as notas
-        for (int i = 1; i <= numeroNota; i++) {
+        for (int i = 1; i <= qtdNotas; i++) {
             for (int j = 0; j < listaDeExames.size(); j++) {
                 // se a nota da lista for a mesma nota que estamos montando entra aqui
                 if (Integer.valueOf(listaDeExames.get(j).getNn()) == i) {
