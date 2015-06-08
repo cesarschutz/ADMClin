@@ -319,14 +319,14 @@ public class GerarArquivoTxtDaFatura {
             }
         }
         String numeroPrestadorIpe = String.valueOf(nro_prestador_ipe);
-        if (numeroPrestadorIpe.length() < 8) {
+        if (numeroPrestadorIpe.length() < 6) {
             int falta = 6 - numeroPrestadorIpe.length();
             for (int i = 0; i < falta; i++) {
                 numeroPrestadorIpe = "0" + numeroPrestadorIpe;
             }
         }
         
-        header = "SMH" + cnpjEmpresa + qtdNotas + qtdLancamentos + numeroPrestadorIpe + nomeEmpresa;
+        header = "SMH" + cnpjEmpresa + qtdNotas + qtdLancamentos + "10" + numeroPrestadorIpe + nomeEmpresa;
 
         if (header.length() < 81) {
             int falta = 81 - header.length();
