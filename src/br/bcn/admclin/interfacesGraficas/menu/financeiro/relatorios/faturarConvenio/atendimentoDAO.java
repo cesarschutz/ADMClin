@@ -35,10 +35,11 @@ public class atendimentoDAO {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, a.ID_AREAS_ATENDIMENTO,  p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado, c.id_dados_empresa "
+                con.prepareStatement("select distinct m.crm as crmMedico, m.nome as nomeMedico, x.ID_AREAS_ATENDIMENTO,  p.nome as nomePaciente, p.nascimento as nascimentoPaciente, a.handle_at, a.data_atendimento, a.matricula_convenio, a.hora_atendimento, a.flag_laudo, a.flag_faturado, c.id_dados_empresa "
                     + "from atendimentos A inner join pacientes p on a.handle_paciente = p.handle_paciente "
                     + "inner join medicos m on a.handle_medico_sol = m.medicoid "
                     + "inner join atendimento_exames e on a.handle_at = e.handle_at "
+                    + "inner join exames x on e.handle_exame = x.handle_exame "
                     + "inner join convenio c on a.handle_convenio = c.handle_convenio "
                     + "where (data_atendimento > ?  or data_atendimento = ?) and (data_atendimento < ?  or data_atendimento = ?) and (a.flag_conciliado is null or a.flag_conciliado = 0) and c.handle_convenio = ? order by data_atendimento, a.handle_at");
             stmtQuery.setDate(1, diaInicial);

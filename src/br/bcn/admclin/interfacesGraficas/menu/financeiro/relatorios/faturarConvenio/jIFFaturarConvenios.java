@@ -226,8 +226,7 @@ public class jIFFaturarConvenios extends javax.swing.JInternalFrame {
             }
 
             try {
-                buscandoOsAtendimentos("convenio", diaInicialSql, diaFinalSql,
-                    listaHandleConvenio.get(jCBConvenios.getSelectedIndex()));
+                buscandoOsAtendimentos("convenio", diaInicialSql, diaFinalSql, listaHandleConvenio.get(jCBConvenios.getSelectedIndex()));
                 janelaPrincipal.internalFrameAtendimentosParaFaturar =
                     new jIFListaAtendimentosParaFaturar("convenio", diaInicialSql, diaFinalSql,
                         String.valueOf(jCBConvenios.getSelectedItem()), listaHandleConvenio.get(jCBConvenios
