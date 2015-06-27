@@ -649,9 +649,27 @@ public class ATENDIMENTOS {
 			} finally {
 				return cadastro;
 			}
-		} else {
+		} else if(parametro == 3){
 			boolean cadastro = false;
 			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='S', EXAME_ENTREGUE_AO_PACIENTE='S'   where handle_at="
+					+ handle_at;
+			try {
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.executeUpdate();
+				stmt.close();
+				cadastro = true;
+			} catch (SQLException e) {
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Erro ao marcar flag de Entrega ao Paciente. Procure o Administrador.",
+								"ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+			} finally {
+				return cadastro;
+			}
+		}else{
+			boolean cadastro = false;
+			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='N', EXAME_ENTREGUE_AO_PACIENTE='N'   where handle_at="
 					+ handle_at;
 			try {
 				PreparedStatement stmt = con.prepareStatement(sql);

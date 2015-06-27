@@ -295,6 +295,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                     entrega = "2";
                 } else if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE) && !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
                     entrega = "1";
+                }else{
+                	entrega = "0";
                 }
                 int pacientePagou = resultSet.getInt("paciente_pagou");
                 modelo.addRow(new Object[] { handle_at, "", hora_atendimento, nomePaciente, nomeMedico,
@@ -625,6 +627,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 // os dois entregue
                 if (status1 == 3) {
                     jTable1.setValueAt(iconeLaudoEExameEntregue, i, 8);
+                }
+                if(status1 == 0){
+                	jTable1.setValueAt(null, i, 8);
                 }
             } catch (Exception e) {
             }
@@ -1906,6 +1911,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         "/br/bcn/admclin/imagens/LaudoEntregue.png"));
     ImageIcon iconeLaudoEExameEntregue = new javax.swing.ImageIcon(getClass().getResource(
         "/br/bcn/admclin/imagens/LaudoEExameEntregue.png"));
+    ImageIcon iconeNaoEntregue = new javax.swing.ImageIcon(getClass().getResource(
+            "/br/bcn/admclin/imagens/popUpCancelar.png"));
+    
 
     private void abrirPopUpEntregue(MouseEvent evt) {
 
@@ -1935,13 +1943,24 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 jTable1.setValueAt(iconeLaudoEExameEntregue, jTable1.getSelectedRow(), 8);
             }
         });
+        
+        JMenuItem naoEntregue = new JMenuItem("Exame/Laudo Não Entregue", iconeNaoEntregue);
+        naoEntregue.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                entregaDeExame(0);
+                jTable1.setValueAt(null, jTable1.getSelectedRow(), 8);
+            }
+        });
 
         // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
         popup.add(exameEntregue);
         popup.add(laudoEntregue);
-        popup.addSeparator();
         popup.add(laudoEExameEntregue);
+        popup.addSeparator();
+        popup.add(naoEntregue);
+        
+        
 
         // mostra na tela
         int x = evt.getX();
