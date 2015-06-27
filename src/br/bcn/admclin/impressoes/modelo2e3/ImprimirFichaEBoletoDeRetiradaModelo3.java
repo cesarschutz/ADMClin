@@ -142,7 +142,7 @@ private void imprimirFicha2() {
     // imprimir a hora do atendimento linha 10 (campo: hora de chegada)
     // 69 espaços em branco
     imprimir.print("                                                                      "
-        + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 10));
+        + arrumarTamanhoDaString(" ", 10));
 
     imprimir.lineFeed(); // linha 11
     
@@ -160,7 +160,7 @@ private void imprimirFicha2() {
 
     // imprimi a hora marca
     imprimir.print("     " + arrumarTamanhoDaString(listaDeExames.get(0).getNomePaciente(), 54) 
-    		+ "          " + arrumarTamanhoDaString(listaDeExames.get(0).getHoraAtendimento(), 6));
+    		+ "          " + arrumarTamanhoDaString(" ", 6));
     
     imprimir.lineFeed();
     
@@ -175,7 +175,7 @@ private void imprimirFicha2() {
     String horaAtual = format.format(hoje.getTime());
     // 70 espaços em branco
     imprimir.print("                                                                        "
-        + arrumarTamanhoDaString(String.valueOf(horaAtual), 6));
+        + arrumarTamanhoDaString(" ", 6));
 
     imprimir.lineFeed(); 
     
