@@ -1908,106 +1908,64 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 
         jTFHANDLE_MEDICO_SOL.setEnabled(false);
         jTFHANDLE_MEDICO_SOL.setFocusable(false);
+        
+        jLIdadePaciente = new JLabel();
+        jLIdadePaciente.setHorizontalAlignment(SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2Layout.setHorizontalGroup(
+        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel2Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(jPanel2Layout.createSequentialGroup()
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel5)
+        						.addGroup(jPanel2Layout.createSequentialGroup()
+        							.addComponent(jTFMedicoSol, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTFHANDLE_MEDICO_SOL, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBPesquisaMedico, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(jPanel2Layout.createSequentialGroup()
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jPanel2Layout.createSequentialGroup()
+        							.addComponent(jLabel4)
+        							.addPreferredGap(ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+        							.addComponent(jLIdadePaciente, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE))
+        						.addComponent(jTFPaciente, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jTFHANDLE_PACIENTE, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jBPesquisaPaciente, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+        	jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel2Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
+        				.addGroup(jPanel2Layout.createSequentialGroup()
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(jLabel4)
+        						.addComponent(jLIdadePaciente, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(jTFPaciente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jTFHANDLE_PACIENTE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        				.addComponent(jBPesquisaPaciente, GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING, false)
+        				.addGroup(jPanel2Layout.createSequentialGroup()
+        					.addComponent(jLabel5)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(jTFMedicoSol, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jTFHANDLE_MEDICO_SOL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        				.addComponent(jBPesquisaMedico, GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout
-            .setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(
-                    jPanel2Layout
-                        .createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(
-                            jPanel2Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(
-                                    jPanel2Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel2Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel5)
-                                                .addGroup(
-                                                    jPanel2Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jTFMedicoSol,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFHANDLE_MEDICO_SOL,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE, 69,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBPesquisaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(
-                                    jPanel2Layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                            jPanel2Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel4)
-                                                .addGroup(
-                                                    jPanel2Layout
-                                                        .createSequentialGroup()
-                                                        .addComponent(jTFPaciente,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                                                        .addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTFHANDLE_PACIENTE,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE, 69,
-                                                            javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBPesquisaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE))).addContainerGap()));
-        jPanel2Layout
-            .setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(
-                    jPanel2Layout
-                        .createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(
-                            jPanel2Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(
-                                    jPanel2Layout
-                                        .createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel2Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jTFPaciente, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTFHANDLE_PACIENTE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jBPesquisaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 46,
-                                    Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(
-                            jPanel2Layout
-                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(
-                                    jPanel2Layout
-                                        .createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(
-                                            jPanel2Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jTFMedicoSol, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTFHANDLE_MEDICO_SOL,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jBPesquisaMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 46,
-                                    Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exames do Atendimento",
             javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -3187,4 +3145,5 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
     private JCheckBox jCBPacientePagou;
     private JTextField jTFHandleAt;
     private JTextField jTFUsuarioQueCadastrou;
+    public static JLabel jLIdadePaciente;
 }

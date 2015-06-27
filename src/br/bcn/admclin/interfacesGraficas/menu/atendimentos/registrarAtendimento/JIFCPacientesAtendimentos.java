@@ -327,6 +327,13 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
 
         // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
         JIFCadastroDeAtendimento.handle_paciente = Integer.valueOf(handle_paciente);
+        
+        try {
+			String idade = MetodosUteis.calculaIdade(jTFNascimento.getText(), "dd/MM/yyyy");
+			JIFCadastroDeAtendimento.jLIdadePaciente.setText(idade + " ano(s)");
+		} catch (Exception e) {
+			JIFCadastroDeAtendimento.jLIdadePaciente.setText("");
+		}
     }
 
     /**

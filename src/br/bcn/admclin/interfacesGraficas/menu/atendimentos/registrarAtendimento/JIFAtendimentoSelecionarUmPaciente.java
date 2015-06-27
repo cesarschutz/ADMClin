@@ -117,6 +117,7 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
     	if(jTable1.getSelectedRow() >= 0){
 	        String handle_paciente = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
 	        String nomePaciente = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
+	        String nascimentoPaciente = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 3);
 	
 	        JIFCadastroDeAtendimento.jTFHANDLE_PACIENTE.setText(handle_paciente);
 	        JIFCadastroDeAtendimento.jTFPaciente.setText(nomePaciente);
@@ -124,6 +125,13 @@ public class JIFAtendimentoSelecionarUmPaciente extends javax.swing.JInternalFra
 	        // setando a variavel de hanle_paciente. para usar no cadastramento do atendimento
 	        JIFCadastroDeAtendimento.handle_paciente = Integer.valueOf(handle_paciente);
 	
+	        try {
+				String idade = MetodosUteis.calculaIdade(nascimentoPaciente, "dd/MM/yyyy");
+				JIFCadastroDeAtendimento.jLIdadePaciente.setText(idade + " ano(s)");
+			} catch (Exception e) {
+				JIFCadastroDeAtendimento.jLIdadePaciente.setText("");
+			}
+	        
 	        this.dispose();
 	        janelaPrincipal.internalFrameAtendimentoSelecionarUmPaciente = null;
 	        janelaPrincipal.internalFrameAtendimento.setVisible(true);
