@@ -1462,6 +1462,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         JMenu imprimir = new JMenu("Imprimir");
         imprimir.setIcon(iconeImprimir);
 
+        //menu informacoes completasd
+        JMenu informacoesCompletas = new JMenu("Informações Completas");
+        
         // imprimir etiqueta
         JMenuItem imprimirEtiqueta = new JMenuItem("Etiqueta Envelope (matricial)", iconeImrimirEtiqueta);
         imprimirEtiqueta.addActionListener(new ActionListener() {
@@ -1600,6 +1603,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
+        montaInformacoesCompletas(informacoesCompletas);
+        popup.add(informacoesCompletas);
         popup.add(imprimir);
         popup.add(historiaClinica);
         popup.add(laudo);
@@ -1612,14 +1617,49 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         popup.show(jTable1, x, y);
     }
 
-    private void abrirPopUpPagamentoPaciente(MouseEvent evt){
+    private void montaInformacoesCompletas(JMenu informacoesCompletas) {
+		Connection con = Conexao.fazConexao();
+		int handleAt = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+		ResultSet rs = ATENDIMENTOS.getConsultarInformacoesCompletasAtendimento(con, handleAt);
+		try {
+			while(rs.next()){
+				informacoesCompletas.add("Ficha                         : " + rs.getString("handle_at")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Atendente                 : " + rs.getString("nm_usuario")).setEnabled(false);;
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Paciente                   : " + rs.getString("nomePaciente")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Endereço Paciente: " + rs.getString("enderecoPaciente")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("CPF Paciente          : " + rs.getString("cpf")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Médico                      : " + rs.getString("nomeMedico")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("CRM                          : " + rs.getString("crm")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Endereço Médico   : " + rs.getString("enderecoMedico")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Telefone Médico     : " + rs.getString("telefone")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Telefone Médico     : " + rs.getString("telefonedois")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				informacoesCompletas.add("Celular Médico       : " + rs.getString("celular")).setEnabled(false);
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao consultar Informações Gerais. Procure o Administrador." ,
+	                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+
+	private void abrirPopUpPagamentoPaciente(MouseEvent evt){
     	
     	final boolean pacientePagou;
         int handle_at = Integer.valueOf(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
         
         //se paciente nao pagou abre popup
         if(ATENDIMENTOS.getPacientePagou(handle_at) == 0){
-        	JMenuItem registrarPagamentoDePaciente = registrarPagamentoDePaciente = new JMenuItem("Definir como pago", iconePacientePagou);
+        	JMenuItem registrarPagamentoDePaciente = new JMenuItem("Definir como pago", iconePacientePagou);
             
             registrarPagamentoDePaciente.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
