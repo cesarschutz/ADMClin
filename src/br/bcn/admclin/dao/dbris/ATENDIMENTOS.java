@@ -199,11 +199,12 @@ public class ATENDIMENTOS {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select a.handle_at, p.nome as nomePaciente, p.endereco as enderecoPaciente, p.cpf, m.nome as nomeMedico, m.crm, m.endereco as enderecoMedico, m.telefone, m.telefonedois, m.celular, u.nm_usuario "
+                con.prepareStatement("select a.handle_at, p.nome as nomePaciente, p.endereco as enderecoPaciente, p.cpf, m.nome as nomeMedico, m.crm, m.endereco as enderecoMedico, m.telefone, m.telefonedois, m.celular, u.nm_usuario, x.nm_usuario as usuarioEntregaExame "
                 		+ "from atendimentos a "
                 		+ "inner join pacientes p on p.handle_paciente = a.handle_paciente "	 
                 		+ "inner join medicos m on m.medicoid = a.handle_medico_sol "
                 		+ "inner join usuarios u on u.usrid = a.usuarioid "
+                		+ "left join usuarios x on x.usrid = a.ID_USUARIO_ENTREGA_EXAME "
                 		+ "where a.handle_at = ?");
             stmtQuery.setInt(1, handle_at);
             resultSet = stmtQuery.executeQuery();
@@ -611,12 +612,13 @@ public class ATENDIMENTOS {
 	 * @return Boolean
 	 */
 	@SuppressWarnings("finally")
-	public static boolean setEntregaDeExame(Connection con, int parametro,
-			int handle_at) {
+	public static boolean setEntregaDeExame(Connection con, int parametro, int handle_at) {
+		
+		String ID_USUARIO_ENTREGA_EXAME = String.valueOf(USUARIOS.usrId);
+		
 		if (parametro == 1) {
 			boolean cadastro = false;
-			String sql = "update atendimentos set EXAME_ENTREGUE_AO_PACIENTE='S', LAUDO_ENTREGUE_AO_PACIENTE='N' where handle_at="
-					+ handle_at;
+			String sql = "update atendimentos set EXAME_ENTREGUE_AO_PACIENTE='S', LAUDO_ENTREGUE_AO_PACIENTE='N', ID_USUARIO_ENTREGA_EXAME= " + ID_USUARIO_ENTREGA_EXAME + " where handle_at="+ handle_at;
 			try {
 				PreparedStatement stmt = con.prepareStatement(sql);
 				stmt.executeUpdate();
@@ -633,8 +635,7 @@ public class ATENDIMENTOS {
 			}
 		} else if (parametro == 2) {
 			boolean cadastro = false;
-			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='S', EXAME_ENTREGUE_AO_PACIENTE='N' where handle_at="
-					+ handle_at;
+			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='S', EXAME_ENTREGUE_AO_PACIENTE='N', ID_USUARIO_ENTREGA_EXAME= " + ID_USUARIO_ENTREGA_EXAME + " where handle_at="+ handle_at;
 			try {
 				PreparedStatement stmt = con.prepareStatement(sql);
 				stmt.executeUpdate();
@@ -651,8 +652,7 @@ public class ATENDIMENTOS {
 			}
 		} else if(parametro == 3){
 			boolean cadastro = false;
-			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='S', EXAME_ENTREGUE_AO_PACIENTE='S'   where handle_at="
-					+ handle_at;
+			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='S', EXAME_ENTREGUE_AO_PACIENTE='S', ID_USUARIO_ENTREGA_EXAME= " + ID_USUARIO_ENTREGA_EXAME + " where handle_at="+ handle_at;
 			try {
 				PreparedStatement stmt = con.prepareStatement(sql);
 				stmt.executeUpdate();
@@ -669,8 +669,7 @@ public class ATENDIMENTOS {
 			}
 		}else{
 			boolean cadastro = false;
-			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='N', EXAME_ENTREGUE_AO_PACIENTE='N'   where handle_at="
-					+ handle_at;
+			String sql = "update atendimentos set LAUDO_ENTREGUE_AO_PACIENTE='N', EXAME_ENTREGUE_AO_PACIENTE='N', ID_USUARIO_ENTREGA_EXAME= " + ID_USUARIO_ENTREGA_EXAME + " where handle_at="+ handle_at;
 			try {
 				PreparedStatement stmt = con.prepareStatement(sql);
 				stmt.executeUpdate();

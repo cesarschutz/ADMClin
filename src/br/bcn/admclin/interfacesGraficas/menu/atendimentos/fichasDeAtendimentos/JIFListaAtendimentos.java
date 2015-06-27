@@ -1630,7 +1630,13 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 			while(rs.next()){
 				informacoesCompletas.add("Ficha                         : " + rs.getString("handle_at")).setEnabled(false);
 				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Atendente                 : " + rs.getString("nm_usuario")).setEnabled(false);;
+				informacoesCompletas.add("Atendente                 : " + rs.getString("nm_usuario")).setEnabled(false);
+				informacoesCompletas.addSeparator();
+				String usuarioEntregaExame = rs.getString("usuarioEntregaExame");
+				if(usuarioEntregaExame == "null" || usuarioEntregaExame == null){
+					usuarioEntregaExame = "Exame Não Entregue";
+				}
+				informacoesCompletas.add("Entrega Exame       : " + usuarioEntregaExame).setEnabled(false);
 				informacoesCompletas.addSeparator();
 				informacoesCompletas.add("Paciente                   : " + rs.getString("nomePaciente")).setEnabled(false);
 				informacoesCompletas.addSeparator();
