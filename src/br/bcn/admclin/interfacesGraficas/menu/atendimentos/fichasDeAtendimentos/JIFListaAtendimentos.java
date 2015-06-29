@@ -1383,29 +1383,58 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         }
         // fechando a conexao
         Conexao.fechaConexao(con);
+        
+        Connection con = Conexao.fazConexao();
+		int handleAt = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+		ResultSet rs = ATENDIMENTOS.getConsultarInformacoesCompletasAtendimento(con, handleAt);
+		try {
+			while(rs.next()){
+				popup.add("Ficha                              : " + rs.getString("handle_at")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("Data                               : " + data_atendimento).setEnabled(false);
+		        popup.add("").setEnabled(true);
+		        popup.add("Horário                          : " + hora_atendimento).setEnabled(false);
+		        popup.add("").setEnabled(true);
+		        popup.add("Atendente                     : " + rs.getString("nm_usuario")).setEnabled(false);
+		        popup.add("").setEnabled(true);
+				String usuarioEntregaExame = rs.getString("usuarioEntregaExame");
+				if(usuarioEntregaExame == "null" || usuarioEntregaExame == null){
+					usuarioEntregaExame = "Exame Não Entregue";
+				}
+				popup.add("Entrega Exame           : " + usuarioEntregaExame).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("Paciente                       : " + rs.getString("nomePaciente")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("CPF Paciente              : " + rs.getString("cpf")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("Nascimento Paciente: " + nascimento_paciente).setEnabled(false);
+		        popup.add("").setEnabled(true);
+		        popup.add("Telefone Paciente       : " + telefone_paciente).setEnabled(false);
+		        popup.add("").setEnabled(true);
+		        popup.add("Celular Paciente         : " + celular_paciente).setEnabled(false);
+		        popup.add("").setEnabled(true);
+		        popup.add("Endereço Paciente     : " + rs.getString("enderecoPaciente")).setEnabled(false);
+		        popup.add("").setEnabled(true);
+				popup.add("Médico                           : " + rs.getString("nomeMedico")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("CRM                               : " + rs.getString("crm")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("Endereço Médico        : " + rs.getString("enderecoMedico")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("Telefone Médico          : " + rs.getString("telefone")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("Telefone Médico          : " + rs.getString("telefonedois")).setEnabled(false);
+				popup.add("").setEnabled(true);
+				popup.add("Celular Médico            : " + rs.getString("celular")).setEnabled(false);
+				popup.add("").setEnabled(true);
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao consultar Informações Gerais. Procure o Administrador." ,
+	                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
+		
 
         // adicionando as informações do agendaento
-        popup.add("Data                               : " + data_atendimento).setEnabled(false);
-        popup.add("").setEnabled(true);
-
-        popup.add("Horário                          : " + hora_atendimento).setEnabled(false);
-        popup.add("").setEnabled(true);
-
-        popup.add("Paciente                       : " + nome_paciente).setEnabled(false);
-        popup.add("").setEnabled(true);
-
-        popup.add("Nascimento                 : " + nascimento_paciente).setEnabled(false);
-        popup.add("").setEnabled(true);
-
-        popup.add("Telefone                       : " + telefone_paciente).setEnabled(false);
-        popup.add("").setEnabled(true);
-
-        popup.add("Celular                          : " + celular_paciente).setEnabled(false);
-        popup.add("").setEnabled(true);
-
-        popup.add("Médico Solicitante       : " + nome_medico_sol).setEnabled(false);
-        popup.add("").setEnabled(true);
-
         popup.add("Convênio                      : " + nome_convenio).setEnabled(false);
         popup.add("").setEnabled(true);
 
@@ -1466,9 +1495,6 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         // menu imprimir
         JMenu imprimir = new JMenu("Imprimir");
         imprimir.setIcon(iconeImprimir);
-
-        //menu informacoes completasd
-        JMenu informacoesCompletas = new JMenu("Informações Completas");
         
         // imprimir etiqueta
         JMenuItem imprimirEtiqueta = new JMenuItem("Etiqueta Envelope (matricial)", iconeImrimirEtiqueta);
@@ -1608,8 +1634,6 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 
         // cria o menu popup e adiciona os itens
         JPopupMenu popup = new JPopupMenu();
-        montaInformacoesCompletas(informacoesCompletas);
-        popup.add(informacoesCompletas);
         popup.add(imprimir);
         popup.add(historiaClinica);
         popup.add(laudo);
@@ -1623,43 +1647,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
     }
 
     private void montaInformacoesCompletas(JMenu informacoesCompletas) {
-		Connection con = Conexao.fazConexao();
-		int handleAt = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-		ResultSet rs = ATENDIMENTOS.getConsultarInformacoesCompletasAtendimento(con, handleAt);
-		try {
-			while(rs.next()){
-				informacoesCompletas.add("Ficha                         : " + rs.getString("handle_at")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Atendente                 : " + rs.getString("nm_usuario")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				String usuarioEntregaExame = rs.getString("usuarioEntregaExame");
-				if(usuarioEntregaExame == "null" || usuarioEntregaExame == null){
-					usuarioEntregaExame = "Exame Não Entregue";
-				}
-				informacoesCompletas.add("Entrega Exame       : " + usuarioEntregaExame).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Paciente                   : " + rs.getString("nomePaciente")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Endereço Paciente: " + rs.getString("enderecoPaciente")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("CPF Paciente          : " + rs.getString("cpf")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Médico                      : " + rs.getString("nomeMedico")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("CRM                          : " + rs.getString("crm")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Endereço Médico   : " + rs.getString("enderecoMedico")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Telefone Médico     : " + rs.getString("telefone")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Telefone Médico     : " + rs.getString("telefonedois")).setEnabled(false);
-				informacoesCompletas.addSeparator();
-				informacoesCompletas.add("Celular Médico       : " + rs.getString("celular")).setEnabled(false);
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao consultar Informações Gerais. Procure o Administrador." ,
-	                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-		}
+		
 		
 	}
 
