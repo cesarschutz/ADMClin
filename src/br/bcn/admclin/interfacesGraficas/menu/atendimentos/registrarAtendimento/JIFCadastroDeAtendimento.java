@@ -597,6 +597,15 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         try {
             while (resultSet.next()) {
                 jTFPaciente.setText(resultSet.getString("nomepac"));
+                try{
+                	String nascimentoPaciente =  resultSet.getString("nascimento_paciente");
+                    jLIdadePaciente.setText(MetodosUteis.calculaIdade(nascimentoPaciente, "dd/MM/yyyy") + " Ano(s)");
+                }catch(Exception e){
+                	
+                }
+                
+                
+                
                 jTFHANDLE_PACIENTE.setText(resultSet.getString("handle_paciente"));
                 handle_paciente = resultSet.getInt("handle_paciente");
                 
