@@ -29,6 +29,7 @@ import javax.swing.table.TableColumn;
 import br.bcn.admclin.ClasseAuxiliares.ColorirHorariosIndisponiveisNaAgendaELiberarIconesNaTabela;
 import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
 import br.bcn.admclin.dao.model.Atendimento_Exames;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.faturarConvenio.atendimentoDAO;
@@ -132,17 +133,26 @@ public class jIFAlterarValoresNotaIpe extends JInternalFrame {
     private void clicarNaTabela() {
 		if(jTable1.getSelectedRow() >= 0){
 			int atendimento_exame_id = listaExames.get(jTable1.getSelectedRow()).getAtendimtno_exame_id();
-			String novo_valor = JOptionPane.showInputDialog("Digite o valor.");
-			novo_valor = novo_valor.replaceAll(",", ".");
+			
+			int handleConvenio = listaExames.get(jTable1.getSelectedRow()).getHandleConvenio();
+			int handleExame = listaExames.get(jTable1.getSelectedRow()).getHandleExame();
+			java.sql.Date dataExame = listaExames.get(jTable1.getSelectedRow()).getDataExame();
+			
+			CalculoValorDeExame calculoExame = new CalculoValorDeExame(handleConvenio, handleExame, dataExame, true);
+			double valorConvenioAtual = calculoExame.valor_correto_convenio;
+			
+			String novo_valor = JOptionPane.showInputDialog("Digite o valor.", valorConvenioAtual);
+			
 			Double valorDOuble;
 			try {
+				novo_valor = novo_valor.replaceAll(",", ".");
 				valorDOuble = Double.valueOf(novo_valor);
 				boolean retorno = atualizaValorConvenio(atendimento_exame_id, valorDOuble);
 				if(retorno){
 					jTable1.setValueAt(valorDOuble, jTable1.getSelectedRow(), 6);
 				}
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Valor Inválido");
+				//JOptionPane.showMessageDialog(null, "Valor Inválido");
 			}	
 		}
 	}

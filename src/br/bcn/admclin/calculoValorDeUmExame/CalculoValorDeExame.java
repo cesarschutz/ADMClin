@@ -331,7 +331,7 @@ public class CalculoValorDeExame {
                 new BigDecimal(ch1Total + ch2Total + filmeTotal + valorTotalMateriais).setScale(2,
                     RoundingMode.HALF_EVEN).doubleValue();
             valorConvenio =
-                new BigDecimal(valorExame * (porcentConvenio / 100)).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
+                new BigDecimal(valorExame * (porcentConvenio / 100)).setScale(2, RoundingMode.FLOOR).doubleValue();
             valorPaciente =
                 new BigDecimal(valorExame * (porcentPaciente / 100)).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
 

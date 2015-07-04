@@ -1415,6 +1415,10 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 		        popup.add("").setEnabled(true);
 		        popup.add("Endereço Paciente     : " + rs.getString("enderecoPaciente")).setEnabled(false);
 		        popup.add("").setEnabled(true);
+		        popup.add("Bairro Paciente            : " + rs.getString("bairro")).setEnabled(false);
+		        popup.add("").setEnabled(true);
+		        popup.add("Cidade Paciente         : " + rs.getString("cidade")).setEnabled(false);
+		        popup.add("").setEnabled(true);
 				popup.add("Médico                           : " + rs.getString("nomeMedico")).setEnabled(false);
 				popup.add("").setEnabled(true);
 				popup.add("CRM                               : " + rs.getString("crm")).setEnabled(false);

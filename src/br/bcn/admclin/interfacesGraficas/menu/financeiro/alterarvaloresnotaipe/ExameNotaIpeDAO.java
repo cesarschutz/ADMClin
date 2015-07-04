@@ -21,7 +21,7 @@ public class ExameNotaIpeDAO {
 	        ResultSet resultSet = null;
 	        Connection con = Conexao.fazConexao();
 	        try {
-	            PreparedStatement stmtQuery = con.prepareStatement("select a.matricula_convenio, a.handle_at, e.valor_correto_convenio, e.NUMERO_REF_NOTA_IPE, e.atendimento_exame_id, a.data_atendimento, j.nome as nome_exame, p.nome as nome_paciente from atendimento_exames e" 
+	            PreparedStatement stmtQuery = con.prepareStatement("select a.matricula_convenio, a.handle_at, a.handle_convenio, a.data_atendimento, e.valor_correto_convenio, e.NUMERO_REF_NOTA_IPE, e.atendimento_exame_id, e.handle_exame, a.data_atendimento, j.nome as nome_exame, p.nome as nome_paciente from atendimento_exames e" 
 					+ " inner join atendimentos a   on a.handle_at = e.handle_at "
 					+ " inner join exames j on j.handle_exame = e.handle_exame "
 					+ " inner join pacientes p on p.handle_paciente = a.handle_paciente "
@@ -38,10 +38,13 @@ public class ExameNotaIpeDAO {
 	            	exame.setDia(dia);
 	        		exame.setExame(resultSet.getString("nome_exame"));
 	        		exame.setFicha(resultSet.getString("handle_at"));
+	        		exame.setHandleConvenio(resultSet.getInt("handle_convenio"));
+	        		exame.setDataExame(resultSet.getDate("data_atendimento"));
 	        		exame.setMatricula(resultSet.getString("matricula_convenio"));
 	        		exame.setPaciente(resultSet.getString("nome_paciente"));
 	        		exame.setValor(String.valueOf(resultSet.getDouble("valor_correto_convenio")));
 	        		exame.setAtendimtno_exame_id(resultSet.getInt("atendimento_exame_id"));
+	        		exame.setHandleExame(resultSet.getInt("handle_exame"));
 	        		exame.setNUMERO_REF_NOTA_IPE(resultSet.getString("numero_ref_nota_ipe"));
 	        		listaExames.add(exame);
 	            }

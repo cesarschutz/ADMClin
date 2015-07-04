@@ -199,7 +199,7 @@ public class ATENDIMENTOS {
         ResultSet resultSet = null;
         try {
             PreparedStatement stmtQuery =
-                con.prepareStatement("select a.handle_at, p.nome as nomePaciente, p.endereco as enderecoPaciente, p.cpf, m.nome as nomeMedico, m.crm, m.endereco as enderecoMedico, m.telefone, m.telefonedois, m.celular, u.nm_usuario, x.nm_usuario as usuarioEntregaExame "
+                con.prepareStatement("select a.handle_at, p.nome as nomePaciente, p.endereco as enderecoPaciente, p.bairro, p.cidade, p.cpf, m.nome as nomeMedico, m.crm, m.endereco as enderecoMedico, m.telefone, m.telefonedois, m.celular, u.nm_usuario, x.nm_usuario as usuarioEntregaExame "
                 		+ "from atendimentos a "
                 		+ "inner join pacientes p on p.handle_paciente = a.handle_paciente "	 
                 		+ "inner join medicos m on m.medicoid = a.handle_medico_sol "
