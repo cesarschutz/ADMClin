@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -234,17 +235,12 @@ public class relatorioDeMovimentos {
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Valor Total Paciente: " + String.format("%.2f",valorSomadoPaciente), fontNegrito8));
+		cell = new PdfPCell(new Phrase("Valor Total Paciente: " + converterDoubleString(valorSomadoPaciente), fontNegrito8));
 		cell.setBorder(Rectangle.NO_BORDER);
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Valor Total Convênio: " + String.format("%.2f",valorSomadoConvenio), fontNegrito8));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		tabelaFinal.addCell(cell);
-		
-		cell = new PdfPCell(new Phrase("", fontNegrito8));
+		cell = new PdfPCell(new Phrase("Valor Total Convênio: " + converterDoubleString(valorSomadoConvenio), fontNegrito8));
 		cell.setBorder(Rectangle.NO_BORDER);
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
@@ -254,7 +250,12 @@ public class relatorioDeMovimentos {
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Valor Total: " + String.format("%.2f",valorSomadoTotal), fontNegrito8));
+		cell = new PdfPCell(new Phrase("", fontNegrito8));
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+		tabelaFinal.addCell(cell);
+		
+		cell = new PdfPCell(new Phrase("Valor Total: " + converterDoubleString(valorSomadoTotal), fontNegrito8));
 		cell.setBorder(Rectangle.NO_BORDER);
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
@@ -361,8 +362,7 @@ public class relatorioDeMovimentos {
 			}
 		}
 		valorSomadoConvenio = valorSomadoConvenio + valorTotalConvenio;
-		valorTotalConvenio = new BigDecimal(valorTotalConvenio).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-		return String.valueOf(String.format("%.2f",valorTotalConvenio));
+		return converterDoubleString(valorTotalConvenio);
 	}
 
 	private String calculaValorTotalPaciente(int handle_at) {
@@ -373,23 +373,38 @@ public class relatorioDeMovimentos {
 			}
 		}
 		valorSomadoPaciente = valorSomadoPaciente + valorTotalPaciente;
-		valorTotalPaciente = new BigDecimal(valorTotalPaciente).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-		return String.valueOf(String.format("%.2f",valorTotalPaciente));
+		
+		return converterDoubleString(valorTotalPaciente);
 	}
 
 	private String calculaValorTotalAtendimento(int handle_at) {
-		double valorTotalAtendimento = 0;
+		double valorTotalConvenio = 0;
 		for (Model model : listaDeAtendimentos) {
 			if(model.getHandle_at() == handle_at){
-				valorTotalAtendimento = valorTotalAtendimento + Double.valueOf(model.getValor_total());
+				valorTotalConvenio = valorTotalConvenio + Double.valueOf(model.getValor_convenio());
 			}
 		}
 		
+		double valorTotalPaciente = 0;
+		for (Model model : listaDeAtendimentos) {
+			if(model.getHandle_at() == handle_at){
+				valorTotalPaciente = valorTotalPaciente + Double.valueOf(model.getValor_paciente());
+			}
+		}
+		
+		double valorTotalAtendimento = valorTotalConvenio + valorTotalPaciente;
+		
 		valorSomadoTotal = valorSomadoTotal + valorTotalAtendimento;
-		valorTotalAtendimento = new BigDecimal(valorTotalAtendimento).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
-		return String.valueOf(String.format("%.2f",valorTotalAtendimento));
+		return converterDoubleString(valorTotalAtendimento);
 	}
 
+	private String converterDoubleString(double precoDouble) {  
+	    /*Transformando um double em 2 casas decimais*/  
+	    BigDecimal valor = new BigDecimal(precoDouble);   //limita o número de casas decimais      
+	    NumberFormat nf = NumberFormat.getCurrencyInstance();   
+	    return nf.format (valor);  
+	}
+	
 	/*
 	 * Metodo que abri um arquivo pdf (que acamos de criar)
 	 */

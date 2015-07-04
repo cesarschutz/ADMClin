@@ -73,6 +73,8 @@ import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCResponsaveis
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuarios;
 import br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal.JIFCUsuariosVisualizar;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.alterarvaloresnotaipe.jIFAlterarValoresNotaIpe;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.alterarvaloresrecebidosconvenio.jIFAlterarValoresDeConvenio;
+import br.bcn.admclin.interfacesGraficas.menu.financeiro.alterarvaloresrecebidosconvenio.jIFListaAlterarValoresDeConvenio;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.recebimentoConvenio.jIFRecebimentoDeConvenios;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.atendimentos.jIFFinanceiroAtendimentos;
 import br.bcn.admclin.interfacesGraficas.menu.financeiro.relatorios.demed.jIFDemed;
@@ -154,6 +156,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
     public static JIFRelatorioDeCaixa internalFrameRelatorioDeCaixa;
     public static JIFRelatorioDeMovimentos internalFrameRelatorioDeMovimento;
     public static jIFAlterarValoresNotaIpe internalFrameAlterarValorDeExamesNotaIpe;
+    public static jIFAlterarValoresDeConvenio internalFramaAlterarValoresDeConvenio;
+    public static jIFListaAlterarValoresDeConvenio internalFrameListaAlterarValoresDeConvenio;
 
     // variavel que guarda o tipo de impressao da empresa
     public static int modeloDeImpressao = 0;
@@ -717,6 +721,24 @@ public class janelaPrincipal extends javax.swing.JFrame {
         	}
         });
         jMRelatorios.add(jMIAlterarValoresNotaIPE);
+        
+        jMIAlterarValoresDeConvenio = new JMenuItem("Alterar Valores de Convênio");
+        jMIAlterarValoresDeConvenio.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		fechandoTodosOsInternalFrames();
+
+        		internalFramaAlterarValoresDeConvenio = new jIFAlterarValoresDeConvenio();
+                jDesktopPane1.add(internalFramaAlterarValoresDeConvenio);
+                internalFramaAlterarValoresDeConvenio.setVisible(true);
+                int lDesk = jDesktopPane1.getWidth();
+                int aDesk = jDesktopPane1.getHeight();
+                int lIFrame = internalFramaAlterarValoresDeConvenio.getWidth();
+                int aIFrame = internalFramaAlterarValoresDeConvenio.getHeight();
+
+                internalFramaAlterarValoresDeConvenio.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        	}
+        });
+        jMRelatorios.add(jMIAlterarValoresDeConvenio);
         mntmValoresRecebidos.setIcon(new ImageIcon(janelaPrincipal.class.getResource("/br/bcn/admclin/imagens/menuValoresRecebidos.png")));
         jMRelatorios.add(mntmValoresRecebidos);
 
@@ -1220,4 +1242,5 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private JMenuItem mntmRelatrioDeMovimento;
+    private JMenuItem jMIAlterarValoresDeConvenio;
 }

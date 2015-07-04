@@ -72,4 +72,63 @@ public class ExameNotaIpeDAO {
 			return false;
 		}
 	}
+
+	public static ArrayList<ExameNotaIpeMODEL> getExamesPorConvenioOuGrupo(
+			String convenioOUgrupo, Date diaInicialSql, Date diaFinalSql,
+			Integer handleGrupoOUconvenio) {
+		String where;
+		if(convenioOUgrupo.equals("convenio")){
+			where = "(a.data_atendimento >= ?) and (a.data_atendimento <= ?) "
+					+ "and c.handle_convenio = ?";
+		}else{
+			where = "(a.data_atendimento >= ?) and (a.data_atendimento <= ?) "
+					+ "and c.grupoid = ?";
+		}
+		
+		ArrayList<ExameNotaIpeMODEL> listaExames = new ArrayList<>();
+		
+        ResultSet resultSet = null;
+        Connection con = Conexao.fazConexao();
+        try {
+            PreparedStatement stmtQuery = con.prepareStatement("select a.matricula_convenio, a.handle_at, a.handle_convenio, a.data_atendimento, e.valor_correto_convenio, e.atendimento_exame_id, e.handle_exame, a.data_atendimento, j.nome as nome_exame, p.nome as nome_paciente from atendimento_exames e" 
+				+ " inner join atendimentos a   on a.handle_at = e.handle_at "
+				+ " inner join exames j on j.handle_exame = e.handle_exame "
+				+ " inner join pacientes p on p.handle_paciente = a.handle_paciente "
+				+ "inner join convenio c on a.handle_convenio = c.handle_convenio "
+				+ "where " + where + "order by a.handle_at");
+            stmtQuery.setDate(1, diaInicialSql);
+            stmtQuery.setDate(2, diaFinalSql);
+            stmtQuery.setInt(3, handleGrupoOUconvenio);
+            resultSet = stmtQuery.executeQuery();
+            
+            while (resultSet.next()) {
+            	ExameNotaIpeMODEL exame = new ExameNotaIpeMODEL();
+            	
+            	SimpleDateFormat formatoData  = new SimpleDateFormat("dd/MM/yyyy");
+            	Date data_atendimento = resultSet.getDate("data_atendimento");
+            	String dia = formatoData.format(data_atendimento);
+            	
+            	exame.setDia(dia);
+        		exame.setExame(resultSet.getString("nome_exame"));
+        		exame.setFicha(resultSet.getString("handle_at"));
+        		exame.setHandleConvenio(resultSet.getInt("handle_convenio"));
+        		exame.setDataExame(resultSet.getDate("data_atendimento"));
+        		exame.setMatricula(resultSet.getString("matricula_convenio"));
+        		exame.setPaciente(resultSet.getString("nome_paciente"));
+        		exame.setValor(String.valueOf(resultSet.getDouble("valor_correto_convenio")));
+        		exame.setAtendimtno_exame_id(resultSet.getInt("atendimento_exame_id"));
+        		exame.setHandleExame(resultSet.getInt("handle_exame"));
+        		listaExames.add(exame);
+            }
+            Conexao.fechaConexao(con);
+        } catch (SQLException e) {
+            Conexao.fechaConexao(con);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Exames. Procure o Administrador." + e,
+                "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return listaExames;
+        }
+	}
+
+	
 }
