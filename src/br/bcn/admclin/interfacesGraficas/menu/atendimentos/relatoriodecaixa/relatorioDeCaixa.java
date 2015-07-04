@@ -32,6 +32,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -215,7 +217,9 @@ public class relatorioDeCaixa {
 		for (Model model : listaDeAtendimentos) {
 			if(ultimoHanleAtEnviado != model.getHandle_at()){
 				ultimoHanleAtEnviado = model.getHandle_at();
-				document.add(criaRegistro(model.getHandle_at()));
+				if(clientePagou(model.getHandle_at())){
+					document.add(criaRegistro(model.getHandle_at()));
+				}
 			}
 		}
 		
@@ -244,17 +248,12 @@ public class relatorioDeCaixa {
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Valor Total Paciente: " + valorSomadoPaciente, fontNegrito8));
+		cell = new PdfPCell(new Phrase("Valor Total Paciente: " + converterDoubleString(valorSomadoPaciente), fontNegrito8));
 		cell.setBorder(Rectangle.NO_BORDER);
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Valor Total Convênio: " + valorSomadoConvenio, fontNegrito8));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		tabelaFinal.addCell(cell);
-		
-		cell = new PdfPCell(new Phrase("", fontNegrito8));
+		cell = new PdfPCell(new Phrase("Valor Total Convênio: " + converterDoubleString(valorSomadoConvenio), fontNegrito8));
 		cell.setBorder(Rectangle.NO_BORDER);
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
@@ -264,7 +263,12 @@ public class relatorioDeCaixa {
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Valor Total: " + valorSomadoTotal, fontNegrito8));
+		cell = new PdfPCell(new Phrase("", fontNegrito8));
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+		tabelaFinal.addCell(cell);
+		
+		cell = new PdfPCell(new Phrase("Valor Total: " + converterDoubleString(valorSomadoTotal), fontNegrito8));
 		cell.setBorder(Rectangle.NO_BORDER);
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 		tabelaFinal.addCell(cell);
@@ -371,7 +375,7 @@ public class relatorioDeCaixa {
 			}
 		}
 		valorSomadoConvenio = valorSomadoConvenio + valorTotalConvenio;
-		return String.valueOf(valorTotalConvenio);
+		return converterDoubleString(valorTotalConvenio);
 	}
 
 	private String calculaValorTotalPaciente(int handle_at) {
@@ -382,21 +386,53 @@ public class relatorioDeCaixa {
 			}
 		}
 		valorSomadoPaciente = valorSomadoPaciente + valorTotalPaciente;
-		return String.valueOf(valorTotalPaciente);
+		
+		return converterDoubleString(valorTotalPaciente);
 	}
 
 	private String calculaValorTotalAtendimento(int handle_at) {
-		double valorTotalAtendimento = 0;
+		double valorTotalConvenio = 0;
 		for (Model model : listaDeAtendimentos) {
 			if(model.getHandle_at() == handle_at){
-				valorTotalAtendimento = valorTotalAtendimento + Double.valueOf(model.getValor_total());
+				valorTotalConvenio = valorTotalConvenio + Double.valueOf(model.getValor_convenio());
 			}
 		}
 		
+		double valorTotalPaciente = 0;
+		for (Model model : listaDeAtendimentos) {
+			if(model.getHandle_at() == handle_at){
+				valorTotalPaciente = valorTotalPaciente + Double.valueOf(model.getValor_paciente());
+			}
+		}
+		
+		double valorTotalAtendimento = valorTotalConvenio + valorTotalPaciente;
+		
 		valorSomadoTotal = valorSomadoTotal + valorTotalAtendimento;
-		return String.valueOf(valorTotalAtendimento);
+		return converterDoubleString(valorTotalAtendimento);
 	}
 
+	public String converterDoubleString(double precoDouble) {  
+	    /*Transformando um double em 2 casas decimais*/  
+	    BigDecimal valor = new BigDecimal(precoDouble);   //limita o número de casas decimais      
+	    NumberFormat nf = NumberFormat.getCurrencyInstance();   
+	    return nf.format (valor);  
+	} 
+	
+	public boolean clientePagou(int handle_at) {  
+		double valorTotalPaciente = 0;
+		for (Model model : listaDeAtendimentos) {
+			if(model.getHandle_at() == handle_at){
+				valorTotalPaciente = valorTotalPaciente + Double.valueOf(model.getValor_paciente());
+			}
+		}
+		
+	    if(valorTotalPaciente != 0){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
+	} 
+	
 	/*
 	 * Metodo que abri um arquivo pdf (que acamos de criar)
 	 */
