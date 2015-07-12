@@ -133,6 +133,8 @@ public class GerarArquivoTxtDaFatura {
                     handle_convenio, handle_at);
         }
 
+        ExameModel linhaDeMateriais = null;
+        
         while (resultSet.next()) {
             //buscando o ch do convenio
             //para que nao tenha problema caso o CH seja null
@@ -207,7 +209,7 @@ public class GerarArquivoTxtDaFatura {
                         qtdString = "0" + qtdString;
                     }
 
-                    ExameModel linhaDeMateriais = new ExameModel();
+                    linhaDeMateriais = new ExameModel();
                     linhaDeMateriais.setHandle_at(exame.getHandle_at());
                     linhaDeMateriais.setMatricula(exame.getMatricula());
                     linhaDeMateriais.setCrm(exame.getCrm());
@@ -221,7 +223,8 @@ public class GerarArquivoTxtDaFatura {
                     linhaDeMateriais.setQtd(qtdString);
                     linhaDeMateriais.setCod_exame("32200005");
 
-                    listaDeExames.add(linhaDeMateriais);
+                    //agora adicionamos depois do exame (por isso aqui foi comentado)
+                    //listaDeExames.add(linhaDeMateriais);
 
                     totalDeLançamentos++;
                 }
@@ -230,6 +233,10 @@ public class GerarArquivoTxtDaFatura {
             }
 
             listaDeExames.add(exame);
+            if(linhaDeMateriais != null){
+            	listaDeExames.add(linhaDeMateriais);
+            	linhaDeMateriais = null;
+            }
             // variavel utilizada para criar o header (tem que saber o total de lançamentos
             totalDeLançamentos++;
         }
