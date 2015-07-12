@@ -45,6 +45,7 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 import javax.swing.JLabel;
@@ -892,6 +893,21 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
 
     private void jTFCepFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFCepFocusLost
         jTFMensagemParaUsuario.setText("");
+        
+        try {
+			String CEP = jTFCep.getText().replaceAll("\\.", "").replaceAll("\\-", "");
+			String endereco = MetodosUteis.getEndereco(CEP);
+			String bairro= MetodosUteis.getBairro(CEP);
+			String cidade = MetodosUteis.getCidade(CEP);
+			String uf = MetodosUteis.getUF(CEP);
+			
+			jTFEndereco.setText(endereco);
+			jTFBairro.setText(bairro);
+			jTFCidade.setText(cidade);
+			jCBUf.setSelectedItem(uf);
+			
+		} catch (Exception e) {
+		}
     }// GEN-LAST:event_jTFCepFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

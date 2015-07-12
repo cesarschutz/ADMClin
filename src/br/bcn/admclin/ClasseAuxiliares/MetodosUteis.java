@@ -1,18 +1,24 @@
 package br.bcn.admclin.ClasseAuxiliares;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.swing.*;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
+
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * 
@@ -540,5 +546,92 @@ public class MetodosUteis {
         }
         return String.valueOf(age);
 
+    }
+    
+    public static String getEndereco(String CEP) throws IOException {
+
+        //***************************************************
+        try{
+
+        Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/"+CEP)
+                  .timeout(120000)
+                  .get();
+        Elements urlPesquisa = doc.select("span[itemprop=streetAddress]");
+        for (Element urlEndereco : urlPesquisa) {
+                String endereco =  urlEndereco.text();
+                return Normalizer.normalize(endereco, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+        }
+
+        } catch (SocketTimeoutException e) {
+
+        } catch (HttpStatusException w) {
+
+        }
+        return CEP;
+    }
+
+    public static String getBairro(String CEP) throws IOException {
+
+        //***************************************************
+        try{
+
+        Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/"+CEP)
+                  .timeout(120000)
+                  .get();
+        Elements urlPesquisa = doc.select("td:gt(1)");
+        for (Element urlBairro : urlPesquisa) {
+                String bairro =  urlBairro.text();
+                return Normalizer.normalize(bairro, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+        }
+
+        } catch (SocketTimeoutException e) {
+
+        } catch (HttpStatusException w) {
+
+        }
+        return CEP;
+    }
+
+    public static String getCidade(String CEP) throws IOException {
+
+        //***************************************************
+        try{
+
+        Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/"+CEP)
+                  .timeout(120000)
+                  .get();
+        Elements urlPesquisa = doc.select("span[itemprop=addressLocality]");
+        for (Element urlCidade : urlPesquisa) {
+                String cidade = urlCidade.text();
+                return Normalizer.normalize(cidade, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+        }
+
+        } catch (SocketTimeoutException e) {
+
+        } catch (HttpStatusException w) {
+
+        }
+        return CEP;
+    }
+
+    public static String getUF(String CEP) throws IOException {
+
+        //***************************************************
+        try{
+
+        Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/"+CEP)
+                  .timeout(120000)
+                  .get();
+        Elements urlPesquisa = doc.select("span[itemprop=addressRegion]");
+        for (Element urlUF : urlPesquisa) {
+                return urlUF.text();
+        }
+
+        } catch (SocketTimeoutException e) {
+
+        } catch (HttpStatusException w) {
+
+        }
+        return CEP;
     }
 }
