@@ -472,11 +472,11 @@ public class MetodosUteis {
         if (nomes.length == 1 || nomes.length == 0) {
             textField.setBackground(new java.awt.Color(255, 170, 170));
             mensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
-            mensagemParaUsuario.setText("Nome inválido");
+            mensagemParaUsuario.setText("Digite Nome e Sobrenome");
             return false;
         } else {
             for (int i = 0; i < nomes.length; i++) {
-                if (nomes[i].trim().length() < 2) {
+                if (nomes[i].trim().length() < 1) {
 
                     textField.setBackground(new java.awt.Color(255, 170, 170));
                     mensagemParaUsuario.setForeground(new java.awt.Color(255, 0, 0));
