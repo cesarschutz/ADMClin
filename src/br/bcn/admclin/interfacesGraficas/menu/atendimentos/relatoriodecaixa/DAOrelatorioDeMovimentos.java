@@ -42,7 +42,7 @@ public class DAOrelatorioDeMovimentos {
 							+ "inner join convenio c on a.handle_convenio = c.handle_convenio "
 							+ "inner join usuarios u on a.usuarioid = u.usrid "
 							+ "where(a.data_atendimento > ? or a.data_atendimento = ?)  and  (a.data_atendimento < ? or a.data_atendimento = ?) "
-							+ "order by a.data_atendimento asc, u.nm_usuario asc");
+							+ "order by a.handle_at asc, u.nm_usuario asc");
 			stmtQuery.setDate(1, diaInicial);
 			stmtQuery.setDate(2, diaInicial);
 			stmtQuery.setDate(3, diaFinal);
