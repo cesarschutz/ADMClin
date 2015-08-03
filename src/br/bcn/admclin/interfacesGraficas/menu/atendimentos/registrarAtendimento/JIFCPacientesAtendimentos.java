@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumeros;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
@@ -376,7 +377,7 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
         jTFCidade = new javax.swing.JTextField(new DocumentoSomenteLetras(32), null, 0);
         jCBUf = new javax.swing.JComboBox();
         new br.bcn.admclin.ClasseAuxiliares.MetodosUteis();
-        jTFRg = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("##########"));
+        jTFRg =  new javax.swing.JTextField(new DocumentoSomenteNumeros(15), null, 0);
         jLabel18 = new javax.swing.JLabel();
         jTFProfissao = new javax.swing.JTextField(new DocumentoSomenteLetras(32), null, 0);
         jLabel19 = new javax.swing.JLabel();
@@ -1064,12 +1065,11 @@ public class JIFCPacientesAtendimentos extends javax.swing.JInternalFrame {
     }// GEN-LAST:event_jTFCepFocusLost
 
     private void jTFRgFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFRgFocusGained
-        jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
-        jTFMensagemParaUsuario.setText("##########");
+       
     }// GEN-LAST:event_jTFRgFocusGained
 
     private void jTFRgFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFRgFocusLost
-        jTFMensagemParaUsuario.setText("");
+        
     }// GEN-LAST:event_jTFRgFocusLost
 
     private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFEmailFocusGained
