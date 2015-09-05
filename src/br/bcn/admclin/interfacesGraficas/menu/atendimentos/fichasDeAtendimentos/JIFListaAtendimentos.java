@@ -1403,6 +1403,15 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 				}
 				popup.add("Entrega Exame           : " + usuarioEntregaExame).setEnabled(false);
 				popup.add("").setEnabled(true);
+				
+				String data_entrega_exame =
+	                    MetodosUteis.converterDataParaMostrarAoUsuario(rs.getString("data_entrega_exame"));
+				
+				popup.add("Data Entrega Exame : " + data_entrega_exame).setEnabled(false);
+				popup.add("").setEnabled(true);
+				
+				popup.addSeparator();
+				
 				popup.add("Paciente                       : " + rs.getString("nomePaciente")).setEnabled(false);
 				popup.add("").setEnabled(true);
 				popup.add("CPF Paciente              : " + rs.getString("cpf")).setEnabled(false);
@@ -1419,6 +1428,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 		        popup.add("").setEnabled(true);
 		        popup.add("Cidade Paciente         : " + rs.getString("cidade")).setEnabled(false);
 		        popup.add("").setEnabled(true);
+		        
+		        popup.addSeparator();
+		        
 				popup.add("Médico                           : " + rs.getString("nomeMedico")).setEnabled(false);
 				popup.add("").setEnabled(true);
 				popup.add("CRM                               : " + rs.getString("crm")).setEnabled(false);
@@ -1431,6 +1443,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 				popup.add("").setEnabled(true);
 				popup.add("Celular Médico            : " + rs.getString("celular")).setEnabled(false);
 				popup.add("").setEnabled(true);
+				
+				popup.addSeparator();
 			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao consultar Informações Gerais. Procure o Administrador." ,
