@@ -418,8 +418,7 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
 		jTFBairro = new javax.swing.JTextField(new DocumentoSomenteLetras(32),
 				null, 0);
 		jLabel14 = new javax.swing.JLabel();
-		jTFCep = new JFormattedTextField(
-				MetodosUteis.mascaraParaJFormattedTextField("##.###-###"));
+		jTFCep = new JTextField();
 		jLabel15 = new javax.swing.JLabel();
 		jLabel16 = new javax.swing.JLabel();
 		jLabel17 = new javax.swing.JLabel();
@@ -1629,19 +1628,34 @@ public class JIFCPacientes extends javax.swing.JInternalFrame {
 
 	private void jTFCepFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTFCepFocusLost
 		jTFMensagemParaUsuario.setText("");
-		
+
+		if (jTFCep.getText() == "" || jTFCep.getText().length() != 8) {
+			return;
+		}
+
 		try {
-			String CEP = jTFCep.getText().replaceAll("\\.", "").replaceAll("\\-", "");
+			
+			int y = Integer.parseInt(jTFCep.getText());
+			
+			String x = jTFCep.getText();
+			
+			x = x.replaceAll("^.{2}", x.substring(0,2) + ".");
+			x = x.replaceAll("^.{2}\\..{3}", x.substring(0, 6) + "-");	
+			
+			jTFCep.setText(x);
+			
+			String CEP = jTFCep.getText().replaceAll("\\.", "")
+					.replaceAll("\\-", "");
 			String endereco = MetodosUteis.getEndereco(CEP);
-			String bairro= MetodosUteis.getBairro(CEP);
+			String bairro = MetodosUteis.getBairro(CEP);
 			String cidade = MetodosUteis.getCidade(CEP);
 			String uf = MetodosUteis.getUF(CEP);
-			
+
 			jTFEndereco.setText(endereco);
 			jTFBairro.setText(bairro);
 			jTFCidade.setText(cidade);
 			jCBUf.setSelectedItem(uf);
-			
+
 		} catch (Exception e) {
 		}
 	}// GEN-LAST:event_jTFCepFocusLost
