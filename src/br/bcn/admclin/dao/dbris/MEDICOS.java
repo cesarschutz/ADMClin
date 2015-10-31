@@ -190,7 +190,7 @@ public class MEDICOS {
     public static boolean setCadastrar(Connection con, Medicos model) {
         boolean cadastro = false;
         String sql =
-            "insert into medicos (emId, usuarioid, dat, nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm, telefoneDois, cpfCnpj, nome_secretaria) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "insert into medicos (emId, usuarioid, dat, nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm, telefoneDois, cpfCnpj, nome_secretaria, obs) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, model.getEmId());
@@ -211,6 +211,7 @@ public class MEDICOS {
             stmt.setString(16, model.getTelefoneDois());
             stmt.setString(17, model.getCpfCnpj());
             stmt.setString(18, model.getNomeSecretaria());
+            stmt.setString(19, model.getObs());
             stmt.executeUpdate();
             stmt.close();
             cadastro = true;
@@ -234,7 +235,7 @@ public class MEDICOS {
     public static boolean setUpdate(Connection con, Medicos model) {
         boolean atualizo = false;
         String sql =
-            "update medicos set emId=?, usuarioid=?, dat=?, nome=?, nascimento=?, telefone=?, celular=?, endereco=?, bairro=?, cep=?, cidade=?, uf=?, email=?, crm=?, ufcrm=?, telefonedois=?, cpfCnpj=?, nome_secretaria=? where medicoid=?";
+            "update medicos set emId=?, usuarioid=?, dat=?, nome=?, nascimento=?, telefone=?, celular=?, endereco=?, bairro=?, cep=?, cidade=?, uf=?, email=?, crm=?, ufcrm=?, telefonedois=?, cpfCnpj=?, nome_secretaria=?, obs=? where medicoid=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, model.getEmId());
@@ -255,7 +256,9 @@ public class MEDICOS {
             stmt.setString(16, model.getTelefoneDois());
             stmt.setString(17, model.getCpfCnpj());
             stmt.setString(18, model.getNomeSecretaria());
-            stmt.setInt(19, model.getMedicoId());
+            stmt.setString(19, model.getObs());
+            stmt.setInt(20, model.getMedicoId());
+            
 
             stmt.executeUpdate();
             stmt.close();

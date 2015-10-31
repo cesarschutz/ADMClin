@@ -122,6 +122,7 @@ public class JIFCMedicosVisualizar extends javax.swing.JInternalFrame {
                         medicosModelo.setTelefoneDois(resultSet.getString("telefoneDois"));
                         medicosModelo.setCpfCnpj(resultSet.getString("cpfCnpj"));
                         medicosModelo.setNomeSecretaria(resultSet.getString("Nome_Secretaria"));
+                        medicosModelo.setObs(resultSet.getString("obs"));
                         listaMedicos.add(medicosModelo);
                     }
 

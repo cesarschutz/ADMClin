@@ -20,10 +20,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -34,6 +35,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -42,7 +44,6 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.JXDatePicker;
 
 import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.VerificacaoDeMatricula;
 import br.bcn.admclin.calculoValorDeUmExame.CalculoValorDeExame;
@@ -65,14 +66,10 @@ import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
 import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
+import br.bcn.admclin.impressoes.modelo5.ImprimirBoletoDeRetiradaModelo5;
+import br.bcn.admclin.impressoes.modelo5.ImprimirFichaDeAutorizacaoModelo5;
 import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 import br.bcn.admclin.interfacesGraficas.menu.atendimentos.agendamentos.TratamentoParaRegistrarAtendimentoApartirDeAgendamento;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-
-import javax.swing.JCheckBox;
-import javax.swing.SwingConstants;
 
 /*
  * To change this template, choose Tools | Templates
@@ -207,6 +204,7 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
             jBImprimirBoletoDeRetirada.setVisible(false);
             jBImprimirFicha.setVisible(false);
             jBImprimirNotaFiscal.setVisible(false);
+            
 
             
         } /*else if ("ocupado".equals(horarioLivreOuOcupado)) {
@@ -1155,6 +1153,14 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
 					if (janelaPrincipal.modeloDeImpressao == 4) {
 						jBImprimirFicha.setVisible(true);
 					}
+					
+					if (janelaPrincipal.modeloDeImpressao == 5) {
+						jBImprimirFicha.setVisible(true);
+						jBImprimirBoletoDeRetirada.setVisible(true);
+						if (jCBPacientePagou.isSelected()) {
+							jBImprimirNotaFiscal.setVisible(true);
+						}
+					}
 
 					if (veioDeAgendamento) {
 						((DefaultComboBoxModel<String>) jCBAreasDoAgendamento
@@ -1696,6 +1702,12 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                             if(janelaPrincipal.modeloDeImpressao == 4){
                                 jBImprimirFicha.setVisible(false);
                             }
+                            
+                            if (janelaPrincipal.modeloDeImpressao == 5) {
+        						jBImprimirFicha.setVisible(false);
+        						jBImprimirBoletoDeRetirada.setVisible(false);
+        						jBImprimirNotaFiscal.setVisible(false);
+        					}
 
                             // desabilitando os campos do atendimento para nao poder editar
                             jTFPaciente.setEnabled(true);
@@ -3034,6 +3046,9 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
                 } else if (janelaPrincipal.modeloDeImpressao == 4){
                     ImprimirFichaDeAutorizacaoModelo4 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo4(handle_at);
                     abriuFicha = imprimirFicha.salvarEImprimirFicha();
+                } else if (janelaPrincipal.modeloDeImpressao == 5) {
+                    ImprimirFichaDeAutorizacaoModelo5 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo5(handle_at);
+                    abriuFicha = imprimirFicha.salvarEImprimirFicha();
                 }
 
                 // se deu tudo certo na impressao entra nesse if
@@ -3075,9 +3090,16 @@ public class JIFCadastroDeAtendimento extends javax.swing.JInternalFrame {
         SwingWorker worker = new SwingWorker() {
             @Override
             protected Object doInBackground() throws Exception {
-                ImprimirBoletoDeRetiradaModelo1 imprimirBoletoDeRetirada =
-                    new ImprimirBoletoDeRetiradaModelo1(handle_at);
-                boolean abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+            	boolean abriuBoletoDeRetirada = false;
+            	if(janelaPrincipal.modeloDeImpressao == 5){
+            		ImprimirBoletoDeRetiradaModelo5 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo5(handle_at);
+                	abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+            	}
+            	if(janelaPrincipal.modeloDeImpressao == 1){
+            		ImprimirBoletoDeRetiradaModelo1 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo1(handle_at);
+                	abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+            	}
+            	
                 if (abriuBoletoDeRetirada) {
                     // aqui colocar o flag_imprimiu como "S"
                     con = Conexao.fazConexao();

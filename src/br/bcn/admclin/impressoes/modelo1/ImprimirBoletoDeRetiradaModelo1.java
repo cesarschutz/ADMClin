@@ -96,7 +96,8 @@ public class ImprimirBoletoDeRetiradaModelo1 {
 	private String telefoneEmpresa;
 
 	private void buscarInformacoesDaEmpresa() throws SQLException {
-		ResultSet resultSet = DADOS_EMPRESA.getConsultar(con);
+		int id_dados_empresa = DADOS_EMPRESA.getConsultarIdDadosEmpresaDeUmAtendimento(con, handle_at);
+		ResultSet resultSet = DADOS_EMPRESA.getConsultar(con, id_dados_empresa);
 		while (resultSet.next()) {
 			nomeEmpresa = resultSet.getString("nome");
 			telefoneEmpresa = resultSet.getString("telefone");

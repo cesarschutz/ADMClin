@@ -35,25 +35,6 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.atendimentos.fichasDeAtendimentos;
 
-import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
-import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
-import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
-import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
-import br.bcn.admclin.dao.dbris.Conexao;
-import br.bcn.admclin.dao.dbris.USUARIOS;
-import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
-import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1;
-import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora;
-import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
-import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeArgoxModelo2;
-import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
-import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
-import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
-import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
-import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
-import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -68,13 +49,40 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
+import br.bcn.admclin.ClasseAuxiliares.ColunaAceitandoIcone;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
+import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
+import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
+import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora;
+import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeArgoxModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
+import br.bcn.admclin.impressoes.modelo4.ImprimirFichaDeAutorizacaoModelo4;
+import br.bcn.admclin.impressoes.modelo5.ImprimirBoletoDeRetiradaModelo5;
+import br.bcn.admclin.impressoes.modelo5.ImprimirFichaDeAutorizacaoModelo5;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
  * @author Cesar Schutz
@@ -1648,6 +1656,12 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirEtiqueta);
             imprimir.add(imprimirLaudo);
+        } else if (janelaPrincipal.modeloDeImpressao == 5){
+        	imprimir.add(imprimirFicha);
+        	imprimir.add(imprimirBoletoDeRetirada);
+            imprimir.add(imprimirEtiqueta);
+            imprimir.add(imprimirCodigoDeBarras);
+            imprimir.add(imprimirLaudo);
         }
 
         // cria o menu popup e adiciona os itens
@@ -1798,7 +1812,10 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 } else if (janelaPrincipal.modeloDeImpressao == 4){
                     ImprimirFichaDeAutorizacaoModelo4 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo4(handle_at);
                     abriuFicha = imprimirFicha.salvarEImprimirFicha();
-                }
+                } else if (janelaPrincipal.modeloDeImpressao == 5) {
+                    ImprimirFichaDeAutorizacaoModelo5 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo5(handle_at);
+                    abriuFicha = imprimirFicha.salvarEImprimirFicha();
+                } 
 
                 // se deu tudo certo na impressao entra nesse if
                 if (abriuFicha) {
@@ -1833,9 +1850,15 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         SwingWorker worker = new SwingWorker() {
             @Override
             protected Object doInBackground() throws Exception {
-                ImprimirBoletoDeRetiradaModelo1 imprimirBoletoDeRetirada =
-                    new ImprimirBoletoDeRetiradaModelo1(handle_at);
-                boolean abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+            	boolean abriuBoletoDeRetirada = false;
+            	if(janelaPrincipal.modeloDeImpressao == 5){
+                    ImprimirBoletoDeRetiradaModelo5 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo5(handle_at);
+                    abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+            	}else if(janelaPrincipal.modeloDeImpressao == 1){
+                    ImprimirBoletoDeRetiradaModelo1 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo1(handle_at);
+                    abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+            	}
+                
                 if (abriuBoletoDeRetirada) {
                     // aqui colocar o flag_imprimiu como "S"
                     con = Conexao.fazConexao();

@@ -10,19 +10,10 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.pessoal;
 
-import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
-import br.bcn.admclin.dao.dbris.Conexao;
-import br.bcn.admclin.dao.dbris.ESPECIALIDADES_MEDICAS;
-import br.bcn.admclin.dao.dbris.MEDICOS;
-import br.bcn.admclin.dao.dbris.USUARIOS;
-import br.bcn.admclin.dao.model.Especialidades_Medicas;
-import br.bcn.admclin.dao.model.Medicos;
-import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
-
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,22 +24,30 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.JButton;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.ImageIcon;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JTextField;
-import javax.swing.text.Document;
-import javax.swing.JLabel;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteLetras;
+import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.ESPECIALIDADES_MEDICAS;
+import br.bcn.admclin.dao.dbris.MEDICOS;
+import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.dao.model.Especialidades_Medicas;
+import br.bcn.admclin.dao.model.Medicos;
+import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
 
 /**
  * 
@@ -126,10 +125,12 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
                             indexDoArray = i;
                         }
                     }
+                    jTAObs.setText(JIFCMedicosVisualizar.listaMedicos.get(cont).getObs());
                     jCBEspecialidadeMedica.setSelectedIndex(indexDoArray);
                 }
                 cont++;
             }
+            
             // colocando foco na referencia
             jTFNome.requestFocusInWindow();
         }
@@ -246,6 +247,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
             medicosMODEL.setCidade(jTFCidade.getText());
             medicosMODEL.setUf((String) jCBUf.getSelectedItem());
             medicosMODEL.setEmId(listaCodEspecialidadesMedicas.get(jCBEspecialidadeMedica.getSelectedIndex()));
+            medicosMODEL.setObs(jTAObs.getText());
             
             janelaPrincipal.cidadePadrao = medicosMODEL.getCidade();
             janelaPrincipal.estadoPadrao = medicosMODEL.getUf();
@@ -286,6 +288,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
             medicosMODEL.setCidade(jTFCidade.getText());
             medicosMODEL.setUf((String) jCBUf.getSelectedItem());
             medicosMODEL.setEmId(listaCodEspecialidadesMedicas.get(jCBEspecialidadeMedica.getSelectedIndex()));
+            medicosMODEL.setObs(jTAObs.getText());
             
             janelaPrincipal.cidadePadrao = medicosMODEL.getCidade();
             janelaPrincipal.estadoPadrao = medicosMODEL.getUf();
@@ -468,14 +471,20 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         label.setText("Telefone");
         
         JLabel lblCpfCnpj = new JLabel();
-        lblCpfCnpj.setText("CPF / CNPJ");
+        lblCpfCnpj.setText("CPF");
         
-        jTFCpfCnpj = new javax.swing.JTextField(new DocumentoSemAspasEPorcento(20), null, 0);
+        jTFCpfCnpj = new JFormattedTextField(
+				MetodosUteis.mascaraParaJFormattedTextField("###.###.###-##"));
         
         JLabel lblNomeSecretaria = new JLabel();
         lblNomeSecretaria.setText("Nome Secretaria");
         
         jTFNomeSecretaria = new javax.swing.JTextField(new DocumentoSomenteLetras(64), null, 0);
+        
+        JLabel lblObs = new JLabel();
+        lblObs.setText("Obs.");
+        
+        JScrollPane scrollPane = new JScrollPane();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
@@ -505,13 +514,20 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         						.addComponent(jLabel7)
         						.addComponent(jCBUfCRM, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)))
         				.addComponent(jLabel5)
-        				.addComponent(jTFNascimento, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(jTFNascimento, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblObs, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
         				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addGap(389)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+        						.addComponent(jLabel18)
+        						.addComponent(btnCadastrarEspecialidadeMdica)
+        						.addComponent(jTFNomeSecretaria, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+        						.addComponent(jCBEspecialidadeMedica, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        					.addPreferredGap(ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
         					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE))
         				.addGroup(jPanel1Layout.createSequentialGroup()
         					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
@@ -537,11 +553,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
         								.addComponent(label, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
         								.addComponent(jTFTelefoneDois, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)))
-        						.addComponent(jLabel18)
-        						.addComponent(btnCadastrarEspecialidadeMdica)
         						.addComponent(jTFCpfCnpj, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-        						.addComponent(jTFNomeSecretaria, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-        						.addComponent(jCBEspecialidadeMedica, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         						.addComponent(lblCpfCnpj, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
         						.addComponent(lblNomeSecretaria, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
         					.addContainerGap(21, Short.MAX_VALUE))))
@@ -551,7 +563,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         		.addGroup(jPanel1Layout.createSequentialGroup()
         			.addContainerGap()
         			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(jSeparator2, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+        				.addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 386, Short.MAX_VALUE)
         				.addGroup(jPanel1Layout.createSequentialGroup()
         					.addComponent(jLabel3)
         					.addPreferredGap(ComponentPlacement.RELATED)
@@ -582,8 +594,16 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         							.addComponent(jLabel15)
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(jTFCep, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        					.addGap(80)
-        					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblObs)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addGap(60)
+        							.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
+        					.addGap(35))
         				.addGroup(jPanel1Layout.createSequentialGroup()
         					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
         						.addGroup(jPanel1Layout.createSequentialGroup()
@@ -617,15 +637,19 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         					.addComponent(jTFCpfCnpj, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(lblNomeSecretaria)
-        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(jTFNomeSecretaria, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(jLabel18)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(jCBEspecialidadeMedica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(btnCadastrarEspecialidadeMdica))))
+        					.addComponent(btnCadastrarEspecialidadeMdica)
+        					.addContainerGap())))
         );
+        
+        jTAObs = new JTextArea(new DocumentoSemAspasEPorcento(1024));
+        scrollPane.setViewportView(jTAObs);
         jPanel1.setLayout(jPanel1Layout);
 
         jBAtualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/bcn/admclin/imagens/atualizar.png"))); // NOI18N
@@ -702,27 +726,32 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
-        	layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(layout.createSequentialGroup()
+        	layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        			.addContainerGap()
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
-        					.addComponent(jTFMensagemParaUsuario, Alignment.LEADING)
-        					.addComponent(jPanel1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 613, Short.MAX_VALUE))
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jBCancelar)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jBAtualizarRegistro)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jBApagarRegistro)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jBSalvarRegistro)))
-        			.addGap(54))
+        					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 613, GroupLayout.PREFERRED_SIZE)
+        					.addContainerGap())
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jTFMensagemParaUsuario)
+        						.addGroup(layout.createSequentialGroup()
+        							.addComponent(jBCancelar)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jBAtualizarRegistro)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jBApagarRegistro)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jBSalvarRegistro)
+        							.addPreferredGap(ComponentPlacement.RELATED, 205, GroupLayout.PREFERRED_SIZE)))
+        					.addGap(76))))
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
-        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 451, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
         			.addComponent(jTFMensagemParaUsuario, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
@@ -731,7 +760,7 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
         					.addComponent(jBApagarRegistro, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         					.addComponent(jBSalvarRegistro))
         				.addComponent(jBCancelar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-        			.addGap(41))
+        			.addContainerGap())
         );
         getContentPane().setLayout(layout);
 
@@ -952,4 +981,5 @@ public class JIFCMedicos extends javax.swing.JInternalFrame {
     private JTextField jTFTelefoneDois;
     private JTextField jTFCpfCnpj;
     private JTextField jTFNomeSecretaria;
+    private JTextArea jTAObs;
 }

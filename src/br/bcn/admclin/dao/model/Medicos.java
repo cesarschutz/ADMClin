@@ -10,10 +10,18 @@ import java.sql.Date;
 public class Medicos {
     
     private int medicoId, emId, usuarioId;
-    private String nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm, telefoneDois, cpfCnpj, nomeSecretaria;
+    private String nome, nascimento, telefone, celular, endereco, bairro, cep, cidade, uf, email, crm, ufcrm, telefoneDois, cpfCnpj, nomeSecretaria, obs;
     private Date dat;
 
-    public String getBairro() {
+    public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
+	}
+
+	public String getBairro() {
         return bairro;
     }
 

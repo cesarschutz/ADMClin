@@ -29,4 +29,17 @@ public class DADOS_EMPRESA {
         resultSet = stmtQuery.executeQuery();
         return resultSet;
     }
+    
+    public static int getConsultarIdDadosEmpresaDeUmAtendimento(Connection con, int handle_at) throws SQLException{
+        ResultSet resultSet = null;
+        PreparedStatement stmtQuery = con.prepareStatement("select id_dados_empresa from atendimentos " +
+        		"join convenio on atendimentos.handle_convenio = convenio.handle_convenio " +
+        		"where atendimentos.handle_at = ?");
+        stmtQuery.setInt(1, handle_at);
+        resultSet = stmtQuery.executeQuery();
+        while (resultSet.next()){
+			return resultSet.getInt("id_dados_empresa");
+		}
+        return 0;
+    }
 }
