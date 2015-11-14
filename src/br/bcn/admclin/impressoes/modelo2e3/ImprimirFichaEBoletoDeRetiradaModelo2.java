@@ -23,7 +23,7 @@ import br.bcn.admclin.dao.dbris.USUARIOS;
  */
 public class ImprimirFichaEBoletoDeRetiradaModelo2 {
     private Connection con = null;
-    private ESCPrinter imprimir = new ESCPrinter(USUARIOS.impressora_ficha, true);
+    private ESCPrinter imprimir = new ESCPrinter(USUARIOS.IMPRESSORA_BOLETO_DE_RETIRADA, true);
     private int handle_at;
     private List<ImprimirFichaEBoletoDeRetiradaModelo2MODEL> listaDeExames =
         new ArrayList<ImprimirFichaEBoletoDeRetiradaModelo2MODEL>();

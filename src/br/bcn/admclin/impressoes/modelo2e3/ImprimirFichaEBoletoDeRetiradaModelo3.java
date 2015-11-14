@@ -40,13 +40,13 @@ public class ImprimirFichaEBoletoDeRetiradaModelo3 {
         if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
             imprimir = new ESCPrinter(nomeDoArquivo, true);
         }else{
-            imprimir = new ESCPrinter(USUARIOS.impressora_ficha, true);
+            imprimir = new ESCPrinter(USUARIOS.IMPRESSORA_BOLETO_DE_RETIRADA, true);
         }
     }
     
     private void imprimirNotaCasoSejaLinux() throws IOException{
         if(!OSvalidator.isWindows() && !OSvalidator.isMac()){
-            Runtime.getRuntime().exec("lpr -P " + USUARIOS.impressora_ficha + " " + nomeDoArquivo);  
+            Runtime.getRuntime().exec("lpr -P " + USUARIOS.IMPRESSORA_BOLETO_DE_RETIRADA + " " + nomeDoArquivo);  
         }
     }
 

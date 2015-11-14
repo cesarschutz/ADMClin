@@ -701,7 +701,7 @@ public class JIFCUsuarios extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Configurações", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jLabel7.setText("Impressora para Ficha de Sala (matricial)");
+        jLabel7.setText("Impressora Boleto de Retirada");
 
         jTFImpressoraFicha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {

@@ -427,42 +427,7 @@ public class ImprimirFichaDeAutorizacaoModelo5 {
             tableExames.addCell(cell);
         }
 
-        // preenchendo Autorização
-
-        cell =
-            new PdfPCell(new Phrase("Autorização para que o médico solicitante tenha acesso aos laudos\n"
-                + "e as imagens dos exames acima relacionados via internet.", fontNormal));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setColspan(5);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        tableExames.addCell(cell);
-
-        cell = new PdfPCell(new Phrase("(  ) Autorizo     (  ) Não Autorizo", fontNormal));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setColspan(5);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        tableExames.addCell(cell);
-
-        // 8 linhas em branco
-        for (int i = 0; i < 8; i++) {
-            cell = new PdfPCell(new Phrase(""));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setColspan(5);
-            tableExames.addCell(cell);
-        }
-
-        cell = new PdfPCell(new Phrase("__________________________________", fontNormal));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setColspan(5);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        tableExames.addCell(cell);
-
-        cell = new PdfPCell(new Phrase("Assinatura", fontNormal));
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setColspan(5);
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        tableExames.addCell(cell);
-
+        
         // criando o documento
         document.add(tableCabecalho);
         document.add(table);

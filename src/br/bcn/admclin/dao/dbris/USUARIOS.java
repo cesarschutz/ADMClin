@@ -13,13 +13,16 @@ import br.bcn.admclin.dao.model.Usuario;
 /**
  * Classe DAO para tabela USUARIOS
  * @author BCN
+ * 
+ * OBSERVACAO
+ * AGORA A IMPRESSAO_FICHA DO BANCO DE DADOS É A IMPRESSORA DE BOLETO DE RETIRADA!!!!!
  */
 public class USUARIOS {
     public static String statusUsuario = null;
     public static String nomeUsuario = null;
     public static String senhaAssinaturaDeLaudo = "";
     public static boolean senhaAssinaturaConferida = false;
-    public static String impressora_ficha = null;
+    public static String IMPRESSORA_BOLETO_DE_RETIRADA = null; //ESSA IMPRESSORA TROCOU DE NOME AQUI MAS NAO MUDOU O NOME NO BANCO DE DADOS!!!
     public static String impressora_nota_fiscal = null;
     public static String impressora_nota_fiscal_2 = null;
     public static String impressora_etiqueta_envelope = null;
@@ -186,7 +189,7 @@ public class USUARIOS {
             senhaAssinaturaDeLaudo = resultSet.getString("senha_assinatura_laudo");
             if(senhaAssinaturaDeLaudo == null) senhaAssinaturaDeLaudo = "";
             usrId = resultSet.getInt("USRID");
-            impressora_ficha = resultSet.getString("IMPRESSORA_FICHA");
+            IMPRESSORA_BOLETO_DE_RETIRADA = resultSet.getString("IMPRESSORA_FICHA");
             impressora_nota_fiscal = resultSet.getString("IMPRESSORA_NOTA_FISCAL");
             impressora_nota_fiscal_2 = resultSet.getString("IMPRESSORA_NOTA_FISCAL_2");
             impressora_etiqueta_envelope = resultSet.getString("IMPRESSORA_ETIQUETA_ENVELOPE");

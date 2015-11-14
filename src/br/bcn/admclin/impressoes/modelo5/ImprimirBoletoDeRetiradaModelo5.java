@@ -14,8 +14,7 @@ package br.bcn.admclin.impressoes.modelo5;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +33,7 @@ import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
 import br.bcn.admclin.dao.dbris.ATENDIMENTO_EXAMES;
 import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
-import br.bcn.admclin.impressoes.imprimirdiretonaimpressora.PrintPDFFactory;
+import br.bcn.admclin.dao.dbris.USUARIOS;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -83,8 +82,7 @@ public class ImprimirBoletoDeRetiradaModelo5 {
 			buscarInformacoesDaEmpresa();
 			buscarInformaçõesDoAtendimento();
 			buscandoOsExamesDoAtendimento();
-			criarFichaPdf();
-			abrirFichaPDF();
+			imprimirBoletoDeRetirada();
 			//AQUI PARA ABRIR DIRETO NA IMPRESSORA
 			//APAGAR AS DUAS LINHAS ACIMA QUE CRIAM E ABREM O PDF
 			//if(criarArquivoTexto()) imprimirArquivoTexto();
@@ -162,96 +160,37 @@ public class ImprimirBoletoDeRetiradaModelo5 {
 					.getString("material"));
 		}
 	}
-
-	private void criarFichaPdf() throws DocumentException,
-			FileNotFoundException {
-		Rectangle rect = new Rectangle(165.0f, 220.37f);
-		Document document = new Document(rect, 0, 0, 0, 0); // colocar as
-															// margens
-		PdfWriter.getInstance(document, new FileOutputStream(
-				"C:\\ADMClin\\boletosDeRetirada\\boletoDeRetirada" + handle_at
-						+ ".pdf"));
-		document.open();
-
-		Font fontNegrito7 = FontFactory.getFont("Calibri", 7, Font.BOLD);
-		Font fontNegrito9 = FontFactory.getFont("Calibri", 9, Font.BOLD);
-		Font fontNegrito15 = FontFactory.getFont("Calibri", 15, Font.BOLD);
-		Font fontNegrito11 = FontFactory.getFont("Calibri", 11, Font.BOLD);
-		Font font9 = FontFactory.getFont("Calibri", 9, Font.NORMAL);
-		Font font7 = FontFactory.getFont("Calibri", 7, Font.NORMAL);
-
-		PdfPCell cell;
-
-		// tabela de cabeçalho
-		PdfPTable table = new PdfPTable(1);
-		table.setWidths(new int[] { 100 });
-		table.setWidthPercentage(100);
-
-		// colocando o RETIRADA DE EXAME
-		cell = new PdfPCell(new Phrase("RETIRADA DE EXAME(S)", fontNegrito9));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
+	
+	public void imprimirBoletoDeRetirada() throws Exception{
+		
+		PrintWriter fo = new PrintWriter(new FileOutputStream(new File(USUARIOS.IMPRESSORA_BOLETO_DE_RETIRADA)));
+		
+		//dados empresa
+		fo.print(nomeEmpresa + "\n");
+		fo.print("Fone: " + String.valueOf(telefoneEmpresa) + "\n");
+		fo.print(enderecoEmpresa + "\n");
+		fo.print("------------------------------------------------\n\n");
+		
+		//informa quando exame já foi retirado		
+		fo.print("RETIRADA DE EXAME(S)\n");
 		if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE)
 				&& !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
-			// colocando o RETIRADA DE EXAME
-			cell = new PdfPCell(new Phrase("**EXAME JÁ ENTREGUE**", font7));
-			cell.setBorder(Rectangle.NO_BORDER);
-			cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-			table.addCell(cell);
+			fo.print("****EXAME JÁ ENTREGUE\n");
 		}
-
+		
+		//informa quando laudo já foi retirado
 		if ("S".equals(LAUDO_ENTREGUE_AO_PACIENTE)
 				&& !"S".equals(EXAME_ENTREGUE_AO_PACIENTE)) {
-			// colocando o RETIRADA DE EXAME
-			cell = new PdfPCell(new Phrase("**LAUDO JÁ ENTREGUE**", font7));
-			cell.setBorder(Rectangle.NO_BORDER);
-			cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-			table.addCell(cell);
+			fo.print("****LAUDO JÁ ENTREGUE\n");
 		}
-
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-
-		// Preenchendo codigo do atendimento
-		cell = new PdfPCell(new Phrase("Código Atendimento: " + handle_at,
-				font9));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// Preenchendo data do atendimento
-		cell = new PdfPCell(new Phrase("Data Atendimento: " + data_atendimento,
-				font9));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// Preenchendo paciente
-		cell = new PdfPCell(new Phrase("Paciente: " + nome_paciente, font9));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// preenchendo o cabeçalho dos exames
-		cell = new PdfPCell(new Phrase("Exame(s)", fontNegrito7));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
+		
+		//dados do atendimento
+		fo.print("Numr: " + handle_at + "\n");
+		fo.print("Data: " + data_atendimento + "\n\n") ;
+		
+		fo.print("Nome: " + nome_paciente + "\n");
+		fo.print("Exame(s)\n");
+		
 		// //preenchendo os exames
 		for (int i = 0; i < listaDeNomeDeExamesDoAtendimento.size(); i++) {
 
@@ -261,111 +200,20 @@ public class ImprimirBoletoDeRetiradaModelo5 {
 				exame = listaDeNomeDeExamesDoAtendimento.get(i);
 			} else {
 				exame = listaDeNomeDeExamesDoAtendimento.get(i) + " - LADO: "
-						+ lado;
+				+ lado;
 			}
-			cell = new PdfPCell(new Phrase(exame, font7));
-			cell.setBorder(Rectangle.NO_BORDER);
-			cell.setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
-			table.addCell(cell);
-
+			fo.print(exame + "\n");
 		}
-
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-
-		// preenchendo a retirada
-		cell = new PdfPCell(new Phrase("Data de Entrega do(s) exame(s)",
-				fontNegrito9));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-		table.addCell(cell);
-		// preenchendo a retirada
-		cell = new PdfPCell(new Phrase(data_entrega_exame + " "
-				+ hora_exame_pronto, fontNegrito9));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-		table.addCell(cell);
-
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-		// linha em branco
-		cell = new PdfPCell(new Phrase("-"));
-		cell.setBorder(Rectangle.NO_BORDER);
-		table.addCell(cell);
-
-		// que ficara imporesso para a proxima impressao
-
-		// criando os dados da empresa
-		cell = new PdfPCell(new Phrase(nomeEmpresa, fontNegrito15));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// proxima linha do cabeçalho
-		cell = new PdfPCell(new Phrase("Fone: "
-				+ String.valueOf(telefoneEmpresa), fontNegrito11));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// proxima linha do cabeçalho
-		cell = new PdfPCell(new Phrase(enderecoEmpresa, font7));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// linha em branco
-		cell = new PdfPCell(new Phrase(""));
-		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		table.addCell(cell);
-
-		// criando o documento
-		document.add(table);
-		document.close();
-
+		
+		//data de retirada
+		fo.print("\n\nRETIRADA DOS EXAMES: " + data_entrega_exame + " " + hora_exame_pronto);
+		fo.print("\n\n\n\n\n\n\n\n");
+        fo.print((char) 27);
+        fo.print((char) 109);
+        
+        fo.close();
 	}
 
-	/*
-	 * Metodo que abri um arquivo pdf (que acamos de criar)
-	 */
-	private void abrirFichaPDF() throws IOException {
-		Runtime runtime = Runtime.getRuntime();
-		runtime.exec("cmd /c start C:\\ADMClin\\boletosDeRetirada\\boletoDeRetirada"
-				+ handle_at + ".pdf");
-	}
 
 	public static int calculaIdade(String dataNasc, String pattern) {
 		DateFormat sdf = new SimpleDateFormat(pattern);
@@ -393,83 +241,4 @@ public class ImprimirBoletoDeRetiradaModelo5 {
 
 	}
 
-	private boolean criarArquivoTexto() {
-		String textoQueSeraExrito = criaTextoDoArquivoTexto();
-		
-		FileWriter arquivo;
-		try {
-
-			// criando a pasta
-			File dir = new File("C:\\ADMClin\\boletosDeRetirada");
-			dir.mkdirs();
-
-			// criando o arquivo
-			File file = new File("C:\\ADMClin\\boletosDeRetirada\\BoletoDeRetirada"
-					+ handle_at + ".txt");
-			file.createNewFile();
-
-			arquivo = new FileWriter(new File(
-					"C:\\ADMClin\\boletosDeRetirada\\BoletoDeRetirada" + handle_at
-							+ ".txt"));
-			arquivo.write(textoQueSeraExrito);
-			arquivo.close();
-			return true;
-		} catch (IOException e) {
-			System.out.println("erro io: " + e);
-			return false;
-		} catch (Exception e) {
-			System.out.println("erro exception: " + e);
-			return false;
-		}
-	}
-
-	private String criaTextoDoArquivoTexto() {
-		String textoQueSeraEscrito = ((char) 27) + ((char) 69) + "RETIRADA DE EXAME(S)\r\n";
-
-		if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE)
-				&& !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
-			textoQueSeraEscrito += "**EXAME JÁ ENTREGUE**\r\n";
-		}
-
-		if ("S".equals(LAUDO_ENTREGUE_AO_PACIENTE)
-				&& !"S".equals(EXAME_ENTREGUE_AO_PACIENTE)) {
-			textoQueSeraEscrito += "**LAUDO JÁ ENTREGUE**\r\n";
-		}
-
-		textoQueSeraEscrito += "\r\n";
-		textoQueSeraEscrito += "Codigo: " + handle_at + "\r\n";
-		textoQueSeraEscrito += "Data: " + data_atendimento + "\r\n";
-		textoQueSeraEscrito += "\r\n";
-		textoQueSeraEscrito += "Paciente: " + nome_paciente + "\r\n";
-		textoQueSeraEscrito += "Exame(s)" + "\r\n";
-
-		for (int i = 0; i < listaDeNomeDeExamesDoAtendimento.size(); i++) {
-			String lado = listaDeLadoDeExamesDoAtendimento.get(i);
-			String exame = "";
-			if ("".equals(lado)) {
-				exame = listaDeNomeDeExamesDoAtendimento.get(i);
-			} else {
-				exame = listaDeNomeDeExamesDoAtendimento.get(i) + " - LADO: "
-						+ lado;
-			}
-			textoQueSeraEscrito += exame + "\r\n";
-		}
-		
-		textoQueSeraEscrito += "\r\n";
-		textoQueSeraEscrito += "Data de Entrega do(s) exame(s)\r\n";
-		textoQueSeraEscrito += "		" + data_entrega_exame + " "+ hora_exame_pronto + "\r\n";
-		textoQueSeraEscrito += "\r\n";
-		textoQueSeraEscrito += "\r\n";
-		textoQueSeraEscrito += nomeEmpresa + "\r\n";
-		textoQueSeraEscrito += "Fone: " + telefoneEmpresa + "\r\n";
-		textoQueSeraEscrito += enderecoEmpresa;
-		textoQueSeraEscrito += "\r\n\r\n\r\n";
-		
-		return textoQueSeraEscrito;
-	}
-
-	private void imprimirArquivoTexto(){
-		PrintPDFFactory printPDFFactory = new PrintPDFFactory(); 
-		printPDFFactory.printPDF(new File("C:\\ADMClin\\boletosDeRetirada\\BoletoDeRetirada" + handle_at + ".txt"), "VOX");
-	}
 }
