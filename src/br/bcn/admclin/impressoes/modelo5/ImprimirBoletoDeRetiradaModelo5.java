@@ -162,34 +162,35 @@ public class ImprimirBoletoDeRetiradaModelo5 {
 	}
 	
 	public void imprimirBoletoDeRetirada() throws Exception{
+		final String SPACE = " ";
 		
 		PrintWriter fo = new PrintWriter(new FileOutputStream(new File(USUARIOS.IMPRESSORA_BOLETO_DE_RETIRADA)));
 		
 		//dados empresa
-		fo.print(nomeEmpresa + "\n");
-		fo.print("Fone: " + String.valueOf(telefoneEmpresa) + "\n");
-		fo.print(enderecoEmpresa + "\n");
-		fo.print("------------------------------------------------\n\n");
+		fo.print(SPACE + nomeEmpresa + "\n");
+		fo.print(SPACE + "Fone: " + String.valueOf(telefoneEmpresa) + "\n");
+		fo.print(SPACE + enderecoEmpresa + "\n");
+		fo.print(SPACE + "-----------------------------------------\n\n");
 		
 		//informa quando exame já foi retirado		
-		fo.print("RETIRADA DE EXAME(S)\n");
+		fo.print(SPACE + "RETIRADA DE EXAME(S)\n");
 		if ("S".equals(EXAME_ENTREGUE_AO_PACIENTE)
 				&& !"S".equals(LAUDO_ENTREGUE_AO_PACIENTE)) {
-			fo.print("****EXAME JÁ ENTREGUE\n");
+			fo.print(SPACE + "****EXAME JÁ ENTREGUE\n");
 		}
 		
 		//informa quando laudo já foi retirado
 		if ("S".equals(LAUDO_ENTREGUE_AO_PACIENTE)
 				&& !"S".equals(EXAME_ENTREGUE_AO_PACIENTE)) {
-			fo.print("****LAUDO JÁ ENTREGUE\n");
+			fo.print(SPACE + "****LAUDO JÁ ENTREGUE\n");
 		}
 		
 		//dados do atendimento
-		fo.print("Numr: " + handle_at + "\n");
-		fo.print("Data: " + data_atendimento + "\n\n") ;
+		fo.print(SPACE + "Numr: " + handle_at + "\n");
+		fo.print(SPACE + "Data: " + data_atendimento + "\n\n") ;
 		
-		fo.print("Nome: " + nome_paciente + "\n");
-		fo.print("Exame(s)\n");
+		fo.print(SPACE + "Nome: " + nome_paciente + "\n");
+		fo.print(SPACE + "Exame(s)\n");
 		
 		// //preenchendo os exames
 		for (int i = 0; i < listaDeNomeDeExamesDoAtendimento.size(); i++) {
@@ -202,12 +203,13 @@ public class ImprimirBoletoDeRetiradaModelo5 {
 				exame = listaDeNomeDeExamesDoAtendimento.get(i) + " - LADO: "
 				+ lado;
 			}
-			fo.print(exame + "\n");
+			fo.print(SPACE + exame + "\n");
 		}
 		
 		//data de retirada
-		fo.print("\n\nRETIRADA DOS EXAMES: " + data_entrega_exame + " " + hora_exame_pronto);
-		fo.print("\n\n\n\n\n\n\n\n");
+		//fo.print(SPACE + "\n\nRETIRADA DOS EXAMES: " + data_entrega_exame + " " + hora_exame_pronto);
+		fo.print(SPACE + "\n\nRETIRADA DOS EXAMES: " + "7 Dias Úteis");
+		fo.print(SPACE + "\n\n\n\n\n\n\n\n");
         fo.print((char) 27);
         fo.print((char) 109);
         
