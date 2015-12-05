@@ -28,10 +28,13 @@ import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.dao.dbris.DADOS_EMPRESA;
 import br.bcn.admclin.dao.dbris.USUARIOS;
 
+import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
@@ -207,7 +210,7 @@ public class ImprimirFichaDeAutorizacaoModelo5 {
 
         // preenchendo dados do paciente
 
-        cell = new PdfPCell(new Phrase("Paciente: " + nome_paciente + "\nCidade: " + cidade, fontNormal));
+        cell = new PdfPCell(new Phrase("Paciente: " + nome_paciente, fontCabecalhoExame));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setColspan(2);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
@@ -231,7 +234,7 @@ public class ImprimirFichaDeAutorizacaoModelo5 {
 
         // proxima linha do paciente
 
-        cell = new PdfPCell(new Phrase("Telefone: " + telefone_paciente, fontNormal));
+        cell = new PdfPCell(new Phrase("Cidade: " + cidade + "\nTelefone: " + telefone_paciente, fontNormal));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         table.addCell(cell);
@@ -358,6 +361,32 @@ public class ImprimirFichaDeAutorizacaoModelo5 {
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setColspan(5);
         tableExames.addCell(cell);
+        
+        //coloca a imagem
+        boolean colocarImagem = false;
+        for (int i = 0; i < listaDeNomeDeExamesDoAtendimento.size(); i++) {
+        	if(listaDeNomeDeExamesDoAtendimento.get(i).contains("MAMO") || listaDeNomeDeExamesDoAtendimento.get(i).contains("MAMA")
+        			|| listaDeNomeDeExamesDoAtendimento.get(i).contains("mamo") || listaDeNomeDeExamesDoAtendimento.get(i).contains("mama")){
+            	colocarImagem = true;
+            }
+        }
+        
+        if(colocarImagem){
+        	Image img = null;
+    		try {
+    			img = Image.getInstance(getClass().getResource("/br/bcn/admclin/imagens/fichafinaldecarli.png"));
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		} 
+        	cell = new PdfPCell();
+        	cell.addElement(new Chunk(img, 5, -5));
+        	cell.setColspan(5);
+        	cell.setBorder(Rectangle.NO_BORDER);
+        	cell.setHorizontalAlignment(Element.ALIGN_MIDDLE); 
+            tableExames.addCell(cell);
+        }
+        
+        
 
         // preenchendo observacao ( vai na tabela exames com collspan pq ocupa somente uma linha!!!! )
 
@@ -404,7 +433,7 @@ public class ImprimirFichaDeAutorizacaoModelo5 {
         tableExames.addCell(cell);
 
         // 20 linhas em branco
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 17; i++) {
             cell = new PdfPCell(new Phrase(""));
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setColspan(5);
