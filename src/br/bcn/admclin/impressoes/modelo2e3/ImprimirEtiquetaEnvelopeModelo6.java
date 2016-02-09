@@ -78,60 +78,63 @@ public class ImprimirEtiquetaEnvelopeModelo6 {
     private PrintWriter fo;
     
     public boolean writeFile(){
-        try{ 
-            instanciarImpressora();
-            fo = new PrintWriter(new FileOutputStream(new File(caminhoImpressora)));
-            
-            fo.print((char) 2);
-			fo.print("n");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print((char) 2);
-			fo.print("M0600");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print("K170");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print("O0220");
-			fo.print("V0");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print((char) 2);
-			fo.print("f320");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print((char) 2);
-			fo.print("c0000");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print((char) 2);
-			fo.print("r");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print((char) 1);
-			fo.print("D");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print((char) 2);
-			fo.print("L");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print("D11");
-			fo.print((char) 13);
-			fo.print((char) 10);
+    	try{ 
+            fo = new PrintWriter(new FileOutputStream(new File("\\\\localhost\\Bematech_LB-1000")));
 
-            fo.print("190000301300000       Data    : "+data_atendimento+"        Num  : "+str_handle_at);  fo.print((char) 13);  fo.print((char) 10);
-            fo.print("190000301000000       Nome   : "+nome_paciente);  fo.print((char) 13);  fo.print((char) 10);
-            fo.print("190000300700000       Medico : "+nome_medico_sol);  fo.print((char) 13);  fo.print((char) 10);
-            fo.print("190000300400000       Exame  : "+nome_area_de_atendimento);  fo.print((char) 13);  fo.print((char) 10);
-
-			fo.print("Q0001");
-			fo.print((char) 13);
-			fo.print((char) 10);
-			fo.print("E");
-			fo.print((char) 13);
-			fo.print((char) 10);
+            fo.print("SIZE 4,2.5");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("GAP 0.1,0");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("CLS");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("BACKFEED 260");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("DIRECTION 0");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("REFERENCE 0,0");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("OFFSET 0.00 mm");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("SET CUTTER OFF");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("SET TEAR OFF");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("TEXT 25,10,  \"4\",0,1,1, \"DATA  : "+data_atendimento+" Num:"+str_handle_at +"\"");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("TEXT 25,60, \"4\",0,1,1, \"NOME  : " + nome_paciente + "\"");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("TEXT 25,110,\"4\",0,1,1, \"MEDICO: "+nome_medico_sol+"\"");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("TEXT 25,160,\"4\",0,1,1, \"EXAME : "+nome_area_de_atendimento+"\"");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("TEXT 25,250,\"5\",0,1,1, \"       viaimagem\"");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("TEXT 25,350,\"4\",0,1,1, \"Rua Celestino do Nascimento, 473\"");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("TEXT 25,400,\"4\",0,1,1, \"Xanxere - SC - TEL(49) 3433-6666\"");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("PRINT 1,1");
+            fo.print((char) 10);
+            fo.print((char) 13);
+            fo.print("FEED 260");
+            fo.print((char) 10);
+            fo.print((char) 13);
 
             return true;
         }catch(Exception e){
@@ -140,8 +143,8 @@ public class ImprimirEtiquetaEnvelopeModelo6 {
         }finally{
         	try {
         		fo.close();
-			} catch (Exception e2) {
-			}
+		} catch (Exception e2) {
+		}
         }
     }
     
