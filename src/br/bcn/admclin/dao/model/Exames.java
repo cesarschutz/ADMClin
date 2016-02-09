@@ -36,7 +36,7 @@ public class Exames {
     }
     
     public String getQtdHoras() {
-        return qtdHoras;
+        return qtdHoras; 
     }
 
     public void setQtdHoras(String qtdHoras) {
