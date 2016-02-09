@@ -77,11 +77,11 @@ public class ImprimirEtiquetaEnvelopeModelo2 {
     }
     
     private void imprimirEtiquetaEnvelope() throws Exception{
-        imprimir.print(nomePaciente);
+        imprimir.print("  " + nomePaciente);
         imprimir.lineFeed();
-        imprimir.print(nome_area_atendimento);
+        imprimir.print("  " + nome_area_atendimento);
         imprimir.lineFeed();
-        imprimir.print(String.valueOf(handle_at) + "           " + dataAtendimento);
+        imprimir.print("  " + String.valueOf(handle_at) + "           " + dataAtendimento);
         imprimir.lineFeed();
         imprimir.lineFeed();
         imprimir.lineFeed();

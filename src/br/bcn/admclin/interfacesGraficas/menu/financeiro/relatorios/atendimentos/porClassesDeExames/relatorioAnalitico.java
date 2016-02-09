@@ -148,7 +148,7 @@ public class relatorioAnalitico {
         // colocando o
         cell =
             new PdfPCell(new Phrase(
-                "Relatório de Atendimentos Analítico com Valores Específicos por Classes de Exames", fontNegrito11));
+                "Relatório de Atendimentos Analítico com Valores Específicos de Exames", fontNegrito11));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         tablePrincipal.addCell(cell);
@@ -255,8 +255,10 @@ public class relatorioAnalitico {
             0.0, valorTotalDoRelatorio = 0.0;
         int qtdDeExamesDaClasse = 0, qtdDeExamesNoRelatorio = 0;
         for (int i = 0; i < listaDeAtendimentos.size(); i++) {
+        	/*
             // aqui se a classe de exame mudar colocamos o nome da classe
             if (!classeDeExameAtual.equals(listaDeAtendimentos.get(i).getClasseDeExame())) {
+            	
                 // se a qtd total de exames for maior que 1
                 // isso para que a primeira classe nao va os resultados totais
                 // nao pode te os totais antes de aprensentar a primeira classe
@@ -335,6 +337,7 @@ public class relatorioAnalitico {
 
                     document.add(tabelaTotaisDaClasse);
                 }
+                
 
                 // zerando os totais da classe
                 chTotalDaClasse = 0.0;
@@ -344,6 +347,7 @@ public class relatorioAnalitico {
                 valorTotalDaClasse = 0.0;
                 qtdDeExamesDaClasse = 0;
 
+                
                 // colocando a nova classe que sera apartir de agora
                 classeDeExameAtual = listaDeAtendimentos.get(i).getClasseDeExame();
 
@@ -359,7 +363,9 @@ public class relatorioAnalitico {
                 tabelaClasseDeExame.addCell(cell);
 
                 document.add(tabelaClasseDeExame);
+                
             }
+            */
 
             // adicionar os atendimentos
             PdfPTable tabelaDosExames = new PdfPTable(11);

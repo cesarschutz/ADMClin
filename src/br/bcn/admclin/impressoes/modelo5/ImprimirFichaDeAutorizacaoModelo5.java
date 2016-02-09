@@ -99,7 +99,7 @@ public class ImprimirFichaDeAutorizacaoModelo5 {
     	int id_dados_empresa = DADOS_EMPRESA.getConsultarIdDadosEmpresaDeUmAtendimento(con, handle_at);
         ResultSet resultSet = DADOS_EMPRESA.getConsultar(con, id_dados_empresa);
         while (resultSet.next()) {
-            nomeEmpresa = resultSet.getString("nome");
+            nomeEmpresa = resultSet.getString("NOME_FICHA_DE_SALA");
         }
     }
 

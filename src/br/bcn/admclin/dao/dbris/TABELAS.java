@@ -280,7 +280,17 @@ public class TABELAS {
 			
 			//consultando todos os exames da tabela do antigo convenio e colocando na lista
 			ArrayList<Tabelas> listaDeExamesDaTabela = new ArrayList<>();
-			PreparedStatement stmtSelect = con.prepareStatement("select * from tabelas where handle_convenio = ? and flag_desativado = 0");
+			PreparedStatement stmtSelect = con.prepareStatement("select t.handle_exame," +
+														           "t.coeffilme, " +
+														           "t.cofch1, " +
+														           "t.cofch2, " +
+														           "t.handle_material, " +
+														           "t.qtdmaterial, " +
+														           "t.dat, " +
+														           "t.cod_exame, " +
+														           "t.vai_materiais_por_padrao, " +
+														           "e.nome from tabelas t " +
+														           "inner join exames e on t.handle_exame = e.handle_exame  where t.handle_convenio = ? and t.flag_desativado = 0");
 			stmtSelect.setInt(1, idConvenioAntigo);
 	        ResultSet resultSet = stmtSelect.executeQuery();
 	        while(resultSet.next()){
@@ -295,7 +305,7 @@ public class TABELAS {
 	        	tabela.setUsuarioId(USUARIOS.usrId);
 	        	tabela.setDat(resultSet.getDate("dat"));
 	        	tabela.setCod_exame(resultSet.getString("cod_exame"));
-	        	tabela.setSinonimo(resultSet.getString("sinonimo"));
+	        	tabela.setSinonimo(resultSet.getString("nome"));
 	        	tabela.setVAI_MATERIAIS_POR_PADRAO(resultSet.getInt("VAI_MATERIAIS_POR_PADRAO"));
 	        	listaDeExamesDaTabela.add(tabela);
 	        }

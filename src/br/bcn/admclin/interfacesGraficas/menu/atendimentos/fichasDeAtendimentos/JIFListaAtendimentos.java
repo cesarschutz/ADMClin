@@ -74,8 +74,9 @@ import br.bcn.admclin.dao.dbris.Conexao;
 import br.bcn.admclin.impressoes.modelo1.ImprimirBoletoDeRetiradaModelo1;
 import br.bcn.admclin.impressoes.modelo1.ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora;
 import br.bcn.admclin.impressoes.modelo1.ImprimirFichaDeAutorizacaoModelo1;
-import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeArgoxModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo2;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo5;
+import br.bcn.admclin.impressoes.modelo2e3.ImprimirEtiquetaEnvelopeModelo6;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo2;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirFichaEBoletoDeRetiradaModelo3;
 import br.bcn.admclin.impressoes.modelo2e3.ImprimirNotaFiscalDoPacienteModelo2;
@@ -1523,8 +1524,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         imprimir.setIcon(iconeImprimir);
         
         // imprimir etiqueta
-        JMenuItem imprimirEtiqueta = new JMenuItem("Etiqueta Envelope (matricial)", iconeImrimirEtiqueta);
-        imprimirEtiqueta.addActionListener(new ActionListener() {
+        JMenuItem imprimirEtiquetaMatricial = new JMenuItem("Etiqueta Envelope (matricial)", iconeImrimirEtiqueta);
+        imprimirEtiquetaMatricial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 imprimirEiqueta();
             }
@@ -1547,8 +1548,8 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         });
 
         // imprimir codigo de barras
-        JMenuItem imprimirCodigoDeBarras = new JMenuItem("Etiqueta Envelope (argox)", iconeImprimirCodigoDeBarras);
-        imprimirCodigoDeBarras.addActionListener(new ActionListener() {
+        JMenuItem imprimirEtiqueta = new JMenuItem("Etiqueta Envelope", iconeImprimirCodigoDeBarras);
+        imprimirEtiqueta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //imprimirCodigoDeBarras();
             	imprimirEtiquetaEnvelope();
@@ -1561,7 +1562,18 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
 		        SwingWorker worker = new SwingWorker() {
 		            @Override
 		            protected Object doInBackground() throws Exception {
-		            	ImprimirEtiquetaEnvelopeArgoxModelo2 imprimir = new ImprimirEtiquetaEnvelopeArgoxModelo2(handle_at);
+		            	
+						switch (janelaPrincipal.modeloDeImpressao) {
+							case 5:
+								ImprimirEtiquetaEnvelopeModelo5 imprimir = new ImprimirEtiquetaEnvelopeModelo5(handle_at);
+								break;
+							case 6:
+								ImprimirEtiquetaEnvelopeModelo6 imprime = new ImprimirEtiquetaEnvelopeModelo6(handle_at);
+								break;
+							default:
+								break;
+						}
+		            	
 		                //ImprimirEtiquetaEnvelopeModelo2 imprimirBoletoDeRetirada =
 		                    //new ImprimirEtiquetaEnvelopeModelo2(handle_at);
 		                /*
@@ -1645,22 +1657,26 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
         if (janelaPrincipal.modeloDeImpressao == 1) {
             imprimir.add(imprimirFicha);
             imprimir.add(imprimirBoletoDeRetirada);
-            imprimir.add(imprimirEtiqueta);
+            imprimir.add(imprimirEtiquetaMatricial);
             imprimir.add(imprimirLaudo);
         } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
             imprimir.add(imprimirFicha);
+            imprimir.add(imprimirEtiquetaMatricial);
             imprimir.add(imprimirEtiqueta);
-            imprimir.add(imprimirCodigoDeBarras);
             imprimir.add(imprimirLaudo);
         } else if (janelaPrincipal.modeloDeImpressao == 4){
             imprimir.add(imprimirFicha);
-            imprimir.add(imprimirEtiqueta);
+            imprimir.add(imprimirEtiquetaMatricial);
             imprimir.add(imprimirLaudo);
         } else if (janelaPrincipal.modeloDeImpressao == 5){
         	imprimir.add(imprimirFicha);
         	imprimir.add(imprimirBoletoDeRetirada);
             imprimir.add(imprimirEtiqueta);
-            imprimir.add(imprimirCodigoDeBarras);
+            imprimir.add(imprimirLaudo);
+        } else if(janelaPrincipal.modeloDeImpressao == 6){
+        	imprimir.add(imprimirFicha);
+        	imprimir.add(imprimirBoletoDeRetirada);
+            imprimir.add(imprimirEtiqueta);
             imprimir.add(imprimirLaudo);
         }
 
@@ -1815,6 +1831,9 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 } else if (janelaPrincipal.modeloDeImpressao == 5) {
                     ImprimirFichaDeAutorizacaoModelo5 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo5(handle_at);
                     abriuFicha = imprimirFicha.salvarEImprimirFicha();
+                } else if (janelaPrincipal.modeloDeImpressao == 6) {
+                    ImprimirFichaDeAutorizacaoModelo5 imprimirFicha = new ImprimirFichaDeAutorizacaoModelo5(handle_at);
+                    abriuFicha = imprimirFicha.salvarEImprimirFicha();
                 } 
 
                 // se deu tudo certo na impressao entra nesse if
@@ -1854,8 +1873,11 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             	if(janelaPrincipal.modeloDeImpressao == 5){
                     ImprimirBoletoDeRetiradaModelo5 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo5(handle_at);
                     abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
-            	}else if(janelaPrincipal.modeloDeImpressao == 1){
+            	} else if(janelaPrincipal.modeloDeImpressao == 1){
                     ImprimirBoletoDeRetiradaModelo1 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo1(handle_at);
+                    abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
+            	} else if(janelaPrincipal.modeloDeImpressao == 6){
+            		ImprimirBoletoDeRetiradaModelo5 imprimirBoletoDeRetirada = new ImprimirBoletoDeRetiradaModelo5(handle_at);
                     abriuBoletoDeRetirada = imprimirBoletoDeRetirada.salvarEIMprimirBoletoDeRetirada();
             	}
                 
@@ -1888,7 +1910,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
                 boolean abriuEtiqueta = false;
                 if (janelaPrincipal.modeloDeImpressao == 1 || janelaPrincipal.modeloDeImpressao == 4) {
                     new ImprimirEtiquetaEnvelopeModelo1DiretoNaImpressora(handle_at);
-                } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3) {
+                } else if (janelaPrincipal.modeloDeImpressao == 2 || janelaPrincipal.modeloDeImpressao == 3 || janelaPrincipal.modeloDeImpressao == 5) {
                     ImprimirEtiquetaEnvelopeModelo2 imprimir = new ImprimirEtiquetaEnvelopeModelo2(handle_at);
                     abriuEtiqueta = imprimir.imprimir();
                 }
@@ -1919,7 +1941,7 @@ public class JIFListaAtendimentos extends javax.swing.JInternalFrame {
             @Override
             protected Object doInBackground() throws Exception {
                 boolean abriuEtiqueta = false;
-                ImprimirEtiquetaEnvelopeArgoxModelo2 imprimir = new ImprimirEtiquetaEnvelopeArgoxModelo2(handle_at);
+                ImprimirEtiquetaEnvelopeModelo5 imprimir = new ImprimirEtiquetaEnvelopeModelo5(handle_at);
                 abriuEtiqueta = imprimir.writeFile();
 
                 if (abriuEtiqueta) {

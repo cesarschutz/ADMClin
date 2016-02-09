@@ -6,15 +6,11 @@ package br.bcn.admclin.impressoes.modelo2e3;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
-import br.bcn.admclin.ClasseAuxiliares.ESCPrinter;
 import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
 import br.bcn.admclin.ClasseAuxiliares.OSvalidator;
 import br.bcn.admclin.dao.dbris.ATENDIMENTOS;
@@ -27,7 +23,7 @@ import br.bcn.admclin.interfacesGraficas.janelaPrincipal.janelaPrincipal;
  *
  * @author BCN
  */
-public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
+public class ImprimirEtiquetaEnvelopeModelo5 {
 
 	private String nome_area_de_atendimento;
     private int handle_at;
@@ -35,7 +31,7 @@ public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
     private String caminhoImpressora;
     private String nomeDoArquivo = janelaPrincipal.internalFrameJanelaPrincipal.codigoParaImpressoesLinux + "CODIGOBARRAS";
     
-    public ImprimirEtiquetaEnvelopeArgoxModelo2(int handle_at) {
+    public ImprimirEtiquetaEnvelopeModelo5(int handle_at) {
     	this.handle_at = handle_at;
 		this.str_handle_at = String.valueOf(handle_at);
 		try {
@@ -125,10 +121,10 @@ public class ImprimirEtiquetaEnvelopeArgoxModelo2 {
 			fo.print((char) 13);
 			fo.print((char) 10);
 
-            fo.print("190000301300000     Data    : "+data_atendimento+"        Num  : "+str_handle_at);  fo.print((char) 13);  fo.print((char) 10);
-            fo.print("190000301000000     Nome   : "+nome_paciente);  fo.print((char) 13);  fo.print((char) 10);
-            fo.print("190000300700000     Medico : "+nome_medico_sol);  fo.print((char) 13);  fo.print((char) 10);
-            //fo.print("190000300400000     Exame  : "+nome_area_de_atendimento);  fo.print((char) 13);  fo.print((char) 10);
+            fo.print("190000301300000       Data    : "+data_atendimento+"        Num  : "+str_handle_at);  fo.print((char) 13);  fo.print((char) 10);
+            fo.print("190000301000000       Nome   : "+nome_paciente);  fo.print((char) 13);  fo.print((char) 10);
+            fo.print("190000300700000       Medico : "+nome_medico_sol);  fo.print((char) 13);  fo.print((char) 10);
+            fo.print("190000300400000       Exame  : "+nome_area_de_atendimento);  fo.print((char) 13);  fo.print((char) 10);
 
 			fo.print("Q0001");
 			fo.print((char) 13);
