@@ -7,7 +7,7 @@ import java.sql.Date;
  * @author BCN
  */
 public class Exames {
-    private int HANDLE_EXAME, HANDLE_CLASSEDEEXAME, usuarioId, duracao, id_areas_atendimento, area_do_corpo, flag_desativado;
+    private int HANDLE_EXAME, HANDLE_CLASSEDEEXAME, usuarioId, duracao, duracao_2, id_areas_atendimento, area_do_corpo, flag_desativado;
     private String NOME, qtdHoras, laudo, dieta;
     Date data;
 
@@ -109,5 +109,13 @@ public class Exames {
 
 	public void setFlag_desativado(int flag_desativado) {
 		this.flag_desativado = flag_desativado;
+	}
+	
+	public int getDuracao_2() {
+		return duracao_2;
+	}
+
+	public void setDuracao_2(int duracao_2) {
+		this.duracao_2 = duracao_2;
 	}
 }

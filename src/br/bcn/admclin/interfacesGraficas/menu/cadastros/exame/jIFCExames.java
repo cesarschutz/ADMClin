@@ -4,18 +4,6 @@
  */
 package br.bcn.admclin.interfacesGraficas.menu.cadastros.exame;
 
-import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
-import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
-import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
-import br.bcn.admclin.dao.dbris.Conexao;
-import br.bcn.admclin.dao.dbris.EXAMES;
-import br.bcn.admclin.dao.dbris.TABELAS;
-import br.bcn.admclin.dao.dbris.TB_CLASSESDEEXAMES;
-import br.bcn.admclin.dao.dbris.USUARIOS;
-import br.bcn.admclin.dao.model.Areas_atendimento;
-import br.bcn.admclin.dao.model.Exames;
-
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
@@ -28,20 +16,33 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSemAspasEPorcento;
+import br.bcn.admclin.ClasseAuxiliares.DocumentoSomenteNumerosELetras;
+import br.bcn.admclin.ClasseAuxiliares.MetodosUteis;
+import br.bcn.admclin.dao.dbris.AREAS_ATENDIMENTO;
+import br.bcn.admclin.dao.dbris.Conexao;
+import br.bcn.admclin.dao.dbris.EXAMES;
+import br.bcn.admclin.dao.dbris.TB_CLASSESDEEXAMES;
+import br.bcn.admclin.dao.dbris.USUARIOS;
+import br.bcn.admclin.dao.model.Areas_atendimento;
+import br.bcn.admclin.dao.model.Exames;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * 
@@ -156,6 +157,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                     // colocando dados nos objetos
                     exame.setHANDLE_EXAME(resultSet.getInt("handle_exame"));
                     exame.setDuracao(resultSet.getInt("duracao"));
+                    exame.setDuracao_2(resultSet.getInt("duracao_2"));
                     exame.setUsuarioId(resultSet.getInt("usuarioid"));
                     exame.setData(resultSet.getDate("dat"));
                     exame.setNOME(resultSet.getString("nome"));
@@ -195,6 +197,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         // limpandoOsCampos
         jTFNome.setText("");
         jTFDuracao.setText("");
+        jtfduracao2.setText("");
         jCBDescricaoClasse.setSelectedIndex(0);
         jTFHorasUteis.setText("");
         jRBNao.setSelected(true);
@@ -206,6 +209,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jCBAreasDeAtendimento.setEnabled(true);
         jCBParteDoCorpo.setEnabled(true);
         jTFDuracao.setEnabled(true);
+        jtfduracao2.setEnabled(true);
         jCBDescricaoClasse.setEnabled(true);
         jTFHorasUteis.setEnabled(true);
         jRBNao.setEnabled(true);
@@ -237,6 +241,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jCBAreasDeAtendimento.setSelectedIndex(0);
         jCBParteDoCorpo.setSelectedIndex(0);
         jTFDuracao.setEnabled(false);
+        jtfduracao2.setEnabled(false);
         jCBDescricaoClasse.setEnabled(false);
         jTFHorasUteis.setEnabled(false);
         jRBNao.setEnabled(false);
@@ -247,6 +252,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTFNome.setText("");
         jTADieta.setText("");
         jTFDuracao.setText("");
+        jtfduracao2.setText("");
         jCBDescricaoClasse.setSelectedIndex(0);
         jTFHorasUteis.setText("");
         jRBNao.setSelected(true);
@@ -264,6 +270,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setText("");
         jTFNome.setBackground(new java.awt.Color(255, 255, 255));
         jTFDuracao.setBackground(new java.awt.Color(255, 255, 255));
+        jtfduracao2.setBackground(new java.awt.Color(255, 255, 255));
         jTFHorasUteis.setBackground(new java.awt.Color(255, 255, 255));
 
         jTFPesquisaNome.setEnabled(true);
@@ -274,6 +281,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
     /** Salva uma nova classe de exame na banco de dados. */
     public void botaoSalvarRegistro() {
         boolean duracaoOk = false;
+        boolean duracao2Ok = false;
         boolean nomeOK = false;
         boolean horasUteisOk = false;
         boolean comboBoxOk = false;
@@ -282,15 +290,17 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         comboBoxOk = MetodosUteis.VerificarSeComboBoxFoiSelecionado(jCBDescricaoClasse, jTFMensagemParaUsuario);
         radioButtonOk = verificarSeLaudoFoiSelecionado();
         duracaoOk = MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jTFDuracao, jTFMensagemParaUsuario, "    ");
+        duracao2Ok = MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jtfduracao2, jTFMensagemParaUsuario, "    ");
         nomeOK = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFNome, 2, jTFMensagemParaUsuario);
         horasUteisOk =
             MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jTFHorasUteis, jTFMensagemParaUsuario, "   ");
 
-        if (nomeOK && duracaoOk && horasUteisOk && comboBoxOk && radioButtonOk) {
+        if (nomeOK && duracaoOk && horasUteisOk && comboBoxOk && radioButtonOk && duracao2Ok) {
             con = Conexao.fazConexao();
             Exames exameModel = new Exames();
             exameModel.setNOME(jTFNome.getText().toUpperCase());
             exameModel.setDuracao(Integer.valueOf(jTFDuracao.getText()));
+            exameModel.setDuracao_2(Integer.valueOf(jtfduracao2.getText()));
             boolean existe = EXAMES.getConsultarParaSalvar(con, exameModel);
             Conexao.fechaConexao(con);
             if (EXAMES.conseguiuConsulta) {
@@ -329,6 +339,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
      */
     public void botaoAtualizarRegistro() {
         boolean duracaoOk = false;
+        boolean duracao2Ok = false;
         boolean nomeOK = false;
         boolean horasUteisOk = false;
         boolean comboBoxOk = false;
@@ -337,17 +348,19 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         comboBoxOk = MetodosUteis.VerificarSeComboBoxFoiSelecionado(jCBDescricaoClasse, jTFMensagemParaUsuario);
         radioButtonOk = verificarSeLaudoFoiSelecionado();
         duracaoOk = MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jTFDuracao, jTFMensagemParaUsuario, "    ");
+        duracao2Ok = MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jtfduracao2, jTFMensagemParaUsuario, "    ");
         nomeOK = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jTFNome, 2, jTFMensagemParaUsuario);
         horasUteisOk =
             MetodosUteis.verificarSeCampoComMascaraFoiPrenchido(jTFHorasUteis, jTFMensagemParaUsuario, "   ");
 
-        if (nomeOK && duracaoOk && horasUteisOk && comboBoxOk && radioButtonOk) {
+        if (nomeOK && duracaoOk && horasUteisOk && comboBoxOk && radioButtonOk && duracao2Ok) {
             // fazendo um if para verificar se descricao ou referencia ja existem
 
             con = Conexao.fazConexao();
             Exames exameModel = new Exames();
             exameModel.setNOME(jTFNome.getText().toUpperCase());
             exameModel.setDuracao(Integer.valueOf(jTFDuracao.getText()));
+            exameModel.setDuracao_2(Integer.valueOf(jtfduracao2.getText()));
             exameModel.setHANDLE_EXAME(HANDLE_EXAME);
             boolean existe = EXAMES.getConsultarParaAtualizar(con, exameModel);
             Conexao.fechaConexao(con);
@@ -521,6 +534,28 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         JScrollPane scrollPane = new JScrollPane();
         
         JLabel lblDieta = new JLabel("Dieta:");
+        
+        jtfduracao2 = new JFormattedTextField(MetodosUteis.mascaraParaJFormattedTextField("####"));
+        jtfduracao2.setEnabled(false);
+        jtfduracao2.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusGained(FocusEvent arg0) {
+        		jTFMensagemParaUsuario.setForeground(new java.awt.Color(0, 0, 255));
+                jTFMensagemParaUsuario.setText("####");
+                jtfduracao2.setBackground(new java.awt.Color(255, 255, 255));
+        	}
+        	@Override
+        	public void focusLost(FocusEvent e) {
+        		jTFMensagemParaUsuario.setText("");
+                boolean ok = MetodosUteis.VerificarSeTextFieldContemMinimoDeCarcteres(jtfduracao2, 4, jTFMensagemParaUsuario);
+                if (ok) {
+                	jtfduracao2.setBackground(new java.awt.Color(255, 255, 255));
+                }
+        	}
+        });
+        
+        JLabel lblDurao = new JLabel();
+        lblDurao.setText("Duração 2");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2Layout.setHorizontalGroup(
@@ -528,16 +563,8 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         		.addGroup(jPanel2Layout.createSequentialGroup()
         			.addContainerGap()
         			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
         				.addComponent(jTFNome, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-        				.addGroup(Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
-        						.addComponent(jTFDuracao, Alignment.LEADING)
-        						.addComponent(jLabel5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        					.addGap(18)
-        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(lblreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(jCBAreasDeAtendimento, 0, 266, Short.MAX_VALUE)))
+        				.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
         				.addGroup(Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
         					.addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
         						.addComponent(jTFHorasUteis, Alignment.LEADING)
@@ -555,9 +582,22 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(jCBParteDoCorpo, 0, 195, Short.MAX_VALUE))))
         				.addComponent(jCBDescricaoClasse, Alignment.TRAILING, 0, 395, Short.MAX_VALUE)
-        				.addComponent(lblDieta)
+        				.addGroup(Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblreaDeAtendimento, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jCBAreasDeAtendimento, 0, 266, Short.MAX_VALUE))
+        					.addGap(129))
+        				.addComponent(jLabel7)
+        				.addGroup(jPanel2Layout.createSequentialGroup()
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.TRAILING, false)
+        						.addComponent(jTFDuracao, Alignment.LEADING)
+        						.addComponent(jLabel5, Alignment.LEADING))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblDurao, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jtfduracao2, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)))
         				.addComponent(jLabel4)
-        				.addComponent(jLabel7))
+        				.addComponent(lblDieta))
         			.addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -567,18 +607,21 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         			.addComponent(jLabel4)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jTFNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGap(11)
+        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel5)
+        				.addComponent(lblDurao))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jTFDuracao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jtfduracao2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(jPanel2Layout.createSequentialGroup()
-        					.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(jLabel5)
-        						.addComponent(lblreaDeAtendimento))
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(jTFDuracao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(lblreaDeAtendimento)
         				.addGroup(jPanel2Layout.createSequentialGroup()
         					.addGap(20)
         					.addComponent(jCBAreasDeAtendimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jLabel7)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(jCBDescricaoClasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -596,7 +639,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(lblDieta)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+        			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
         );
         
         jTADieta = new JTextArea(new DocumentoSemAspasEPorcento(4096));
@@ -919,6 +962,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setText("");
         jTFNome.setBackground(new java.awt.Color(255, 255, 255));
         jTFDuracao.setBackground(new java.awt.Color(255, 255, 255));
+        jtfduracao2.setBackground(new java.awt.Color(255, 255, 255));
         jTFHorasUteis.setBackground(new java.awt.Color(255, 255, 255));
     }// GEN-LAST:event_jBAtualizarRegistroFocusLost
 
@@ -956,6 +1000,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         jTFMensagemParaUsuario.setText("");
         jTFNome.setBackground(new java.awt.Color(255, 255, 255));
         jTFDuracao.setBackground(new java.awt.Color(255, 255, 255));
+        jtfduracao2.setBackground(new java.awt.Color(255, 255, 255));
         jTFHorasUteis.setBackground(new java.awt.Color(255, 255, 255));
     }// GEN-LAST:event_jBSalvarRegistroFocusLost
 
@@ -1015,6 +1060,15 @@ public class jIFCExames extends javax.swing.JInternalFrame {
                 if (duracao.length() == 3)
                     duracao = "0" + duracao;
                 jTFDuracao.setText(duracao);
+                
+                String duracao2 = String.valueOf(listaExames.get(cont).getDuracao_2());
+                if (duracao2.length() == 1)
+                	duracao2 = "000" + duracao2;
+                if (duracao2.length() == 2)
+                	duracao2 = "00" + duracao2;
+                if (duracao2.length() == 3)
+                	duracao2 = "0" + duracao2;
+                jtfduracao2.setText(duracao2);
                 try {
                 	jTADieta.setText(listaExames.get(cont).getDieta().replaceAll("\\[\\]", "\n"));
 				} catch (Exception e) {
@@ -1054,6 +1108,7 @@ public class jIFCExames extends javax.swing.JInternalFrame {
         // ativando os campos
         jTFNome.setEnabled(true);
         jTFDuracao.setEnabled(true);
+        jtfduracao2.setEnabled(true);
         jCBDescricaoClasse.setEnabled(true);
         jCBAreasDeAtendimento.setEnabled(true);
         jCBParteDoCorpo.setEnabled(true);
@@ -1096,4 +1151,5 @@ public class jIFCExames extends javax.swing.JInternalFrame {
     private JComboBox jCBAreasDeAtendimento;
     private JComboBox jCBParteDoCorpo;
     private JTextArea jTADieta;
+    JFormattedTextField jtfduracao2;
 }
