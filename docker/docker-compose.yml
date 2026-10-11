@@ -1,0 +1,37 @@
+# Firebird 2.5 para o ADMClin (os .FDB do projeto sao ODS 11 = Firebird 2.x; Firebird 3+ nao abre)
+name: admclin
+services:
+  firebird:
+    image: jacobalberty/firebird:2.5-ss
+    platform: linux/amd64   # imagem so existe para amd64; no Mac Apple Silicon roda via emulacao
+    container_name: admclin-firebird
+    environment:
+      ISC_PASSWORD: masterkey   # usuario SYSDBA, mesma senha fixa em Conexao.java
+      TZ: America/Sao_Paulo
+    ports:
+      - "3050:3050"
+    volumes:
+      - fbdata:/firebird/data
+    restart: unless-stopped
+
+  # ADMClin numa tela virtual: abra http://localhost:6080/vnc.html
+  app:
+    build: ./app
+    container_name: admclin-app
+    depends_on: [firebird]
+    environment:
+      RISIP: firebird
+      RISDB: /firebird/data/DBRIS_DEMO.FDB   # banco de demonstracao (ver docker/carregar-bancos.sh)
+      PACDB: /firebird/data/PAC.FDB         # laudos (demo minimo; o original nao esta no repositorio)
+      NOMEPORTAL: PORTAL
+      TZ: America/Sao_Paulo
+      JAVA_TOOL_OPTIONS: -Duser.language=pt -Duser.country=BR
+    ports:
+      - "6080:6080"
+    volumes:
+      - ..:/projeto:ro
+      - ../prints:/prints
+      - ./saida:/trabalho   # PDFs gerados pelo app
+volumes:
+  fbdata:
+    name: admclin-fbdata
