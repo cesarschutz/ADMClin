@@ -8,7 +8,7 @@ agenda, atendimento, laudos, faturamento de convênios e financeiro
 ![Java](https://img.shields.io/badge/Java-7%20%2F%20Swing-007396?logo=openjdk&logoColor=white)
 ![Firebird](https://img.shields.io/badge/Firebird-2.5-F40F02?logo=firebird&logoColor=white)
 ![iText](https://img.shields.io/badge/PDF-iText-4B8BBE)
-![Docker](https://img.shields.io/badge/Docker-pronto%20para%20rodar-2496ED?logo=docker&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-pronto%20para%20rodar-2496ED)
 ![Período](https://img.shields.io/badge/desenvolvido-2013--2016-555)
 
 <img src="docs/screenshots/35-fichas-de-atendimento.png" width="820" alt="Fichas de atendimento do dia">
